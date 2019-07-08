@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   <fieldset>
+      <field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+      <field name="checked_out" type="hidden" filter="unset"/>
+      <field name="checked_out_time" default="0000-00-00 00:00:00" type="hidden" filter="unset"/>
+      <field name="title" filter="safehtml" type="text" required="true" label="COM_JDBUILDER_FORM_LBL_PAGE_TITLE" description="COM_JDBUILDER_FORM_DESC_PAGE_TITLE" hint="COM_JDBUILDER_FORM_LBL_PAGE_TITLE" class="uk-input" />
+      <field name="category_id" type="hidden" default="0"></field>
+      <field name="params" type="hidden"></field>
+      <field name="layout_id" type="hidden" default="0"></field>
+      <field name="ordering"/>
+      <field name="state" type="hidden"></field>
+      <field name="access" type="hidden"></field>
+      <field name="language" type="hidden"></field>
+      <field name="created_by" type="createdby" default="0" label="COM_JDBUILDER_FORM_LBL_PAGE_CREATED_BY" description="COM_JDBUILDER_FORM_DESC_PAGE_CREATED_BY" hidden="true" hint="COM_JDBUILDER_FORM_LBL_PAGE_CREATED_BY"/>
+      <field name="modified_by" type="modifiedby" default="0" label="COM_JDBUILDER_FORM_LBL_PAGE_MODIFIED_BY" description="COM_JDBUILDER_FORM_DESC_PAGE_MODIFIED_BY" hidden="true" hint="COM_JDBUILDER_FORM_LBL_PAGE_MODIFIED_BY"/>
+   </fieldset>
+   <fieldset name="accesscontrol">
+      <field name="asset_id" type="hidden" filter="unset"/>
+      <field name="rules" type="rules" label="JFIELD_RULES_LABEL" translate_label="false" filter="rules" validate="rules" class="inputbox" component="com_jdbuilder" section="page"/>
+   </fieldset>
+</form>

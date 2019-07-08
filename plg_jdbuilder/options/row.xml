@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- General Options -->
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+            <!--  Basic Options -->
+            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" group="basic">
+            </field>
+            
+            <!--  Layout Options -->
+            <field
+               type="list"
+               name="guttersType"
+               label="JDBUILDER_FIELD_COLUMN_GAP_LABEL"
+               description="JDBUILDER_FIELD_COLUMN_GAP_DESC"
+               default=""
+               group="layout"
+            >
+               <option value="">JDBUILDER_FIELD_INHERIT</option>
+               <option value="none">JDBUILDER_FIELD_COLUMN_NOGAP_LABEL</option>
+               <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+            </field>
+            <field
+               type="slider"
+               name="guttersSize"
+               label="JDBUILDER_FIELD_COLUMN_GAP_SIZE_LABEL"
+               description="JDBUILDER_FIELD_COLUMN_GAP_SIZE_DESC"
+               showon="params.guttersType=='custom'"
+               default="15"
+               min="5"
+               max="100"
+               unit="px"
+               group="layout"
+               responsive="true"
+            >
+            </field>
+            <field
+               type="spacer"
+               label="JDBUILDER_FIELD_COLUMN_DIRECTION_LABEL"
+               description="JDBUILDER_FIELD_COLUMN_DIRECTION_DESC"
+               group="layout"
+            >
+            </field>
+            <field
+               type="switch"
+               name="columnReverseMedium"
+               label="JDBUILDER_FIELD_REVERSE_TABLET_LABEL"
+               description="JDBUILDER_FIELD_REVERSE_TABLET_DESC"
+               default="false"
+               group="layout"
+            >
+            </field>
+            <field
+               type="switch"
+               name="columnReverseSmall"
+               label="JDBUILDER_FIELD_REVERSE_MOBILE_LABEL"
+               description="JDBUILDER_FIELD_REVERSE_MOBILE_DESC"
+               default="false"
+               group="layout"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

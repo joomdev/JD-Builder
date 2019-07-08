@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="icon">
+   <title>Icon</title>
+   <icon>media/jdbuilder/images/icons/elements/icon.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="iconstyle" label="Styling"></field>
+            <field type="group" name="iconborder" label="Border"></field>
+            <!--  Element Options -->
+            <field
+               name="icon"
+               type="icon"
+               label="JDBUILDER_ELE_ICON_ICON_LBL"
+               default="fab fa-joomla"
+               group="basic"
+            >
+            </field>
+            <field
+               name="link"
+               type="text"
+               label="JDBUILDER_ELEMENT_LINK_LABEL"
+               description="JDBUILDER_ELEMENT_LINK_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               name="linkTargetBlank"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
+               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               default="false"
+               width="6"
+               showon="params.link!=''"
+               group="basic"
+            >
+            </field>
+            <field
+               name="linkNoFollow"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
+               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+               default="false"
+               width="6"
+               showon="params.link!=''"
+               group="basic"
+            >
+            </field>
+            <field
+               name="iconAlignment"
+               type="radio"
+               label="JDBUILDER_ELE_ICON_ALIGNMENT_LBL"
+               default="left"
+               radiotype="buttons"
+               group="basic"
+               responsive="true"
+            >
+               <option value="left" icon="fa fa-align-left">Left</option>
+               <option value="center" icon="fa fa-align-center">Center</option>
+               <option value="right" icon="fa fa-align-right">Right</option>
+            </field>
+            
+            
+            <field
+               name="iconSize"
+               type="slider"
+               label="JDBUILDER_ELE_ICON_SIZE_LBL"
+               default="16"
+               unit="px"
+               min="1"
+               max="200"
+               group="basic"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               name="iconRotate"
+               type="slider"
+               label="Icon Rotate"
+               default=""
+               unit="deg"
+               min="0"
+               max="360"
+               group="basic"
+               responsive="true"
+            >
+            </field>
+ 
+            <!-- Icon Style -->
+            <field
+               name="iconTextColor"
+               type="color"
+               label="Color"
+               description=""
+               default=""
+               group="iconstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="iconBackgroundColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               default=""
+               group="iconstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="iconBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               group="iconstyle"
+            >
+            </field>
+            <field
+               type="gradient"
+               label="Gradient"
+               name="iconGradient"
+               default=""
+               group="iconstyle"
+            >
+            </field>
+            <field
+               type="spacer"
+               label="JDBUILDER_ELEMENT_HOVER_STYLING_LBL"
+               group="iconstyle"
+            >
+            </field>
+            <field
+               name="iconTextColorHover"
+               type="color"
+               label="Color"
+               description=""
+               default=""
+               group="iconstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="iconBackgroundColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               default=""
+               group="iconstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="iconBorderColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               group="iconstyle"
+            >
+            </field>
+            <field
+               type="gradient"
+               label="Gradient"
+               name="iconGradientHover"
+               group="iconstyle"
+               default=""
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               group="iconstyle"
+            >
+            </field>
+            
+            <field
+               name="iconPadding"
+               type="spacing"
+               label="JDBUILDER_FIELD_PADDING_LABEL"
+               description="JDBUILDER_FIELD_PADDING_DESC"
+               group="iconstyle"
+               default='{"unit":"px","top":10,"lock":1,"left":10,"right":10,"bottom":10}'
+               responsive="true"
+            >
+            </field>
+            
+            <!-- Icon Border -->
+            <field
+               name="iconShape"
+               type="list"
+               label="JDBUILDER_ELE_ICON_SHAPE_LBL"
+               default="circle"
+               group="iconborder"
+            >
+               <option value="rounded">Rounded</option>
+               <option value="circle">Circle</option>
+               <option value="square">Square</option>
+            </field>
+            <field
+               type="spacing"
+               name="iconBorderRadius"
+               label="JDBUILDER_ELEMENT_BORDER_RADIUS_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_RADIUS_DESC"
+               default='{"unit":"px","lock":1,"top":5,"left":5,"right":5,"bottom":5}'
+               group="iconborder"
+               showon="params.iconShape=='rounded'"
+               corners="true"
+               responsive="true"
+            >
+            </field>
+            <field
+               type="list"
+               name="iconBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="none"  
+               group="iconborder">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            <field
+               type="spacing"
+               name="iconBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.iconBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}'
+               group="iconborder"
+               responsive="true"
+            >
+            </field>
+            <field
+               type="boxshadow"
+               name="iconBoxShadow"
+               label="Shadow"
+               description="JDBUILDER_ELEMENT_BOX_SHADOW_DESC"
+               default=""
+               group="iconborder"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

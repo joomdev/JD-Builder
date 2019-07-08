@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg enable-background="new 0 0 500 500" version="1.1" viewBox="0 0 500 500" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+   <line x1="82.101" x2="418.89" y1="63.741" y2="63.741"/>
+   <rect x="82.101" y="55.741" width="336.79" height="16"/>
+   <line x1="82.101" x2="418.89" y1="111.5" y2="111.5"/>
+   <rect x="82.101" y="103.5" width="336.79" height="16"/>
+   <line x1="418.89" x2="82.101" y1="442.27" y2="442.27"/>
+   <rect x="82.101" y="434.27" width="336.79" height="16"/>
+   <line x1="418.89" x2="82.101" y1="394.51" y2="394.51"/>
+   <rect x="82.101" y="386.51" width="336.79" height="16"/>
+   <rect x="52.494" y="146.5" width="396" height="213" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="16"/>
+</svg>

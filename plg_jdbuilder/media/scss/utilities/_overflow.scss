@@ -1,0 +1,5 @@
+// stylelint-disable declaration-no-important
+
+@each $value in $overflows {
+  .jdb-overflow-#{$value} { overflow: $value !important; }
+}

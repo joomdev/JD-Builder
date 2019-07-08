@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="heading">
+   <title>Heading</title>
+   <icon>media/jdbuilder/images/icons/elements/heading.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_ELE_HEADING_OPTIONS">
+            <field type="group" ordering="1" name="content" label="JDBUILDER_FIELD_CONTENT_LBL" description="JDBUILDER_FIELD_CONTENT_DESC"></field>
+            <field type="group" ordering="2" name="headingtypography" label="JDBUILDER_ELE_HEADING_TYPE_OPTIONS"></field>
+            <field type="group" ordering="3" name="subheadingtypography" label="JDBUILDER_ELE_SUB_HEADING_TYPE_OPTIONS"></field>
+            <!--  Element Options -->
+            <field
+               name="title"
+               type="text"
+               label="JDBUILDER_ELE_HEADING_TEXT_LABEL"
+               description="JDBUILDER_ELE_HEADING_TEXT_DESC"
+               default="Heading Text"
+               group="content"
+            >
+            </field>
+            <field
+               name="subtitle"
+               type="text"
+               label="JDBUILDER_ELE_SUBHEADING_TEXT_LABEL"
+               description="JDBUILDER_ELE_SUBHEADING_TEXT_DESC"
+               default=""
+               group="content"
+            >
+            </field>
+            <field
+               name="subtitlePosition"
+               type="radio"
+               label="JDBUILDER_ELE_HEADING_SUBHEADPOSITION_LABEL"
+               description="JDBUILDER_ELE_HEADING_SUBHEADPOSITION_DESC"
+               default="below"
+               radiotype="buttons"
+               group="content"
+            >
+               <option value="above">JDBUILDER_POSITION_ABOVE</option>
+               <option value="below">JDBUILDER_POSITION_BELOW</option>
+ 
+            </field>
+            <field
+               name="headingAlignment"
+               type="radio"
+               label="JDBUILDER_FIELD_TYPE_TEXT_ALIGN_LABEL"
+               description="JDBUILDER_FIELD_TYPE_TEXT_ALIGN_DESC"
+               default=""
+               radiotype="buttons"
+               icononly="true"
+               group="content"
+            >
+               <option value="">JDBUILDER_FIELD_DEFAULT</option>
+               <option value="left" icon="fa fa-align-left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+               <option value="center" icon="fa fa-align-center">JDBUILDER_ELEMENT_CENTER_LBL</option>
+               <option value="right" icon="fa fa-align-right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+               <option value="justify" icon="fa fa-align-justify">JDBUILDER_ELEMENT_JUSTIFY_LBL</option>
+            </field>
+            <field
+               name="link"
+               type="text"
+               label="JDBUILDER_ELEMENT_LINK_LABEL"
+               description="JDBUILDER_ELEMENT_LINK_DESC"
+               default=""
+               group="content"
+               placeholder="Link"
+            >
+            </field>
+            <field
+               name="linkTargetBlank"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
+               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               default="false"
+               showon="params.link!=''"
+               group="content"
+            >
+            </field>
+            <field
+               name="linkNoFollow"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
+               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+               default="false"
+               showon="params.link!=''"
+               group="content"
+            >
+            </field>
+            
+            <field
+               name="headingHtmlTag"
+               type="list"
+               label="JDBUILDER_FIELD_TAG_LBL"
+               description="JDBUILDER_FIELD_TAG_DESC"
+               default="h3"
+               group="headingtypography"
+            >
+               <option value="h1">H1</option>
+               <option value="h2">H2</option>
+               <option value="h3">H3</option>
+               <option value="h4">H4</option>
+               <option value="h5">H5</option>
+               <option value="h6">H6</option>
+               <option value="p">Paragraph</option>
+               <option value="span">Span</option>
+               <option value="small">Small</option>
+            </field>
+            <field type="color" name="headingFontColor" label="JDBUILDER_FIELD_TYPE_COLOR_LABEL" default="" description="JDBUILDER_FIELD_TYPE_COLOR_DESC" group="headingtypography">
+            </field>
+            <field type="textshadow" name="headingTextShadow" label="Text Shadow" default="" description="" group="headingtypography">
+            </field>
+            <field type="typography" responsive="true" name="headingTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default="" description="JDBUILDER_ELEMENT_TYPOGRAPHY_DESC" group="headingtypography">
+            </field>
+            
+            <field
+               name="subheadingHtmlTag"
+               type="list"
+               label="JDBUILDER_FIELD_TAG_LBL"
+               description="JDBUILDER_FIELD_TAG_DESC"
+               default="span"
+               group="subheadingtypography"
+            >
+               <option value="h1">H1</option>
+               <option value="h2">H2</option>
+               <option value="h3">H3</option>
+               <option value="h4">H4</option>
+               <option value="h5">H5</option>
+               <option value="h6">H6</option>
+               <option value="p">Paragraph</option>
+               <option value="span">Span</option>
+               <option value="small">Small</option>
+            </field>
+            <field type="color" name="subheadingFontColor" label="JDBUILDER_FIELD_TYPE_COLOR_LABEL" default="" description="JDBUILDER_FIELD_TYPE_COLOR_DESC" group="subheadingtypography">
+            </field>
+            <field type="textshadow" name="subheadingTextShadow" label="Text Shadow" default="" description="" group="subheadingtypography">
+            </field>
+            <field type="typography" responsive="true" name="subheadingTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default="" description="JDBUILDER_ELEMENT_TYPOGRAPHY_DESC" group="subheadingtypography">
+            </field>
+            
+         </fieldset>
+      </fields>
+   </form>
+</element>

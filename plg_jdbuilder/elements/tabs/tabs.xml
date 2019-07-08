@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="tabs">
+   <title>Tabs</title>
+   <icon>media/jdbuilder/images/icons/elements/tabs.svg</icon>
+   <creationDate>Apr 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="tab-item" label="Tab Style" description=""></field>
+            <field type="group" name="tab-content" label="Tab Content Style" description=""></field>
+            <!--  Element Options -->
+            <field
+               name="items"
+               label="Items"
+               type="repeatable"
+               group="basic"
+               item-title="JDBUILDER_ELE_TAB_TAB_TITLE"
+               item-title-field="title"
+               default='[{"title":"Tab #1", "icon":"", "content":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, iure, nulla, molestias, quasi placeat vel ratione ipsum sapiente inventore fuga unde esse autem repudiandae dolorem doloremque eius consectetur aliquid explicabo."},{"title":"Tab #2", "icon":"", "content":"Ipsam voluptatibus nesciunt nihil ipsa pariatur laboriosam quas rerum praesentium asperiores porro. Voluptatum veniam ab accusantium! Dolorem, omnis, suscipit corporis cumque quaerat voluptas rerum necessitatibus praesentium ipsa similique voluptatem libero!"},{"title":"Tab #3", "icon":"", "content":"Adipisci, incidunt praesentium repudiandae reiciendis eaque harum enim quia reprehenderit. Doloribus eum itaque facilis accusantium amet. Excepturi, modi at assumenda fugiat dolores iure esse velit odit ipsum asperiores consequuntur neque."}]'
+            >
+               <form>
+                  <field
+                     type="text"
+                     label="Title"
+                     name="title"
+                     default="Item Title"
+                  >
+                  </field>
+                  <field
+                     type="icon"
+                     label="icon"
+                     name="icon"
+                     default=""
+                  >
+                  </field>
+                  <field
+                     type="editor"
+                     label="false"
+                     name="content"
+                     value="Item Content"
+                  >
+                  </field>
+               </form>
+            </field>
+            
+            <!-- Repeatbale type ended here -->
+
+            <field
+               type="radio"
+               name="tabType"
+               label="Orientation"
+               description=""
+               default="horizontal"
+               group="tab-item"
+               radiotype="buttons"
+            >
+               <option value="horizontal">Horizontal</option>
+               <option value="vertical">Vertical</option>
+            </field>
+            
+            <field
+               name="tabsVerticalWidth"
+               type="slider"
+               label="Width"
+               default='{"value":"250","unit":"px"}'
+               min="0"
+               max="900"
+               units="px,%"
+               description=""
+               group="tab-item"
+               showon="params.tabType=='vertical'"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               label="Color"
+               group="tab-item"
+            >
+            </field>
+            
+            <field
+               name="tabsColor"
+               type="color"
+               label="Color"
+               description=""
+               default="#888888"
+               group="tab-item"
+            >
+            </field>
+            
+            <field
+               name="tabsColorHover"
+               type="color"
+               label="Hover Color"
+               description=""
+               default=""
+               group="tab-item"
+            >
+            </field>
+            
+            <field
+               name="tabsColorActive"
+               type="color"
+               label="Active Color"
+               description=""
+               default="#000000"
+               group="tab-item"
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               label="Icon"
+               group="tab-item"
+            >
+            </field>
+            
+            <field
+               type="radio"
+               name="tabsIconPosition"
+               label="Icon Position"
+               description=""
+               default="left"
+               group="tab-item"
+               radiotype="buttons"
+            >
+               <option value="top">JDBUILDER_ELEMENT_TOP_LBL</option>
+               <option value="left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+            </field>
+            
+            <field
+               name="tabsIconSize"
+               type="slider"
+               label="Icon Size"
+               default=""
+               min="0"
+               max="100"
+               description=""
+               group="tab-item"
+               responsive="true"
+            >
+            </field>
+            
+            <field type="spacer" group="tab-item"></field>
+            
+            <field
+               type="typography"
+               name="tabsTypography"
+               group="tab-item"
+               label="Tab Typography"
+               description=""
+               default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
+               responsive="true"
+            >
+            </field>
+            
+            <field type="spacer" group="tab-item"></field>
+            
+            <field
+               type="spacing"
+               name="tabsPadding"
+               label="Tab Padding"
+               description=""
+               group="tab-item"
+               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
+               responsive="true"
+            >
+            </field>
+            
+            <!-- Tab Content -->
+            <field type="color" name="contentColor" label="Color" default="" description="" group="tab-content">
+            </field>
+            
+            <field type="color" name="contentBackground" label="Background" default="" description="" group="tab-content">
+            </field>
+
+            <field
+               type="spacer"
+               group="tab-content"
+            >
+            </field>
+            
+            <field
+               type="typography"
+               name="tabContentTypography"
+               group="tab-content"
+               label="Content Typography"
+               description=""
+               default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               group="tab-content"
+            >
+            </field>
+
+            <field
+               type="list"
+               name="contentBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="none"  
+               group="tab-content">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            
+            <field
+               type="spacing"
+               name="contentBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.contentBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}'
+               group="tab-content"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               name="contentBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               showon="params.contentBorderStyle!='none'"
+               group="tab-content"
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               group="tab-content"
+            >
+            </field>
+            
+            <field
+               type="spacing"
+               name="tabContentPadding"
+               label="Content Padding"
+               description=""
+               group="tab-content"
+               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
+               responsive="true"
+            >
+            </field>
+            
+            
+
+         </fieldset>
+      </fields>
+   </form>
+</element>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="jmodule">
+   <title>Joomla Module</title>
+   <icon>media/jdbuilder/images/icons/elements/jmodule.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field
+               type="alert"
+               label="warning"
+               description="JDBUILDER_ELEMENT_MODULE_ALERT"
+            >
+            </field>
+            <field
+               type="radio"
+               label="JDBUILDER_ELEMENT_TYPE_LABEL"
+               name="type"
+               default="module"
+               radiotype="buttons"
+            >
+               <option value="module">JDBUILDER_ELEMENT_MODULE_LBL</option>
+               <option value="position">JDBUILDER_ELEMENT_MODULE_POSITION_LBL</option>
+            </field>
+            <field
+               name="module"
+               type="jmodule"
+               label="JDBUILDER_ELEMENT_MODULE_LBL"
+               description="JDBUILDER_ELEMENT_MODULE_DESC"
+               default=""
+               showon="params.type == 'module'"
+            />
+            <field
+               name="position"
+               type="jposition"
+               label="JDBUILDER_ELEMENT_MODULE_POSITION_LBL"
+               description="JDBUILDER_ELEMENT_MODULE_POSITION_DESC"
+               default=""
+               showon="params.type == 'position'"
+            />
+            <field
+               name="style"
+               type="chromestyle"
+               label="Module Style"
+               description=""
+               default="0"
+            />
+         </fieldset>
+      </fields>
+   </form>
+</element>

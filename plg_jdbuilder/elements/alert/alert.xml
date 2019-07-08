@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="alert">
+   <title>Alert</title>
+   <icon>media/jdbuilder/images/icons/elements/alert.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+            <!--  Element Options -->
+            <field
+               type="list"
+               name="alertType"
+               label="JDBUILDER_ELEMENT_TYPE_LABEL"
+               description="JDBUILDER_ELEMENT_TYPE_DESC"
+               default="success"
+               group="basic"
+            >
+               <option value="primary">JDBUILDER_ELEMENT_PRIMARY_LBL</option>
+               <option value="secondary">JDBUILDER_ELEMENT_SECONDARY_LBL</option>
+               <option value="success">JDBUILDER_ELEMENT_SUCCESS_LBL</option>
+               <option value="danger">JDBUILDER_ELEMENT_DANGER_LBL</option>
+               <option value="warning">JDBUILDER_ELEMENT_WARNING_LBL</option>
+               <option value="info">JDBUILDER_ELEMENT_INFO_LBL</option>
+            </field>
+            <field
+               name="alertHeading"
+               type="text"
+               label="JDBUILDER_FIELD_HEADING_LBL"
+               descriotion="JDBUILDER_FIELD_HEADING_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               name="alertHeadingTypography"
+               type="typography"
+               language="html"
+               label="Heading Typography"
+               description=""
+               group="basic"
+               showon="params.alertHeading!=''"
+               responsive="true"
+            >
+            </field>
+            <field
+               name="alertContent"
+               type="editor"
+               label="JDBUILDER_FIELD_CONTENT_LBL"
+               description="JDBUILDER_FIELD_CONTENT_DESC"
+               default="Alert Text"
+               group="basic"
+            >
+            </field>
+            <field
+               name="alertContentTypography"
+               type="typography"
+               language="html"
+               label="Alert Typography"
+               description=""
+               group="basic"
+               showon="params.alertContent!=''"
+               responsive="true"
+            >
+            </field>
+            <field
+               name="alertIcon"
+               type="icon"
+               label="JDBUILDER_ELE_ALERT_ICON_LABEL"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               name="dismissButton"
+               type="switch"
+               label="JDBUILDER_ELE_ALERT_DISMISS_BUTTON_LABEL"
+               default="false"
+               group="basic"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- General Options -->
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+            
+            <!-- Basic Options -->
+            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" group="basic">
+            </field>
+            
+            <field type="list" name="htmlTag" label="JDBUILDER_FIELD_TAG_LBL" default="" description="JDBUILDER_FIELD_TAG_DESC" search="true" group="basic">
+               <option value="">JDBUILDER_FIELD_SECTION_DEFAULT</option>
+               <option value="div">JDBUILDER_FIELD_TAG_OPTIONS_DIV</option>
+               <option value="header">JDBUILDER_FIELD_TAG_OPTIONS_HEADER</option>
+               <option value="Footer">JDBUILDER_FIELD_TAG_OPTIONS_FOOTER</option>
+               <option value="main">JDBUILDER_FIELD_TAG_OPTIONS_MAIN</option>
+               <option value="article">JDBUILDER_FIELD_TAG_OPTIONS_ARTICLE</option>
+               <option value="section">JDBUILDER_FIELD_TAG_OPTIONS_SECTION</option>
+               <option value="aside">JDBUILDER_FIELD_TAG_OPTIONS_ASIDE</option>
+               <option value="nav">JDBUILDER_FIELD_TAG_OPTIONS_NAV</option>
+            </field>
+            
+            <!-- Layout Options -->
+            <field type="switch"  label="Stretch Section" group="layout" name="stretchSection" description="Stretch the section to the document width using Javascript." default="true">   
+            </field>
+            
+            <field type="radio" radiotype="buttons" name="contentWidth" label="JDBUILDER_FIELD_CONTENT_WIDTH_LBL" description="JDBUILDER_FIELD_CONTENT_WIDTH_DESC" default="container" group="layout">
+               <option value="container-fluid">Fluid (Full-Width)</option>
+               <option value="container">Contained (Boxed)</option>
+               <option value="custom">Custom</option>
+            </field>
+            
+            <field type="slider" name="contentWidthCustom" label="JDBUILDER_FIELD_WIDTH_LBL" description="JDBUILDER_FIELD_WIDTH_DESC" min="300" max="2560" unit="px" showon="params.contentWidth=='custom'" default="1140" group="layout" responsive="true">
+            </field>
+            
+            <field type="list" name="height" label="JDBUILDER_FIELD_SECTION_HEIGHT_LBL" description="JDBUILDER_FIELD_SECTION_HEIGHT_DESC" group="layout" default="">
+               <option value="">JDBUILDER_FIELD_INHERIT</option>
+               <option value="screen-fit">JDBUILDER_FIELD_FITTOSCREEN_LABEL</option>
+               <option value="min-height">JDBUILDER_FIELD_MIN_HEIGHT_LBL</option>
+            </field>
+            <field type="slider" name="minHeight" label="JDBUILDER_FIELD_MIN_HEIGHT_LBL" description="JDBUILDER_FIELD_MIN_HEIGHT_DESC" default='{"value":100,"unit":"px"}' max="1440" units="px,vh" showon="params.height=='min-height'" group="layout" responsive="true">
+            </field>
+            
+            <field type="list" name="contentPosition" label="JDBUILDER_FIELD_CONTENT_POSITION_LBL" description="JDBUILDER_FIELD_CONTENT_POSITION_DESC" default="" group="layout">
+               <option value="">JDBUILDER_FIELD_INHERIT</option>
+               <option value="justify-content-start">CONTENT_POSITION_DEFAULT_TOPSTART_OPTIONS</option>
+               <option value="justify-content-center">CONTENT_POSITION_DEFAULT_OPTIONS_CENTER</option>
+               <option value="justify-content-end">CONTENT_POSITION_DEFAULT_OPTIONS_BOTTOM</option>
+               <option value="justify-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
+               <option value="justify-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

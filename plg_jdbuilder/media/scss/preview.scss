@@ -1,0 +1,70 @@
+$width: 30px;
+
+@mixin edit-btn($color){
+   display: none;
+   position: absolute;
+   z-index: 999;
+   background: $color;
+   width: $width;
+   height: $width;
+   cursor: pointer;
+}
+
+.jdb-section{
+   position: relative;
+   > .jdb-settings{
+      @include edit-btn(#84d155);
+      top: 0;
+      left: 0;
+   }
+   &:hover{
+      > .jdb-settings{
+         display: block;
+      }
+   }
+}
+
+.jdb-row{
+   position: relative;
+   > .jdb-settings{
+      @include edit-btn(#dd506a);
+      top: 0;
+      right: 0;
+   }
+   &:hover{
+      > .jdb-settings{
+         display: block;
+      }
+   }
+}
+
+.jdb-column{
+   position: relative;
+   > .jdb-settings{
+      @include edit-btn(#8E2DE2);
+      top: 0;
+      left: 50%;
+      margin-left: -$width/2;
+   }
+   &:hover{
+      > .jdb-settings{
+         display: block;
+      }
+   }
+}
+
+.jdb-element{
+   position: relative;
+   > .jdb-settings{
+      @include edit-btn(#464ed2);
+      top: 50%;
+      left: 50%;
+      margin-left: -$width/2;
+      margin-top: -$width/2;
+   }
+   &:hover{
+      > .jdb-settings{
+         display: block;
+      }
+   }
+}

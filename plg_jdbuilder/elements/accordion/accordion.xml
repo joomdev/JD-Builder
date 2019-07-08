@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="accordion">
+   <title>Accordion</title>
+   <icon>media/jdbuilder/images/icons/elements/accordion.svg</icon>
+   <creationDate>Apr 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="accordion-item" label="Item Options" description=""></field>
+            <field type="group" name="accordion-title" label="Item Title Options" description=""></field>
+            <field type="group" name="accordion-content" label="Item Content Options" description=""></field>
+            <field type="group" name="accordion-icon" label="Item Icon Options" description=""></field>
+            <!--  Element Options -->
+            <field
+               name="items"
+               label="JDBUILDER_ELE_TAB_TABS_TITLE"
+               type="repeatable"
+               group="basic"
+               item-title="JDBUILDER_ELE_TAB_TAB_TITLE"
+               item-title-field="title"
+               default='[{"title":"Accordion #1", "icon":"", "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},{"title":"Accordion #2", "icon":"", "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}]'
+            >
+               <form>
+                  <field
+                     type="text"
+                     label="JDBUILDER_ELE_ACCORDION_TITLE_LABEL"
+                     name="title"
+                     default="Item Title"
+                  >
+                  </field>
+                  <field
+                     type="icon"
+                     label="JDBUILDER_ELE_ACCORDION_ICON_LABEL"
+                     name="icon"
+                     default=""
+                  >
+                  </field>
+                  <field
+                     type="editor"
+                     label="Content"
+                     name="content"
+                     value="Item Content"
+                  >
+                  </field>
+               </form>
+            </field>
+            <field
+               type="switch"
+               name="accordionCollapsible"
+               default="true"
+               label="Collapsible"
+               group="basic"
+               description="Allow all items to be closed."
+            >
+            </field>
+            <field
+               type="switch"
+               name="accordionFirstActive"
+               default="true"
+               label="First Active"
+               group="basic"
+               showon="params.accordionCollapsible"
+               description="First of the item to open initially."
+            >
+            </field>
+            <field
+               type="switch"
+               name="accordionMultiple"
+               default="false"
+               label="Multiple"
+               group="basic"
+               description="Allow multiple open items."
+            >
+            </field>
+            <field
+               type="switch"
+               name="accordionOpenAll"
+               default="false"
+               label="Open All"
+               group="basic"
+               showon="params.accordionMultiple"
+               description="All items to open initially."
+            >
+            </field>
+            <!-- Repeatbale type ended here -->
+
+            <field
+               name="itemSpaceBetween"
+               type="slider"
+               label="Gap"
+               default="10"
+               description=""
+               group="accordion-item"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="list"
+               name="itemBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="solid"  
+               group="accordion-item">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            
+            <field
+               type="spacing"
+               name="itemBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.itemBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}'
+               group="accordion-item"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               name="itemBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default="#eeeeee"
+               showon="params.itemBorderStyle!='none'"
+               group="accordion-item"
+            >
+            </field>
+            
+            <field
+               name="itemBorderColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_HOVER_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_HOVER_BORDER_COLOR_DESC"
+               default="#dddddd"
+               showon="params.itemBorderStyle!='none'"
+               group="accordion-item"
+            >
+            </field>
+            
+            <field
+               name="itemBorderColorActive"
+               type="color"
+               label="JDBUILDER_ELEMENT_ACTIVE_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_ACTIVE_BORDER_COLOR_DESC"
+               default="#888888"
+               showon="params.itemBorderStyle!='none'"
+               group="accordion-item"
+            >
+            </field>
+            
+            <field
+               type="spacing"
+               name="itemBorderRadius"
+               label="JDBUILDER_ELEMENT_BORDER_RADIUS_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_RADIUS_DESC"
+               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
+               group="accordion-item"
+               corners="true"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="boxshadow"
+               name="itemBoxShadow"
+               label="JDBUILDER_ELEMENT_BOX_SHADOW_LBL"
+               description="JDBUILDER_ELEMENT_BOX_SHADOW_DESC"
+               default=""
+               group="accordion-item"
+            >
+            </field>
+
+            <!-- Accordion Title -->
+            <field
+               name="titleTag"
+               type="typetag"
+               label="Title HTML Tag"
+               default="h4"
+               group="accordion-title"
+            >
+            </field>
+            <field type="header_tag" label="Title Colors" default="h4" group="accordion-title">
+            </field>
+            <field type="color" name="titleColor" label="Color" default="#666666" description="" group="accordion-title" width="6">
+            </field>
+            <field type="color" name="titleBackground" label="Background" default="" description="" group="accordion-title" width="6">
+            </field>
+            <field type="spacer" label="Active State" group="accordion-title">
+            </field>
+            <field type="color" name="titleColorActive" label="Color" default="#000000" description="" group="accordion-title" width="6">
+            </field>
+            <field type="color" name="titleBackgroundActive" label="Background" default="" description="" group="accordion-title" width="6">
+            </field>
+            
+            <field
+               type="typography"
+               name="accordionTitleTypography"
+               group="accordion-title"
+               label="Title Typography"
+               description=""
+               default='{"family":"", "size":18, "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
+               responsive="true"
+            >
+            </field>
+
+            <field
+               type="list"
+               name="titleBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="none"  
+               group="accordion-title">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            
+            
+            <field
+               type="spacing"
+               name="titleBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.titleBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}'
+               group="accordion-title"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               name="titleBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               showon="params.titleBorderStyle!='none'"
+               group="accordion-title"
+            >
+            </field>
+            
+            <field
+               name="titleBorderColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_HOVER_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_HOVER_BORDER_COLOR_DESC"
+               default=""
+               showon="params.titleBorderStyle!='none'"
+               group="accordion-title"
+            >
+            </field>
+            
+            <field
+               name="titleBorderColorActive"
+               type="color"
+               label="JDBUILDER_ELEMENT_ACTIVE_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_ACTIVE_BORDER_COLOR_DESC"
+               default=""
+               showon="params.titleBorderStyle!='none'"
+               group="accordion-title"
+            >
+            </field>
+
+            <field
+               type="spacing"
+               name="accordionTitlePadding"
+               label="Title Padding"
+               description=""
+               group="accordion-title"
+               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
+               responsive="true"
+            >
+            </field>
+            
+            <!-- Accordion Content -->
+            <field type="color" name="contentColor" label="Color" default="#777777" description="" group="accordion-content" width="6">
+            </field>
+            <field type="color" name="contentBackground" label="Background" default="" description="" group="accordion-content" width="6">
+            </field>
+            
+            <field
+               type="typography"
+               name="accordionContentTypography"
+               group="accordion-content"
+               label="Content Typography"
+               description=""
+               default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="list"
+               name="contentBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="none"  
+               group="accordion-content">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            
+            <field
+               type="spacing"
+               name="contentBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.contentBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}'
+               group="accordion-content"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               name="contentBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               showon="params.contentBorderStyle!='none'"
+               group="accordion-content"
+            >
+            </field>
+
+            <field
+               type="spacing"
+               name="accordionContentPadding"
+               label="Content Padding"
+               description=""
+               group="accordion-content"
+               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
+               responsive="true"
+            >
+            </field>
+            
+            <!-- Header Icon Tab -->
+            <field
+               name="accordionIcon"
+               type="radio"
+               radiotype="buttons"
+               label="JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_LABEL"
+               default="plus"
+               description=""
+               group="accordion-icon"
+               icononly="true"
+            >
+               <option value="none" icon="fa fa-ban uk-text-danger">JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_OPTIONS_NONE</option>
+               <option value="plus" icon="fas fa-plus" >JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_OPTIONS_PLUS</option>
+               <option value="triangle" icon="fas fa-caret-down">JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_OPTIONS_TRIANGLE</option>
+               <option value="chevron" icon="fas fa-chevron-down">JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_OPTIONS_CHEVRON</option>
+               <option value="arrow" icon="fas fa-arrow-down">JDBUILDER_ELE_ACCORDION_SELECT_ICON_TAB_OPTIONS_ARROW</option>
+            </field> 
+            
+            <field
+               type="list"
+               name="accordionIconAlignment"
+               label="JDBUILDER_ELEMENT_ALIGNMENT_LBL"
+               description="JDBUILDER_ELEMENT_ALIGNMENT_DESC"
+               default="right"
+               showon="params.accordionIcon!='none'"
+               group="accordion-icon"
+            >
+               <option value="left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+               <option value="right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+            </field>
+            
+            <field
+               name="caretColor"
+               type="color"
+               label="Color"
+               description=""
+               default=""
+               group="accordion-icon"
+               width="6"
+               showon="params.accordionIcon!='none'"
+            >
+            </field>
+            
+            <field
+               name="caretBackgroundColor"
+               type="color"
+               label="Background"
+               description=""
+               default=""
+               group="accordion-icon"
+               width="6"
+               showon="params.accordionIcon!='none'"
+            >
+            </field>
+            
+            <field
+               type="spacer"
+               label="Active State"
+               group="accordion-icon"
+               showon="params.accordionIcon!='none'"
+            >
+            </field>
+            <field
+               name="caretColorActive"
+               type="color"
+               label="Color"
+               description=""
+               default=""
+               group="accordion-icon"
+               width="6"
+               showon="params.accordionIcon!='none'"
+            >
+            </field>
+            
+            <field
+               name="caretBackgroundColorActive"
+               type="color"
+               label="Background"
+               description=""
+               default=""
+               group="accordion-icon"
+               width="6"
+               showon="params.accordionIcon!='none'"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

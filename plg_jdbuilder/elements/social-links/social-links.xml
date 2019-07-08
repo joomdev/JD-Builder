@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="social-links">
+   <title>Social Links</title>
+   <icon>media/jdbuilder/images/icons/elements/social-links.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="profiles" label="Social Profiles" description=""></field>
+            <field type="group" name="styling" label="Style Options" description=""></field>
+            <!--  Element Options -->
+
+            <field type="repeatable" group="profiles" label="JDBUILDER_ELE_SOCIAL_LINKS_ICONS_LABEL" name="socialLinks" description="JDBUILDER_ELE_SOCIAL_LINKS_ICONS_DESC" item-title-field="title" item-title="Link" item-icon="fas fa-share-alt" item-icon-field="icon" default='[{"title":"Facebook", "icon":"fab fa-facebook", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Twitter", "icon":"fab fa-twitter", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Instagram", "icon":"fab fa-instagram", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}]'>
+               <form>
+                  <field type="text" label="Title" name="title" default="Social"></field>
+                  <field type="icon" label="Icon" name="icon" default="fas fa-share-alt"></field>
+                  <field
+                     name="link"
+                     type="text"
+                     label="JDBUILDER_ELEMENT_LINK_LABEL"
+                     description="JDBUILDER_ELEMENT_LINK_DESC"
+                     default="#"
+                  >
+                  </field>
+                  <field
+                     name="linkTargetBlank"
+                     type="switch"
+                     label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
+                     description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+                     default="false"
+                     showon="params.link!=''"
+                     width="6"
+                  >
+                  </field>
+                  <field
+                     name="linkNoFollow"
+                     type="switch"
+                     label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
+                     description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+                     default="false"
+                     showon="params.link!=''"
+                     width="6"
+                  >
+                  </field>
+               </form>
+            </field>
+
+
+            <!-- Icon Stytling -->
+            <field name="slAlignment" group="styling" type="radio" radiotype="buttons" label="JDBUILDER_ELE_SOCIAL_LINKS_ALIGNMENTS_LABEL" description="JDBUILDER_ELE_SOCIAL_LINKS_ALIGNMENTS_DESC" default="center" responsive="true">
+               <option value="left" icon="fa fa-align-left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+               <option value="center" icon="fa fa-align-center">JDBUILDER_ELEMENT_CENTER_LBL</option>
+               <option value="right" icon="fa fa-align-right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+            </field>
+            
+            <field name="slDisplay" group="styling" type="radio" radiotype="buttons" label="Display" description="" default="icon-only">
+               <option value="icon-title">Both</option>
+               <option value="icon-only">Only Icon</option>
+               <option value="title-only">Only Title</option>
+            </field>
+            
+            <field name="iconPosition" group="styling" type="radio" radiotype="buttons" label="Icon Position" description="" showon="params.slDisplay=='icon-title'" default="left">
+               <option value="left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+               <option value="right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+               <option value="top">JDBUILDER_FIELD_OPTIONS_TOP</option>
+               <option value="bottom">JDBUILDER_FIELD_OPTIONS_BOTTOM</option>
+            </field>
+            
+            <field type="slider" group="styling" label="Inner Padding" name="innerPadding" description="" unit="px" default="15" responsive="true">
+            </field>
+
+            <field type="spacer" group="styling" />
+            
+            <field type="radio" group="styling" radiotype="buttons" label="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_LABEL" name="iconStyle" default="brand" description="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_DESC">
+               <option value="brand">JDBUILDER_ELE_SOCIAL_LINKS_BRANDS_OPTIONS</option>
+               <option value="custom">JDBUILDER_ELE_SOCIAL_LINKS_CUSTOM_OPTIONS</option>
+            </field>
+            
+            <field
+               type="alert"
+               label="primary"
+               group="styling"
+               description="JDBUILDER_ELEMENT_BRANDCOLOR_ALERT" showon="params.iconStyle=='brand'"
+            >   
+            </field>
+            
+            <field
+               name="brandColorInverted"
+               type="switch"
+               label="Inverted Colors"
+               description=""
+               group="styling"
+               default="false"
+               showon="params.iconStyle=='brand'"
+            >
+            </field>
+
+            <field type="color" width="6" group="styling" label="Foreground Color" name="slColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FIELD_ICON_COLOR_DESC">
+            </field>
+
+            <field type="color" width="6" group="styling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slBackgroundColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
+            </field>
+            
+            <field type="color" width="12" group="styling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderColor" showon="params.iconStyle=='custom'" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
+            </field>
+
+            <field type="spacer" label="JDBUILDER_ELEMENT_HOVER_STYLING_LBL" group="styling">
+            </field>
+            
+            <field type="color" width="6" group="styling" label="Foreground Color" name="slHoverColor" description="JDBUILDER_FIELD_ICON_COLOR_DESC">
+            </field>
+
+            <field type="color" width="6" group="styling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slHoverBackgroundColor" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
+            </field>
+            
+            <field type="color" width="12" group="styling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderHoverColor" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
+            </field>
+
+            <field type="spacer" group="styling" />
+            
+            <field type="slider" group="styling" label="JDBUILDER_ELE_SOCIAL_LINKS_ICON_SIZE_LABEL" description="JDBUILDER_ELE_SOCIAL_LINKS_ICON_SIZE_DESC" name="iconSize" unit="px" showon="params.slDisplay!='title-only'" default="24" responsive="true">
+            </field>
+            
+            <field type="slider" group="styling" label="JDBUILDER_FIELD_TYPE_TEXT_SIZE_LABEL" description="JDBUILDER_FIELD_TYPE_TEXT_SIZE_DESC" name="textSize" unit="px" showon="params.slDisplay!='icon-only'" default="24" responsive="true">
+            </field>
+
+            <field type="slider" group="styling" label="JDBUILDER_FIELD_COLUMN_ALIGNMENT_OPTIONS_SPACE_BETWEEN" DESC="JDBUILDER_ELE_SOCIAL_LINKS_SPACE_BETWEEN_DESC" name="slSpaceBetween" unit="px" default="10" responsive="true">
+            </field>
+
+            <field type="spacer" group="styling" />
+            
+            
+            
+            <field type="list" name="slBorderStyle" label="JDBUILDER_FIELD_BORDERTYPE_STYLE_LBL" description="JDBUILDER_FIELD_BORDERTYPE_STYLE_DESC" default="none" group="styling" search="true">
+               <option value="none">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_NONE</option>
+               <option value="dotted">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DOTTED</option>
+               <option value="dashed">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DASHED</option>
+               <option value="solid">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_SOLID</option>
+               <option value="double">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DOUBLE</option>
+               <option value="groove">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_GROOVE</option>
+            </field>
+            
+            <field type="spacing" name="slBorderWidth" label="JDBUILDER_FIELD_BORDERWIDTH_LABEL" description="JDBUILDER_FIELD_BORDERWIDTH_DESC" group="styling" showon="params.slBorderStyle!='none'" default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}' units="px,%,em" responsive="true">
+            </field>
+            
+            <field type="spacer" group="styling" showon="params.slBorderStyle!='none'" />
+
+            <field type="spacing" name="slBorderRadius" label="JDBUILDER_FIELD_BORDER_RADIUS_LABEL" description="JDBUILDER_FIELD_BORDER_RADIUS_DESC" group="styling" default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}' corners="true" units="px,%,em" responsive="true"></field>
+            
+            <field type="boxshadow" name="slBoxShadow" label="JDBUILDER_FIELD_BORDER_SHADOW_LABEL" description="JDBUILDER_FIELD_BORDER_SHADOW_DESC" group="styling"></field>
+            
+            <field type="hover-animations" group="styling" name="slHoverAnimation" label="JDBUILDER_ELE_SOCIAL_LINKS_HOVER_ANIMATE_LABEL" DESC="JDBUILDER_ELE_SOCIAL_LINKS_HOVER_ANIMATE_DESC" search="true">
+            </field>
+            
+         </fieldset>
+      </fields>
+   </form>
+</element>

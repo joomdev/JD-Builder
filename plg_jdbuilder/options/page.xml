@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- General Options -->
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="publishing" label="Publishing" description=""></field>
+            <field type="group" name="seo" label="SEO" description=""></field>
+            <field type="group" name="opengraph" label="Open Graph" description=""></field>
+            <!-- Publishing Options -->
+            <field type="contentlanguage" name="language" label="Language" description="" group="publishing" default="*">
+            </field>
+            <field type="list" name="state" label="Status" default="1" description="" group="publishing">
+               <option value="1">JPUBLISHED</option>
+               <option value="0">JUNPUBLISHED</option>
+               <option value="2">JARCHIVED</option>
+               <option value="-2">JTRASHED</option>
+            </field>
+            <field name="category_id" extension="com_jdbuilder.pages" multiple="false" type="category" label="Category" description="" group="publishing" action="true" default="0" />
+            
+            <!-- SEO Options -->
+            <field type="text" name="metaTitle" label="Title" description="" group="seo" default="">
+            </field>
+            <field type="textarea" name="metaDescription" label="Description" description="" group="seo" default="">
+            </field>
+            <field type="textarea" name="metaKeywords" label="Keywords" description="" group="seo" default="">
+            </field>
+            
+            <!-- Open Graph Options -->
+            <field type="text" name="ogTitle" label="Title" description="" group="opengraph" default="">
+            </field>
+            <field type="textarea" name="ogDescription" label="Description" description="" group="opengraph" default="">
+            </field>
+            <field type="image" name="ogImage" label="Image" description="" group="opengraph" default="">
+            </field>
+            
+            <!-- Open Graph Options -->
+            
+         </fieldset>
+         <fieldset name="advanced" label="JDBUILDER_ADVANCED_TITLE">
+            <field type="group" name="customcode" label="Custom Code" description=""></field>
+            <field type="group" name="permissions" label="Permissions" description=""></field>
+            <field type="code-editor" language="css" label="CSS" description="" group="customcode" name="css" default="">
+            </field>
+            <field type="code-editor" language="javascript" label="Javascript" description="" group="customcode" name="javascript" default="">
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

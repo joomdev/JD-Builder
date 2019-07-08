@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- General Options -->
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+            
+            <!-- Basic Options -->
+            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" default="" group="basic">
+            </field>
+            
+            <field type="list" name="htmlTag" label="JDBUILDER_FIELD_TAG_LBL" default="" description="JDBUILDER_FIELD_TAG_DESC" search="true" group="basic">
+               <option value="">JDBUILDER_FIELD_COLUMN_DEFAULT</option>
+               <option value="div">JDBUILDER_FIELD_TAG_OPTIONS_DIV</option>
+               <option value="header">JDBUILDER_FIELD_TAG_OPTIONS_HEADER</option>
+               <option value="Footer">JDBUILDER_FIELD_TAG_OPTIONS_FOOTER</option>
+               <option value="main">JDBUILDER_FIELD_TAG_OPTIONS_MAIN</option>
+               <option value="article">JDBUILDER_FIELD_TAG_OPTIONS_ARTICLE</option>
+               <option value="section">JDBUILDER_FIELD_TAG_OPTIONS_SECTION</option>
+               <option value="aside">JDBUILDER_FIELD_TAG_OPTIONS_ASIDE</option>
+               <option value="nav">JDBUILDER_FIELD_TAG_OPTIONS_NAV</option>
+            </field>
+            
+            <!-- Layout Options -->
+            <field type="list" name="verticalContentPosition" label="JDBUILDER_FIELD_CONTENT_VPOSITION_LBL" description="JDBUILDER_FIELD_CONTENT_VPOSITION_DESC" default="" group="layout">
+               <option value="">JDBUILDER_FIELD_INHERIT</option>
+               <option value="align-content-start">CONTENT_POSITION_DEFAULT_TOPSTART_OPTIONS</option>
+               <option value="align-content-center">CONTENT_POSITION_DEFAULT_OPTIONS_CENTER</option>
+               <option value="align-content-end">CONTENT_POSITION_DEFAULT_OPTIONS_BOTTOM</option>
+               <option value="align-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
+               <option value="align-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            </field>
+            <field type="list" name="horizontalContentPosition" label="JDBUILDER_FIELD_CONTENT_HPOSITION_LBL" description="JDBUILDER_FIELD_CONTENT_HPOSITION_DESC" default="" group="layout">
+               <option value="">JDBUILDER_FIELD_INHERIT</option>
+               <option value="justify-content-start">CONTENT_POSITION_DEFAULT_LEFTSTART_OPTIONS</option>
+               <option value="justify-content-center">CONTENT_POSITION_DEFAULT_CENTER_OPTIONS</option>
+               <option value="justify-content-end">CONTENT_POSITION_DEFAULT_RIGHTEND_OPTIONS</option>
+               <option value="justify-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
+               <option value="justify-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            </field>
+            <field
+               type="slider"
+               name="spaceBetweenElements"
+               label="Space Between Elements"
+               description=""
+               default=""
+               min="-100"
+               max="100"
+               unit="px"
+               group="layout"
+               responsive="true"
+            >
+            </field>
+         </fieldset>
+         <!--  Advanced Options -->
+         <fieldset name="advanced" ordering="10" label="JDBUILDER_ADVANCED_TITLE">
+            <!--  Advanced Options Groups -->
+            <field type="group" name="responsive" ordering="1" label="JDBUILDER_FIELD_RESPONSIVE_LABEL" description="JDBUILDER_FIELD_RESPONSIVE_LABEL"></field>
+            <field type="spacer" label="Column Size" group="responsive"></field>
+            <field
+               type="list"
+               name="columnSizeTablet"
+               label="On Tablet"
+               default=""
+               group="responsive"
+               width="6"
+            >
+               <option value="">JDEFAULT</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+               <option value="9">9</option>
+               <option value="10">10</option>
+               <option value="11">11</option>
+               <option value="12">12</option>
+            </field>
+            <field
+               type="list"
+               name="columnSizeMobile"
+               label="On Mobile"
+               default=""
+               group="responsive"
+               width="6"
+            >
+               <option value="">JDEFAULT</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+               <option value="6">6</option>
+               <option value="7">7</option>
+               <option value="8">8</option>
+               <option value="9">9</option>
+               <option value="10">10</option>
+               <option value="11">11</option>
+               <option value="12">12</option>
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

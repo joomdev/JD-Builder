@@ -1,0 +1,7 @@
+:root {
+  @each $color, $value in $theme-colors {
+    --jdb-#{$color}: #{$value};
+  }
+  
+  --jdb-font-family: #{inspect($font-family-sans-serif)};
+}

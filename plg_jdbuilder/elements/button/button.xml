@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="button">
+   <title>Button</title>
+   <icon>media/jdbuilder/images/icons/elements/button.svg</icon>
+   <creationDate>March 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field type="group" name="buttonstyle" label="Button Styling"></field>
+            <field type="group" name="buttonborder" label="JDBUILDER_ELE_BTN_OPTIONS_BORDER"></field>
+            
+            <!--  Element Options -->
+            <field
+               type="text"
+               name="buttonText"
+               label="JDBUILDER_ELEMENT_BTN_TEXT_LABEL"
+               description="JDBUILDER_ELEMENT_BTN_TEXT_DESC"
+               default="Button"
+               group="basic"
+            >
+            </field>
+            <field
+               type="list"
+               name="buttonType"
+               label="JDBUILDER_ELEMENT_TYPE_LABEL"
+               description="JDBUILDER_ELEMENT_TYPE_DESC"
+               default="primary"
+               group="basic"
+            >
+               <option value="primary">JDBUILDER_ELEMENT_PRIMARY_LBL</option>
+               <option value="secondary">JDBUILDER_ELEMENT_SECONDARY_LBL</option>
+               <option value="success">JDBUILDER_ELEMENT_SUCCESS_LBL</option>
+               <option value="danger">JDBUILDER_ELEMENT_DANGER_LBL</option>
+               <option value="warning">JDBUILDER_ELEMENT_WARNING_LBL</option>
+               <option value="info">JDBUILDER_ELEMENT_INFO_LBL</option>
+            </field>
+            <field
+               type="list"
+               name="buttonSize"
+               label="JDBUILDER_ELEMENT_BTN_SIZE_LABEL"
+               description="JDBUILDER_ELEMENT_BTN_SIZE_DESC"
+               default=""
+               group="basic"
+               width="6"
+            >
+               <option value="sm">JDBUILDER_ELEMENT_SM_LBL</option>
+               <option value="">JDBUILDER_ELEMENT_MD_LBL</option>
+               <option value="lg">JDBUILDER_ELEMENT_LG_LBL</option>
+            </field>
+            <field
+               type="list"
+               name="buttonAlignment"
+               label="JDBUILDER_ELEMENT_ALIGNMENT_LBL"
+               description="JDBUILDER_ELEMENT_ALIGNMENT_DESC"
+               default="left"
+               group="basic"
+               width="6"
+               responsive="true"
+            >
+               <option value="left">JDBUILDER_ELEMENT_LEFT_LBL</option>
+               <option value="right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+               <option value="center">JDBUILDER_ELEMENT_CENTER_LBL</option>
+               <option value="block">JDBUILDER_ELEMENT_BLOCK_LBL</option>
+            </field>
+            <field
+               name="link"
+               type="text"
+               label="JDBUILDER_ELEMENT_LINK_LABEL"
+               description="JDBUILDER_ELEMENT_LINK_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               name="linkTargetBlank"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
+               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               default="false"
+               group="basic"
+               showon="params.link!=''"
+            >
+            </field>
+            <field
+               name="linkNoFollow"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
+               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+               default="false"
+               group="basic"
+               showon="params.link!=''"
+            >
+            </field>
+            <field
+               type="spacer"
+               group="basic"
+               showon="params.link!=''"
+            >
+            </field>
+            <field
+               type="hover-animations"
+               name="buttonAnimation"
+               label="JDBUILDER_ELEMENT_HOVER_ANIMATION_LBL"
+               description="JDBUILDER_ELEMENT_HOVER_ANIMATION_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               type="spacer"
+               group="basic"
+               showon="params.buttonIcon!=''"
+            >
+            </field>
+            <field
+               name="buttonIcon"
+               type="icon"
+               label="JDBUILDER_ELEMENT_ICON_LABEL"
+               description="JDBUILDER_ELEMENT_ICON_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            
+            <field
+               type="radio"
+               name="iconPosition"
+               label="Icon Position"
+               description=""
+               radiotype="buttons"
+               default="right"
+               group="basic"
+               showon="params.buttonIcon!=''"
+            >
+               <option value="left">Left</option>
+               <option value="right">Right</option>
+            </field>
+            <field
+               type="slider"
+               name="iconSpacing"
+               label="Icon Spacing"
+               description=""
+               group="basic"
+               unit="px"
+               min="0"
+               max="50"
+               step="1"
+               default="3"
+               showon="params.buttonIcon!=''"
+            >
+            </field>
+            <field
+               type="icon-animations"
+               name="iconAnimation"
+               label="JDBUILDER_ELEMENT_ICON_ANIMATION_LBL"
+               description="JDBUILDER_ELEMENT_ICON_ANIMATION_DESC"
+               default=""
+               group="basic"
+               showon="params.buttonIcon!=''"
+            >
+            </field>
+            
+            
+            <!-- Button Style -->
+            <field
+               name="buttonTextColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_TEXT_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_TEXT_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="buttonBackgroundColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="buttonBorderColor"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               type="gradient"
+               label="Gradient"
+               name="buttonGradient"
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               type="spacer"
+               label="JDBUILDER_ELEMENT_HOVER_STYLING_LBL"
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               name="buttonTextColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_TEXT_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_TEXT_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="buttonBackgroundColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+               width="6"
+            >
+            </field>
+            <field
+               name="buttonBorderColorHover"
+               type="color"
+               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
+               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               default=""
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               type="gradient"
+               label="Gradient"
+               name="buttonGradientHover"
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               type="spacer"
+               group="buttonstyle"
+            >
+            </field>
+            <field
+               name="buttonPadding"
+               type="spacing"
+               label="JDBUILDER_EL_BTN_PADDING_LBL"
+               description=""
+               group="buttonstyle"
+               default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}'
+               responsive="true"
+            >
+            </field>
+            <field
+               name="buttonTypography"
+               type="typography"
+               label="Typography"
+               description=""
+               group="buttonstyle"
+               default=""
+               responsive="true"
+            >
+            </field>
+            <field
+               type="list"
+               name="buttonBorderStyle" 
+               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
+               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               default="solid"  
+               group="buttonborder">
+               <option value="none">JDBUILDER_BORDER_NONE</option>
+               <option value="solid">JDBUILDER_BORDER_SOLID</option>
+               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
+               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
+               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+            </field>
+            
+            <field
+               type="spacing"
+               name="buttonBorderWidth"
+               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
+               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               showon="params.buttonBorderStyle!='none'"
+               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
+               group="buttonborder"
+               responsive="true"
+            >
+            </field>
+            
+            <field
+               type="spacing"
+               name="buttonBorderRadius"
+               label="JDBUILDER_EL_BTN_RADIUS_LBL"
+               description=""
+               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
+               group="buttonborder"
+               corners="true"
+               responsive="true"
+            >
+            </field>
+            <field
+               type="boxshadow"
+               name="buttonBoxShadow"
+               label="JDBUILDER_EL_BTN_SHADOW_LBL"
+               description="JDBUILDER_ELEMENT_BOX_SHADOW_DESC"
+               default=""
+               group="buttonborder"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

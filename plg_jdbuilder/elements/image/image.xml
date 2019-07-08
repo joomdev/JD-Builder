@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="image">
+   <title>Image</title>
+   <icon>media/jdbuilder/images/icons/elements/image.svg</icon>
+   <creationDate>Apr 2019</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+            <field
+               name="image"
+               type="image"
+               label="JDBUILDER_ELE_IMAGE_MEDIA_LABEL"
+               description="JDBUILDER_ELE_IMAGE_MEDIA_DESC"
+               group="basic"
+            >
+            </field>
+            <field
+               name="title"
+               type="text"
+               default=""
+               label="JDBUILDER_ELE_TITLE_LABEL"
+               description="JDBUILDER_ELE_TITLE_DESC"
+               group="basic"
+            >
+            </field>
+            <field
+               name="caption"
+               type="text"
+               default=""
+               label="JDBUILDER_ELE_CAPTION_LABEL"
+               description="JDBUILDER_ELE_CAPTION_DESC"
+               group="basic"
+            >
+            </field>
+            <field
+               name="imageSize"
+               type="list"
+               label="JDBUILDER_ELE_IMAGE_SIZE_LABEL"
+               description="JDBUILDER_ELE_IMAGE_SIZE_DESC"
+               default="original"
+               group="basic"
+            >
+               <option value="original">Original</option>
+               <option value="custom">Custom</option>
+            </field>
+            <field
+               name="width"
+               type="slider" 
+               label="JDBUILDER_ELE_WIDTH_LABEL" 
+               description="JDBUILDER_ELE_WIDTH_DESC"
+               default='{"value":"100", "unit": "%"}' 
+               min="0" 
+               max="2000" 
+               showon="params.imageSize=='custom'"
+               units="px,%"
+               group="basic"
+               responsive="true"
+            >
+            </field>
+            <field
+               name="maxWidth"
+               type="slider" 
+               label="Max Width" 
+               description="JDBUILDER_ELE_WIDTH_DESC"
+               default='{"value":"100", "unit": "%"}' 
+               min="0" 
+               max="2000" 
+               showon="params.imageSize=='custom'"
+               units="px,%"
+               group="basic"
+               responsive="true"
+            >
+            </field>
+            <field
+               name="alignment"
+               type="radio" 
+               label="JDBUILDER_ELE_ALIGNMENT_LABEL"
+               description="JDBUILDER_ELE_ALIGNMENT_DESC"
+               default="left" 
+               radiotype="buttons"
+               group="basic"
+               responsive="true"
+            >
+               <option value="left" icon="fa fa-align-left">JDBUILDER_ELE_ALIGNMENT_OPTIONS_LEFT</option>
+               <option value="center" icon="fa fa-align-center">JDBUILDER_ELE_ALIGNMENT_OPTIONS_CENTER</option>
+               <option value="right" icon="fa fa-align-right">JDBUILDER_ELE_ALIGNMENT_OPTIONS_RIGHT</option>
+            </field>
+            <field
+               name="link"
+               type="text"
+               label="JDBUILDER_ELEMENT_LINK_LABEL"
+               description="JDBUILDER_ELEMENT_LINK_DESC"
+               default=""
+               group="basic"
+            >
+            </field>
+            <field
+               name="linkTargetBlank"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
+               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               default="false"
+               showon="params.link!=''"
+               group="basic"
+            >
+            </field>
+            <field
+               name="linkNoFollow"
+               type="switch"
+               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
+               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+               default="false"
+               showon="params.link!=''"
+               group="basic"
+            >
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

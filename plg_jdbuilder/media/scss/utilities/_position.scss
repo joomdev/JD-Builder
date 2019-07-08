@@ -1,0 +1,6 @@
+// stylelint-disable declaration-no-important
+
+// Common values
+@each $position in $positions {
+  .jdb-position-#{$position} { position: $position !important; }
+}
