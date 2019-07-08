@@ -3,9 +3,9 @@
 <extension type="package" version="3.1" method="upgrade">
    <name>JD Builder Package</name>
    <packagename>jdbuilder</packagename>
-   <packager>Team Joomdev</packager>
+   <packager>Team JoomDev</packager>
    <packagerurl>https://www.joomdev.com</packagerurl>
-   <author>Team Joomdev</author>
+   <author>Team JoomDev</author>
    <creationDate>March 2019</creationDate>
    <version>1.0.0</version>
    <url>https://www.joomdev.com</url>
@@ -20,6 +20,6 @@
       <folder type="component" id="com_jdbuilder" client="site">com_jdbuilder</folder>
    </files>
    <updateservers>
-      <server type="package" priority="1" name="JD Builder Package">https://cdn.joomdev.com/updates/jd_builder.xml</server>
+      <server type="extension" priority="1" name="JD Builder Package">https://cdn.joomdev.com/updates/jd_builder.xml</server>
    </updateservers>
 </extension>
