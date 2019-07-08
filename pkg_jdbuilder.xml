@@ -19,4 +19,7 @@
       <folder type="plugin" id="jdbuilder" client="site" group="system">plg_jdbuilder</folder>
       <folder type="component" id="com_jdbuilder" client="site">com_jdbuilder</folder>
    </files>
+   <updateservers>
+      <server type="package" priority="1" name="JD Builder Package">https://cdn.joomdev.com/updates/jd_builder.xml</server>
+   </updateservers>
 </extension>
