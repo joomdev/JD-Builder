@@ -13,15 +13,17 @@ class plgSystemJDBuilder extends JPlugin {
 
    function __construct(&$subject, $config) {
       parent::__construct($subject, $config);
-      define('JDB_DEBUG', $this->params->get('debug', 0));
-      define('JDB_KEY', $this->params->get('key', '', 'RAW'));
+      if ($this->app->isAdmin()) {
+         define('JDB_DEBUG', $this->params->get('debug', 0));
+         define('JDB_KEY', $this->params->get('key', '', 'RAW'));
 
-      $xml = JFactory::getXML(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.xml');
-      $version = (string) $xml->version;
-      define('JDB_VERSION', $version);
+         $xml = JFactory::getXML(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.xml');
+         $version = (string) $xml->version;
+         define('JDB_VERSION', $version);
 
 
-      \JDPageBuilder\Helper::loadLanguage();
+         \JDPageBuilder\Helper::loadLanguage();
+      }
    }
 
    // Events 
