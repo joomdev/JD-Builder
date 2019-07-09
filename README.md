@@ -3,7 +3,7 @@
 
 Watch Intro Video here
 
-[![Watch Intro Video here](https://img.youtube.com/vi/5xwaA-fphvc/0.jpg)](https://www.youtube.com/watch?v=5xwaA-fphvc)
+[![Watch Intro Video here](https://www.joomdev.com/images/githubassets/builder-play.jpg)](https://www.youtube.com/watch?v=5xwaA-fphvc)
 
 
 ### [Read More](https://www.joomdev.com/jd-builder)
