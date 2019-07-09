@@ -12,7 +12,7 @@ class Helper {
    public static $devices = ['md' => 'desktop', 'sm' => 'tablet', 'xs' => 'mobile'];
    public static $css_cache = false;
    private static $_router = array();
-   
+
    public static function classify($word) {
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
    }
@@ -676,7 +676,9 @@ class Helper {
       $lang = \JFactory::getLanguage();
       $tag = $lang->getTag();
       $path = JPATH_PLUGINS . "/system/jdbuilder/language/{$tag}/{$tag}.jdb.ini";
-
+      if (!file_exists($path)) {
+         $path = JPATH_PLUGINS . "/system/jdbuilder/language/en-GB/en-GB.jdb.ini";
+      }
       $strings = self::parseIniFile($path);
       if ($lang->getDebug()) {
          foreach ($strings as &$string) {
