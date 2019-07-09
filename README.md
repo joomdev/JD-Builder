@@ -1,8 +1,6 @@
 ## JD Builder
 ### The magical Joomla page builder
 
-Watch Intro Video here
-
 [![Watch Intro Video here](https://www.joomdev.com/images/githubassets/builder-play.jpg)](https://www.youtube.com/watch?v=5xwaA-fphvc)
 
 
