@@ -41,7 +41,7 @@ class plgSystemJDBuilder extends JPlugin {
 
       if ($request->get('jdb-api', 0, "INT")) {
 
-         if ($request->get('download', 1, "INT")) {
+         if ($request->get('download', 0, "INT")) {
             $filename = $request->get('filename', time(), 'RAW');
             header('Content-disposition: attachment; filename=' . $filename . '.json');
          }

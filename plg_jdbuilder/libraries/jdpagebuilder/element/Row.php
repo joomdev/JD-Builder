@@ -79,7 +79,7 @@ class Row extends BaseElement {
             foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
                if (isset($gutter->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($gutter->{$deviceKey})) {
                   $css = ".jdb-col,.jdb-col-1,.jdb-col-10,.jdb-col-11,.jdb-col-12,.jdb-col-2,.jdb-col-3,.jdb-col-4,.jdb-col-5,.jdb-col-6,.jdb-col-7,.jdb-col-8,.jdb-col-9,.jdb-col-auto,.jdb-col-lg,.jdb-col-lg-1,.jdb-col-lg-10,.jdb-col-lg-11,.jdb-col-lg-12,.jdb-col-lg-2,.jdb-col-lg-3,.jdb-col-lg-4,.jdb-col-lg-5,.jdb-col-lg-6,.jdb-col-lg-7,.jdb-col-lg-8,.jdb-col-lg-9,.jdb-col-lg-auto,.jdb-col-md,.jdb-col-md-1,.jdb-col-md-10,.jdb-col-md-11,.jdb-col-md-12,.jdb-col-md-2,.jdb-col-md-3,.jdb-col-md-4,.jdb-col-md-5,.jdb-col-md-6,.jdb-col-md-7,.jdb-col-md-8,.jdb-col-md-9,.jdb-col-md-auto,.jdb-col-sm,.jdb-col-sm-1,.jdb-col-sm-10,.jdb-col-sm-11,.jdb-col-sm-12,.jdb-col-sm-2,.jdb-col-sm-3,.jdb-col-sm-4,.jdb-col-sm-5,.jdb-col-sm-6,.jdb-col-sm-7,.jdb-col-sm-8,.jdb-col-sm-9,.jdb-col-sm-auto,.jdb-col-xl,.jdb-col-xl-1,.jdb-col-xl-10,.jdb-col-xl-11,.jdb-col-xl-12,.jdb-col-xl-2,.jdb-col-xl-3,.jdb-col-xl-4,.jdb-col-xl-5,.jdb-col-xl-6,.jdb-col-xl-7,.jdb-col-xl-8,.jdb-col-xl-9,.jdb-col-xl-auto{padding-right:" . ($gutter->{$deviceKey}->value) . "px;padding-left:" . ($gutter->{$deviceKey}->value) . "px}";
-                  $this->addStyle($css);
+                  $this->addStyle($css, $device);
                }
             }
          }

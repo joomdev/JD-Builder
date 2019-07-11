@@ -82,6 +82,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.FAVOURITES = <?php echo \json_encode(JDPageBuilder\Helper::getFavouriteTemplates()); ?>;
 
    _JDB.URL = {
+      SITEURL: '<?php echo JURI::root(); ?>',
       API: '<?php echo JURI::base(); ?>index.php',
       SITEAPI: '<?php echo JURI::root(); ?>index.php',
       JDAPI: 'https://api.joomdev.com/',

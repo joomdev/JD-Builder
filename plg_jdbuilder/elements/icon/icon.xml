@@ -246,7 +246,7 @@
             <field
                type="boxshadow"
                name="iconBoxShadow"
-               label="Shadow"
+               label="Icon Shadow"
                description="JDBUILDER_ELEMENT_BOX_SHADOW_DESC"
                default=""
                group="iconborder"
