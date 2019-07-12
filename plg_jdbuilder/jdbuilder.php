@@ -111,6 +111,7 @@ class plgSystemJDBuilder extends JPlugin {
          $docuemnt->addStyleDeclaration($style);
          $docuemnt->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
          $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => $docuemnt->getMediaVersion()]);
+         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => $docuemnt->getMediaVersion()]);
          $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => $docuemnt->getMediaVersion()]);
       }
    }
