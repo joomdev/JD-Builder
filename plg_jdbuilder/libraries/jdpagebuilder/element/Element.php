@@ -17,8 +17,13 @@ class Element extends BaseElement {
       if (empty($path)) {
          return '';
       }
+      
+      if (file_exists($path . '/' . $this->type . '.php')) {
+         $layout = new \JLayoutFile($this->type, $path);
+      } else {
+         $layout = new \JLayoutFile('default', $path);
+      }
 
-      $layout = new \JLayoutFile('default', $path);
       $content = [];
 
       // Element Content
@@ -37,12 +42,17 @@ class Element extends BaseElement {
    // Helper Functions
    public function getLayoutPath() {
       $template = \JFactory::getApplication()->getTemplate(true);
-      $template_path = JPATH_THEMES . '/' . $template->template . '/html/jdbuilder';
+      $template_path = JPATH_THEMES . '/' . $template->template;
       $component_path = JPATH_SITE . '/components/com_jdbuilder';
       $plugin_path = JPATH_PLUGINS . '/system/jdbuilder';
 
       $layout_path = null;
-      if (file_exists($template_path . '/elements/' . $this->type) && file_exists($template_path . '/elements/' . $this->type . '/tmpl/default.php')) {
+
+
+
+      if (file_exists($template_path . '/html/jdbuilder/' . $this->type . '.php')) {
+         $layout_path = $template_path . '/html/jdbuilder/';
+      } else if (file_exists($template_path . '/elements/' . $this->type) && file_exists($template_path . '/elements/' . $this->type . '/tmpl/default.php')) {
          $layout_path = $template_path . '/elements/' . $this->type . '/tmpl';
       } else if (file_exists($component_path . '/elements/' . $this->type) && file_exists($component_path . '/elements/' . $this->type . '/tmpl/default.php')) {
          $layout_path = $component_path . '/elements/' . $this->type . '/tmpl';

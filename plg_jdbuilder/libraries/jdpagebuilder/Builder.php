@@ -646,7 +646,7 @@ abstract class Builder {
 
    public static function uploadMedia() {
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+        // throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::upload();
    }

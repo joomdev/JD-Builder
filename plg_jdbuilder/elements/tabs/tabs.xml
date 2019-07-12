@@ -68,7 +68,7 @@
             <field
                name="tabsVerticalWidth"
                type="slider"
-               label="Width"
+               label="Tab Width"
                default='{"value":"250","unit":"px"}'
                min="0"
                max="900"
@@ -90,7 +90,7 @@
             <field
                name="tabsColor"
                type="color"
-               label="Color"
+               label="Tab Color"
                description=""
                default="#888888"
                group="tab-item"
@@ -177,7 +177,7 @@
             </field>
             
             <!-- Tab Content -->
-            <field type="color" name="contentColor" label="Color" default="" description="" group="tab-content">
+            <field type="color" name="contentColor" label="Text Color" default="" description="" group="tab-content">
             </field>
             
             <field type="color" name="contentBackground" label="Background" default="" description="" group="tab-content">

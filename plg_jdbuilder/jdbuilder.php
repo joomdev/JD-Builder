@@ -41,7 +41,7 @@ class plgSystemJDBuilder extends JPlugin {
 
       if ($request->get('jdb-api', 0, "INT")) {
 
-         if ($request->get('download', 1, "INT")) {
+         if ($request->get('download', 0, "INT")) {
             $filename = $request->get('filename', time(), 'RAW');
             header('Content-disposition: attachment; filename=' . $filename . '.json');
          }
@@ -111,6 +111,7 @@ class plgSystemJDBuilder extends JPlugin {
          $docuemnt->addStyleDeclaration($style);
          $docuemnt->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
          $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => $docuemnt->getMediaVersion()]);
+         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => $docuemnt->getMediaVersion()]);
          $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => $docuemnt->getMediaVersion()]);
       }
    }

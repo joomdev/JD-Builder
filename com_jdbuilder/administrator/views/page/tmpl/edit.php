@@ -80,7 +80,7 @@ $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
          </div>
       </div>
       <input type="hidden" name="task" value=""/>
-      <?php echo JHtml::_('form.token'); ?>
+      <input type="hidden" name="<?php echo \JSession::getFormToken(); ?>" value="1" id="joomla-form-token"/>
 
    </div>
    <div>
