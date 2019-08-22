@@ -15,18 +15,18 @@
       <fields>
          <fieldset name="general" label="General">
             <field type="group" name="basic" label="Basic"></field>
-            <field type="group" name="typography" label="Content Typography"></field>
+            <field type="group" name="typography" label="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_LABEL" description="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_DESC"></field>
             <!--  Element Options -->
-            <field type="editor" language="html" name="content" label="Content" default="" description="" group="basic" />
+            <field type="editor" language="html" name="content" label="JDBUILDER_ELE_CONTENT_LABEL" default="" description="JDBUILDER_ELE_CONTENT_DESC" group="basic" />
             <field
                name="contentTypography"
                type="typography"
-               label="Typography"
-               description=""
+               label="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_LABEL"
+               description="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_DESC"
                group="typography"
                default=""
                responsive="true"
-            >
+               >
             </field>
          </fieldset> 
       </fields>

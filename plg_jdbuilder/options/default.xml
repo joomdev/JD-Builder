@@ -58,6 +58,8 @@
                <option value="no-repeat">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_NO_REPEAT</option>
                <option value="repeat-x">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_X</option>
                <option value="repeat-y">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_Y</option>
+               <option value="space">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_SPACE</option>
+               <option value="round">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_ROUND</option>
             </field>
             <field type="list" name="backgroundSize" label="JDBUILDER_FIELD_BACKGROUND_SIZE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_SIZE_DESC" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
                <option value="">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_INHERIT</option>
@@ -108,6 +110,8 @@
                <option value="no-repeat">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_NO_REPEAT</option>
                <option value="repeat-x">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_X</option>
                <option value="repeat-y">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_Y</option>
+               <option value="space">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_SPACE</option>
+               <option value="round">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_ROUND</option>
             </field>
             <field type="list" name="backgroundOverlaySize" label="JDBUILDER_FIELD_BACKGROUND_SIZE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_SIZE_DESC" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
                <option value="">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_INHERIT</option>

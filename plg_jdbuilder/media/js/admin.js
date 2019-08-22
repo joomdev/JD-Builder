@@ -232,3 +232,19 @@ var JDLogger = function JDLogger() {
          return(bytes / 1073741824).toFixed(3) + " GB";
    }
 };
+
+var JDBAdmin = function () {
+   var _this = this;
+   _this.init = function () {
+      $(window).scroll(() => {
+         var _body = $('.builder-admin-body.non-fullscreen');
+         if (_body.length && (($(window).scrollTop() + 11) > _body.offset().top)) {
+            $('.page-options-toolbar').addClass('top-fixed');
+            _body.addClass('top-margin');
+         } else {
+            $('.page-options-toolbar').removeClass('top-fixed');
+            _body.removeClass('top-margin');
+         }
+      });
+   }
+}

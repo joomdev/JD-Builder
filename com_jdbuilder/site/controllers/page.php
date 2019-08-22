@@ -1,10 +1,9 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -15,158 +14,140 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class JdbuilderControllerPage extends JControllerLegacy
-{
-	/**
-	 * Method to check out an item for editing and redirect to the edit form.
-	 *
-	 * @return void
-	 *
-	 * @since    1.6
-	 */
-	public function edit()
-	{
-		$app = JFactory::getApplication();
+class JdbuilderControllerPage extends JControllerLegacy {
 
-		// Get the previous edit id (if any) and the current edit id.
-		$previousId = (int) $app->getUserState('com_jdbuilder.edit.page.id');
-		$editId     = $app->input->getInt('id', 0);
+   /**
+    * Method to check out an item for editing and redirect to the edit form.
+    *
+    * @return void
+    *
+    * @since    1.6
+    */
+   public function edit() {
+      $app = JFactory::getApplication();
 
-		// Set the user id for the user to edit in the session.
-		$app->setUserState('com_jdbuilder.edit.page.id', $editId);
+      // Get the previous edit id (if any) and the current edit id.
+      $previousId = (int) $app->getUserState('com_jdbuilder.edit.page.id');
+      $editId = $app->input->getInt('id', 0);
 
-		// Get the model.
-		$model = $this->getModel('Page', 'JdbuilderModel');
+      // Set the user id for the user to edit in the session.
+      $app->setUserState('com_jdbuilder.edit.page.id', $editId);
 
-		// Check out the item
-		if ($editId)
-		{
-			$model->checkout($editId);
-		}
+      // Get the model.
+      $model = $this->getModel('Page', 'JdbuilderModel');
 
-		// Check in the previous user.
-		if ($previousId && $previousId !== $editId)
-		{
-			$model->checkin($previousId);
-		}
+      // Check out the item
+      if ($editId) {
+         $model->checkout($editId);
+      }
 
-		// Redirect to the edit screen.
-		$this->setRedirect(JRoute::_('index.php?option=com_jdbuilder&view=pageform&layout=edit', false));
-	}
+      // Check in the previous user.
+      if ($previousId && $previousId !== $editId) {
+         $model->checkin($previousId);
+      }
 
-	/**
-	 * Method to save a user's profile data.
-	 *
-	 * @return    void
-	 *
-	 * @throws Exception
-	 * @since    1.6
-	 */
-	public function publish()
-	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
+      // Redirect to the edit screen.
+      $this->setRedirect(JRoute::_('index.php?option=com_jdbuilder&view=pageform&layout=edit', false));
+   }
 
-		// Checking if the user can remove object
-		$user = JFactory::getUser();
+   /**
+    * Method to save a user's profile data.
+    *
+    * @return    void
+    *
+    * @throws Exception
+    * @since    1.6
+    */
+   public function publish() {
+      // Initialise variables.
+      $app = JFactory::getApplication();
 
-		if ($user->authorise('core.edit', 'com_jdbuilder') || $user->authorise('core.edit.state', 'com_jdbuilder'))
-		{
-			$model = $this->getModel('Page', 'JdbuilderModel');
+      // Checking if the user can remove object
+      $user = JFactory::getUser();
 
-			// Get the user data.
-			$id    = $app->input->getInt('id');
-			$state = $app->input->getInt('state');
+      if ($user->authorise('core.edit', 'com_jdbuilder') || $user->authorise('core.edit.state', 'com_jdbuilder')) {
+         $model = $this->getModel('Page', 'JdbuilderModel');
 
-			// Attempt to save the data.
-			$return = $model->publish($id, $state);
+         // Get the user data.
+         $id = $app->input->getInt('id');
+         $state = $app->input->getInt('state');
 
-			// Check for errors.
-			if ($return === false)
-			{
-				$this->setMessage(JText::sprintf('Save failed: %s', $model->getError()), 'warning');
-			}
+         // Attempt to save the data.
+         $return = $model->publish($id, $state);
 
-			// Clear the profile id from the session.
-			$app->setUserState('com_jdbuilder.edit.page.id', null);
+         // Check for errors.
+         if ($return === false) {
+            $this->setMessage(JText::sprintf('Save failed: %s', $model->getError()), 'warning');
+         }
 
-			// Flush the data from the session.
-			$app->setUserState('com_jdbuilder.edit.page.data', null);
+         // Clear the profile id from the session.
+         $app->setUserState('com_jdbuilder.edit.page.id', null);
 
-			// Redirect to the list screen.
-			$this->setMessage(JText::_('COM_JDBUILDER_ITEM_SAVED_SUCCESSFULLY'));
-			$menu = JFactory::getApplication()->getMenu();
-			$item = $menu->getActive();
+         // Flush the data from the session.
+         $app->setUserState('com_jdbuilder.edit.page.data', null);
 
-			if (!$item)
-			{
-				// If there isn't any menu item active, redirect to list view
-				$this->setRedirect(JRoute::_('index.php?option=com_jdbuilder&view=pages', false));
-			}
-			else
-			{
-                $this->setRedirect(JRoute::_('index.php?Itemid='. $item->id, false));
-			}
-		}
-		else
-		{
-			throw new Exception(500);
-		}
-	}
+         // Redirect to the list screen.
+         $this->setMessage(JText::_('COM_JDBUILDER_ITEM_SAVED_SUCCESSFULLY'));
+         $menu = JFactory::getApplication()->getMenu();
+         $item = $menu->getActive();
 
-	/**
-	 * Remove data
-	 *
-	 * @return void
-	 *
-	 * @throws Exception
-	 */
-	public function remove()
-	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
+         if (!$item) {
+            // If there isn't any menu item active, redirect to list view
+            $this->setRedirect(JRoute::_('index.php?option=com_jdbuilder&view=pages', false));
+         } else {
+            $this->setRedirect(JRoute::_('index.php?Itemid=' . $item->id, false));
+         }
+      } else {
+         throw new Exception(500);
+      }
+   }
 
-		// Checking if the user can remove object
-		$user = JFactory::getUser();
+   /**
+    * Remove data
+    *
+    * @return void
+    *
+    * @throws Exception
+    */
+   public function remove() {
+      // Initialise variables.
+      $app = JFactory::getApplication();
 
-		if ($user->authorise('core.delete', 'com_jdbuilder'))
-		{
-			$model = $this->getModel('Page', 'JdbuilderModel');
+      // Checking if the user can remove object
+      $user = JFactory::getUser();
 
-			// Get the user data.
-			$id = $app->input->getInt('id', 0);
+      if ($user->authorise('core.delete', 'com_jdbuilder')) {
+         $model = $this->getModel('Page', 'JdbuilderModel');
 
-			// Attempt to save the data.
-			$return = $model->delete($id);
+         // Get the user data.
+         $id = $app->input->getInt('id', 0);
 
-			// Check for errors.
-			if ($return === false)
-			{
-				$this->setMessage(JText::sprintf('Delete failed', $model->getError()), 'warning');
-			}
-			else
-			{
-				// Check in the profile.
-				if ($return)
-				{
-					$model->checkin($return);
-				}
+         // Attempt to save the data.
+         $return = $model->delete($id);
 
-                $app->setUserState('com_jdbuilder.edit.inventory.id', null);
-                $app->setUserState('com_jdbuilder.edit.inventory.data', null);
+         // Check for errors.
+         if ($return === false) {
+            $this->setMessage(JText::sprintf('Delete failed', $model->getError()), 'warning');
+         } else {
+            // Check in the profile.
+            if ($return) {
+               $model->checkin($return);
+            }
 
-                $app->enqueueMessage(JText::_('COM_JDBUILDER_ITEM_DELETED_SUCCESSFULLY'), 'success');
-                $app->redirect(JRoute::_('index.php?option=com_jdbuilder&view=pages', false));
-			}
+            $app->setUserState('com_jdbuilder.edit.inventory.id', null);
+            $app->setUserState('com_jdbuilder.edit.inventory.data', null);
 
-			// Redirect to the list screen.
-			$menu = JFactory::getApplication()->getMenu();
-			$item = $menu->getActive();
-			$this->setRedirect(JRoute::_($item->link, false));
-		}
-		else
-		{
-			throw new Exception(500);
-		}
-	}
+            $app->enqueueMessage(JText::_('COM_JDBUILDER_ITEM_DELETED_SUCCESSFULLY'), 'success');
+            $app->redirect(JRoute::_('index.php?option=com_jdbuilder&view=pages', false));
+         }
+
+         // Redirect to the list screen.
+         $menu = JFactory::getApplication()->getMenu();
+         $item = $menu->getActive();
+         $this->setRedirect(JRoute::_($item->link, false));
+      } else {
+         throw new Exception(500);
+      }
+   }
+
 }

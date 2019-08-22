@@ -1,9 +1,8 @@
 <?php
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access

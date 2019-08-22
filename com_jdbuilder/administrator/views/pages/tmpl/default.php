@@ -1,9 +1,8 @@
 <?php
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -78,6 +77,9 @@ $sortFields = $this->getSortFields();
                   </th>
                   <th class='left'>
                      <?php echo JHtml::_('searchtools.sort', 'COM_JDBUILDER_PAGES_LANGUAGE', 'a.`language`', $listDirn, $listOrder); ?>
+                  </th>
+                  <th class='left'>
+                     <?php echo JHtml::_('searchtools.sort', 'Created By', 'a.`created_by`', $listDirn, $listOrder); ?>
                   </th>
                   <th class='left'>
                      <?php echo JHtml::_('searchtools.sort', 'COM_JDBUILDER_PAGES_ID', 'a.`id`', $listDirn, $listOrder); ?>
@@ -168,6 +170,10 @@ $sortFields = $this->getSortFields();
 
                         <?php echo $item->language == '*' ? \JText::_('JALL') : $item->language; ?>
                      </td>
+                     <td>
+
+                        <?php echo $item->created_by; ?>
+                     </td>		
                      <td>
 
                         <?php echo $item->id; ?>

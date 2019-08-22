@@ -1,10 +1,9 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access.
@@ -21,290 +20,249 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since  1.6
  */
-class JdbuilderModelPage extends JModelItem
-{
-    public $_item;
+class JdbuilderModelPage extends JModelItem {
 
-        
-    
-        
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @return void
-	 *
-	 * @since    1.6
-	 *
-	 */
-	protected function populateState()
-	{
-		$app  = Factory::getApplication('com_jdbuilder');
-		$user = Factory::getUser();
+   public $_item;
 
-		// Check published state
-		if ((!$user->authorise('core.edit.state', 'com_jdbuilder')) && (!$user->authorise('core.edit', 'com_jdbuilder')))
-		{
-			$this->setState('filter.published', 1);
-			//$this->setState('filter.archived', 2);
-		}
+   /**
+    * Method to auto-populate the model state.
+    *
+    * Note. Calling getState in this method will result in recursion.
+    *
+    * @return void
+    *
+    * @since    1.6
+    *
+    */
+   protected function populateState() {
+      $app = Factory::getApplication('com_jdbuilder');
+      $user = Factory::getUser();
 
-		// Load state from the request userState on edit or from the passed variable on default
-		if (Factory::getApplication()->input->get('layout') == 'edit')
-		{
-			$id = Factory::getApplication()->getUserState('com_jdbuilder.edit.page.id');
-		}
-		else
-		{
-			$id = Factory::getApplication()->input->get('id');
-			Factory::getApplication()->setUserState('com_jdbuilder.edit.page.id', $id);
-		}
+      // Check published state
+      if ((!$user->authorise('core.edit.state', 'com_jdbuilder')) && (!$user->authorise('core.edit', 'com_jdbuilder'))) {
+         $this->setState('filter.published', 1);
+         //$this->setState('filter.archived', 2);
+      }
 
-		$this->setState('page.id', $id);
+      // Load state from the request userState on edit or from the passed variable on default
+      if (Factory::getApplication()->input->get('layout') == 'edit') {
+         $id = Factory::getApplication()->getUserState('com_jdbuilder.edit.page.id');
+      } else {
+         $id = Factory::getApplication()->input->get('id');
+         Factory::getApplication()->setUserState('com_jdbuilder.edit.page.id', $id);
+      }
 
-		// Load the parameters.
-		$params       = $app->getParams();
-		$params_array = $params->toArray();
+      $this->setState('page.id', $id);
 
-		if (isset($params_array['item_id']))
-		{
-			$this->setState('page.id', $params_array['item_id']);
-		}
+      // Load the parameters.
+      $params = $app->getParams();
+      $params_array = $params->toArray();
 
-		$this->setState('params', $params);
-	}
+      if (isset($params_array['item_id'])) {
+         $this->setState('page.id', $params_array['item_id']);
+      }
 
-	/**
-	 * Method to get an object.
-	 *
-	 * @param   integer $id The id of the object to get.
-	 *
-	 * @return  mixed    Object on success, false on failure.
-     *
-     * @throws Exception
-	 */
-	public function getItem($id = null)
-	{
-            if ($this->_item === null)
-            {
-                $this->_item = false;
+      $this->setState('params', $params);
+   }
 
-                if (empty($id))
-                {
-                    $id = $this->getState('page.id');
-                }
+   /**
+    * Method to get an object.
+    *
+    * @param   integer $id The id of the object to get.
+    *
+    * @return  mixed    Object on success, false on failure.
+    *
+    * @throws Exception
+    */
+   public function getItem($id = null) {
+      if ($this->_item === null) {
+         $this->_item = false;
 
-                // Get a level row instance.
-                $table = $this->getTable();
+         if (empty($id)) {
+            $id = $this->getState('page.id');
+         }
 
-                // Attempt to load the row.
-                if ($table->load($id))
-                {
-                    
+         // Get a level row instance.
+         $table = $this->getTable();
 
-                    // Check published state.
-                    if ($published = $this->getState('filter.published'))
-                    {
-                        if (isset($table->state) && $table->state != $published)
-                        {
-                            throw new Exception(JText::_('COM_JDBUILDER_ITEM_NOT_LOADED'), 403);
-                        }
-                    }
+         // Attempt to load the row.
+         if ($table->load($id)) {
 
-                    // Convert the JTable to a clean JObject.
-                    $properties  = $table->getProperties(1);
-                    $this->_item = ArrayHelper::toObject($properties, 'JObject');
 
-                    
-                } 
+            // Check published state.
+            if ($published = $this->getState('filter.published')) {
+               if (isset($table->state) && $table->state != $published) {
+                  throw new Exception(JText::_('COM_JDBUILDER_ITEM_NOT_LOADED'), 403);
+               }
             }
-        
-            
 
-		if (isset($this->_item->category_id) && $this->_item->category_id != '')
-		{
-			if (is_object($this->_item->category_id))
-			{
-				$this->_item->category_id = ArrayHelper::fromObject($this->_item->category_id);
-			}
+            // Convert the JTable to a clean JObject.
+            $properties = $table->getProperties(1);
+            $this->_item = ArrayHelper::toObject($properties, 'JObject');
+         }
+      }
 
-			if (is_array($this->_item->category_id))
-			{
-				$this->_item->category_id = implode(',', $this->_item->category_id);
-			}
 
-			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
 
-			$query
-				->select($db->quoteName('title'))
-				->from($db->quoteName('#__categories'))
-				->where('FIND_IN_SET(' . $db->quoteName('id') . ', ' . $db->quote($this->_item->category_id) . ')');
+      if (isset($this->_item->category_id) && $this->_item->category_id != '') {
+         if (is_object($this->_item->category_id)) {
+            $this->_item->category_id = ArrayHelper::fromObject($this->_item->category_id);
+         }
 
-			$db->setQuery($query);
+         if (is_array($this->_item->category_id)) {
+            $this->_item->category_id = implode(',', $this->_item->category_id);
+         }
 
-			$result = $db->loadColumn();
+         $db = Factory::getDbo();
+         $query = $db->getQuery(true);
 
-			$this->_item->category_id = !empty($result) ? implode(', ', $result) : '';
-		}
+         $query
+                 ->select($db->quoteName('title'))
+                 ->from($db->quoteName('#__categories'))
+                 ->where('FIND_IN_SET(' . $db->quoteName('id') . ', ' . $db->quote($this->_item->category_id) . ')');
 
-		if (isset($this->_item->created_by))
-		{
-			$this->_item->created_by_name = Factory::getUser($this->_item->created_by)->name;
-		}
+         $db->setQuery($query);
 
-		if (isset($this->_item->modified_by))
-		{
-			$this->_item->modified_by_name = Factory::getUser($this->_item->modified_by)->name;
-		}
+         $result = $db->loadColumn();
 
-            return $this->_item;
-        }
+         $this->_item->category_id = !empty($result) ? implode(', ', $result) : '';
+      }
 
-	/**
-	 * Get an instance of JTable class
-	 *
-	 * @param   string $type   Name of the JTable class to get an instance of.
-	 * @param   string $prefix Prefix for the table class name. Optional.
-	 * @param   array  $config Array of configuration values for the JTable object. Optional.
-	 *
-	 * @return  JTable|bool JTable if success, false on failure.
-	 */
-	public function getTable($type = 'Page', $prefix = 'JdbuilderTable', $config = array())
-	{
-		$this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_jdbuilder/tables');
+      if (isset($this->_item->created_by)) {
+         $this->_item->created_by_name = Factory::getUser($this->_item->created_by)->name;
+      }
 
-		return JTable::getInstance($type, $prefix, $config);
-	}
+      if (isset($this->_item->modified_by)) {
+         $this->_item->modified_by_name = Factory::getUser($this->_item->modified_by)->name;
+      }
 
-	/**
-	 * Get the id of an item by alias
-	 *
-	 * @param   string $alias Item alias
-	 *
-	 * @return  mixed
-	 */
-	public function getItemIdByAlias($alias)
-	{
-            $table      = $this->getTable();
-            $properties = $table->getProperties();
-            $result     = null;
+      return $this->_item;
+   }
 
-            if (key_exists('alias', $properties))
-            {
-                $table->load(array('alias' => $alias));
-                $result = $table->id;
+   /**
+    * Get an instance of JTable class
+    *
+    * @param   string $type   Name of the JTable class to get an instance of.
+    * @param   string $prefix Prefix for the table class name. Optional.
+    * @param   array  $config Array of configuration values for the JTable object. Optional.
+    *
+    * @return  JTable|bool JTable if success, false on failure.
+    */
+   public function getTable($type = 'Page', $prefix = 'JdbuilderTable', $config = array()) {
+      $this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_jdbuilder/tables');
+
+      return JTable::getInstance($type, $prefix, $config);
+   }
+
+   /**
+    * Get the id of an item by alias
+    *
+    * @param   string $alias Item alias
+    *
+    * @return  mixed
+    */
+   public function getItemIdByAlias($alias) {
+      $table = $this->getTable();
+      $properties = $table->getProperties();
+      $result = null;
+
+      if (key_exists('alias', $properties)) {
+         $table->load(array('alias' => $alias));
+         $result = $table->id;
+      }
+
+      return $result;
+   }
+
+   /**
+    * Method to check in an item.
+    *
+    * @param   integer $id The id of the row to check out.
+    *
+    * @return  boolean True on success, false on failure.
+    *
+    * @since    1.6
+    */
+   public function checkin($id = null) {
+      // Get the id.
+      $id = (!empty($id)) ? $id : (int) $this->getState('page.id');
+
+      if ($id) {
+         // Initialise the table
+         $table = $this->getTable();
+
+         // Attempt to check the row in.
+         if (method_exists($table, 'checkin')) {
+            if (!$table->checkin($id)) {
+               return false;
             }
-            
-                return $result;
-            
-	}
+         }
+      }
 
-	/**
-	 * Method to check in an item.
-	 *
-	 * @param   integer $id The id of the row to check out.
-	 *
-	 * @return  boolean True on success, false on failure.
-	 *
-	 * @since    1.6
-	 */
-	public function checkin($id = null)
-	{
-		// Get the id.
-		$id = (!empty($id)) ? $id : (int) $this->getState('page.id');
-                
-		if ($id)
-		{
-			// Initialise the table
-			$table = $this->getTable();
+      return true;
+   }
 
-			// Attempt to check the row in.
-			if (method_exists($table, 'checkin'))
-			{
-				if (!$table->checkin($id))
-				{
-					return false;
-				}
-			}
-		}
+   /**
+    * Method to check out an item for editing.
+    *
+    * @param   integer $id The id of the row to check out.
+    *
+    * @return  boolean True on success, false on failure.
+    *
+    * @since    1.6
+    */
+   public function checkout($id = null) {
+      // Get the user id.
+      $id = (!empty($id)) ? $id : (int) $this->getState('page.id');
 
-		return true;
-                
-	}
 
-	/**
-	 * Method to check out an item for editing.
-	 *
-	 * @param   integer $id The id of the row to check out.
-	 *
-	 * @return  boolean True on success, false on failure.
-	 *
-	 * @since    1.6
-	 */
-	public function checkout($id = null)
-	{
-		// Get the user id.
-		$id = (!empty($id)) ? $id : (int) $this->getState('page.id');
+      if ($id) {
+         // Initialise the table
+         $table = $this->getTable();
 
-                
-		if ($id)
-		{
-			// Initialise the table
-			$table = $this->getTable();
+         // Get the current user object.
+         $user = Factory::getUser();
 
-			// Get the current user object.
-			$user = Factory::getUser();
+         // Attempt to check the row out.
+         if (method_exists($table, 'checkout')) {
+            if (!$table->checkout($user->get('id'), $id)) {
+               return false;
+            }
+         }
+      }
 
-			// Attempt to check the row out.
-			if (method_exists($table, 'checkout'))
-			{
-				if (!$table->checkout($user->get('id'), $id))
-				{
-					return false;
-				}
-			}
-		}
+      return true;
+   }
 
-		return true;
-                
-	}
+   /**
+    * Publish the element
+    *
+    * @param   int $id    Item id
+    * @param   int $state Publish state
+    *
+    * @return  boolean
+    */
+   public function publish($id, $state) {
+      $table = $this->getTable();
 
-	/**
-	 * Publish the element
-	 *
-	 * @param   int $id    Item id
-	 * @param   int $state Publish state
-	 *
-	 * @return  boolean
-	 */
-	public function publish($id, $state)
-	{
-		$table = $this->getTable();
-                
-		$table->load($id);
-		$table->state = $state;
+      $table->load($id);
+      $table->state = $state;
 
-		return $table->store();
-                
-	}
+      return $table->store();
+   }
 
-	/**
-	 * Method to delete an item
-	 *
-	 * @param   int $id Element id
-	 *
-	 * @return  bool
-	 */
-	public function delete($id)
-	{
-		$table = $this->getTable();
+   /**
+    * Method to delete an item
+    *
+    * @param   int $id Element id
+    *
+    * @return  bool
+    */
+   public function delete($id) {
+      $table = $this->getTable();
 
-                
-                    return $table->delete($id);
-                
-	}
 
-	
+      return $table->delete($id);
+   }
+
 }

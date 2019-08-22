@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
 namespace JDPageBuilder;
 
-abstract class Builder {
+abstract class Builder
+{
 
    protected static $request = null;
    protected static $styles = [];
@@ -16,8 +24,14 @@ abstract class Builder {
    protected static $debugmarker = null;
    protected static $logs = [];
    public static $reserved_elements = ["section", "row", "column", "element", "__page"];
+   public static $css = [
+      'desktop' => [],
+      'mobile' => [],
+      'tablet' => []
+   ];
 
-   public static function request() {
+   public static function request()
+   {
       if (!static::$request) {
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             static::$request = \JFactory::getApplication()->input->post;
@@ -28,14 +42,16 @@ abstract class Builder {
       return static::$request;
    }
 
-   public static function authorised() {
+   public static function authorised()
+   {
       if (static::$authorised === null) {
          static::$authorised = \JAccess::getAuthorisedViewLevels(\JFactory::getUser()->get('id'));
       }
       return static::$authorised;
    }
 
-   public static function debugging($status = "start") {
+   public static function debugging($status = "start")
+   {
       if (!static::$debug) {
          return false;
       }
@@ -53,48 +69,94 @@ abstract class Builder {
       }
    }
 
-   public static function log($message = '', $type = 'info') {
+   public static function log($message = '', $type = 'info')
+   {
       static::$logs[] = ['type' => $type, 'message' => $message];
    }
 
-   public static function getRunTime($ru, $rus, $index) {
+   public static function getRunTime($ru, $rus, $index)
+   {
       return ($ru["ru_$index.tv_sec"] * 1000 + intval($ru["ru_$index.tv_usec"] / 1000)) - ($rus["ru_$index.tv_sec"] * 1000 + intval($rus["ru_$index.tv_usec"] / 1000));
    }
 
-   public static function addStyle($css = '') {
+   public static function addStyle($css)
+   {
       static::$styles[] = $css;
+
+      foreach (['desktop', 'tablet', 'mobile'] as $device) {
+         if (isset($css[$device]) && !empty($css[$device])) {
+            self::$css[$device][] = $css[$device];
+         }
+      }
    }
 
-   public static function addScript($js = '') {
+   public static function renderStyle()
+   {
+      $inlineScss = '';
+
+      $stylesheets = array_reverse(self::$stylesheets);
+
+      foreach ($stylesheets as $stylesheet) {
+         $inlineScss .= '@import "' . $stylesheet . '";';
+      }
+
+      foreach (self::$css as $device => $script) {
+         if (!empty($script)) {
+            if ($device != 'desktop') {
+               if ($device == 'tablet') {
+                  $inlineScss .= '@media (min-width: 768px) and (max-width: 991.98px) {';
+               } else {
+                  $inlineScss .= '@media (max-width: 767.98px) {';
+               }
+            }
+            $script = array_reverse($script);
+            $inlineScss .= implode('', $script);
+            if ($device != 'desktop') {
+               $inlineScss .= '}';
+            }
+         }
+      }
+
+      return '<style id="jdb-styles">' . $inlineScss . '</style>';
+   }
+
+   public static function addScript($js = '')
+   {
       static::$scripts[] = $js;
    }
 
-   public static function addStylesheet($file) {
+   public static function addStylesheet($file)
+   {
       static::$stylesheets[$file] = $file;
    }
 
-   public static function addJavascript($file) {
+   public static function addJavascript($file)
+   {
       static::$javascripts[$file] = $file;
    }
 
-   public static function builderButton($enabled = false) {
-      $layout = new \JLayoutFile('button', JPATH_PLUGINS . '/system/jdbuilder/layouts');
-      return $layout->render(['enabled' => $enabled]);
+   public static function builderArticleToggle($enabled = false, $id = 0)
+   {
+      $layout = new \JLayoutFile('article', JPATH_PLUGINS . '/system/jdbuilder/layouts');
+      return $layout->render(['enabled' => $enabled, 'id' => $id, 'lid' => 2]);
    }
 
-   public static function builderArea($enabled = false, $type = 'page', $id = 0) {
+   public static function builderArea($enabled = false, $type = 'page', $id = 0)
+   {
       $layout = new \JLayoutFile('builder', JPATH_PLUGINS . '/system/jdbuilder/layouts');
       return $layout->render(['enabled' => $enabled, 'type' => $type, 'id' => $id]);
    }
 
-   public static function JDBBanner() {
+   public static function JDBBanner()
+   {
       $layout = new \JLayoutFile('banner', JPATH_PLUGINS . '/system/jdbuilder/layouts');
       return $layout->render();
    }
 
-   public static function getElements() {
+   public static function getElements()
+   {
       $paths = [
-          JPATH_PLUGINS . '/system/jdbuilder/elements'
+         JPATH_PLUGINS . '/system/jdbuilder/elements'
       ];
 
       $elements = [];
@@ -108,7 +170,8 @@ abstract class Builder {
       return $elements;
    }
 
-   public static function getLivePreview() {
+   public static function getLivePreview()
+   {
       $request = self::request();
       $params = $request->get('params', '{}', 'RAW');
       $lid = $request->get('lid', 0, 'INT');
@@ -129,7 +192,8 @@ abstract class Builder {
       return $return;
    }
 
-   public static function getElementsByPath($path) {
+   public static function getElementsByPath($path)
+   {
       $elements = [];
       $dirs = array_filter(glob($path . '/*'), 'is_dir');
 
@@ -160,7 +224,8 @@ abstract class Builder {
       return $elements;
    }
 
-   public static function getElementDataByManifest($manifest) {
+   public static function getElementDataByManifest($manifest)
+   {
       $xml = \JFactory::getXml($manifest);
       $element = new \stdClass();
       $element->type = (string) $xml->attributes()->type;
@@ -190,7 +255,8 @@ abstract class Builder {
       return $element;
    }
 
-   public static function getForm($type = null) {
+   public static function getForm($type = null)
+   {
       if ($type === null) {
          $request = self::request();
          $type = $request->get('type', '');
@@ -223,7 +289,8 @@ abstract class Builder {
       return $formJSON;
    }
 
-   public static function getPageForm() {
+   public static function getPageForm()
+   {
       $xml = JPATH_PLUGINS . '/system/jdbuilder/options/page.xml';
       $form = new Form("page");
       $form->load($xml);
@@ -231,7 +298,8 @@ abstract class Builder {
       return $formJSON;
    }
 
-   public static function getFormDefaults($form) {
+   public static function getFormDefaults($form)
+   {
       $return = [];
       foreach ($form['tabs'] as $tab) {
          foreach ($tab['groups'] as $group) {
@@ -245,7 +313,8 @@ abstract class Builder {
       return $return;
    }
 
-   public static function setFormCache($key, $form) {
+   public static function setFormCache($key, $form)
+   {
       if (!static::$cache) {
          return;
       }
@@ -257,7 +326,8 @@ abstract class Builder {
       file_put_contents($cacheFile, \json_encode($form));
    }
 
-   public static function getFormCache($key) {
+   public static function getFormCache($key)
+   {
       if (!static::$cache) {
          return null;
       }
@@ -269,13 +339,15 @@ abstract class Builder {
       return null;
    }
 
-   public static function getMedia() {
+   public static function getMedia()
+   {
       $folder = self::request()->get('path', '', 'RAW');
       $media = new Media();
       return $media->get($folder);
    }
 
-   public static function getLayout() {
+   public static function getLayout()
+   {
       $request = self::request();
       $id = $request->get('id', 0, 'INT');
       $type = $request->get('type', 'page');
@@ -286,6 +358,9 @@ abstract class Builder {
          $db = \JFactory::getDbo();
          if ($type == "page") {
             $query = "SELECT `#__jdbuilder_layouts`.* FROM `#__jdbuilder_pages` JOIN `#__jdbuilder_layouts` ON `#__jdbuilder_pages`.`layout_id`=`#__jdbuilder_layouts`.`id` WHERE `#__jdbuilder_pages`.`id`='{$id}'";
+         }
+         if ($type == "article") {
+            $query = "SELECT `#__jdbuilder_layouts`.* FROM `#__jdbuilder_pages` JOIN `#__jdbuilder_layouts` ON `#__jdbuilder_pages`.`layout_id`=`#__jdbuilder_layouts`.`id` WHERE `#__jdbuilder_pages`.`id`='1'";
          }
          $db->setQuery($query);
          $result = $db->loadObject();
@@ -300,14 +375,15 @@ abstract class Builder {
       return ["id" => $lid, "layout" => $layout];
    }
 
-   public static function savePage() {
+   public static function savePage()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       $user = \JFactory::getUser();
       // Access checks.
       if (!$user->authorise('core.create', 'com_jdbuilder')) {
-         throw new Exception(JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
       }
 
 
@@ -378,7 +454,8 @@ abstract class Builder {
       return true;
    }
 
-   public static function getXMLFilesByElementType($type) {
+   public static function getXMLFilesByElementType($type)
+   {
       $type = strtolower($type);
       //$type = ($type == 'inner-row') ? 'row' : $type;
       $form_dir = JPATH_PLUGINS . '/system/jdbuilder/options/';
@@ -406,7 +483,8 @@ abstract class Builder {
       }
    }
 
-   public static function renderModule($type, $value, $style) {
+   public static function renderModule($type, $value, $style)
+   {
       if ($type == "module") {
          return self::renderModuleByID($value, $style);
       } else {
@@ -414,7 +492,8 @@ abstract class Builder {
       }
    }
 
-   public static function renderModuleByID($id, $style) {
+   public static function renderModuleByID($id, $style)
+   {
       $return = [];
       $modules = \JModuleHelper::getModuleList();
       foreach ($modules as $module) {
@@ -428,7 +507,8 @@ abstract class Builder {
       return \implode('', $return);
    }
 
-   public static function renderModulePosition($position, $style) {
+   public static function renderModulePosition($position, $style)
+   {
       $return = [];
       $modules = \JModuleHelper::getModules($position);
       foreach ($modules as $module) {
@@ -440,7 +520,8 @@ abstract class Builder {
       return \implode('', $return);
    }
 
-   public static function renderPage($item, $type = "page", $output = true) {
+   public static function renderPage($item, $type = "page", $output = true)
+   {
       $layout = Helper::getLayout($item->layout_id);
       $page = Helper::getPage($item->id);
 
@@ -497,25 +578,14 @@ abstract class Builder {
       }
    }
 
-   public static function renderHead($id = null) {
+   public static function renderHead($id = null)
+   {
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
-      $css = [];
-      foreach (self::$styles as $style) {
-         $css[] = $style;
-      }
 
-      $scss = implode('', $css);
-      $css = Helper::compileSass($scss, $id);
-
-      $css = '<style id="jdb-styles">' . $css . '</style>';
+      $css = self::renderStyle();
 
       $document->addCustomTag($css);
-
-      // Add CSS Files in Head
-      foreach (self::$stylesheets as $stylesheet) {
-         $document->addStyleSheet($stylesheet);
-      }
 
       // Add Rendered JS Files in Head
       foreach (self::$javascripts as $javascript) {
@@ -535,12 +605,16 @@ abstract class Builder {
       if ($request->get('jdb-preview', 0)) {
          $document->addScript(\JURI::root() . 'media/jdbuilder/js/preview.js', ['version' => $document->getMediaVersion()]);
          $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/preview.css', ['version' => $document->getMediaVersion()]);
+         $document->addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
+         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
+         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css');
       }
 
       $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css', ['version' => $document->getMediaVersion()]);
    }
 
-   public static function getRenderHead($id = null, $before = [], $after = []) {
+   public static function getRenderHead($id = null, $before = [], $after = [])
+   {
       // Add Rendered CSS in Head
       $css = [];
       foreach (self::$styles as $style) {
@@ -568,12 +642,14 @@ abstract class Builder {
       return '<style id="jdb-styles">' . implode($imports) . $css . '</style>';
    }
 
-   public static function renderElement($object) {
+   public static function renderElement($object)
+   {
       $element = new Element\Element($object);
       return $element->renderElement();
    }
 
-   public static function loadFontLibraryByIcon($icon = '') {
+   public static function loadFontLibraryByIcon($icon = '')
+   {
       if (empty($icon)) {
          return;
       }
@@ -584,7 +660,7 @@ abstract class Builder {
 
       switch ($prefix) {
          case 'fa':
-            self::addStylesheet('//use.fontawesome.com/releases/v5.7.0/css/all.css');
+            self::addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
             break;
          case 'fi':
             self::addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
@@ -595,7 +671,8 @@ abstract class Builder {
       }
    }
 
-   public static function getFonts() {
+   public static function getFonts()
+   {
       $return = [];
       $return['options'] = [['label' => \JText::_('JDEFAULT'), 'value' => '']];
 
@@ -616,42 +693,48 @@ abstract class Builder {
       return $return;
    }
 
-   public static function newFolder() {
+   public static function newFolder()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::create();
    }
 
-   public static function deleteMedia() {
+   public static function deleteMedia()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::delete();
    }
 
-   public static function copyMedia() {
+   public static function copyMedia()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::copy();
    }
 
-   public static function renameMedia() {
+   public static function renameMedia()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::rename();
    }
 
-   public static function uploadMedia() {
+   public static function uploadMedia()
+   {
       if (!\JSession::checkToken()) {
-        // throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
       return Media::upload();
    }
 
-   public static function addFavourite() {
+   public static function addFavourite()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -671,7 +754,8 @@ abstract class Builder {
       return true;
    }
 
-   public static function removeFavourite() {
+   public static function removeFavourite()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -687,18 +771,21 @@ abstract class Builder {
       return true;
    }
 
-   public static function download() {
+   public static function download()
+   {
       $request = self::request();
       $content = $request->get('json', [], 'ARRAY');
       return $content;
    }
 
-   public static function cleanGlobalCache() {
+   public static function cleanGlobalCache()
+   {
       Helper::clearGlobalCSS();
       return true;
    }
 
-   public static function saveTemplate() {
+   public static function saveTemplate()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -734,7 +821,8 @@ abstract class Builder {
       return true;
    }
 
-   public static function getSavedTemplates() {
+   public static function getSavedTemplates()
+   {
       $db = \JFactory::getDbo();
       $query = "SELECT `id`,`title`,`type`,`created` FROM `#__jdbuilder_templates` WHERE `type`!='element'";
       $db->setQuery($query);
@@ -746,7 +834,8 @@ abstract class Builder {
       return $results;
    }
 
-   public static function getTemplate() {
+   public static function getTemplate()
+   {
       $request = self::request();
       $db = \JFactory::getDbo();
 
@@ -762,7 +851,8 @@ abstract class Builder {
       return ['type' => $type, 'template' => $template];
    }
 
-   public static function deleteTemplate() {
+   public static function deleteTemplate()
+   {
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -777,4 +867,32 @@ abstract class Builder {
       return true;
    }
 
+   public static function getAdminElements()
+   {
+      $document = \JFactory::getDocument();
+      $path = JPATH_PLUGINS . '/system/jdbuilder/elements';
+      $dirs = array_filter(glob($path . '/*'), 'is_dir');
+      $files = [];
+      foreach ($dirs as $dir) {
+
+         if (in_array(strtolower(basename($dir)), self::$reserved_elements)) {
+            continue;
+         }
+
+         $javascript = file_exists($dir . '/' . 'tmpl/default.js') ? basename($dir) . '/' . 'tmpl/default.js' : basename($dir) . '/' . 'tmpl/' . basename($dir) . '.js';
+
+
+
+         if (file_exists($path . '/' . $javascript)) {
+            //$document->addScript(\JURI::root() . 'plugins/system/jdbuilder/elements/' . $javascript, ['version' => $document->getMediaVersion()]);
+            $files[] = $path . '/' . $javascript;
+         }
+      }
+
+
+      $script = Helper::minifyJS($files);
+      $document->addScriptDeclaration($script);
+
+      //JDPageBuilder\Helper::minifyJS
+   }
 }

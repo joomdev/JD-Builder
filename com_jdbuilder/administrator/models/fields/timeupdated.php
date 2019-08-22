@@ -1,12 +1,11 @@
 <?php
+
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
@@ -16,48 +15,44 @@ jimport('joomla.form.formfield');
  *
  * @since  1.6
  */
-class JFormFieldTimeupdated extends JFormField
-{
-	/**
-	 * The form field type.
-	 *
-	 * @var      string
-	 * @since    1.6
-	 */
-	protected $type = 'timeupdated';
+class JFormFieldTimeupdated extends JFormField {
 
-	/**
-	 * Method to get the field input markup.
-	 *
-	 * @return    string    The field input markup.
-	 *
-	 * @since    1.6
-	 */
-	protected function getInput()
-	{
-		// Initialize variables.
-		$html = array();
+   /**
+    * The form field type.
+    *
+    * @var      string
+    * @since    1.6
+    */
+   protected $type = 'timeupdated';
 
-		$old_time_updated = $this->value;
-		$hidden           = (boolean) $this->element['hidden'];
+   /**
+    * Method to get the field input markup.
+    *
+    * @return    string    The field input markup.
+    *
+    * @since    1.6
+    */
+   protected function getInput() {
+      // Initialize variables.
+      $html = array();
 
-		if ($hidden == null || !$hidden)
-		{
-			if (!strtotime($old_time_updated))
-			{
-				$html[] = '-';
-			}
-			else
-			{
-				$jdate       = new JDate($old_time_updated);
-				$pretty_date = $jdate->format(JText::_('DATE_FORMAT_LC2'));
-				$html[]      = "<div>" . $pretty_date . "</div>";
-			}
-		}
+      $old_time_updated = $this->value;
+      $hidden = (boolean) $this->element['hidden'];
 
-		$time_updated = JFactory::getDate('now', JFactory::getConfig()->get('offset'))->toSql(true);
-		$html[]       = '<input type="hidden" name="' . $this->name . '" value="' . $time_updated . '" />';
+      if ($hidden == null || !$hidden) {
+         if (!strtotime($old_time_updated)) {
+            $html[] = '-';
+         } else {
+            $jdate = new JDate($old_time_updated);
+            $pretty_date = $jdate->format(JText::_('DATE_FORMAT_LC2'));
+            $html[] = "<div>" . $pretty_date . "</div>";
+         }
+      }
 
-		return implode($html);
-	}
+      $time_updated = JFactory::getDate('now', JFactory::getConfig()->get('offset'))->toSql(true);
+      $html[] = '<input type="hidden" name="' . $this->name . '" value="' . $time_updated . '" />';
+
+      return implode($html);
+   }
+
 }

@@ -63,7 +63,7 @@
                name="alertContentTypography"
                type="typography"
                language="html"
-               label="Alert Typography"
+               label="JDBUILDER_ELE_ALERT_TYPOGRAPHY"
                description=""
                group="basic"
                showon="params.alertContent!=''"

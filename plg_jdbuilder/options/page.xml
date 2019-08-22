@@ -42,7 +42,7 @@
             <field type="group" name="permissions" label="Permissions" description=""></field>
             <field type="code-editor" language="css" label="CSS" description="" group="customcode" name="css" default="">
             </field>
-            <field type="code-editor" language="javascript" label="Javascript" description="" group="customcode" name="javascript" default="">
+            <field type="code-editor" language="javascript" label="JavaScript" description="" group="customcode" name="javascript" default="">
             </field>
          </fieldset>
       </fields>

@@ -13,7 +13,7 @@
    <form>
       <fields>
          <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="buttonstyle" label="Button Styling"></field>
+            <field type="group" name="buttonstyle" label="JDBUILDER_FIELD_BUTTON_STYLING_LBL" description="JDBUILDER_FIELD_BUTTON_STYLING_DESC"></field>
             <field type="group" name="buttonborder" label="JDBUILDER_ELE_BTN_OPTIONS_BORDER"></field>
             
             <!--  Element Options -->
@@ -200,7 +200,8 @@
             </field>
             <field
                type="gradient"
-               label="Gradient"
+               label="JDBUILDER_FIELD_GGRDIENT_LBL"
+               description="JDBUILDER_FIELD_GGRDIENT_DESC"
                name="buttonGradient"
                group="buttonstyle"
             >
@@ -242,7 +243,8 @@
             </field>
             <field
                type="gradient"
-               label="Gradient"
+               label="JDBUILDER_FIELD_GGRDIENT_LBL"
+               description="JDBUILDER_FIELD_GGRDIENT_DESC"
                name="buttonGradientHover"
                group="buttonstyle"
             >
@@ -265,8 +267,8 @@
             <field
                name="buttonTypography"
                type="typography"
-               label="Typography"
-               description=""
+               label="JDBUILDER_FIELD_STYLE_TYPOGRAPHY_LABEL"
+               description="JDBUILDER_FIELD_STYLE_TYPOGRAPHY_DESC"
                group="buttonstyle"
                default=""
                responsive="true"

@@ -13,10 +13,10 @@
    <form>
       <fields>
          <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="accordion-item" label="Item Options" description=""></field>
-            <field type="group" name="accordion-title" label="Item Title Options" description=""></field>
-            <field type="group" name="accordion-content" label="Item Content Options" description=""></field>
-            <field type="group" name="accordion-icon" label="Item Icon Options" description=""></field>
+            <field type="group" name="accordion-item" label="JDBUILDER_ELE_TAB_ITEM_OPTIONS" description=""></field>
+            <field type="group" name="accordion-title" label="JDBUILDER_ELE_TAB_ITEM_TITLE_OPTIONS" description=""></field>
+            <field type="group" name="accordion-content" label="JDBUILDER_ELE_TAB_ITEM_CONTENT_OPTIONS" description=""></field>
+            <field type="group" name="accordion-icon" label="JDBUILDER_FIELD_ITEMICON_OPTION_LBL" description="JDBUILDER_FIELD_ITEMICON_OPTION_DESC"></field>
             <!--  Element Options -->
             <field
                name="items"
@@ -94,7 +94,7 @@
             <field
                name="itemSpaceBetween"
                type="slider"
-               label="Gap"
+               label="JDBUILDER_FIELD_SPACE_LBL"
                default="10"
                description=""
                group="accordion-item"
@@ -187,29 +187,29 @@
             <field
                name="titleTag"
                type="typetag"
-               label="Title HTML Tag"
+               label="JDBUILDER_ELE_ACCORDION_STYLE_HTML_TAG_LABEL"
                default="h4"
                group="accordion-title"
             >
             </field>
-            <field type="header_tag" label="Title Colors" default="h4" group="accordion-title">
+            <field type="header_tag" label="JDBUILDER_FIELD_TITLE_COLORS_LBL" description="JDBUILDER_FIELD_TITLE_COLORS_DESC" default="h4" group="accordion-title">
             </field>
-            <field type="color" name="titleColor" label="Color" default="#666666" description="" group="accordion-title" width="6">
+            <field type="color" name="titleColor" label="JDBUILDER_ELEMENT_COLOR_LBL" default="#666666" description="" group="accordion-title" width="6">
             </field>
-            <field type="color" name="titleBackground" label="Background" default="" description="" group="accordion-title" width="6">
+            <field type="color" name="titleBackground" label="JDBUILDER_ELEMENT_BACKGROUND_LBL" default="" description="" group="accordion-title" width="6">
             </field>
             <field type="spacer" label="Active State" group="accordion-title">
             </field>
-            <field type="color" name="titleColorActive" label="Color" default="#000000" description="" group="accordion-title" width="6">
+            <field type="color" name="titleColorActive" label="JDBUILDER_ELEMENT_COLOR_LBL" default="#000000" description="" group="accordion-title" width="6">
             </field>
-            <field type="color" name="titleBackgroundActive" label="Background" default="" description="" group="accordion-title" width="6">
+            <field type="color" name="titleBackgroundActive" label="JDBUILDER_ELEMENT_BACKGROUND_LBL" default="" description="" group="accordion-title" width="6">
             </field>
             
             <field
                type="typography"
                name="accordionTitleTypography"
                group="accordion-title"
-               label="Title Typography"
+               label="JDBUILDER_FIELD_TITLE_TYPOGRAPHY_LBL"
                description=""
                default='{"family":"", "size":18, "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
                responsive="true"
@@ -279,7 +279,7 @@
             <field
                type="spacing"
                name="accordionTitlePadding"
-               label="Title Padding"
+               label="JDBUILDER_FIELD_TITLE_PADDING_LBL"
                description=""
                group="accordion-title"
                default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
@@ -288,17 +288,17 @@
             </field>
             
             <!-- Accordion Content -->
-            <field type="color" name="contentColor" label="Color" default="#777777" description="" group="accordion-content" width="6">
+            <field type="color" name="contentColor" label="JDBUILDER_ELE_ACCORDION_STYLE_COLOR_LABEL" default="#777777" description="" group="accordion-content" width="6">
             </field>
-            <field type="color" name="contentBackground" label="Background" default="" description="" group="accordion-content" width="6">
+            <field type="color" name="contentBackground" label="JDBUILDER_ELEMENT_BACKGROUND_LBL" default="" description="" group="accordion-content" width="6">
             </field>
             
             <field
                type="typography"
                name="accordionContentTypography"
                group="accordion-content"
-               label="Content Typography"
-               description=""
+               label="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_LABEL"
+               description="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_DESC"
                default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
                responsive="true"
             >
@@ -344,8 +344,8 @@
             <field
                type="spacing"
                name="accordionContentPadding"
-               label="Content Padding"
-               description=""
+               label="JDBUILDER_FIELD_CONTENT_PADDING_LBL"
+               description="JDBUILDER_FIELD_CONTENT_PADDING_DESC"
                group="accordion-content"
                default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
                responsive="true"
@@ -386,7 +386,7 @@
             <field
                name="caretColor"
                type="color"
-               label="Color"
+               label="JDBUILDER_ELEMENT_COLOR_LBL"
                description=""
                default=""
                group="accordion-icon"
@@ -398,7 +398,7 @@
             <field
                name="caretBackgroundColor"
                type="color"
-               label="Background"
+               label="JDBUILDER_ELEMENT_BACKGROUND_LBL"
                description=""
                default=""
                group="accordion-icon"
@@ -417,7 +417,7 @@
             <field
                name="caretColorActive"
                type="color"
-               label="Color"
+               label="JDBUILDER_ELEMENT_COLOR_LBL"
                description=""
                default=""
                group="accordion-icon"
@@ -429,7 +429,7 @@
             <field
                name="caretBackgroundColorActive"
                type="color"
-               label="Background"
+               label="JDBUILDER_ELEMENT_BACKGROUND_LBL"
                description=""
                default=""
                group="accordion-icon"

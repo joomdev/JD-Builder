@@ -1,12 +1,11 @@
 <?php
+
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
@@ -16,46 +15,42 @@ jimport('joomla.form.formfield');
  *
  * @since  1.6
  */
-class JFormFieldCreatedby extends JFormField
-{
-	/**
-	 * The form field type.
-	 *
-	 * @var        string
-	 * @since    1.6
-	 */
-	protected $type = 'createdby';
+class JFormFieldCreatedby extends JFormField {
 
-	/**
-	 * Method to get the field input markup.
-	 *
-	 * @return   string  The field input markup.
-	 *
-	 * @since    1.6
-	 */
-	protected function getInput()
-	{
-		// Initialize variables.
-		$html = array();
+   /**
+    * The form field type.
+    *
+    * @var        string
+    * @since    1.6
+    */
+   protected $type = 'createdby';
 
-		// Load user
-		$user_id = $this->value;
+   /**
+    * Method to get the field input markup.
+    *
+    * @return   string  The field input markup.
+    *
+    * @since    1.6
+    */
+   protected function getInput() {
+      // Initialize variables.
+      $html = array();
 
-		if ($user_id)
-		{
-			$user = JFactory::getUser($user_id);
-		}
-		else
-		{
-			$user   = JFactory::getUser();
-			$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
-		}
+      // Load user
+      $user_id = $this->value;
 
-		if (!$this->hidden)
-		{
-			$html[] = "<div>" . $user->name . " (" . $user->username . ")</div>";
-		}
+      if ($user_id) {
+         $user = JFactory::getUser($user_id);
+      } else {
+         $user = JFactory::getUser();
+         $html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
+      }
 
-		return implode($html);
-	}
+      if (!$this->hidden) {
+         $html[] = "<div>" . $user->name . " (" . $user->username . ")</div>";
+      }
+
+      return implode($html);
+   }
+
 }

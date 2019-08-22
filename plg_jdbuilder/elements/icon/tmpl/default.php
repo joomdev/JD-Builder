@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
 defined('_JEXEC') or die;
 extract($displayData);
 
@@ -21,12 +27,14 @@ $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
 // link follow
 $linkNoFollow = $element->params->get('linkNoFollow', FALSE);
 $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
+$animation = $element->params->get('iconHoverAnimation', '');
+$animation = empty($animation) ? '' : ' jdb-hover-' . $animation;
 ?>
 
 <?php if (!empty($link)) { ?>
-   <a class="jdb-icon-wrapper" href="<?php echo $link; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+   <a class="jdb-icon-wrapper<?php echo $animation; ?>" href="<?php echo $link; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
    <?php } else { ?>
-      <div class="jdb-icon-wrapper">
+      <div class="jdb-icon-wrapper<?php echo $animation; ?>">
       <?php } ?>
       <span class="<?php echo $icon; ?>"></span>
       <?php if (!empty($link)) { ?>
@@ -43,9 +51,10 @@ foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
    }
 }
 $iconStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper');
+$iconInnerStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper > span');
 $iconHoverStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper:hover');
 
-$element->addChildrenStyle([$iconStyle, $iconHoverStyle]);
+$element->addChildrenStyle([$iconStyle, $iconHoverStyle, $iconInnerStyle]);
 
 switch ($element->params->get('iconShape', 'circle')) {
    case 'rounded':
@@ -85,7 +94,7 @@ $iconRotate = $element->params->get('iconRotate', null);
 if (!empty($iconRotate)) {
    foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
       if (isset($iconRotate->{$deviceKey}) && JDPageBuilder\Helper::checkSliderValue($iconRotate->{$deviceKey}) && !empty($iconRotate->{$deviceKey}->value)) {
-         $iconStyle->addCss("transform", 'rotate(' . $iconRotate->{$deviceKey}->value . 'deg)', $device);
+         $iconInnerStyle->addCss("transform", 'rotate(' . $iconRotate->{$deviceKey}->value . 'deg)', $device);
       }
    }
 }

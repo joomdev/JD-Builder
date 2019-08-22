@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
 namespace JDPageBuilder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -7,30 +14,36 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Leafo\ScssPhp\Compiler;
 use MatthiasMullie\Minify\Minify;
 
-class Helper {
+class Helper
+{
 
    public static $devices = ['md' => 'desktop', 'sm' => 'tablet', 'xs' => 'mobile'];
    public static $css_cache = false;
    private static $_router = array();
 
-   public static function classify($word) {
+   public static function classify($word)
+   {
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
    }
 
-   public static function titlecase($word) {
+   public static function titlecase($word)
+   {
       return ucfirst(str_replace(['_', '-'], ' ', ucwords($word, '_-')));
    }
 
-   public static function camelize($word) {
+   public static function camelize($word)
+   {
       return lcfirst(self::classify($word));
    }
 
-   public static function tableize($word) {
+   public static function tableize($word)
+   {
       $tableized = preg_replace('~(?<=\\w)([A-Z])~u', '_$1', $word);
       return mb_strtolower($tableized);
    }
 
-   public static function loadLanguage($name = "jdbuilder", $path = "") {
+   public static function loadLanguage($name = "jdbuilder", $path = "")
+   {
       if (empty($path)) {
          $path = JPATH_PLUGINS . '/system/jdbuilder';
       }
@@ -39,7 +52,8 @@ class Helper {
       $lang->load('com_jdbuilder', JPATH_ADMINISTRATOR);
    }
 
-   public static function jsonDecode($string, $assoc = false) {
+   public static function jsonDecode($string, $assoc = false)
+   {
       $array = \json_decode($string, $assoc);
       if (empty($array)) {
          return [];
@@ -47,25 +61,29 @@ class Helper {
       return $array;
    }
 
-   public static function getPluginParams() {
+   public static function getPluginParams()
+   {
       $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
       $params = new \JRegistry($plugin->params);
       return $params;
    }
 
-   public static function getLayout($id) {
+   public static function getLayout($id)
+   {
       $db = \JFactory::getDbo();
       $db->setQuery("SELECT * FROM `#__jdbuilder_layouts` WHERE `id`='{$id}'");
       return $db->loadObject();
    }
 
-   public static function getPage($id) {
+   public static function getPage($id)
+   {
       $db = \JFactory::getDbo();
       $db->setQuery("SELECT * FROM `#__jdbuilder_pages` WHERE `id`='{$id}'");
       return $db->loadObject();
    }
 
-   public static function getFieldsGroup($name, $type) {
+   public static function getFieldsGroup($name, $type)
+   {
       $files = Builder::getXMLFilesByElementType($type);
       $files = array_reverse($files);
       $xml = null;
@@ -83,7 +101,8 @@ class Helper {
       return $xml->field;
    }
 
-   public static function getQueryString($url, $key) {
+   public static function getQueryString($url, $key)
+   {
       $parts = parse_url($url);
       $return = null;
       if (isset($parts['query'])) {
@@ -95,7 +114,8 @@ class Helper {
       return $return;
    }
 
-   public static function getVideoContent($params) {
+   public static function getVideoContent($params)
+   {
       $type = $params->get('videoType', 'youtube');
       if ($type != 'upload') {
          $link = $params->get('videoLink', '');
@@ -131,7 +151,8 @@ class Helper {
       }
    }
 
-   public static function getBGVideoContent($params) {
+   public static function getBGVideoContent($params)
+   {
       $type = $params->get('backgroundVideoType', 'none');
       $type = "upload";
       if ($type == "none") {
@@ -178,7 +199,8 @@ class Helper {
       }
    }
 
-   public static function getYoutubeVideoByLink($params, $link, $autoplay, $mute, $loop, $controls) {
+   public static function getYoutubeVideoByLink($params, $link, $autoplay, $mute, $loop, $controls)
+   {
 
       $modestBranding = $params->get('videoModestBranding', false);
       $privacyMode = $params->get('videoPrivacyMode', false);
@@ -219,7 +241,8 @@ class Helper {
       return '<iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="jdb-embed-responsive-item" src="https://www.youtube' . ($privacyMode ? '-nocookie' : '') . '.com/embed/' . $videoId . $attrs . '"></iframe>';
    }
 
-   public static function getVimeoVideoByLink($params, $link, $autoplay, $mute, $loop, $controls) {
+   public static function getVimeoVideoByLink($params, $link, $autoplay, $mute, $loop, $controls)
+   {
 
       $start = $params->get('videoStartTime', 0);
 
@@ -249,7 +272,8 @@ class Helper {
       return '<iframe class="jdb-embed-responsive-item" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://player.vimeo.com/video/' . $videoId . $attrs . '"></iframe>';
    }
 
-   public static function getDailyMotionVideoByLink($params, $link, $autoplay, $mute, $loop, $controls) {
+   public static function getDailyMotionVideoByLink($params, $link, $autoplay, $mute, $loop, $controls)
+   {
 
       $start = $params->get('videoStartTime', 0);
 
@@ -276,7 +300,8 @@ class Helper {
       return '<iframe class="jdb-embed-responsive-item" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="//www.dailymotion.com/embed/' . $videoId . $attrs . '"' . ($autoplay ? ' allow="autoplay"' : '') . ($autoplay ? ' allowfullscreen' : '') . '></iframe>';
    }
 
-   public static function getVideoByLink($params, $link, $autoplay, $mute, $loop, $controls) {
+   public static function getVideoByLink($params, $link, $autoplay, $mute, $loop, $controls)
+   {
       if ($params != null) {
          $start = $params->get('videoStartTime', 0);
          $end = $params->get('videoEndTime', 0);
@@ -287,7 +312,8 @@ class Helper {
       return '<video' . ($controls ? ' controls' : '') . '' . ($autoplay ? ' autoplay' : '') . '' . ($mute ? ' muted' : '') . '' . ($loop ? ' loop' : '') . ' ><source src="' . $link . '" type="video/mp4">Your browser does not support the video tag.</video>';
    }
 
-   public static function minifyJS($files = []) {
+   public static function minifyJS($files = [])
+   {
       $cache_key = [];
       foreach ($files as $file) {
          $cache_key[] = md5_file($file);
@@ -314,7 +340,8 @@ class Helper {
       }
    }
 
-   public static function compileSass($scss, $folder = "") {
+   public static function compileSass($scss, $folder = "")
+   {
       $variables = self::getGlobalVariables();
 
       if (!self::$css_cache) {
@@ -351,7 +378,8 @@ class Helper {
       return $css;
    }
 
-   public static function renderGlobalScss() {
+   public static function renderGlobalScss()
+   {
       $document = \JFactory::getDocument();
       $variables = Helper::getGlobalVariables();
       $name = serialize($variables);
@@ -373,7 +401,8 @@ class Helper {
       file_put_contents(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css', $content);
    }
 
-   public static function getGlobalVariables() {
+   public static function getGlobalVariables()
+   {
       $pluginParams = self::getPluginParams();
       $variables = [];
       $variables['primary'] = $pluginParams->get('global_primary', '#007bff');
@@ -404,7 +433,8 @@ class Helper {
       return $variables;
    }
 
-   public static function clearGlobalCSS() {
+   public static function clearGlobalCSS()
+   {
 
       $dir = JPATH_SITE . '/media/jdbuilder/css';
       $prefix = 'jdb';
@@ -414,10 +444,14 @@ class Helper {
          unlink($dir . '/' . $style);
       }
 
+      $version = new \JVersion;
+      $version->refreshMediaVersion();
+
       return true;
    }
 
-   public static function mediaValue($value) {
+   public static function mediaValue($value)
+   {
       $type = substr($value, 0, 5);
       $return = "";
       switch ($type) {
@@ -431,7 +465,8 @@ class Helper {
       return $return;
    }
 
-   public static function fontFamilyValue($value) {
+   public static function fontFamilyValue($value)
+   {
       $type = substr($value, 0, 2);
       $return = "";
       switch ($type) {
@@ -448,7 +483,8 @@ class Helper {
       return $return;
    }
 
-   public static function typographyValue($value = null) {
+   public static function typographyValue($value = null)
+   {
       $return = [];
       if (!empty($value)) {
          if (isset($value->family) && !empty($value->family)) {
@@ -483,19 +519,23 @@ class Helper {
       return implode(";", $return);
    }
 
-   public static function spacingValue($value = null, $property = "padding", $default = []) {
+   public static function spacingValue($value = null, $property = "padding", $default = [])
+   {
       $return = [];
+      $values = [];
       if (!empty($value) && isset($value->unit)) {
          $unit = $value->unit;
          if ($value->lock && is_numeric($value->top)) {
             foreach (['top', 'right', 'bottom', 'left'] as $position) {
                $return[$position] = self::getPropertySubset($property, $position) . ":{$value->top}{$unit}";
+               $values[$position] = "{$value->top}{$unit}";
             }
          } else {
             foreach (['top', 'right', 'bottom', 'left'] as $position) {
                $pvalue = $value->{$position};
                if (is_numeric($pvalue)) {
                   $return[$position] = self::getPropertySubset($property, $position) . ":{$pvalue}{$unit}";
+                  $values[$position] = "{$pvalue}{$unit}";
                }
             }
          }
@@ -511,13 +551,21 @@ class Helper {
          }
          if (!isset($return[$position])) {
             $return[$position] = self::getPropertySubset($property, $position) . ":{$default[$position]}{$default['unit']}";
+            $values[$position] = "{$default[$position]}{$default['unit']}";
          }
+      }
+
+
+      if (count(array_keys($values)) === 4) {
+         $return = [];
+         $return[] = self::getPropertySet($property) . ':' . implode(' ', $values);
       }
 
       return implode(";", $return);
    }
 
-   public static function checkSliderValue($var, $name = '') {
+   public static function checkSliderValue($var, $name = '')
+   {
 
 
       if (empty($var) || !isset($var->value) || !isset($var->unit)) {
@@ -535,7 +583,8 @@ class Helper {
       return TRUE;
    }
 
-   public static function getPropertySubset($property, $position) {
+   public static function getPropertySubset($property, $position)
+   {
       switch ($property) {
          case "radius":
             switch ($position) {
@@ -562,12 +611,29 @@ class Helper {
       }
    }
 
-   public static function isValidJSON($string) {
+   public static function getPropertySet($property)
+   {
+      switch ($property) {
+         case "radius":
+            return "border-radius";
+            break;
+         case "border":
+            return "border-width";
+            break;
+         default:
+            return $property;
+            break;
+      }
+   }
+
+   public static function isValidJSON($string)
+   {
       $data = json_decode($string);
       return (json_last_error() == JSON_ERROR_NONE) ? TRUE : FALSE;
    }
 
-   public static function getCaretValue($value) {
+   public static function getCaretValue($value)
+   {
       if (empty($value) || $value == 'none' || !in_array($value, ['plus', 'triangle', 'chevron', 'arrow'])) {
          return '';
       }
@@ -598,7 +664,8 @@ class Helper {
       return '<span class="jdb-caret"><span><i class="jdb-caret-on ' . $onIcon . '"></i><i class="jdb-caret-off ' . $offIcon . '"></i></span></span>';
    }
 
-   public static function joomlaVariables($body) {
+   public static function joomlaVariables($body)
+   {
       $array = ['siteurl', 'sitename'];
       foreach ($array as $var) {
          $body = self::replaceJoomlaVariable($var, $body);
@@ -606,7 +673,8 @@ class Helper {
       return $body;
    }
 
-   public static function replaceJoomlaVariable($var, $body) {
+   public static function replaceJoomlaVariable($var, $body)
+   {
       $with = "";
       switch ($var) {
          case "siteurl":
@@ -622,12 +690,14 @@ class Helper {
       return $body;
    }
 
-   public static function renderHTML($html) {
+   public static function renderHTML($html)
+   {
       $html = self::joomlaVariables($html);
       return $html;
    }
 
-   public static function getFavouriteTemplates() {
+   public static function getFavouriteTemplates()
+   {
       $db = \JFactory::getDbo();
       $query = "SELECT `template_id` FROM `#__jdbuilder_favourites`";
       $db->setQuery($query);
@@ -638,7 +708,8 @@ class Helper {
       return array_column($favourites, 'template_id');
    }
 
-   public static function getPageItemIdByLink($link) {
+   public static function getPageItemIdByLink($link)
+   {
       $db = \JFactory::getDbo();
       $query = "SELECT `id` FROM `#__menu` WHERE `link`='{$link}'";
       $db->setQuery($query);
@@ -649,7 +720,8 @@ class Helper {
       return $result->id;
    }
 
-   public static function getDir($dir, $extension = null, &$results = array()) {
+   public static function getDir($dir, $extension = null, &$results = array())
+   {
       $files = scandir($dir);
 
       foreach ($files as $key => $value) {
@@ -672,7 +744,8 @@ class Helper {
       return $results;
    }
 
-   public static function loadBuilderLanguage() {
+   public static function loadBuilderLanguage()
+   {
       $lang = \JFactory::getLanguage();
       $tag = $lang->getTag();
       $path = JPATH_PLUGINS . "/system/jdbuilder/language/{$tag}/{$tag}.jdb.ini";
@@ -690,7 +763,8 @@ class Helper {
       $document->addScriptDeclaration('_JDB.LANG = ' . \json_encode($strings) . ';');
    }
 
-   public static function parseIniFile($fileName, $debug = false) {
+   public static function parseIniFile($fileName, $debug = false)
+   {
       // Check if file exists.
       if (!file_exists($fileName)) {
          return array();
@@ -738,7 +812,8 @@ class Helper {
       return is_array($strings) ? $strings : array();
    }
 
-   public static function JRouteLink($client, $url, $xhtml = true, $ssl = null) {
+   public static function JRouteLink($client, $url, $xhtml = true, $ssl = null)
+   {
       // If we cannot process this $url exit early.
       if (!is_array($url) && (strpos($url, '&') !== 0) && (strpos($url, 'index.php') !== 0)) {
          return $url;
@@ -792,5 +867,4 @@ class Helper {
 
       return $url;
    }
-
 }

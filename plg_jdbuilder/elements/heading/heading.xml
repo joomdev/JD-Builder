@@ -103,19 +103,19 @@
                default="h3"
                group="headingtypography"
             >
-               <option value="h1">H1</option>
-               <option value="h2">H2</option>
-               <option value="h3">H3</option>
-               <option value="h4">H4</option>
-               <option value="h5">H5</option>
-               <option value="h6">H6</option>
-               <option value="p">Paragraph</option>
-               <option value="span">Span</option>
-               <option value="small">Small</option>
+               <option value="h1">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H1</option>
+               <option value="h2">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H2</option>
+               <option value="h3">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H3</option>
+               <option value="h4">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H4</option>
+               <option value="h5">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H5</option>
+               <option value="h6">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H6</option>
+               <option value="p">JDBUILDER_ELE_HEADING_PARAGRAPH_LABEL</option>
+               <option value="span">JDBUILDER_ELE_HEADING_SPAN_LABEL</option>
+               <option value="small">JDBUILDER_ELE_HEADING_SMALL_LABEL</option>
             </field>
             <field type="color" name="headingFontColor" label="JDBUILDER_FIELD_TYPE_COLOR_LABEL" default="" description="JDBUILDER_FIELD_TYPE_COLOR_DESC" group="headingtypography">
             </field>
-            <field type="textshadow" name="headingTextShadow" label="Text Shadow" default="" description="" group="headingtypography">
+            <field type="textshadow" name="headingTextShadow" label="JDBUILDER_ELE_HEADING_BOX_SHADOW_LABEL" default="" description="" group="headingtypography">
             </field>
             <field type="typography" responsive="true" name="headingTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default="" description="JDBUILDER_ELEMENT_TYPOGRAPHY_DESC" group="headingtypography">
             </field>
@@ -128,19 +128,19 @@
                default="span"
                group="subheadingtypography"
             >
-               <option value="h1">H1</option>
-               <option value="h2">H2</option>
-               <option value="h3">H3</option>
-               <option value="h4">H4</option>
-               <option value="h5">H5</option>
-               <option value="h6">H6</option>
-               <option value="p">Paragraph</option>
-               <option value="span">Span</option>
-               <option value="small">Small</option>
+               <option value="h1">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H1</option>
+               <option value="h2">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H2</option>
+               <option value="h3">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H3</option>
+               <option value="h4">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H4</option>
+               <option value="h5">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H5</option>
+               <option value="h6">JDBUILDER_ELE_HEADING_HTML_TAG_OPTIONS_H6</option>
+               <option value="p">JDBUILDER_ELE_HEADING_PARAGRAPH_LABEL</option>
+               <option value="span">JDBUILDER_ELE_HEADING_SPAN_LABEL</option>
+               <option value="small">JDBUILDER_ELE_HEADING_SMALL_LABEL</option>
             </field>
             <field type="color" name="subheadingFontColor" label="JDBUILDER_FIELD_TYPE_COLOR_LABEL" default="" description="JDBUILDER_FIELD_TYPE_COLOR_DESC" group="subheadingtypography">
             </field>
-            <field type="textshadow" name="subheadingTextShadow" label="Text Shadow" default="" description="" group="subheadingtypography">
+            <field type="textshadow" name="subheadingTextShadow" label="JDBUILDER_ELE_HEADING_BOX_SHADOW_LABEL" default="" description="JDBUILDER_ELE_HEADING_BOX_SHADOW_DESC" group="subheadingtypography">
             </field>
             <field type="typography" responsive="true" name="subheadingTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default="" description="JDBUILDER_ELEMENT_TYPOGRAPHY_DESC" group="subheadingtypography">
             </field>

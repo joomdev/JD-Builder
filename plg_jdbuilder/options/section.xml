@@ -24,7 +24,7 @@
             </field>
             
             <!-- Layout Options -->
-            <field type="switch"  label="Stretch Section" group="layout" name="stretchSection" description="Stretch the section to the document width using Javascript." default="true">   
+            <field type="switch"  label="Stretch Section" group="layout" name="stretchSection" description="Stretch the section to the document width using JavaScript." default="true">   
             </field>
             
             <field type="radio" radiotype="buttons" name="contentWidth" label="JDBUILDER_FIELD_CONTENT_WIDTH_LBL" description="JDBUILDER_FIELD_CONTENT_WIDTH_DESC" default="container" group="layout">

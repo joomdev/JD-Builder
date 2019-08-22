@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
 extract($displayData);
 $builder_assets_path = JURI::root() . 'media/jdbuilder/';
 
@@ -13,7 +20,7 @@ $url = !empty($itemid) ? 'index.php?Itemid=' . $itemid : 'index.php?option=com_j
 $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 ?>
 <div id="jdbuilder-area" class="loading<?php echo $enabled ? ' active' : ''; ?>">
-   <div id="jdbuilder-app-loader" style="display: flex;flex-direction: column;align-items: center;justify-content: center;height: 100vh;z-index: 99999;position: fixed;width: 100vw;background: #fff;top: 0;left: 0px;">
+   <div id="jdbuilder-app-loader" style="display: flex;flex-direction: column;align-items: center;justify-content: center;height: <?php echo $type == 'page' ? '100vh' : '100%'; ?>;z-index: 99999;position: <?php echo $type == 'page' ? 'fixed' : 'absolute'; ?>;width: <?php echo $type == 'page' ? '100vw' : '100%'; ?>;background: #fff;top: 0;left: 0px;">
       <div style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index: -1;opacity: 0.4;display: none"></div>
       <div id="jdbuilder-apploader-container" style="z-index: 1;max-width: 500px;text-align: center; color: #dadcef;transition: .2s ease-out color;">
          <svg version="1.1" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="180" viewBox="0 0 1054.447 191.081" xml:space="preserve">
@@ -69,11 +76,11 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
          <div id="jdbuilder-apploader-status" style="font-size: 12px;margin-top: 10px;text-align: center;color: #000;"></div>
       </div>
    </div>
-   <jdbuilder id="jdbuilder"></jdbuilder>
+   <app-jdbuilder id="jdbuilder"></app-jdbuilder>
    <a href="javascript:void(0);" style="display: none;" id="jdb-export-link"></a>
 </div>
 <script>
-<?php echo JDPageBuilder\Helper::minifyJS([JPATH_SITE . '/media/jdbuilder/js/admin.js']); ?>
+   <?php echo JDPageBuilder\Helper::minifyJS([JPATH_SITE . '/media/jdbuilder/js/admin.js']); ?>
 </script>
 <script>
    var VERSION = '<?php echo $version; ?>';
@@ -93,6 +100,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
       LIVEPREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url . '&jdb-preview=1'); ?>',
       GLOBALOPTIONS: '<?php echo 'index.php?option=com_plugins&task=plugin.edit&extension_id=' . $plugin->id; ?>',
    };
+
    _JDB.ICONS = [];
    _JDB.ELEMENTS = [];
    _JDB.FONTS = [];
@@ -104,27 +112,38 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.LOADER = new JDBAppLoader();
    _JDB.LOADER.value = 25;
    _JDB.LOADER.start();
-   _JDB.INFO = {"version": "<?php echo JDB_VERSION; ?>"};
+   _JDB.INFO = {
+      "version": "<?php echo JDB_VERSION; ?>"
+   };
 
    var JDBADMIN = true;
    if (typeof $ == 'undefined') {
       var $ = jQuery;
    }
+
+   _JDB.admin = new JDBAdmin();
+   _JDB.admin.init();
 </script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/runtime.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/polyfills.js<?php echo $version; ?>"></script>
 <?php if ($dev) { ?>
-   <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/styles.js<?php echo $version; ?>"></script>
+<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/styles.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/scripts.js<?php echo $version; ?>"></script>
-<script src="<?php echo $builder_assets_path; ?>js/codemirror/codemirror.js<?php echo $version; ?>"></script>
+<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/jdbuilder.min.js<?php echo $version; ?>"></script>
+<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/csslint.js<?php echo $version; ?>"></script>
+<script>
+   JDBRenderer.Helper.baseUrl = '<?php echo JURI::root(); ?>';
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+<!-- <script src="<?php echo $builder_assets_path; ?>js/codemirror/codemirror.js<?php echo $version; ?>"></script>
 <script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/css/css.js<?php echo $version; ?>"></script>
 <script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/javascript/javascript.js<?php echo $version; ?>"></script>
-<script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/xml/xml.js<?php echo $version; ?>"></script>
+<script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/xml/xml.js<?php echo $version; ?>"></script> -->
 <?php if ($dev) { ?>
-   <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
+<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.7.0/css/all.css">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.10.1/css/all.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
 defined('_JEXEC') or die;
 extract($displayData);
 
@@ -111,16 +117,21 @@ $linkStyle->addCss("box-shadow", $element->params->get('slBoxShadow', ''));
 if ($colorStyle != "brand") {
    $linkStyle->addCss("color", $element->params->get('slColor', ''));
 }
-$linkHoverStyle->addCss("color", $element->params->get('slHoverColor', ''));
+if (!($colorStyle == "brand" && $invertedColors)) {
+   $linkHoverStyle->addCss("color", $element->params->get('slHoverColor', ''));
+}
 if ($colorStyle != "brand") {
    $linkStyle->addCss("background-color", $element->params->get('slBackgroundColor', ''));
 }
-$linkHoverStyle->addCss("background-color", $element->params->get('slHoverBackgroundColor', ''));
+if (!($colorStyle == "brand" && $invertedColors)) {
+   $linkHoverStyle->addCss("background-color", $element->params->get('slHoverBackgroundColor', ''));
+}
 if ($colorStyle != "brand") {
    $linkStyle->addCss("border-color", $element->params->get('slBorderColor', ''));
 }
-$linkHoverStyle->addCss("border-color", $element->params->get('slBorderHoverColor', ''));
-
+if (!($colorStyle == "brand" && $invertedColors)) {
+   $linkHoverStyle->addCss("border-color", $element->params->get('slBorderHoverColor', ''));
+}
 if ($display != 'title-only') {
    $iconStyle = new JDPageBuilder\Element\ElementStyle("> ul li a .jdb-sl-icon");
    $element->addChildStyle($iconStyle);
