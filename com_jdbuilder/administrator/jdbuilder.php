@@ -1,19 +1,17 @@
 <?php
+
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 // No direct access
 defined('_JEXEC') or die;
 
 // Access check.
-if (!JFactory::getUser()->authorise('core.manage', 'com_jdbuilder'))
-{
-	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+if (!JFactory::getUser()->authorise('core.manage', 'com_jdbuilder')) {
+   throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
 // Include dependancies

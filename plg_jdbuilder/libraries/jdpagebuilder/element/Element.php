@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
 namespace JDPageBuilder\Element;
 
 class Element extends BaseElement {
@@ -17,7 +24,7 @@ class Element extends BaseElement {
       if (empty($path)) {
          return '';
       }
-      
+
       if (file_exists($path . '/' . $this->type . '.php')) {
          $layout = new \JLayoutFile($this->type, $path);
       } else {
@@ -126,19 +133,19 @@ class Element extends BaseElement {
          if (!empty($elementPositionHOffset)) {
             foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
                if (isset($elementPositionHOffset->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($elementPositionHOffset->{$deviceKey})) {
-                  $this->addCss($elementPositionHorizontal, $elementPositionHOffset->{$deviceKey}->value . $elementPositionHOffset->{$deviceKey}->unit);
+                  $this->addCss($elementPositionHorizontal, $elementPositionHOffset->{$deviceKey}->value . $elementPositionHOffset->{$deviceKey}->unit, $device);
                }
             }
          }
 
-         $elementPositionVertical = $this->params->get('elementPositionVertical', 'left');
+         $elementPositionVertical = $this->params->get('elementPositionVertical', 'top');
          $this->addCss($elementPositionVertical, 0);
          $elementPositionVOffset = $this->params->get('elementPositionVOffset', null);
 
          if (!empty($elementPositionVOffset)) {
             foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
                if (isset($elementPositionVOffset->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($elementPositionVOffset->{$deviceKey})) {
-                  $this->addCss($elementPositionVertical, $elementPositionVOffset->{$deviceKey}->value . $elementPositionVOffset->{$deviceKey}->unit);
+                  $this->addCss($elementPositionVertical, $elementPositionVOffset->{$deviceKey}->value . $elementPositionVOffset->{$deviceKey}->unit, $device);
                }
             }
          }
@@ -152,7 +159,7 @@ class Element extends BaseElement {
                foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
                   if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
                      $width = '0 0 ' . $width->{$deviceKey}->value . $width->{$deviceKey}->unit;
-                     $this->addCss('flex', $width);
+                     $this->addCss('flex', $width, $device);
                   }
                }
             }

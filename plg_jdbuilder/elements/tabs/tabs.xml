@@ -13,7 +13,7 @@
    <form>
       <fields>
          <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="tab-item" label="Tab Style" description=""></field>
+            <field type="group" name="tab-item" label="JDBUILDER_ELE_TAB_STYLE_LBL" description="JDBUILDER_ELE_TAB_STYLE_DESC"></field>
             <field type="group" name="tab-content" label="Tab Content Style" description=""></field>
             <!--  Element Options -->
             <field
@@ -55,8 +55,8 @@
             <field
                type="radio"
                name="tabType"
-               label="Orientation"
-               description=""
+               label="JDBUILDER_ORIENTATION_LABEL"
+               description="JDBUILDER_ORIENTATION_DESC"
                default="horizontal"
                group="tab-item"
                radiotype="buttons"
@@ -68,12 +68,12 @@
             <field
                name="tabsVerticalWidth"
                type="slider"
-               label="Tab Width"
+               label="JDBUILDER_ELE_TAB_WIDTH_LBL"
                default='{"value":"250","unit":"px"}'
                min="0"
                max="900"
                units="px,%"
-               description=""
+               description="JDBUILDER_ELE_TAB_WIDTH_DESC"
                group="tab-item"
                showon="params.tabType=='vertical'"
                responsive="true"
@@ -82,7 +82,7 @@
             
             <field
                type="spacer"
-               label="Color"
+               label="JDBUILDER_ELEMENT_COLOR_LBL"
                group="tab-item"
             >
             </field>
@@ -90,8 +90,8 @@
             <field
                name="tabsColor"
                type="color"
-               label="Tab Color"
-               description=""
+               label="JDBUILDER_ELE_TAB_COLOR_LBL"
+               description="JDBUILDER_ELE_TAB_COLOR_DESC"
                default="#888888"
                group="tab-item"
             >
@@ -100,8 +100,8 @@
             <field
                name="tabsColorHover"
                type="color"
-               label="Hover Color"
-               description=""
+               label="JDBUILDER_FIELD_HOVER_COLOR_LABEL"
+               description="JDBUILDER_FIELD_HOVER_COLOR_DESC"
                default=""
                group="tab-item"
             >

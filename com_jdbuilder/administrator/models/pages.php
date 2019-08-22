@@ -1,16 +1,17 @@
 <?php
 
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
+
 use Joomla\Utilities\ArrayHelper;
+
 /**
  * Methods supporting a list of Jdbuilder records.
  *
@@ -63,13 +64,8 @@ class JdbuilderModelPages extends JModelList {
       $context = $this->getUserStateFromRequest($this->context . '.context', 'context', 'com_content.article', 'CMD');
       $this->setState('filter.context', $context);
 
-      // Split context into component and optional section
-      $parts = FieldsHelper::extract($context);
-
-      if ($parts) {
-         $this->setState('filter.component', $parts[0]);
-         $this->setState('filter.section', $parts[1]);
-      }
+      $this->setState('filter.component', 'com_content');
+      $this->setState('filter.section', 'article');
    }
 
    /**
@@ -155,33 +151,27 @@ class JdbuilderModelPages extends JModelList {
 
 
 
-       // Filtering category_id
+      // Filtering category_id
       $filter_category_id = $this->state->get("filter.category_id");
 
-		if (is_numeric($filter_category_id))
-		{
-			$query->where('a.category_id = ' . (int) $filter_category_id);
-		}
-		elseif (is_array($filter_category_id))
-		{
-			$category_id = ArrayHelper::toInteger($filter_category_id);
-			$category_id = implode(',', $category_id);
-			$query->where('a.category_id IN (' . $category_id . ')');
-		}
+      if (is_numeric($filter_category_id)) {
+         $query->where('a.category_id = ' . (int) $filter_category_id);
+      } elseif (is_array($filter_category_id)) {
+         $category_id = ArrayHelper::toInteger($filter_category_id);
+         $category_id = implode(',', $category_id);
+         $query->where('a.category_id IN (' . $category_id . ')');
+      }
 
       // Filter by access level.
-		$access = $this->getState('filter.access');
+      $access = $this->getState('filter.access');
 
-		if (is_numeric($access))
-		{
-			$query->where('a.access = ' . (int) $access);
-		}
-		elseif (is_array($access))
-		{
-			$access = ArrayHelper::toInteger($access);
-			$access = implode(',', $access);
-			$query->where('a.access IN (' . $access . ')');
-		}
+      if (is_numeric($access)) {
+         $query->where('a.access = ' . (int) $access);
+      } elseif (is_array($access)) {
+         $access = ArrayHelper::toInteger($access);
+         $access = implode(',', $access);
+         $query->where('a.access IN (' . $access . ')');
+      }
 
       // Filtering language
       $filter_language = $this->state->get("filter.language");

@@ -3433,7 +3433,7 @@ class Compiler
      * @param string $path
      * @param array  $out
      */
-    protected function importFile($path, $out)
+    protected function importFile($path, OutputBlock $out)
     {
         // see if tree is cached
         $realPath = realpath($path);

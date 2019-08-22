@@ -19,7 +19,7 @@
                label="JDBUILDER_ELE_SEPARATOR_STYLE_LBL"
                default="solid"
                search="true"
-               width="8"
+               width="6"
                group="basic"
             >
                <option value="hidden">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_NONE</option>
@@ -35,8 +35,7 @@
                type="color"
                label="JDBUILDER_ELE_SEPARATOR_COLOR_LBL"
                default=""
-               small="true"
-               width="4"
+               width="6"
                group="basic"
             >
             </field>
@@ -56,7 +55,8 @@
             <field
                name="separatorWeight"
                type="slider"
-               label="Separator Height"
+               label="JDBUILDER_ELE_SEPARATOR_HEIGHT_LBL"
+               description="JDBUILDER_ELE_SEPARATOR_HEIGHT_DESC"
                default="1"
                min="1"
                max="20"

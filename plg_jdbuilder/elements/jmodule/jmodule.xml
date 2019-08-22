@@ -48,8 +48,8 @@
             <field
                name="style"
                type="chromestyle"
-               label="Module Style"
-               description=""
+               label="JDBUILDER_ELE_JMODULE_MODULE_STYLE_LBL"
+               description="JDBUILDER_ELE_JMODULE_MODULE_STYLE_DESC"
                default="0"
             />
          </fieldset>

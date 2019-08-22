@@ -1,12 +1,11 @@
 <?php
+
 /**
- * @version    CVS: 1.0.0
- * @package    Com_Jdbuilder
+ * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 Hitesh Aggarwal
+ * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
@@ -16,35 +15,34 @@ jimport('joomla.form.formfield');
  *
  * @since  1.6
  */
-class JFormFieldModifiedby extends JFormField
-{
-	/**
-	 * The form field type.
-	 *
-	 * @var        string
-	 * @since    1.6
-	 */
-	protected $type = 'modifiedby';
+class JFormFieldModifiedby extends JFormField {
 
-	/**
-	 * Method to get the field input markup.
-	 *
-	 * @return   string  The field input markup.
-	 *
-	 * @since    1.6
-	 */
-	protected function getInput()
-	{
-		// Initialize variables.
-		$html   = array();
-		$user   = JFactory::getUser();
-		$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
+   /**
+    * The form field type.
+    *
+    * @var        string
+    * @since    1.6
+    */
+   protected $type = 'modifiedby';
 
-		if (!$this->hidden)
-		{
-			$html[] = "<div>" . $user->name . " (" . $user->username . ")</div>";
-		}
+   /**
+    * Method to get the field input markup.
+    *
+    * @return   string  The field input markup.
+    *
+    * @since    1.6
+    */
+   protected function getInput() {
+      // Initialize variables.
+      $html = array();
+      $user = JFactory::getUser();
+      $html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
 
-		return implode($html);
-	}
+      if (!$this->hidden) {
+         $html[] = "<div>" . $user->name . " (" . $user->username . ")</div>";
+      }
+
+      return implode($html);
+   }
+
 }

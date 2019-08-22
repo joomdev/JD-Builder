@@ -1,17 +1,25 @@
 <?php
 
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
 // no direct access
 defined('_JEXEC') or die;
 
 JLoader::registerNamespace('JDPageBuilder', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder', false, false, 'psr4');
 JLoader::registerNamespace('JDPageBuilder\\Element', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder/element', false, false, 'psr4');
 
-class plgSystemJDBuilder extends JPlugin {
+class plgSystemJDBuilder extends JPlugin
+{
 
    protected $app;
    static $article_layouts = [];
 
-   function __construct(&$subject, $config) {
+   function __construct(&$subject, $config)
+   {
       parent::__construct($subject, $config);
       if ($this->app->isAdmin()) {
          define('JDB_DEBUG', $this->params->get('debug', 0));
@@ -28,7 +36,8 @@ class plgSystemJDBuilder extends JPlugin {
 
    // Events 
 
-   public function onBeforeRender() {
+   public function onBeforeRender()
+   {
 
       $request = \JDPageBuilder\Builder::request();
 
@@ -81,7 +90,8 @@ class plgSystemJDBuilder extends JPlugin {
       }
    }
 
-   public function onAfterRender() {
+   public function onAfterRender()
+   {
       if ($this->app->isAdmin()) {
          $this->addDescription();
       }
@@ -92,19 +102,25 @@ class plgSystemJDBuilder extends JPlugin {
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilder($id);
       }
+      if ($this->isArticleEdit()) {
+         $id = $this->app->input->get('id', 0, 'INT');
+         return $this->addBuilderOnArticle($id);
+      }
    }
 
-   public function onBeforeCompileHead() {
+   public function onBeforeCompileHead()
+   {
       $docuemnt = \JFactory::getDocument();
       //$docuemnt->addScript(JURI::root() . "media/jdbuilder/js/default-passive-events.js", ["version" => $docuemnt->getMediaVersion()]);
       $docuemnt->addScriptDeclaration("var _JDB = {};");
+      $docuemnt->addScript(JURI::root() . 'media/system/js/core.js');
       if (!$this->app->isAdmin() || !$this->isValidView()) {
          return;
       }
 
-      if ($this->isPageEdit()) {
+      if ($this->isPageEdit() || $this->isArticleEdit()) {
          \JDPageBuilder\Helper::loadBuilderLanguage();
-         $session = JFactory::getSession();
+         \JDPageBuilder\Builder::getAdminElements();
          $id = $this->app->input->get('id', 0);
          $style = '#jdbuilder-area{display: none;}#jdbuilder-area.active{display: block;}#jdbuilder-area.active~div{display: none;}#jdbuilder-area{position: relative;}#jdbuilder-area.loading{height: 400px; overflow: hidden}#jdbuilder-controls .btn-jdb-exit{display: none;}#jdbuilder-controls .btn-jdb-fs{display: none;}#jdbuilder-controls.active .btn-jdb-exit{display: inline-block;}#jdbuilder-controls.active .btn-jdb-edit{display: none;}#jdbuilder-controls.active .btn-jdb-fs{display: inline-block;}';
 
@@ -118,28 +134,55 @@ class plgSystemJDBuilder extends JPlugin {
 
    // Functions
 
-   public function isValidView() {
+   public function isValidView()
+   {
       $option = $this->app->input->get('option', '');
-      return ($option == "com_jdbuilder");
+      return ($option == "com_jdbuilder" || $option == "com_content");
    }
 
-   public function isPageView() {
+   public function isPageView()
+   {
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
       $id = $this->app->input->get('id', 0, 'INT');
       return ($option == "com_jdbuilder" && $view == "page" && !empty($id));
    }
 
-   public function isPageEdit() {
+   public function isArticleListing()
+   {
+      $option = $this->app->input->get('option', '');
+      $view = $this->app->input->get('view', '');
+      $layout = $this->app->input->get('layout', '');
+      return ($option == "com_content" && ($view == "articles" || $view == "") && $layout == "");
+   }
+
+   public function isArticleEditing()
+   {
+      $option = $this->app->input->get('option', '');
+      $task = $this->app->input->get('task', '');
+      return ($option == "com_content" && $task == "article.edit");
+   }
+
+   public function isArticleEdit()
+   {
+      $option = $this->app->input->get('option', '');
+      $view = $this->app->input->get('view', '');
+      $layout = $this->app->input->get('layout', '');
+      return ($option == "com_content" && $view == "article" && $layout == "edit");
+   }
+
+   public function isPageEdit()
+   {
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
       $layout = $this->app->input->get('layout', '');
       return ($option == "com_jdbuilder" && $view == "page" && $layout == "edit");
    }
 
-   public function addBodyClass() {
+   public function addBodyClass()
+   {
       $body = $this->app->getBody();
-      $body = preg_replace_callback('/(<body\s[^>]*class=")([^"]*)("[^>]*>)(.*)(<\/body>)/siU', function($matches) {
+      $body = preg_replace_callback('/(<body\s[^>]*class=")([^"]*)("[^>]*>)(.*)(<\/body>)/siU', function ($matches) {
          $class = $matches[2];
          $class = empty($class) ? 'jdbuilder' : $class . ' jdbuilder';
          $html = str_replace('class="' . $matches[2] . '"', 'class="' . $class . '"', $matches[0]);
@@ -148,14 +191,24 @@ class plgSystemJDBuilder extends JPlugin {
       $this->app->setBody($body);
    }
 
-   public function addBuilder($id) {
+   public function addBuilder($id)
+   {
       $this->addBodyClass();
       $body = $this->app->getBody();
       $body = str_replace('{jdbuilder}', \JDPageBuilder\Builder::builderArea(true, 'page', $id), $body);
       $this->app->setBody($body);
    }
 
-   public function addDescription() {
+   public function addBuilderOnArticle($id, $enabled = true)
+   {
+      $this->addBodyClass();
+      $body = $this->app->getBody();
+      $body = str_replace('<fieldset class="adminform">', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id) . '<fieldset class="adminform">' . \JDPageBuilder\Builder::builderArea($enabled, 'article', $id), $body);
+      $this->app->setBody($body);
+   }
+
+   public function addDescription()
+   {
       $body = $this->app->getBody();
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
@@ -168,12 +221,17 @@ class plgSystemJDBuilder extends JPlugin {
          $body = str_replace('{jdbplgdesc}', \JText::_('PLG_JDBUILDER'), $body);
          $body = str_replace('{jdpkgdesc}', \JText::_('JDBUILDER'), $body);
       }
-
-
-
       $this->app->setBody($body);
    }
 
-}
+   public function onUserAfterDelete($user, $success, $msg)
+   {
+      $current = JFactory::getUser();
+      $deleted = $user['id'];
 
-?>
+      $query = "UPDATE `#__jdbuilder_pages` SET `created_by` = '{$current->id}', `modified_by` = '{$current->id}' WHERE `created_by` = '{$deleted}'";
+      $db = JFactory::getDbo();
+      $db->setQuery($query);
+      $db->execute();
+   }
+}

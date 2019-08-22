@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
 defined('_JEXEC') or die;
 extract($displayData);
 $element->addClass('jdb-divider');
@@ -41,7 +47,7 @@ if (!empty($gap)) {
 
 
 $alignment = $element->params->get('separatorAlignment', null);
-if (!empty($weight)) {
+if (!empty($alignment)) {
    foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
       if (isset($alignment->{$deviceKey})) {
          switch ($alignment->{$deviceKey}) {

@@ -47,8 +47,8 @@
                default="original"
                group="basic"
             >
-               <option value="original">Original</option>
-               <option value="custom">Custom</option>
+               <option value="original">JDBUILDER_FIELD_ORIGINAL_LBL</option>
+               <option value="custom">JDBUILDER_FIELD_CUSTOM_LBL</option>
             </field>
             <field
                name="width"
