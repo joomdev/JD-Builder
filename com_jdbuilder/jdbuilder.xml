@@ -2,13 +2,13 @@
 <extension type="component" version="3.0" method="upgrade">
    <name>JD Builder Component</name>
    <element>com_jdbuilder</element>
-   <creationDate>July 2019</creationDate>
+   <creationDate>August 2019</creationDate>
    <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <author>Team Joomdev</author>
    <authorEmail>info@joomdev.com</authorEmail>
-   <authorUrl>http://www.joomdev.com</authorUrl>
-   <version>1.0.1</version>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <version>1.1.0</version>
    <description>{jdbcomdesc}</description>
    <install> <!-- Runs on install -->
       <sql>
