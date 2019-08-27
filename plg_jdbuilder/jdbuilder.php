@@ -102,7 +102,7 @@ class plgSystemJDBuilder extends JPlugin
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilder($id);
       }
-      if ($this->isArticleEdit()) {
+      if (0) {
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilderOnArticle($id);
       }
