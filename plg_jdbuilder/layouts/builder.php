@@ -117,8 +117,11 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    };
 
    var JDBADMIN = true;
-   if (typeof $ == 'undefined') {
+   if (typeof $ === 'undefined') {
       var $ = jQuery;
+   }
+   if ($ !== jQuery) {
+      $ = jQuery;
    }
 
    _JDB.admin = new JDBAdmin();
