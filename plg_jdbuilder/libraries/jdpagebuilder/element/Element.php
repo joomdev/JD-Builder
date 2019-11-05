@@ -9,9 +9,14 @@
 
 namespace JDPageBuilder\Element;
 
-class Element extends BaseElement {
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 
-   public function __construct($object, $parent = null) {
+class Element extends BaseElement
+{
+
+   public function __construct($object, $parent = null)
+   {
       parent::__construct($object, $parent);
 
       $this->addClass('jdb-element');
@@ -19,7 +24,8 @@ class Element extends BaseElement {
       $this->initPositioning();
    }
 
-   public function getContent() {
+   public function getContent()
+   {
       $path = $this->getLayoutPath();
       if (empty($path)) {
          return '';
@@ -36,6 +42,9 @@ class Element extends BaseElement {
       // Element Content
       $content[] = $layout->render(['element' => $this, 'column' => $this->parent, 'row' => $this->parent->parent, 'section' => $this->parent->parent->parent, 'layout' => $this->parent->parent->parent->parent]);
 
+      // Background Particles
+      $content[] = $this->getParticlesBackground();
+
       // Background Video
       $content[] = $this->getBackgroundVideo();
 
@@ -47,7 +56,8 @@ class Element extends BaseElement {
    }
 
    // Helper Functions
-   public function getLayoutPath() {
+   public function getLayoutPath()
+   {
       $template = \JFactory::getApplication()->getTemplate(true);
       $template_path = JPATH_THEMES . '/' . $template->template;
       $component_path = JPATH_SITE . '/components/com_jdbuilder';
@@ -70,7 +80,8 @@ class Element extends BaseElement {
       return $layout_path;
    }
 
-   public function getPath() {
+   public function getPath()
+   {
       $template = \JFactory::getApplication()->getTemplate(true);
       $template_path = JPATH_THEMES . '/' . $template->template . '/html/jdbuilder';
       $component_path = JPATH_SITE . '/components/com_jdbuilder';
@@ -88,13 +99,15 @@ class Element extends BaseElement {
       return $path;
    }
 
-   public function getURL() {
+   public function getURL()
+   {
       $path = $this->getPath();
       $url = str_replace(JPATH_SITE, '', $path);
       return \JURI::root(true) . $url;
    }
 
-   public function renderElement() {
+   public function renderElement()
+   {
       $return = [];
       $content = $this->getElementContent();
       $start = $this->getStart();
@@ -110,7 +123,8 @@ class Element extends BaseElement {
       return $return;
    }
 
-   public function getElementContent() {
+   public function getElementContent()
+   {
       $path = $this->getLayoutPath();
       if (empty($path)) {
          return '';
@@ -120,7 +134,8 @@ class Element extends BaseElement {
       return $layout->render(['element' => $this]);
    }
 
-   public function initPositioning() {
+   public function initPositioning()
+   {
       $elementPosition = $this->params->get('elementPosition', '');
       if (!empty($elementPosition)) {
          $this->addClass('jdb-position-' . $elementPosition);
@@ -158,15 +173,18 @@ class Element extends BaseElement {
             if (!empty($width)) {
                foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
                   if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
-                     $width = '0 0 ' . $width->{$deviceKey}->value . $width->{$deviceKey}->unit;
-                     $this->addCss('flex', $width, $device);
+                     $widthVal = '0 0 ' . $width->{$deviceKey}->value . $width->{$deviceKey}->unit;
+                     $this->addCss('-ms-flex', $widthVal, $device);
+                     $this->addCss('flex', $widthVal, $device);
+                     $this->addCss('max-width', $width->{$deviceKey}->value . $width->{$deviceKey}->unit, $device);
                   }
                }
             }
          } else {
             $this->addClass('jdb-element-inline-' . $elementWidth);
          }
+      } else {
+         $this->addClass('jdb-element-default');
       }
    }
-
 }

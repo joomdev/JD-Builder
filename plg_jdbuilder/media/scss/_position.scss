@@ -1,0 +1,134 @@
+/* Directions
+ ========================================================================== */
+
+[class*='jdb-position-top'],
+[class*='jdb-position-bottom'],
+[class*='jdb-position-left'],
+[class*='jdb-position-right'],
+[class*='jdb-position-center'] {
+    position: absolute !important;
+}
+
+
+/* Edges
+ ========================================================================== */
+
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
+.jdb-position-top {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.jdb-position-bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.jdb-position-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.jdb-position-right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Corners
+ ========================================================================== */
+
+.jdb-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.jdb-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+.jdb-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.jdb-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/*
+ * Center
+ * 1. Fix text wrapping if content is larger than 50% of the container.
+ */
+
+.jdb-position-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 1 */
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Vertical */
+[class*='jdb-position-center-left'],
+[class*='jdb-position-center-right'] {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.jdb-position-center-left {
+    left: 0;
+}
+
+.jdb-position-center-right {
+    right: 0;
+}
+
+.jdb-position-center-left-out {
+    right: 100%;
+    width: max-content;
+}
+
+.jdb-position-center-right-out {
+    left: 100%;
+    width: max-content;
+}
+
+/* Horizontal */
+.jdb-position-top-center,
+.jdb-position-bottom-center {
+    left: 50%;
+    transform: translateX(-50%);
+    /* 1 */
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.jdb-position-top-center {
+    top: 0;
+}
+
+.jdb-position-bottom-center {
+    bottom: 0;
+}
+
+.jdb-position-relative {
+    position: relative !important;
+}
+
+.jdb-position-absolute {
+    position: absolute !important;
+}
+
+.jdb-position-fixed {
+    position: fixed !important;
+}

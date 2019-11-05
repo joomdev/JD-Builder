@@ -10,7 +10,7 @@
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <version>1.0</version>
    <description>Element Description Here</description>
-   
+
    <form>
       <fields>
          <fieldset name="general" label="General">
@@ -18,17 +18,26 @@
             <field type="group" name="typography" label="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_LABEL" description="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_DESC"></field>
             <!--  Element Options -->
             <field type="editor" language="html" name="content" label="JDBUILDER_ELE_CONTENT_LABEL" default="" description="JDBUILDER_ELE_CONTENT_DESC" group="basic" />
-            <field
-               name="contentTypography"
-               type="typography"
-               label="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_LABEL"
-               description="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_DESC"
-               group="typography"
-               default=""
-               responsive="true"
-               >
+
+            <field name="contentTypography" type="typography" label="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_LABEL" description="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_DESC" group="typography" default="" responsive="true">
             </field>
-         </fieldset> 
+
+
+            <field type="spacer" showon="params.dropcap==true" label="Drop Cap Options" group="typography">
+            </field>
+
+            <field name="dropcap" type="switch" label="Drop Cap" description="" default="false" group="typography">
+            </field>
+
+            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="Color" default="" description="" width="6" group="typography">
+            </field>
+
+            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="Background" default="" description="" width="6" group="typography">
+            </field>
+
+            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default='{"family":"", "size":72, "sizeUnit":"px", "alignment":"center", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":60, "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="typography">
+            </field>
+         </fieldset>
       </fields>
    </form>
 </element>

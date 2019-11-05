@@ -15,39 +15,18 @@
 			<fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
 				<field type="group" name="profiles" label="JDBUILDER_ELEMENT_SOCIAL_PROFILES_LABEL" description="JDBUILDER_ELEMENT_SOCIAL_PROFILES_DESC"></field>
 				<field type="group" name="styling" label="JDBUILDER_ELE_ICON_STYLE_OPTIONS_LBL" description="JDBUILDER_ELE_ICON_STYLE_OPTIONS_DESC"></field>
+				<field type="group" name="colorstyling" label="Color Options" description=""></field>
 				<!--  Element Options -->
- 
+
 				<field type="repeatable" group="profiles" label="JDBUILDER_ELE_SOCIAL_LINKS_ICONS_LABEL" name="socialLinks" description="JDBUILDER_ELE_SOCIAL_LINKS_ICONS_DESC" item-title-field="title" item-title="Link" item-icon="fas fa-share-alt" item-icon-field="icon" default='[{"title":"Facebook", "icon":"fab fa-facebook-f", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Twitter", "icon":"fab fa-twitter", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Instagram", "icon":"fab fa-instagram", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}]'>
 					<form>
 						<field type="text" label="JDBUILDER_ELEMENT_TITLE_LABEL" description="JDBUILDER_ELEMENT_TITLE_DESC" name="title" default="Social"></field>
 						<field type="icon" label="JDBUILDER_ELEMENT_ICON_LABEL" description="JDBUILDER_ELEMENT_ICON_DESC" name="icon" default="fas fa-share-alt"></field>
-						<field
-							name="link"
-							type="text"
-							label="JDBUILDER_ELEMENT_LINK_LABEL"
-							description="JDBUILDER_ELEMENT_LINK_DESC"
-							default="#"
-						>
+						<field name="link" type="text" label="JDBUILDER_ELEMENT_LINK_LABEL" description="JDBUILDER_ELEMENT_LINK_DESC" default="#">
 						</field>
-						<field
-							name="linkTargetBlank"
-							type="switch"
-							label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
-							description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
-							default="false"
-							showon="params.link!=''"
-							width="6"
-						>
+						<field name="linkTargetBlank" type="switch" label="JDBUILDER_ELEMENT_LINK_TARGET_LBL" description="JDBUILDER_ELEMENT_LINK_TARGET_DESC" default="false" showon="params.link!=''" width="6">
 						</field>
-						<field
-							name="linkNoFollow"
-							type="switch"
-							label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
-							description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
-							default="false"
-							showon="params.link!=''"
-							width="6"
-							>
+						<field name="linkNoFollow" type="switch" label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL" description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC" default="false" showon="params.link!=''" width="6">
 						</field>
 					</form>
 				</field>
@@ -77,53 +56,37 @@
 
 				<field type="spacer" group="styling" />
 
-				<field type="radio" group="styling" radiotype="buttons" label="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_LABEL" name="iconStyle" default="brand" description="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_DESC">
+				<field type="radio" group="colorstyling" radiotype="buttons" label="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_LABEL" name="iconStyle" default="brand" description="JDBUILDER_ELE_SOCIAL_LINKS_COLORS_DESC">
 					<option value="brand">JDBUILDER_ELE_SOCIAL_LINKS_BRANDS_OPTIONS</option>
 					<option value="custom">JDBUILDER_ELE_SOCIAL_LINKS_CUSTOM_OPTIONS</option>
 				</field>
 
-				<field
-					type="alert"
-					label="JDBUILDER_ELEMENT_PRIMARY_LBL"
-					description="JDBUILDER_ELEMENT_BRANDCOLOR_ALERT" 
-					group="styling"
-					showon="params.iconStyle=='brand'"
-				>
+				<field type="alert" label="JDBUILDER_ELEMENT_PRIMARY_LBL" description="JDBUILDER_ELEMENT_BRANDCOLOR_ALERT" group="colorstyling" showon="params.iconStyle=='brand'">
 				</field>
 
-				<field
-					name="brandColorInverted"
-					type="switch"
-					label="JDBUILDER_BULLETS_INVERTED_COLORS_LBL"
-					description="JDBUILDER_BULLETS_INVERTED_COLORS_DESC"
-					group="styling"
-					default="false"
-					showon="params.iconStyle=='brand'"
-				>
+				<field name="brandColorInverted" type="switch" label="JDBUILDER_BULLETS_INVERTED_COLORS_LBL" description="JDBUILDER_BULLETS_INVERTED_COLORS_DESC" group="colorstyling" default="false" showon="params.iconStyle=='brand'">
 				</field>
 
-				<field type="color" width="6" group="styling" label="JDBUILDER_FOREGROUND_COLOR_COLORS_LBL" name="slColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FOREGROUND_COLOR_COLORS_DESC">
+				<field type="color" width="6" group="colorstyling" label="JDBUILDER_FOREGROUND_COLOR_COLORS_LBL" name="slColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FOREGROUND_COLOR_COLORS_DESC">
 				</field>
 
-				<field type="color" width="6" group="styling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slBackgroundColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
+				<field type="color" width="6" group="colorstyling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slBackgroundColor" showon="params.iconStyle=='custom'" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
 				</field>
 
-				<field type="color" width="12" group="styling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderColor" showon="params.iconStyle=='custom'" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
+				<field type="color" width="12" group="colorstyling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderColor" showon="params.iconStyle=='custom'" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
 				</field>
 
 				<field type="spacer" label="JDBUILDER_ELEMENT_HOVER_STYLING_LBL" group="styling">
 				</field>
 
-				<field type="color" width="6" group="styling" label="JDBUILDER_FOREGROUND_COLOR_COLORS_LBL" name="slHoverColor" description="JDBUILDER_FOREGROUND_COLOR_COLORS_DESC">
+				<field type="color" width="6" group="colorstyling" label="JDBUILDER_FOREGROUND_COLOR_COLORS_LBL" name="slHoverColor" description="JDBUILDER_FOREGROUND_COLOR_COLORS_DESC">
 				</field>
 
-				<field type="color" width="6" group="styling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slHoverBackgroundColor" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
+				<field type="color" width="6" group="colorstyling" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" name="slHoverBackgroundColor" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC">
 				</field>
 
-				<field type="color" width="12" group="styling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderHoverColor" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
+				<field type="color" width="12" group="colorstyling" label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL" name="slBorderHoverColor" description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC">
 				</field>
-
-				<field type="spacer" group="styling" />
 
 				<field type="slider" group="styling" label="JDBUILDER_ELE_SOCIAL_LINKS_ICON_SIZE_LABEL" description="JDBUILDER_ELE_SOCIAL_LINKS_ICON_SIZE_DESC" name="iconSize" unit="px" showon="params.slDisplay!='title-only'" default="24" responsive="true">
 				</field>

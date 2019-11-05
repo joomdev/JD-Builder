@@ -9,12 +9,17 @@
 
 namespace JDPageBuilder\Element;
 
-class Row extends BaseElement {
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+class Row extends BaseElement
+{
 
    protected $columns = [];
    public $inner = false;
 
-   public function __construct($object, $parent = null, $inner = false) {
+   public function __construct($object, $parent = null, $inner = false)
+   {
       parent::__construct($object, $parent);
       $this->inner = $inner;
       if (isset($object->cols)) {
@@ -33,13 +38,17 @@ class Row extends BaseElement {
       $this->initRowOptions();
    }
 
-   public function getContent() {
+   public function getContent()
+   {
       $content = [];
 
       // Row Content
       foreach ($this->columns as $column) {
          $content[] = $column->render();
       }
+
+      // Background Particles
+      $content[] = $this->getParticlesBackground();
 
       // Background Video
       $content[] = $this->getBackgroundVideo();
@@ -50,29 +59,34 @@ class Row extends BaseElement {
       return implode("", $content);
    }
 
-   public function getStart() {
+   public function getStart()
+   {
       $return = [];
       $return[] = '<div id="' . $this->id . '"' . $this->getAttrs() . '>';
       return implode("", $return);
    }
 
-   public function getEnd() {
+   public function getEnd()
+   {
       $return = [];
       $return[] = '</div>';
       return implode("", $return);
    }
 
-   public function initRowOptions() {
+   public function initRowOptions()
+   {
       // Row Layout Options
       $this->rowLayoutOptions();
    }
 
-   public function rowLayoutOptions() {
+   public function rowLayoutOptions()
+   {
       $this->rowGutterOptions();
       $this->rowColumnDirectionOptions();
    }
 
-   public function rowGutterOptions() {
+   public function rowGutterOptions()
+   {
       $guttersType = $this->params->get('guttersType', "");
       if (empty($guttersType)) {
          return;
@@ -93,7 +107,8 @@ class Row extends BaseElement {
       }
    }
 
-   public function rowColumnDirectionOptions() {
+   public function rowColumnDirectionOptions()
+   {
       $columnReverseMedium = $this->params->get('columnReverseMedium', false);
       $columnReverseSmall = $this->params->get('columnReverseSmall', false);
       if ($columnReverseMedium || $columnReverseSmall) {
@@ -111,5 +126,4 @@ class Row extends BaseElement {
          }
       }
    }
-
 }

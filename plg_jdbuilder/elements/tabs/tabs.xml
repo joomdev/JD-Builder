@@ -82,7 +82,7 @@
             
             <field
                type="spacer"
-               label="JDBUILDER_ELEMENT_COLOR_LBL"
+               label="JDBUILDER_ELE_TAB_COLOR_LBL"
                group="tab-item"
             >
             </field>

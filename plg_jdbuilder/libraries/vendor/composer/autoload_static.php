@@ -16,6 +16,10 @@ class ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca
         array (
             'Leafo\\ScssPhp\\' => 14,
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -30,6 +34,10 @@ class ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca
         'Leafo\\ScssPhp\\' => 
         array (
             0 => __DIR__ . '/..' . '/leafo/scssphp/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
     );
 

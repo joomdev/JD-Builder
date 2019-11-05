@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
@@ -8,7 +9,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/');
+JHtml::addIncludePath(JPATH_COMPONENT . '\/helpers/');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
@@ -33,9 +34,8 @@ if ($saveOrder) {
 $sortFields = $this->getSortFields();
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_jdbuilder&view=pages'); ?>" method="post"
-      name="adminForm" id="adminForm">
-         <?php if (!empty($this->sidebar)): ?>
+<form action="<?php echo JRoute::_('index.php?option=com_jdbuilder&view=pages'); ?>" method="post" name="adminForm" id="adminForm">
+   <?php if (!empty($this->sidebar)) : ?>
       <div id="j-sidebar-container" class="span2">
          <?php echo $this->sidebar; ?>
       </div>
@@ -50,16 +50,15 @@ $sortFields = $this->getSortFields();
          <table class="table" id="pageList">
             <thead>
                <tr>
-                  <?php if (isset($this->items[0]->ordering)): ?>
+                  <?php if (isset($this->items[0]->ordering)) : ?>
                      <th width="1%" class="nowrap center hidden-phone">
                         <?php echo JHtml::_('searchtools.sort', '', 'a.`ordering`', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
                      </th>
                   <?php endif; ?>
                   <th width="1%" class="hidden-phone">
-                     <input type="checkbox" name="checkall-toggle" value=""
-                            title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)"/>
+                     <input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
                   </th>
-                  <?php if (isset($this->items[0]->state)): ?>
+                  <?php if (isset($this->items[0]->state)) : ?>
                      <th width="1%" class="nowrap center">
                         <?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.`state`', $listDirn, $listOrder); ?>
                      </th>
@@ -108,22 +107,20 @@ $sortFields = $this->getSortFields();
                      <?php if (isset($this->items[0]->ordering)) : ?>
                         <td class="order nowrap center hidden-phone">
                            <?php
-                           if ($canChange) :
-                              $disableClassName = '';
-                              $disabledLabel = '';
+                                 if ($canChange) :
+                                    $disableClassName = '';
+                                    $disabledLabel = '';
 
-                              if (!$saveOrder) :
-                                 $disabledLabel = JText::_('JORDERINGDISABLED');
-                                 $disableClassName = 'inactive tip-top';
-                              endif;
-                              ?>
-                              <span class="sortable-handler hasTooltip <?php echo $disableClassName ?>"
-                                    title="<?php echo $disabledLabel ?>">
+                                    if (!$saveOrder) :
+                                       $disabledLabel = JText::_('JORDERINGDISABLED');
+                                       $disableClassName = 'inactive tip-top';
+                                    endif;
+                                    ?>
+                              <span class="sortable-handler hasTooltip <?php echo $disableClassName ?>" title="<?php echo $disabledLabel ?>">
                                  <i class="icon-menu"></i>
                               </span>
-                              <input type="text" style="display:none" name="order[]" size="5"
-                                     value="<?php echo $item->ordering; ?>" class="width-20 text-area-order "/>
-                                  <?php else : ?>
+                              <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
+                           <?php else : ?>
                               <span class="sortable-handler inactive">
                                  <i class="icon-menu"></i>
                               </span>
@@ -139,13 +136,13 @@ $sortFields = $this->getSortFields();
                            <?php echo JHtml::_('jgrid.published', $item->state, $i, 'pages.', $canChange, 'cb'); ?>
 
                            <?php
-                           // Create dropdown items and render the dropdown list.
-                           if ($canChange) {
-                              //JHtml::_('actionsdropdown.' . ((int) $item->state === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'pages');
-                              JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'pages');
-                              echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
-                           }
-                           ?>
+                              // Create dropdown items and render the dropdown list.
+                              if ($canChange) {
+                                 //JHtml::_('actionsdropdown.' . ((int) $item->state === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'pages');
+                                 JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'pages');
+                                 echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
+                              }
+                              ?>
                         </div>
                      </td>
 
@@ -160,45 +157,56 @@ $sortFields = $this->getSortFields();
                            <?php echo $this->escape($item->title); ?>
                         <?php endif; ?>
 
-                     </td>				<td>
+                     </td>
+                     <td>
 
                         <?php echo $item->category_id; ?>
-                     </td>				<td>
+                     </td>
+                     <td>
 
                         <?php echo $item->access; ?>
-                     </td>				<td>
+                     </td>
+                     <td>
 
                         <?php echo $item->language == '*' ? \JText::_('JALL') : $item->language; ?>
                      </td>
                      <td>
 
                         <?php echo $item->created_by; ?>
-                     </td>		
+                     </td>
                      <td>
 
                         <?php echo $item->id; ?>
-                     </td>		
+                     </td>
                   </tr>
                <?php endforeach; ?>
             </tbody>
          </table>
 
-         <input type="hidden" name="task" value=""/>
-         <input type="hidden" name="boxchecked" value="0"/>
-         <input type="hidden" name="list[fullorder]" value="<?php echo $listOrder; ?> <?php echo $listDirn; ?>"/>
+         <input type="hidden" name="task" value="" />
+         <input type="hidden" name="boxchecked" value="0" />
+         <input type="hidden" name="list[fullorder]" value="<?php echo $listOrder; ?> <?php echo $listDirn; ?>" />
          <?php echo JHtml::_('form.token'); ?>
-      </div>
+         <div class="component-version-container">
+            <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span> | Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
+            <div class="support-link">
+               <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/watch?v=oGRjZxAXpao&list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
+            </div>
+         </div>
+         </div>
 </form>
 <script>
-   window.toggleField = function (id, task, field) {
+   window.toggleField = function(id, task, field) {
 
-      var f = document.adminForm, i = 0, cbx, cb = f[ id ];
+      var f = document.adminForm,
+         i = 0,
+         cbx, cb = f[id];
 
       if (!cb)
          return false;
 
       while (true) {
-         cbx = f[ 'cb' + i ];
+         cbx = f['cb' + i];
 
          if (!cbx)
             break;

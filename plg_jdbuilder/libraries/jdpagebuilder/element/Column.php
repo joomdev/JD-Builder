@@ -8,13 +8,17 @@
  */
 
 namespace JDPageBuilder\Element;
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 
-class Column extends BaseElement {
+class Column extends BaseElement
+{
 
    protected $elements = [];
    protected $size;
 
-   public function __construct($object, $parent = null) {
+   public function __construct($object, $parent = null)
+   {
       parent::__construct($object, $parent);
       if (isset($object->elements)) {
          foreach ($object->elements as $element) {
@@ -33,13 +37,30 @@ class Column extends BaseElement {
       $this->initColumnOptions();
    }
 
-   public function getContent() {
-      $content = [];
+   public function getContent()
+   {
+      $innerClass = [];
+      // content position
+      $verticalContentPosition = $this->params->get('verticalContentPosition', '');
+      if (!empty($verticalContentPosition)) {
+         $innerClass[] = 'jdb-' . $verticalContentPosition;
+      }
+      $horizontalContentPosition = $this->params->get('horizontalContentPosition', '');
+      if (!empty($horizontalContentPosition)) {
+         $innerClass[] = 'jdb-' . $horizontalContentPosition;
+      }
+
+      $content = ['<div class="jdb-column-inner' . (!empty($innerClass) ? ' ' . implode(' ', $innerClass) : '') . '">'];
 
       // Column Content
       foreach ($this->elements as $element) {
          $content[] = $element->render();
       }
+
+      $content[] = '</div>';
+
+      // Background Particles
+      $content[] = $this->getParticlesBackground();
 
       // Background Video
       $content[] = $this->getBackgroundVideo();
@@ -48,10 +69,12 @@ class Column extends BaseElement {
          //$content[] = '<div class="jdb-settings" data-element-id="' . $this->id . '"></div>';
       }
 
+
       return implode("", $content);
    }
 
-   public function initColumnOptions() {
+   public function initColumnOptions()
+   {
       // Basic Options
       $this->columnBasicOptions();
       // Layout Options
@@ -60,7 +83,8 @@ class Column extends BaseElement {
       $this->columnResponsiveOptions();
    }
 
-   public function columnBasicOptions() {
+   public function columnBasicOptions()
+   {
       // html tag
       $htmlTag = $this->params->get('htmlTag', '');
       if (!empty($htmlTag)) {
@@ -68,31 +92,26 @@ class Column extends BaseElement {
       }
    }
 
-   public function columnLayoutOptions() {
-      // content position
-      $verticalContentPosition = $this->params->get('verticalContentPosition', '');
-      if (!empty($verticalContentPosition)) {
-         $this->addClass('jdb-' . $verticalContentPosition);
-      }
-      $horizontalContentPosition = $this->params->get('horizontalContentPosition', '');
-      if (!empty($horizontalContentPosition)) {
-         $this->addClass('jdb-' . $horizontalContentPosition);
-      }
-
+   public function columnLayoutOptions()
+   {
       $spaceBetween = $this->params->get('spaceBetweenElements', null);
 
       if (!empty($spaceBetween)) {
-         $elementStyle = new ElementStyle('> .jdb-element:not(:last-child)');
+         $elementStyle = new ElementStyle('.jdb-element.jdb-element-default:not(:last-child)');
+         $elementStyle2 = new ElementStyle('.jdb-element:not(:last-child):not(.jdb-element-default)');
          $this->addChildStyle($elementStyle);
+         $this->addChildStyle($elementStyle2);
          foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
             if (isset($spaceBetween->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($spaceBetween->{$deviceKey})) {
                $elementStyle->addCss("margin-bottom", $spaceBetween->{$deviceKey}->value . "px", $device);
+               $elementStyle2->addCss("margin-right", $spaceBetween->{$deviceKey}->value . "px", $device);
             }
          }
       }
    }
 
-   public function columnResponsiveOptions() {
+   public function columnResponsiveOptions()
+   {
       // content position
       $columnSizeTablet = $this->params->get('columnSizeTablet', '');
       if (!empty($columnSizeTablet)) {
@@ -103,5 +122,4 @@ class Column extends BaseElement {
          $this->addClass('jdb-col-' . $columnSizeMobile);
       }
    }
-
 }

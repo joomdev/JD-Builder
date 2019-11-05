@@ -9,7 +9,7 @@
          </fieldset>
          <!-- Design Options -->
          <fieldset name="design" ordering="9" label="JDBUILDER_DESIGN_TITLE">
-            <field type="group" ordering="1" name="width" label="JDBUILDER_FIELD_WIDTH_LBL" description=""></field>
+            <field type="group" ordering="2" name="width" label="JDBUILDER_FIELD_WIDTH_LBL" description=""></field>
             <field type="group" ordering="9" name="position" label="JDBUILDER_FIELD_POSITION_LBL" description=""></field>
 
             <field type="list" name="elementWidth" label="JDBUILDER_BLANK" default="" description="JDBUILDER_FIELD_WIDTH_DESC" search="false" group="width">
@@ -18,6 +18,7 @@
                <option value="resize">JDBUILDER_FIELD_INLINE_RESIZE_LABEL</option>
                <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
             </field>
+
             <field type="slider" name="elementWidthValue" label="JDBUILDER_FIELD_CUSTOM_WIDTH_LABEL" description="JDBUILDER_FIELD_CUSTOM_WIDTH_DESC" default='{"value":50,"unit":"%"}' max="1600" min="0" units="px,%,em" showon="params.elementWidth=='custom'" group="width" responsive="true">
             </field>
             <field type="list" name="elementPosition" label="JDBUILDER_BLANK" default="" description="JDBUILDER_FIELD_POSITION_DESC" search="false" group="position">

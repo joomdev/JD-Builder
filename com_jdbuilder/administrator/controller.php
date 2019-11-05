@@ -30,7 +30,7 @@ class JdbuilderController extends JControllerLegacy {
 
       $document = JFactory::getDocument();
       $document->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
-      $document->addStyleSheet(JURI::root() . 'media/com_jdbuilder/css/style.min.css', ['version' => $document->getMediaVersion()]);
+      $document->addStyleSheet(JURI::root() . 'media/com_jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
 
       $view = JFactory::getApplication()->input->getCmd('view', 'pages');
       JFactory::getApplication()->input->set('view', $view);

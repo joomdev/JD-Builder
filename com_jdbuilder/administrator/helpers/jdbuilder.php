@@ -14,7 +14,8 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class JdbuilderHelper {
+class JdbuilderHelper
+{
 
    /**
     * Configure the Linkbar.
@@ -23,16 +24,21 @@ class JdbuilderHelper {
     *
     * @return void
     */
-   public static function addSubmenu($vName = '') {
+   public static function addSubmenu($vName = '')
+   {
       JHtmlSidebar::addEntry(
-              JText::_('COM_JDBUILDER_TITLE_PAGES'), 'index.php?option=com_jdbuilder&view=pages', $vName == 'pages'
+         JText::_('COM_JDBUILDER_TITLE_PAGES'),
+         'index.php?option=com_jdbuilder&view=pages',
+         $vName == 'pages'
       );
 
       JHtmlSidebar::addEntry(
-              JText::_('JCATEGORIES') . ' (' . JText::_('COM_JDBUILDER_TITLE_PAGES') . ')', "index.php?option=com_categories&extension=com_jdbuilder.pages", $vName == 'categories.pages'
+         JText::_('JCATEGORIES'),
+         "index.php?option=com_categories&extension=com_jdbuilder.pages",
+         $vName == 'categories.pages'
       );
       if ($vName == 'categories') {
-         JToolBarHelper::title('JD Builder: JCATEGORIES (COM_JDBUILDER_TITLE_PAGES)');
+         JToolBarHelper::title('JD Builder: JCATEGORIES');
       }
    }
 
@@ -47,14 +53,15 @@ class JdbuilderHelper {
     *
     * @return  array  The files
     */
-   public static function getFiles($pk, $table, $field) {
+   public static function getFiles($pk, $table, $field)
+   {
       $db = JFactory::getDbo();
       $query = $db->getQuery(true);
 
       $query
-              ->select($field)
-              ->from($table)
-              ->where('id = ' . (int) $pk);
+         ->select($field)
+         ->from($table)
+         ->where('id = ' . (int) $pk);
 
       $db->setQuery($query);
 
@@ -68,14 +75,15 @@ class JdbuilderHelper {
     *
     * @since    1.6
     */
-   public static function getActions() {
+   public static function getActions()
+   {
       $user = JFactory::getUser();
       $result = new JObject;
 
       $assetName = 'com_jdbuilder';
 
       $actions = array(
-          'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.own', 'core.edit.state', 'core.delete'
+         'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.own', 'core.edit.state', 'core.delete'
       );
 
       foreach ($actions as $action) {
@@ -84,5 +92,4 @@ class JdbuilderHelper {
 
       return $result;
    }
-
 }

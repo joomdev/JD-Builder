@@ -13,15 +13,7 @@
    <form>
       <fields>
          <fieldset name="general" label="JDBUILDER_ELE_SEPARATOR_OPTIONS">
-            <field
-               name="separatorType"
-               type="list"
-               label="JDBUILDER_ELE_SEPARATOR_STYLE_LBL"
-               default="solid"
-               search="true"
-               width="6"
-               group="basic"
-            >
+            <field name="separatorType" type="list" label="JDBUILDER_ELE_SEPARATOR_STYLE_LBL" default="solid" search="true" width="6" group="basic">
                <option value="hidden">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_NONE</option>
                <option value="dotted">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_DOTTED</option>
                <option value="dashed">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_DASHED</option>
@@ -30,64 +22,20 @@
                <option value="groove">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_GROOVE</option>
                <option value="ridge">JDBUILDER_ELE_SEPARATOR_STYLE_OPTIONS_RIDGE</option>
             </field>
-            <field
-               name="separatorColor"
-               type="color"
-               label="JDBUILDER_ELE_SEPARATOR_COLOR_LBL"
-               default=""
-               width="6"
-               group="basic"
-            >
+            <field name="separatorColor" type="color" label="JDBUILDER_ELE_SEPARATOR_COLOR_LBL" default="" width="6" group="basic">
             </field>
-            <field
-               name="separatorAlignment"
-               type="radio"
-               label="JDBUILDER_ELE_SEPARATOR_ALIGNMENT_LBL"
-               default="center"
-               radiotype="buttons"
-               group="basic"
-               responsive="true"
-            >
+            <field name="separatorAlignment" type="radio" label="JDBUILDER_ELE_SEPARATOR_ALIGNMENT_LBL" default="center" radiotype="buttons" group="basic" responsive="true">
                <option value="left" icon="fa fa-align-left">JDBUILDER_ELE_SEPARATOR_ALIGNMENT_OPTIONS_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDBUILDER_ELE_SEPARATOR_ALIGNMENT_OPTIONS_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDBUILDER_ELE_SEPARATOR_ALIGNMENT_OPTIONS_RIGHT</option>
             </field>
-            <field
-               name="separatorWeight"
-               type="slider"
-               label="JDBUILDER_ELE_SEPARATOR_HEIGHT_LBL"
-               description="JDBUILDER_ELE_SEPARATOR_HEIGHT_DESC"
-               default="1"
-               min="1"
-               max="20"
-               unit="px"
-               group="basic"
-               responsive="true"
-            >
+            <field name="separatorWeight" type="slider" label="JDBUILDER_ELE_SEPARATOR_HEIGHT_LBL" description="JDBUILDER_ELE_SEPARATOR_HEIGHT_DESC" default="1" min="1" max="20" unit="px" group="basic" responsive="true">
             </field>
-            <field
-               name="separatorWidth"
-               type="slider"
-               label="JDBUILDER_ELE_SEPARATOR_WIDTH_LBL"
-               unit="%"
-               default='{"value":90,"unit":"%"}'
-               max="1600"
-               min="1"
-               units="px,%"
-               group="basic"
-               responsive="true"
-            >
+            <field name="separatorWidth" type="slider" label="JDBUILDER_ELE_SEPARATOR_WIDTH_LBL" unit="%" default='{"value":90,"unit":"%"}' max="1600" min="1" units="px,%" group="basic" responsive="true">
             </field>
-            <field
-               name="separatorGap"
-               type="slider"
-               label="JDBUILDER_ELE_SEPARATOR_GAP_LBL"
-               default="10"
-               unit="px"
-               max="200"
-               group="basic"
-               responsive="true"
-            >
+            <field name="separatorGap" type="slider" label="JDBUILDER_ELE_SEPARATOR_GAP_LBL" default="10" unit="px" max="200" group="basic" responsive="true">
+            </field>
+            <field type="spacing" name="separatorRadius" label="Radius" description="" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,em" responsive="true" group="basic">
             </field>
          </fieldset>
       </fields>

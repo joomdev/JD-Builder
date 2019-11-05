@@ -9,6 +9,10 @@
 
 namespace JDPageBuilder\Element;
 
+use JDPageBuilder\Builder;
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
 class BaseElement
 {
 
@@ -167,10 +171,13 @@ class BaseElement
          $selector = [];
          foreach (explode(',', $childStyle->selector) as $childselector) {
             $glue = " ";
-            if (substr($childStyle->selector, 0, 2) === '::') {
+            if (substr($childselector, 0, 2) === '::') {
                $glue = "";
             }
-            $selector[] = $this->style->selector . $glue . $childStyle->selector;
+            if (substr($childselector, 0, 7) === '::hover' || substr($childselector, 0, 7) === '::active' || substr($childselector, 0, 7) === '::focus') {
+               $childselector = substr($childselector, 1);
+            }
+            $selector[] = $this->style->selector . $glue . $childselector;
          }
          $childStyle->selector = implode(',', $selector);
       } else {
@@ -178,6 +185,11 @@ class BaseElement
          if (substr($childStyle->selector, 0, 2) === '::') {
             $glue = "";
          }
+
+         if (substr($childStyle->selector, 0, 7) === '::hover' || substr($childStyle->selector, 0, 7) === '::active' || substr($childStyle->selector, 0, 7) === '::focus') {
+            $childStyle->selector = substr($childStyle->selector, 1);
+         }
+
          $childStyle->selector = $this->style->selector . $glue . $childStyle->selector;
       }
       $this->childStyles[] = $childStyle;
@@ -211,13 +223,41 @@ class BaseElement
       $return = [];
 
       if ($background == "video") {
-         $videoContent = \JDPageBuilder\Helper::getBGVideoContent($this->params);
-      }
-      if (!empty($videoContent)) {
          $this->addClass('jdb-has-video-background');
-         $return[] = '<div class="jdb-video-background">';
-         $return[] = $videoContent;
+         $return[] = '<div class="jdb-video-background" jdb-video="url:' . \JDPageBuilder\Helper::mediaValue($this->params->get('backgroundVideoMedia', '')) . ';autoplay:true;muted:true;loop:true;">';
          $return[] = '</div>';
+      }
+
+      return implode("", $return);
+   }
+
+   public function getParticlesBackground()
+   {
+      $background = $this->params->get('enableParticlesBackground', false);
+      $return = [];
+
+      if ($background) {
+         $this->addClass('jdb-has-particle-bg');
+
+         // options
+         $count = $this->params->get('particlesBackgroundCount', \json_decode('{value:80}', false));
+         $color = $this->params->get('particlesBackgroundColor', '#ffffff');
+         $shape = $this->params->get('particlesBackgroundShape', 'circle');
+         $size = $this->params->get('particlesBackgroundSize', \json_decode('{value:10}', false));
+
+         $options = [];
+         $options[] = 'count:' . $count->value;
+         if ($color != '') {
+            $options[] = 'color:' . $color;
+         }
+         $options[] = 'shape:' . $shape;
+         $options[] = 'size:' . $size->value;
+
+         // end options
+
+         $return[] = '<div jdb-particles data-id="' . $this->id . '" data-options="' . implode(';', $options) . '"></div>';
+
+         Builder::loadParticleJS();
       }
 
       return implode("", $return);
@@ -281,7 +321,18 @@ class BaseElement
                }
                $backgroundSize = $this->params->get('backgroundSize', '');
                if (!empty($backgroundSize)) {
-                  $this->addCss('background-size', $backgroundSize);
+                  if ($backgroundSize != 'custom') {
+                     $this->addCss('background-size', $backgroundSize);
+                  } else {
+                     $width = $this->params->get('backgroundWidth', null);
+                     if (!empty($width)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
+                              $this->addCss('background-size', $width->{$deviceKey}->value . $width->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
                $backgroundAttachment = $this->params->get('backgroundAttachment', '');
                if (!empty($backgroundAttachment)) {
@@ -289,7 +340,26 @@ class BaseElement
                }
                $backgroundPosition = $this->params->get('backgroundPosition', '');
                if (!empty($backgroundPosition)) {
-                  $this->addCss('background-position', $backgroundPosition);
+                  if ($backgroundPosition != 'custom') {
+                     $this->addCss('background-position', $backgroundPosition);
+                  } else {
+                     $position = $this->params->get('backgroundXPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $this->addCss('background-position-x', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                     $position = $this->params->get('backgroundYPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $this->addCss('background-position-y', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
             }
             break;
@@ -347,48 +417,7 @@ class BaseElement
 
    public function borderOptions()
    {
-      $elementBorderStyle = $this->params->get('borderStyle', '');
-      if (!empty($elementBorderStyle)) {
-         $this->addCss('border-style', $elementBorderStyle);
-         $elementBorderWidth = $this->params->get('borderWidth', null);
-         if (!empty($elementBorderWidth) && $elementBorderStyle != 'none') {
-
-            foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-               if (isset($elementBorderWidth->{$deviceKey}) && !empty($elementBorderWidth->{$deviceKey})) {
-
-                  $css = \JDPageBuilder\Helper::spacingValue($elementBorderWidth->{$deviceKey}, "border");
-                  if (!empty($css)) {
-                     $this->addStyle($css, $device);
-                  }
-               }
-            }
-
-            $elementBorderColor = $this->params->get('borderColor', '');
-            if (!empty($elementBorderColor)) {
-               $this->addCss('border-color', $elementBorderColor);
-            }
-         }
-      }
-      $elementBorderRadius = $this->params->get('borderRadius', null);
-      if (!empty($elementBorderRadius)) {
-         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-            if (isset($elementBorderRadius->{$deviceKey}) && !empty($elementBorderRadius->{$deviceKey})) {
-
-               $css = \JDPageBuilder\Helper::spacingValue($elementBorderRadius->{$deviceKey}, "radius");
-               if (!empty($css)) {
-                  $this->addStyle($css, $device);
-               }
-            }
-         }
-      }
-      $elementBoxShadow = $this->params->get('boxShadow', '');
-      if (!empty($elementBoxShadow)) {
-         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-            if (isset($elementBoxShadow->{$deviceKey}) && !empty($elementBoxShadow->{$deviceKey})) {
-               $this->addCss('box-shadow', $elementBoxShadow->{$deviceKey}, $device);
-            }
-         }
-      }
+      \JDPageBuilder\Helper::applyBorderValue($this->style, $this->params, "border");
    }
 
    public function spacingOptions()
@@ -524,17 +553,26 @@ class BaseElement
          $animationSpeed = $this->params->get('animationSpeed', '');
          if (!empty($animationSpeed)) {
             $options[] = "speed:{$animationSpeed}";
+         } else {
+            $options[] = "speed:";
          }
          $animationDelay = $this->params->get('animationDelay', '');
          if (!empty($animationDelay)) {
             $options[] = "delay:{$animationDelay}";
+         } else {
+            $options[] = "delay:";
          }
          $animationInfinite = $this->params->get('animationInfinite', false);
          if ($animationInfinite) {
             $options[] = "infinite:true";
+         } else {
+            $options[] = "infinite:false";
          }
 
          $this->addAttribute('jdb-animation', implode(';', $options));
+         Builder::loadAnimateCSS();
+      } else {
+         $this->addAttribute('jdb-animation', 'type:none');
       }
    }
 
@@ -573,8 +611,10 @@ class ElementStyle
       if ($value === null || $value === "") {
          return;
       }
-      $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-      $this->styles[$device][$property] = $value;
+	  if(is_string($value)) {
+		  $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+		  $this->styles[$device][$property] = $value;
+	  }
    }
 
    public function addStyle($css, $device = "desktop")
@@ -605,10 +645,12 @@ class ElementStyle
          if (!empty($cssScripts)) {
             $cssscript = "";
             foreach ($cssScripts as $css) {
-               $cssscript .= $css;
-               if (substr($cssscript, -1) != ";") {
-                  $cssscript .= ';';
-               }
+				if(is_string($css)) {
+				   $cssscript .= $css;
+				   if (substr($cssscript, -1) != ";") {
+					  $cssscript .= ';';
+				   }
+				}
             }
             if (!empty($cssscript)) {
                $scss[$device] .= $cssscript;

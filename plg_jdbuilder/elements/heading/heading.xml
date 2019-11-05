@@ -57,6 +57,7 @@
                radiotype="buttons"
                icononly="true"
                group="content"
+               responsive="true"
             >
                <option value="">JDBUILDER_FIELD_DEFAULT</option>
                <option value="left" icon="fa fa-align-left">JDBUILDER_ELEMENT_LEFT_LBL</option>

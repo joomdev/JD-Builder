@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
@@ -32,24 +33,27 @@ $animation = empty($animation) ? '' : ' jdb-hover-' . $animation;
 ?>
 
 <?php if (!empty($link)) { ?>
-   <a class="jdb-icon-wrapper<?php echo $animation; ?>" href="<?php echo $link; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+   <a class="jdb-icon-wrapper<?php echo $animation; ?>" href="<?php echo $link; ?>" <?php echo $linkTarget; ?><?php echo $linkRel; ?>>
    <?php } else { ?>
       <div class="jdb-icon-wrapper<?php echo $animation; ?>">
       <?php } ?>
       <span class="<?php echo $icon; ?>"></span>
       <?php if (!empty($link)) { ?>
-   </a> 
+   </a>
 <?php } else { ?>
    </div>
 <?php } ?>
 
 <?php
-foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-   $alignment = $element->params->get('iconAlignment', null);
-   if (!empty($alignment) && isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
-      $element->addCss("text-align", $alignment->{$deviceKey}, $device);
+$alignment = $element->params->get('iconAlignment', null);
+if (!empty($alignment)) {
+   foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+         $element->addCss('text-align', $alignment->{$deviceKey}, $device);
+      }
    }
 }
+
 $iconStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper');
 $iconInnerStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper > span');
 $iconHoverStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-icon-wrapper:hover');
@@ -81,7 +85,7 @@ $iconSize = $element->params->get('iconSize', null);
 if (!empty($iconSize)) {
    foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
       if (isset($iconSize->{$deviceKey}) && JDPageBuilder\Helper::checkSliderValue($iconSize->{$deviceKey})) {
-         $iconStyle->addCss("font-size", $iconSize->{$deviceKey}->value . 'px', $device);
+         $iconStyle->addCss("font-size", ($iconSize->{$deviceKey}->value * 0.70) . 'px', $device);
          $iconStyle->addCss("width", $iconSize->{$deviceKey}->value . 'px', $device);
          $iconStyle->addCss("height", $iconSize->{$deviceKey}->value . 'px', $device);
          $iconStyle->addCss("line-height", $iconSize->{$deviceKey}->value . 'px', $device);

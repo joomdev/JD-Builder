@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
@@ -24,10 +25,15 @@ $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
 $linkNoFollow = $element->params->get('linkNoFollow', false);
 $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
 
-$headingAlignment = $element->params->get('headingAlignment', "");
-if (!empty($headingAlignment)) {
-   $element->addCss("text-align", $headingAlignment);
+$alignment = $element->params->get('headingAlignment', null);
+if (!empty($alignment)) {
+   foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+         $element->addCss('text-align', $alignment->{$deviceKey}, $device);
+      }
+   }
 }
+
 $subtitlePosition = $element->params->get('subtitlePosition', 'below');
 
 $headingHtmlTag = $element->params->get("headingHtmlTag", "h3");
@@ -42,20 +48,20 @@ if ($subtitlePosition == "above") {
 ?>
 <<?php echo $headingHtmlTag; ?> class="jdb-heading-heading">
 
-<?php
-if (!empty($link)) {
-   ?> 
-   <a title="<?php echo $title; ?>" href="<?php echo $link; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
-      <?php
-   }
-
-   echo $title;
+   <?php
    if (!empty($link)) {
       ?>
-   </a>
+      <a title="<?php echo $title; ?>" href="<?php echo $link; ?>" <?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+      <?php
+      }
+
+      echo $title;
+      if (!empty($link)) {
+         ?>
+      </a>
    <?php
-}
-?>
+   }
+   ?>
 </<?php echo $headingHtmlTag; ?>>
 
 <?php

@@ -59,7 +59,16 @@
             }
          });
       }
-      
+
+      const borderRadius = element.params.get('separatorRadius', null);
+      if (borderRadius != null) {
+         JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+            if (_deviceObj.key in borderRadius) {
+               style.addStyle(JDBRenderer.Helper.spacingValue(borderRadius[_deviceObj.key], "radius"), _deviceObj.type);
+            }
+         });
+      }
+
       return '<hr />';
    }
 

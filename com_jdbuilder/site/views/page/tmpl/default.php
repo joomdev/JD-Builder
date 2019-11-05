@@ -11,4 +11,4 @@ defined('_JEXEC') or die;
 
 $document = JFactory::getDocument();
 JDPageBuilder\Builder::renderPage($this->item, 'page');
-?>
+JDPageBuilder\Builder::onBeforeBodyClose();

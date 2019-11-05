@@ -84,7 +84,7 @@
       if (iconSize != null) {
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {
             if ((_deviceObj.key in iconSize) && JDBRenderer.Helper.checkSliderValue(iconSize[_deviceObj.key])) {
-               iconStyle.addCss("font-size", iconSize[_deviceObj.key].value + 'px', _deviceObj.type);
+               iconStyle.addCss("font-size", (iconSize[_deviceObj.key].value * 0.70) + 'px', _deviceObj.type);
                iconStyle.addCss("width", iconSize[_deviceObj.key].value + 'px', _deviceObj.type);
                iconStyle.addCss("height", iconSize[_deviceObj.key].value + 'px', _deviceObj.type);
                iconStyle.addCss("line-height", iconSize[_deviceObj.key].value + 'px', _deviceObj.type);

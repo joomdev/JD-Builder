@@ -71,11 +71,13 @@
 
       if (element.params.get('imageSize', 'original') == 'custom') {
          var width = element.params.get('width', null);
-         JDBRenderer.DEVICES.forEach(function (_deviceObj) {
-            if ((_deviceObj.key in width) && JDBRenderer.Helper.checkSliderValue(width[_deviceObj.key])) {
-               imageStyle.addCss("width", width[_deviceObj.key].value + width[_deviceObj.key].unit, _deviceObj.type);
-            }
-         });
+         if (width != null) {
+            JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+               if ((_deviceObj.key in width) && JDBRenderer.Helper.checkSliderValue(width[_deviceObj.key])) {
+                  imageStyle.addCss("width", width[_deviceObj.key].value + width[_deviceObj.key].unit, _deviceObj.type);
+               }
+            });
+         }
 
          var width = element.params.get('maxWidth', null);
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {

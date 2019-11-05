@@ -25,7 +25,7 @@
          element.addClass('jdb-button-' + buttonSize);
       }
 
-      // button alignment
+      // Button Alignment
       var alignment = element.params.get('buttonAlignment', null);
       if (alignment != null) {
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {

@@ -9,26 +9,32 @@
 
 namespace JDPageBuilder;
 
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
 define('MEDIA_PATH', JPATH_ROOT . '/images/');
 
 \jimport('joomla.filesystem.file');
 \jimport('joomla.filesystem.folder');
 \jimport('joomla.filesystem.element');
 
-class Media {
+class Media
+{
 
    public static $unwanted_ext = [
-       '.DS_Store',
-       '.localized',
-       'Thumbs.db',
-       'error_log'
+      '.DS_Store',
+      '.localized',
+      'Thumbs.db',
+      'error_log'
    ];
 
-   public function __construct() {
+   public function __construct()
+   {
       define('MEDIA_URL', \JURI::root() . 'images/');
    }
 
-   public function get($folder) {
+   public function get($folder)
+   {
 
       $current = $folder;
       $basePath = MEDIA_PATH;
@@ -65,7 +71,7 @@ class Media {
                $ext = strtolower($this->getExt($file));
 
                switch ($ext) {
-                  // Image
+                     // Image
                   case 'jpg':
                   case 'png':
                   case 'gif':
@@ -105,7 +111,7 @@ class Media {
                      $images[] = $tmp;
                      break;
 
-                  // Video
+                     // Video
                   case 'mp4':
                   case 'webm':
                   case 'ogg':
@@ -115,7 +121,7 @@ class Media {
                      $tmp->media_type = 'video';
                      break;
 
-                  // Non-image document
+                     // Non-image document
                   default:
                      $tmp->icon_32 = 'media/mime-icon-32/' . $ext . '.png';
                      $tmp->icon_16 = 'media/mime-icon-16/' . $ext . '.png';
@@ -151,7 +157,8 @@ class Media {
       return $list;
    }
 
-   public function breadcrumb($path) {
+   public function breadcrumb($path)
+   {
       $return = [];
       $path = str_replace(MEDIA_PATH, '', $path);
 
@@ -178,7 +185,8 @@ class Media {
       return array_reverse($return);
    }
 
-   function backlink($path) {
+   function backlink($path)
+   {
       $return = str_replace(MEDIA_PATH, '', dirname($path));
 
       $base = substr(MEDIA_PATH, 0, -1);
@@ -186,7 +194,8 @@ class Media {
       return $return;
    }
 
-   public function getExt($file) {
+   public function getExt($file)
+   {
       $pathinfo = pathinfo($file);
       if (!isset($pathinfo['extension'])) {
          return "";
@@ -194,7 +203,8 @@ class Media {
       return $pathinfo['extension'];
    }
 
-   public function imageResize($width, $height, $target) {
+   public function imageResize($width, $height, $target)
+   {
       /*
        * Takes the larger size of the width and height and applies the
        * formula accordingly. This is so this script will work
@@ -213,7 +223,8 @@ class Media {
       return array($width, $height);
    }
 
-   public function countFiles($dir) {
+   public function countFiles($dir)
+   {
       $total_file = 0;
       $total_dir = 0;
 
@@ -236,7 +247,8 @@ class Media {
       return array($total_file, $total_dir);
    }
 
-   public function files($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*', '.*~'), $naturalSort = false) {
+   public function files($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*', '.*~'), $naturalSort = false)
+   {
       $path = $this->clean($path);
       // Is the path a folder?
       if (!is_dir($path)) {
@@ -259,7 +271,8 @@ class Media {
       return array_values($arr);
    }
 
-   public function folders($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*')) {
+   public function folders($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'), $excludefilter = array('^\..*'))
+   {
       // Check to make sure the path valid and clean
       $path = $this->clean($path);
       // Compute the excludefilter string
@@ -275,7 +288,8 @@ class Media {
       return array_values($arr);
    }
 
-   public function clean($path, $ds = DIRECTORY_SEPARATOR) {
+   public function clean($path, $ds = DIRECTORY_SEPARATOR)
+   {
       $path = trim($path);
       if (empty($path)) {
          $path = MEDIA_PATH;
@@ -286,7 +300,8 @@ class Media {
       return $path;
    }
 
-   public function _items($path, $filter, $recurse, $full, $exclude, $excludefilter_string, $findfiles) {
+   public function _items($path, $filter, $recurse, $full, $exclude, $excludefilter_string, $findfiles)
+   {
       @set_time_limit(ini_get('max_execution_time'));
       $arr = array();
       // Read the source directory
@@ -324,7 +339,8 @@ class Media {
       return $arr;
    }
 
-   public static function create() {
+   public static function create()
+   {
       $request = Builder::request();
       $directory = $request->get('dir', '', 'RAW');
       $directory = empty($directory) ? $directory : $directory . '/';
@@ -343,7 +359,8 @@ class Media {
       return ['message' => "Folder created.", 'folder' => $directory . $name];
    }
 
-   public static function delete() {
+   public static function delete()
+   {
       $request = Builder::request();
       $media = $request->get('media', [], 'ARRAY');
       foreach ($media as $file) {
@@ -356,7 +373,8 @@ class Media {
       return true;
    }
 
-   public static function copy() {
+   public static function copy()
+   {
       $request = Builder::request();
       $media = $request->get('media', [], 'ARRAY');
       foreach ($media as $file) {
@@ -379,7 +397,8 @@ class Media {
       return true;
    }
 
-   public static function rename() {
+   public static function rename()
+   {
       $request = Builder::request();
       $media = $request->get('media', [], 'ARRAY');
       $name = $request->get('name', '', 'RAW');
@@ -396,7 +415,8 @@ class Media {
       return true;
    }
 
-   public static function copyFile($path) {
+   public static function copyFile($path)
+   {
       $filename = pathinfo($path, PATHINFO_FILENAME);
       $ext = pathinfo($path, PATHINFO_EXTENSION);
       $dir = pathinfo($path, PATHINFO_DIRNAME);
@@ -411,11 +431,12 @@ class Media {
       copy($path, $dir . '/' . $newFilename);
    }
 
-   public static function copyFolder($src, $dst) {
+   public static function copyFolder($src, $dst)
+   {
       $dir = opendir($src);
       @mkdir($dst);
-      while (false !== ( $file = readdir($dir))) {
-         if (( $file != '.' ) && ( $file != '..' )) {
+      while (false !== ($file = readdir($dir))) {
+         if (($file != '.') && ($file != '..')) {
             if (is_dir($src . '/' . $file)) {
                self::copyFolder($src . '/' . $file, $dst . '/' . $file);
             } else {
@@ -429,7 +450,8 @@ class Media {
       closedir($dir);
    }
 
-   public static function removeDir($dirPath) {
+   public static function removeDir($dirPath)
+   {
       if (!is_dir($dirPath)) {
          throw new \Exception("$dirPath must be a directory");
       }
@@ -450,14 +472,16 @@ class Media {
       }
    }
 
-   public static function isDirEmpty($dir) {
+   public static function isDirEmpty($dir)
+   {
       if (!is_readable($dir)) {
          return false;
       }
       return (count(scandir($dir)) == 2);
    }
 
-   public static function removeUnwantedFiles($dirPath) {
+   public static function removeUnwantedFiles($dirPath)
+   {
       foreach (self::$unwanted_ext as $file) {
          if (file_exists($dirPath . $file)) {
             @unlink($dirPath . $file);
@@ -465,7 +489,8 @@ class Media {
       }
    }
 
-   public static function upload() {
+   public static function upload()
+   {
       $request = Builder::request();
       $dir = $request->get('dir', '', 'RAW');
       $media = $request->get('media', 'image');
@@ -565,7 +590,8 @@ class Media {
       return $response;
    }
 
-   public static function getVideoPlayer($url, $config = [], $attrs = [], $class = []) {
+   public static function getVideoPlayer($url, $config = [], $attrs = [], $class = [])
+   {
       $parsedUrl = parse_url($url);
       $type = "";
       switch ($parsedUrl['host']) {
@@ -614,4 +640,45 @@ class Media {
       }
    }
 
+   public static function download()
+   {
+      $request = Builder::request();
+      $path = $request->get('path', '', 'RAW');
+      $url = $request->get('url', '', 'RAW');
+      $name = $request->get('name', '', 'RAW');
+      if (empty($url)) {
+         throw new \Exception("Downloading URL is invalid.");
+      }
+
+      if (!file_exists(MEDIA_PATH . $path)) {
+         mkdir(MEDIA_PATH . $path, 0777);
+      }
+      $dir = MEDIA_PATH . $path . date('Y');
+      if (!file_exists($dir)) {
+         mkdir($dir, 0777);
+      }
+      if (!file_exists($dir . '/' . date('m'))) {
+         mkdir($dir . '/' . date('m'), 0777);
+      }
+      if (!file_exists($dir . '/' . date('m') . '/' . date('d'))) {
+         mkdir($dir . '/' . date('m') . '/' . date('d'), 0777);
+      }
+
+      $uploadDir = $dir . '/' . date('m') . '/' . date('d') . '/';
+      $dir = date('Y') . '/' . date('m') . '/' . date('d');
+
+      $pathinfo = pathinfo(parse_url($url)['path']);
+      $name = empty($name) ? $pathinfo['filename'] : $name;
+      $filename = $name . '.' . $pathinfo['extension'];
+
+      $index = 2;
+      while (file_exists($uploadDir . $filename)) {
+         $filename = $name . '_' . $index  . '.' . $pathinfo['extension'];
+         $index++;
+      }
+
+      file_put_contents($uploadDir . $filename, file_get_contents($url));
+
+      return ['file' => $path . $dir . '/' . $filename];
+   }
 }

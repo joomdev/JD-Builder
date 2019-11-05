@@ -75,7 +75,7 @@
                name="iconSize"
                type="slider"
                label="JDBUILDER_ELE_ICON_SIZE_LBL"
-               default="16"
+               default="32"
                unit="px"
                min="1"
                max="200"

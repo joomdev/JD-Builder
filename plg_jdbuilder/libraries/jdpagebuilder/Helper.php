@@ -14,6 +14,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Leafo\ScssPhp\Compiler;
 use MatthiasMullie\Minify\Minify;
 
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+jimport('joomla.application.component.helper');
+
 class Helper
 {
 
@@ -24,6 +28,12 @@ class Helper
    public static function classify($word)
    {
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
+   }
+
+   public static function isBuilderDemo()
+   {
+      $config = \JFactory::getConfig();
+      return $config->get('jdbuilder_demo', 0);
    }
 
    public static function titlecase($word)
@@ -382,10 +392,10 @@ class Helper
    {
       $document = \JFactory::getDocument();
       $variables = Helper::getGlobalVariables();
-      $name = serialize($variables);
+      $name = serialize($variables) . JDB_MEDIA_VERSION;
 
 
-      $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => $document->getMediaVersion()]);
+      $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => JDB_MEDIA_VERSION]);
 
       if (file_exists(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css')) {
          return;
@@ -403,18 +413,20 @@ class Helper
 
    public static function getGlobalVariables()
    {
-      $pluginParams = self::getPluginParams();
+      // $pluginParams = self::getPluginParams();
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+
       $variables = [];
-      $variables['primary'] = $pluginParams->get('global_primary', '#007bff');
-      $variables['secondary'] = $pluginParams->get('global_secondary', '#6c757d');
-      $variables['success'] = $pluginParams->get('global_success', '#28a745');
-      $variables['info'] = $pluginParams->get('global_info', '#17a2b8');
-      $variables['warning'] = $pluginParams->get('global_warning', '#ffc107');
-      $variables['danger'] = $pluginParams->get('global_danger', '#dc3545');
+      $variables['primary'] = $buiderConfig->get('global_primary', '#007bff');
+      $variables['secondary'] = $buiderConfig->get('global_secondary', '#6c757d');
+      $variables['success'] = $buiderConfig->get('global_success', '#28a745');
+      $variables['info'] = $buiderConfig->get('global_info', '#17a2b8');
+      $variables['warning'] = $buiderConfig->get('global_warning', '#ffc107');
+      $variables['danger'] = $buiderConfig->get('global_danger', '#dc3545');
 
       //fontFamilyValue
 
-      $global_font = $pluginParams->get('global_font', '');
+      $global_font = $buiderConfig->get('global_font', '');
 
       $fontfamily = [];
 
@@ -422,13 +434,14 @@ class Helper
          $fontfamily[] = self::fontFamilyValue($global_font);
       }
 
-      $global_alt_font = $pluginParams->get('global_alt_font', '');
+      $global_alt_font = $buiderConfig->get('global_alt_font', '');
       if (!empty($global_alt_font)) {
          $fontfamily[] = self::fontFamilyValue($global_alt_font);
       }
 
       if (!empty($fontfamily)) {
          $variables['font-family-sans-serif'] = implode(", ", $fontfamily);
+         $variables['fontFamilySansSerif'] = implode(", ", $fontfamily);
       }
       return $variables;
    }
@@ -465,6 +478,30 @@ class Helper
       return $return;
    }
 
+   public static function videoValue($value)
+   {
+      $params = new \JRegistry();
+      $type = substr($value, 0, 3);
+      switch ($type) {
+         case 'yt:':
+            $link = substr($value, 3);
+            return self::getYoutubeVideoByLink($params, $link, true, false, false, true);
+            break;
+         case 'vm:':
+            $link = substr($value, 3);
+            return self::getVimeoVideoByLink($params, $link, true, false, false, true);
+            break;
+         case 'lk:':
+            $link = substr($value, 3);
+            return self::getVideoByLink($params, $link, true, false, false, true);
+            break;
+         default:
+            $link = \JURI::root() . 'images/' . $value;
+            return self::getVideoByLink($params, $link, true, false, false, true);
+            break;
+      }
+   }
+
    public static function fontFamilyValue($value)
    {
       $type = substr($value, 0, 2);
@@ -475,6 +512,17 @@ class Helper
             $font = explode(":", $value);
             Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0]);
             $return = str_replace('+', ' ', $font[0]);
+            break;
+         case 'c~':
+            $value = substr($value, 2);
+            $customFonts = \json_decode(file_get_contents(JPATH_PLUGINS . '/system/jdbuilder/fonts/fonts.json'), true);
+            $value = $customFonts[$value];
+            $urls = [];
+            foreach ($value['files'] as $file) {
+               $urls[] = 'url(' . $file . ')';
+            }
+            Builder::addCustomStyle('@font-face {font-family: ' . $value['name'] . ';src: ' . implode(', ', $urls) . ';}');
+            $return = $value['name'];
             break;
          default:
             $return = substr($value, 2);
@@ -866,5 +914,112 @@ class Helper
       }
 
       return $url;
+   }
+
+   public static function applyBackgroundValue($elementStyle, $params, $key = '')
+   {
+      if (empty($key)) {
+         return;
+      }
+      $background = $params->get($key . 'Type', 'none');
+      switch ($background) {
+         case "color":
+            $backgroundColor = $params->get($key . 'Color', '');
+            if ($backgroundColor != '') {
+               $elementStyle->addCss('background-color', $backgroundColor);
+            }
+            break;
+         case "image":
+            $backgroundColor = $params->get($key . 'Color', '');
+            if ($backgroundColor != '') {
+               $elementStyle->addCss('background-color', $backgroundColor);
+            }
+            $backgroundImage = $params->get($key . 'Image', '');
+            if ($backgroundImage != '') {
+               $elementStyle->addCss('background-image', 'url(' . Helper::mediaValue($backgroundImage) . ')');
+               $backgroundRepeat = $params->get($key . 'Repeat', '');
+               if ($backgroundRepeat != '') {
+                  $elementStyle->addCss('background-repeat', $backgroundRepeat);
+               }
+               $backgroundSize = $params->get($key . 'Size', '');
+               if ($backgroundSize != '') {
+                  $elementStyle->addCss('background-size', $backgroundSize);
+               }
+               $backgroundAttachment = $params->get($key . 'Attachment', '');
+               if ($backgroundAttachment != '') {
+                  $elementStyle->addCss('background-attachment', $backgroundAttachment);
+               }
+               $backgroundPosition = $params->get($key . 'Position', '');
+               if ($backgroundPosition != '') {
+                  $elementStyle->addCss('background-position', $backgroundPosition);
+               }
+            }
+            break;
+         case 'gradient':
+            $backgroundGradient = $params->get($key . 'Gradient', '');
+            if ($backgroundGradient != '') {
+               $elementStyle->addCss('background-image', $backgroundGradient);
+            }
+            break;
+      }
+   }
+
+   public static function applyBorderValue($elementStyle, $params, $key = '')
+   {
+      if (empty($key)) {
+         return;
+      }
+      $elementBorderStyle = $params->get($key . 'Style', '');
+      if (!empty($elementBorderStyle)) {
+         $elementStyle->addCss('border-style', $elementBorderStyle);
+         $elementBorderWidth = $params->get($key . 'Width', null);
+         if (!empty($elementBorderWidth) && $elementBorderStyle != 'none') {
+
+            foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+               if (isset($elementBorderWidth->{$deviceKey}) && !empty($elementBorderWidth->{$deviceKey})) {
+
+                  $css = \JDPageBuilder\Helper::spacingValue($elementBorderWidth->{$deviceKey}, "border");
+                  if (!empty($css)) {
+                     $elementStyle->addStyle($css, $device);
+                  }
+               }
+            }
+
+            $elementBorderColor = $params->get($key . 'Color', '');
+            if (!empty($elementBorderColor)) {
+               $elementStyle->addCss('border-color', $elementBorderColor);
+            }
+         }
+      }
+      $elementBorderRadius = $params->get($key . 'Radius', null);
+      if (!empty($elementBorderRadius)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($elementBorderRadius->{$deviceKey}) && !empty($elementBorderRadius->{$deviceKey})) {
+
+               $css = \JDPageBuilder\Helper::spacingValue($elementBorderRadius->{$deviceKey}, "radius");
+               if (!empty($css)) {
+                  $elementStyle->addStyle($css, $device);
+               }
+            }
+         }
+      }
+      $elementBoxShadow = $params->get($key . 'Shadow', '');
+      if (!empty($elementBoxShadow)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($elementBoxShadow->{$deviceKey}) && !empty($elementBoxShadow->{$deviceKey})) {
+               $elementStyle->addCss('box-shadow', $elementBoxShadow->{$deviceKey}, $device);
+            }
+         }
+      }
+   }
+
+   function firstWord($html)
+   {
+      $string = strip_tags($html);
+      return explode(" ", $string)[0];
+   }
+   function firstLetter($str)
+   {
+      return substr($str, 0, 1);
    }
 }

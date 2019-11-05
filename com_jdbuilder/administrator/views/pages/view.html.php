@@ -16,7 +16,8 @@ jimport('joomla.application.component.view');
  *
  * @since  1.6
  */
-class JdbuilderViewPages extends JViewLegacy {
+class JdbuilderViewPages extends JViewLegacy
+{
 
    protected $items;
    protected $pagination;
@@ -31,7 +32,8 @@ class JdbuilderViewPages extends JViewLegacy {
     *
     * @throws Exception
     */
-   public function display($tpl = null) {
+   public function display($tpl = null)
+   {
       $this->state = $this->get('State');
       $this->items = $this->get('Items');
       $this->pagination = $this->get('Pagination');
@@ -58,7 +60,8 @@ class JdbuilderViewPages extends JViewLegacy {
     *
     * @since    1.6
     */
-   protected function addToolbar() {
+   protected function addToolbar()
+   {
       $state = $this->get('State');
       $canDo = JdbuilderHelper::getActions();
 
@@ -70,14 +73,16 @@ class JdbuilderViewPages extends JViewLegacy {
       if (file_exists($formPath)) {
          if ($canDo->get('core.create')) {
             JToolBarHelper::addNew('page.add', 'JTOOLBAR_NEW');
-
-            if (isset($this->items[0])) {
-               JToolbarHelper::custom('pages.duplicate', 'copy.png', 'copy_f2.png', 'JTOOLBAR_DUPLICATE', true);
-            }
          }
 
          if ($canDo->get('core.edit') && isset($this->items[0])) {
             JToolBarHelper::editList('page.edit', 'JTOOLBAR_EDIT');
+         }
+
+         if ($canDo->get('core.create')) {
+            if (isset($this->items[0])) {
+               JToolbarHelper::custom('pages.duplicate', 'copy.png', 'copy_f2.png', 'JTOOLBAR_DUPLICATE', true);
+            }
          }
       }
 
@@ -113,6 +118,7 @@ class JdbuilderViewPages extends JViewLegacy {
       }
 
       if ($canDo->get('core.admin')) {
+         // JToolbarHelper::custom('help', 'help.png', 'help_f2.png', 'Help', false, false);
          JToolBarHelper::preferences('com_jdbuilder');
       }
 
@@ -125,15 +131,16 @@ class JdbuilderViewPages extends JViewLegacy {
     *
     * @return void 
     */
-   protected function getSortFields() {
+   protected function getSortFields()
+   {
       return array(
-          'a.`id`' => JText::_('JGRID_HEADING_ID'),
-          'a.`title`' => JText::_('COM_JDBUILDER_PAGES_TITLE'),
-          'a.`category_id`' => JText::_('COM_JDBUILDER_PAGES_CATEGORY_ID'),
-          'a.`ordering`' => JText::_('JGRID_HEADING_ORDERING'),
-          'a.`state`' => JText::_('JSTATUS'),
-          'a.`access`' => JText::_('COM_JDBUILDER_PAGES_ACCESS'),
-          'a.`language`' => JText::_('JGRID_HEADING_LANGUAGE'),
+         'a.`id`' => JText::_('JGRID_HEADING_ID'),
+         'a.`title`' => JText::_('COM_JDBUILDER_PAGES_TITLE'),
+         'a.`category_id`' => JText::_('COM_JDBUILDER_PAGES_CATEGORY_ID'),
+         'a.`ordering`' => JText::_('JGRID_HEADING_ORDERING'),
+         'a.`state`' => JText::_('JSTATUS'),
+         'a.`access`' => JText::_('COM_JDBUILDER_PAGES_ACCESS'),
+         'a.`language`' => JText::_('JGRID_HEADING_LANGUAGE'),
       );
    }
 
@@ -144,8 +151,8 @@ class JdbuilderViewPages extends JViewLegacy {
     *
     * @return bool
     */
-   public function getState($state) {
+   public function getState($state)
+   {
       return isset($this->state->{$state}) ? $this->state->{$state} : false;
    }
-
 }

@@ -17,10 +17,15 @@
       var linkNoFollow = element.params.get('linkNoFollow', false);
       var linkRel = linkNoFollow ? ' rel="nofollow"' : "";
 
-      var headingAlignment = element.params.get('headingAlignment', "");
-      if (headingAlignment != '') {
-         element.addCss("text-align", headingAlignment);
+      var alignment = element.params.get('headingAlignment', null);
+      if (alignment !== null && typeof alignment == 'object') {
+         JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+            if (_deviceObj.key in alignment) {
+               element.addCss('text-align', alignment[_deviceObj.key], _deviceObj.type);
+            }
+         });
       }
+
       var subtitlePosition = element.params.get('subtitlePosition', 'below');
 
       var headingHtmlTag = element.params.get("headingHtmlTag", "h3");

@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+.jdfinder-underlay * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.jdfinder-underlay {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.5);
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: opacity .2s linear;
+	-moz-transition: opacity .2s linear;
+	-o-transition: opacity .2s linear;
+	transition: opacity .2s linear;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#jdfinderUnderlay.visible {
+	opacity: 1;
+	visibility: visible;
+	height: auto;
+	z-index: 10011;
+	position: fixed;
+}
+
+.ie8 .jdfinder-underlay.visible {
+	visibility: visible;
+}
+
+.jdfinder-underlay .modal-outer {
+	height: 100%;
+}
+
+.ie8 .jdfinder-underlay {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=95)";
+	/* for IE8 in IE7 mode */
+	filter: alpha(opacity=95);
+	/* for IE8 */
+	visibility: hidden;
+}
+
+.jdfinder-modal {
+	position: relative;
+	z-index: 99999;
+	left: 0;
+	right: 0;
+	top: 10%;
+	bottom: 0;
+	width: 35%;
+	margin: auto;
+	background: #f1f3f5;
+	color: #6d7882;
+	font-size: 12px;
+	height: auto;
+	font-family: Arial, sans-serif;
+	font-family: 'Roboto', sans-serif;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .5);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .5);
+	-webkit-transition: width .2s linear;
+	transition: width .2s linear;
+}
+
+.jdfinder-modal-content {
+	padding: 0;
+	margin: 0;
+}
+
+.jdfinder-close {
+	color: #d8d8d8;
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	font-size: 30px;
+	cursor: pointer;
+	-webkit-transition: color .2s linear;
+	transition: color .2s linear;
+	transform: translateY(-50%);
+}
+
+.jdfinder-close:hover {
+	color: #d8d8d8;
+}
+.jdfinder-modal .jdfinder-header {
+	background: #292929;
+	z-index: 1;
+	padding: 15px;
+	box-shadow: 0 0 8px rgba(0,0,0,.1);
+	position: relative;
+}
+.jdfinder-modal .jdfinder-name {
+	color: #fff;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 1;
+}
+
+.jdfinder-icon {
+	width: 35px;
+	margin-right: 5px;
+	background: #fff;
+	padding: 6px;
+	border-radius: 2px;
+}
+
+.jdfinder-underlay input#jdfindersearch {
+	width: 100%;
+	height: auto;
+	padding: 10px 10px 10px 37px;
+	margin: 0;
+	background: #fff;
+	color: #000;
+	border-radius: 0;
+	border: 1px solid #eee;
+	line-height: 1;
+	font-size: 14px;
+}
+
+.jdfinder-underlay input.searchajax {
+	background-image: url('spinner.gif');
+	background-repeat: no-repeat;
+	background-position: right 5px top 8px;
+}
+
+.jdfinder-underlay .jdfinder-search-icon {
+	color: #a4afb7;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 18px;
+	text-align: center;
+	width: 35px;
+	height: 100%;
+	line-height: 35px;
+}
+
+.jdfinder_results {
+	margin: 0;
+	max-height: 40vh;
+	overflow: auto;
+}
+
+.jdfinder_results li {
+	list-style: none;
+	padding: 0;
+	background: none;
+}
+
+.jdfinder_results li a {
+	color: #6d7882;
+	text-decoration: none;
+	line-height: 1.5;
+	display: block;
+	padding: 5px 10px;
+}
+
+.jdfinder_results li:hover .jdfinder_results_item_description{
+	color: #fff;
+}
+.jdfinder_results li:hover {
+	list-style: none;
+	background-color: #292929;
+}
+
+.jdfinder_results li:hover a{
+	color: #fff;
+}
+
+.jdfinder_results li .group-label {
+	color: #6d7882;
+	font-weight: bold;
+	padding: 8px 10px;
+	letter-spacing: 0.2px;
+	text-transform: uppercase;
+}
+
+.jdfinder_results li .group-label:before{
+	font-family: 'IcoMoon';
+	font-style: normal;
+	speak: none;
+	padding-right: 5px;
+}
+
+.jdfinder_results li .group-label.new:before {
+	content: "\2a";
+}
+
+.jdfinder_results li .group-label.modules:before {
+	content: "\33";
+}
+
+.jdfinder_results li .group-label.users:before {
+	content: "\e01f";
+}
+.jdfinder_results li .group-label.articles:before {
+	content: "\e242";
+}
+
+.jdfinder_results li .jdfinder_results_item_description {
+	color: #a4afb7;
+	font-size: inherit;
+	font-style: italic;
+}
+
+.jdfinder-underlay .search-wrapper {
+	position: relative;
+	box-shadow: 0 -3px 15px 6px rgba(0,0,0,.03);
+}
+
+.groupholder li:first-child{
+	background: #e6e9ec;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
+
+.jdfinder_results li.noresult {
+	background: none;
+	padding: 8px 10px;
+}
+

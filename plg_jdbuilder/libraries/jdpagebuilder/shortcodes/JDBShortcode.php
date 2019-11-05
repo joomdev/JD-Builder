@@ -9,6 +9,9 @@
 
 namespace JDPageBuilder\JDBShortcode;
 
+// No direct access
+defined('_JEXEC') or die;
+
 class JDBShortcode {
 
    public $tag = "";
@@ -306,5 +309,3 @@ class JDBShortcode {
    }
 
 }
-
-?>

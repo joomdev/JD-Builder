@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
@@ -30,27 +31,29 @@ if ($multiple) {
 
 $titleTag = $element->params->get('titleTag', '');
 $titleTag = empty($titleTag) ? 'span' : $titleTag;
+
+$faqSchema = $element->params->get('faqSchema', false);
 ?>
 
-<ul jdb-accordion="collapsible:<?php echo $collapsible ? 'true' : 'false'; ?>;active:<?php echo $firstactive ? 0 : 'false'; ?>;multiple:<?php echo $multiple ? 'true' : 'false'; ?>">
+<ul <?php echo $faqSchema ? 'itemscope itemtype="https://schema.org/FAQPage" ' : ''; ?>jdb-accordion="collapsible:<?php echo $collapsible ? 'true' : 'false'; ?>;active:<?php echo $firstactive ? 0 : 'false'; ?>;multiple:<?php echo $multiple ? 'true' : 'false'; ?>">
    <?php foreach ($items as $item) { ?>
-      <li<?php echo $opanAll ? ' class="jdb-active"' : ''; ?>>
+      <li <?php echo $faqSchema ? 'itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" ' : ''; ?><?php echo $opanAll ? 'class="jdb-active"' : ''; ?>>
          <a class="jdb-accordion-title jdb-caret-<?php echo $element->params->get('accordionIconAlignment', 'right'); ?>" href="#">
-            <<?php echo $titleTag; ?> class="jdb-accordion-text">
-            <?php
-            if (!empty(@$item->icon)) {
-               \JDPageBuilder\Builder::loadFontLibraryByIcon(@$item->icon);
-               ?>
-               <i class="jdb-accordion-icon <?php echo $item->icon; ?>"></i>
-            <?php } ?>
-            <?php echo $item->title; ?>
+            <<?php echo $titleTag; ?><?php echo $faqSchema ? ' itemprop="name"' : ''; ?> class="jdb-accordion-text">
+               <?php
+                  if (!empty(@$item->icon)) {
+                     \JDPageBuilder\Builder::loadFontLibraryByIcon(@$item->icon);
+                     ?>
+                  <i class="jdb-accordion-icon <?php echo $item->icon; ?>"></i>
+               <?php } ?>
+               <?php echo $item->title; ?>
             </<?php echo $titleTag; ?>>
             <?php
-            echo JDPageBuilder\Helper::getCaretValue($element->params->get('accordionIcon', 'plus'));
-            ?>
+               echo JDPageBuilder\Helper::getCaretValue($element->params->get('accordionIcon', 'plus'));
+               ?>
          </a>
-         <div class="jdb-accordion-content">
-            <div>
+         <div <?php echo $faqSchema ? 'itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" ' : ''; ?>class="jdb-accordion-content">
+            <div <?php echo $faqSchema ? 'itemprop="text"' : ''; ?>>
                <?php echo JDPageBuilder\Helper::renderHTML($item->content); ?>
             </div>
          </div>

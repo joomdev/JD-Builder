@@ -9,11 +9,16 @@
 
 namespace JDPageBuilder\Element;
 
-class Layout extends BaseElement {
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+class Layout extends BaseElement
+{
 
    protected $sections = [];
 
-   public function __construct($object) {
+   public function __construct($object)
+   {
       parent::__construct($object);
       $layout = \json_decode($object->layout, FALSE);
       if (isset($layout->sections)) {
@@ -23,15 +28,16 @@ class Layout extends BaseElement {
       }
       $this->id = 'jdb-layout-' . $this->id;
       $this->addClass($this->id);
+      $this->addClass('jdbuilder');
       //$this->addAttribute('jdb-layout');
    }
 
-   public function getContent() {
+   public function getContent()
+   {
       $content = [];
       foreach ($this->sections as $section) {
          $content[] = $section->render();
       }
       return implode("", $content);
    }
-
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fieldsgroup>
+    <!--  Background Options -->
+    <field type="radio" name="type" label="JDBUILDER_FIELD_BACKGROUND_LABEL" default="none" description="JDBUILDER_FIELD_BACKGROUND_DESC" radiotype="buttons">
+        <option value="none">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_NONE</option>
+        <option value="color">JDBUILDER_FIELD_COLOR_LABEL</option>
+        <option value="gradient">JDBUILDER_FIELD_BACKGROUND_OPTIONS_GRADIENT</option>
+        <option value="image">JDBUILDER_FIELD_BACKGROUND_OPTIONS_IMAGE</option>
+    </field>
+
+    <!--  Background Color -->
+    <field type="color" name="color" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC" showon="params._fgType=='color'[OR]params._fgType=='image'" default="">
+    </field>
+
+    <!--  Background Gradient  -->
+    <field type="gradient" name="gradient" label="JDBUILDER_FIELD_BACKGROUND_GRADIENT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_GRADIENT_DESC" showon="params._fgType=='gradient'" default="">
+    </field>
+
+    <!--  Background Image -->
+    <field type="image" name="image" label="JDBUILDER_FIELD_BACKGROUND_UPLOAD_IMAGE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_UPLOAD_IMAGE_DESC" showon="params._fgType=='image'" default="">
+    </field>
+
+    <field type="list" name="repeat" label="JDBUILDER_FIELD_BACKGROUND_REPEAT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_REPEAT_DESC" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_INHERIT</option>
+        <option value="no-repeat">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_NO_REPEAT</option>
+        <option value="repeat-x">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_X</option>
+        <option value="repeat-y">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_Y</option>
+        <option value="space">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_SPACE</option>
+        <option value="round">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_ROUND</option>
+    </field>
+    <field type="list" name="size" label="JDBUILDER_FIELD_BACKGROUND_SIZE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_SIZE_DESC" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_INHERIT</option>
+        <option value="cover">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_COVER</option>
+        <option value="contain">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_CONTAIN</option>
+    </field>
+    <field type="list" name="attachment" label="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_DESC" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDBUILDER_FIELD_INHERIT</option>
+        <option value="fixed">JDBUILDER_FIELD_BACKGROUND_FIXED_OPTIONS</option>
+        <option value="scroll">JDBUILDER_FIELD_BACKGROUND_SCROLL_OPTIONS</option>
+    </field>
+    <field type="list" name="position" label="JDBUILDER_FIELD_BACKGROUND_POSITION_LABEL" description="JDBUILDER_FIELD_BACKGROUND_POSITION_DESC" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">BACKGROUND_POSITION_DEFAULT</option>
+        <option value="left top">BACKGROUND_POSITION_LEFT_TOP</option>
+        <option value="left center">BACKGROUND_POSITION_LEFT_CENTER</option>
+        <option value="left bottom">BACKGROUND_POSITION_LEFT_BOTTOM</option>
+        <option value="right top">BACKGROUND_POSITION_RIGHT_TOP</option>
+        <option value="right center">BACKGROUND_POSITION_RIGHT_CENTER</option>
+        <option value="right bottom">BACKGROUND_POSITION_RIGHT_BOTTOM</option>
+        <option value="center top">BACKGROUND_POSITION_CENTER_TOP</option>
+        <option value="center center">BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
+        <option value="center bottom">BACKGROUND_POSITION_CENTER_BOTTOM</option>
+    </field>
+</fieldsgroup>

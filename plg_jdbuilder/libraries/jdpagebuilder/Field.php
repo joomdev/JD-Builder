@@ -9,8 +9,13 @@
 
 namespace JDPageBuilder;
 
-class Field {
+use FontLib\Font;
 
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+class Field
+{
    protected $xml;
    public $name;
    public $type;
@@ -20,8 +25,10 @@ class Field {
    public $responsive;
    public $ordering = 0;
    public $description;
+   protected static $fonts = null;
 
-   public function __construct($xml, $prefix = '') {
+   public function __construct($xml, $prefix = '', $defaults = [], $parentShowon = null)
+   {
       $this->xml = $xml;
       $this->prefix = $prefix;
       $name = (string) $this->xml->attributes()->name;
@@ -56,18 +63,31 @@ class Field {
          if (!empty($prefix)) {
             $showon = str_replace('_fg', Helper::camelize($prefix), $showon);
          }
-         $this->showon = $showon;
+         if ($parentShowon !== null) {
+            $this->showon = '(' . $parentShowon . ')[AND]' . $showon;
+         } else {
+            $this->showon = $showon;
+         }
+      } else if ($parentShowon !== null) {
+         $this->showon = $parentShowon;
       }
-
-
 
       $responsive = (string) $this->xml->attributes()->responsive;
       $this->responsive = strtolower($responsive) == "true" ? true : false;
 
-      $this->setValue();
+      $this->setValue($defaults);
    }
 
-   public static function getFieldByType($type, $name = "", $value = "") {
+   public static function customFonts()
+   {
+      if (!static::$fonts) {
+         static::$fonts = self::getCustomFonts();
+      }
+      return static::$fonts;
+   }
+
+   public static function getFieldByType($type, $name = "", $value = "")
+   {
       $xml = new \SimpleXMLElement("<field></field>");
       $xml->addAttribute("type", $type);
       $xml->addAttribute("name", $name);
@@ -75,20 +95,26 @@ class Field {
       return $xml;
    }
 
-   public function setValue() {
-      $default = (string) $this->xml->attributes()->default;
+   public function setValue($defaults = [])
+   {
+      if (!empty($defaults) && isset($defaults[$this->name])) {
+         $default = $defaults[$this->name];
+      } else {
+         $default = (string) $this->xml->attributes()->default;
+      }
       switch ($this->type) {
          case 'typography':
          case 'spacing':
          case 'subform':
          case 'slider':
-            if ($default == "") {
+         case 'time':
+            if (empty($default)) {
                $default = "{}";
             }
             if (Helper::isValidJSON($default)) {
                $this->value = Helper::jsonDecode($default);
             } else {
-               $this->value = $default;
+               $this->value = \json_decode('{}');
             }
             break;
          case 'repeatable':
@@ -108,7 +134,8 @@ class Field {
       }
    }
 
-   public function get() {
+   public function get()
+   {
       $return = [];
       if (!in_array($this->type, Form::$fields_without_name)) {
          $return['name'] = $this->name;
@@ -127,6 +154,11 @@ class Field {
       $width = (string) $this->xml->attributes()->width;
       if (!empty($width)) {
          $return['width'] = $width;
+      }
+
+      $class = (string) $this->xml->attributes()->class;
+      if (!empty($class)) {
+         $return['class'] = $class;
       }
 
       switch ($this->type) {
@@ -158,6 +190,29 @@ class Field {
          case 'text':
             $placeholder = (string) $this->xml->attributes()->placeholder;
             $return['placeholder'] = \JText::_($placeholder);
+            break;
+         case 'date':
+            $placeholder = (string) $this->xml->attributes()->placeholder;
+            $return['placeholder'] = \JText::_($placeholder);
+
+            $min = (string) $this->xml->attributes()->min;
+            $return['min'] = empty($min) ? '' : $min;
+
+            $max = (string) $this->xml->attributes()->max;
+            $return['max'] = empty($max) ? '' : $max;
+            break;
+         case 'number':
+            $placeholder = (string) $this->xml->attributes()->placeholder;
+            $return['placeholder'] = \JText::_($placeholder);
+
+            $min = (string) $this->xml->attributes()->min;
+            $return['min'] = empty($min) ? 0 : ($min + 0);
+
+            $max = (string) $this->xml->attributes()->max;
+            $return['max'] = empty($max) ? 10000 : ($max + 0);
+
+            $step = (string) $this->xml->attributes()->step;
+            $return['step'] = empty($step) ? 1 : ($step + 0);
             break;
          case 'textarea':
             $placeholder = (string) $this->xml->attributes()->placeholder;
@@ -230,7 +285,7 @@ class Field {
                }
 
                $value = new \stdClass();
-               $value->value = $this->value;
+               $value->value = isset($this->value->value) ? $this->value->value : $this->value;
                $value->unit = $unit;
                $this->value = $value;
             }
@@ -238,12 +293,18 @@ class Field {
             break;
          case 'color':
             $small = (string) $this->xml->attributes()->small;
+            $alpha = (string) $this->xml->attributes()->alpha;
             $return['small'] = strtolower($small) == 'true' ? true : false;
+            $return['alpha'] = strtolower($alpha) == 'false' ? false : true;
             break;
          case 'code-editor':
             $language = (string) $this->xml->attributes()->language;
             $language = empty($language) ? 'html' : $language;
             $return['language'] = strtolower($language);
+
+            $mini = (string) $this->xml->attributes()->mini;
+            $mini = empty($mini) ? 'false' : $mini;
+            $return['mini'] = strtolower($mini);
             break;
          case 'list':
             $multiple = (string) $this->xml->attributes()->multiple;
@@ -371,13 +432,38 @@ class Field {
       }
 
       if (!in_array($this->type, Form::$fields_without_value)) {
-         $return['value'] = $this->value;
-         $return['default'] = $this->value;
+         if ($this->responsive) {
+            $value = [];
+
+            if (isset($this->value->md) || isset($this->value->sm) || isset($this->value->xs)) {
+               foreach (Helper::$devices as $deviceKey => $device) {
+                  if (isset($this->value->{$deviceKey})) {
+                     $value[$deviceKey] = $this->value->{$deviceKey};
+                  } else {
+                     foreach (Helper::$devices as $dk => $d) {
+                        if (($dk != $deviceKey) && isset($this->value->{$dk})) {
+                           $value[$deviceKey] = $this->value->{$dk};
+                           break;
+                        }
+                     }
+                  }
+               }
+            } else {
+               foreach (Helper::$devices as $deviceKey => $device) {
+                  $value[$deviceKey] = $this->value;
+               }
+            }
+            $return['value'] = $value;
+         } else {
+            $return['value'] = $this->value;
+         }
+         // $return['default'] = $this->value;
       }
       return $return;
    }
 
-   public function getOptions() {
+   public function getOptions()
+   {
       $options = [];
       foreach ($this->xml->option as $option) {
          $label = (string) $option;
@@ -412,7 +498,8 @@ class Field {
       return $options;
    }
 
-   public function getModulePositions() {
+   public function getModulePositions()
+   {
 
       \JLoader::register('ModulesHelper', JPATH_ADMINISTRATOR . '/components/com_modules/helpers/modules.php');
 
@@ -429,7 +516,8 @@ class Field {
       return $options;
    }
 
-   public function getModules() {
+   public function getModules()
+   {
       $options = [];
 
       $db = \JFactory::getDbo();
@@ -460,7 +548,8 @@ class Field {
       return $options;
    }
 
-   public function getShapeDividers() {
+   public static function getShapeDividers()
+   {
       $options = [];
       $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
 
@@ -479,7 +568,8 @@ class Field {
       return $options;
    }
 
-   public function getAccessLevels() {
+   public function getAccessLevels()
+   {
       $db = \JFactory::getDbo();
       $query = $db->getQuery(true);
 
@@ -495,7 +585,8 @@ class Field {
       return (array) $options;
    }
 
-   public function getOptionGroup() {
+   public function getOptionGroup()
+   {
       $groups = [];
       foreach ($this->xml->optgroup as $optgroup) {
          $grouptitle = (string) $optgroup->attributes()->label;
@@ -513,7 +604,8 @@ class Field {
       return $groups;
    }
 
-   public function getRepeatableFields() {
+   public function getRepeatableFields()
+   {
       $formgroup = new FieldGroup();
       foreach ($this->xml->form->field as $field) {
          $type = (string) $field->attributes()->type;
@@ -525,7 +617,8 @@ class Field {
       return $group['fields'];
    }
 
-   public function getAnimations() {
+   public function getAnimations()
+   {
       $allAnimations = Constants::ANIMATIONS;
       $options = [];
       foreach ($allAnimations as $animationGroup => $animations) {
@@ -544,7 +637,8 @@ class Field {
       return $options;
    }
 
-   public function getHoverAnimations() {
+   public function getHoverAnimations()
+   {
       $animations = Constants::HOVER_ANIMATIONS;
       $options = [];
       $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
@@ -557,7 +651,8 @@ class Field {
       return $options;
    }
 
-   public function getIconAnimations() {
+   public function getIconAnimations()
+   {
       $animations = Constants::ICON_HOVER_ANIMATIONS;
       $options = [];
       $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
@@ -570,8 +665,24 @@ class Field {
       return $options;
    }
 
-   public function getFonts() {
+   public function getFonts()
+   {
+
       $options = [];
+      $custom_fonts = [];
+      $custom_fonts['label'] = \JText::_('JDBUILDER_CUSTOM_FONTS_TITLE');
+      $custom_fonts['type'] = "custom";
+      $custom_fonts['options'] = [];
+      $customFonts = Field::customFonts();
+      $coptions = [];
+      if (!empty($customFonts)) {
+         foreach ($customFonts as $id => $customFont) {
+            $coptions[] = ['label' => $customFont['name'], 'value' => "c~" . $id];
+         }
+         $custom_fonts['options'] = $coptions;
+      }
+      $options[] = $custom_fonts;
+
       $system_fonts = [];
       $system_fonts['label'] = \JText::_('JDBUILDER_SYSTEM_FONTS_TITLE');
       $system_fonts['type'] = "system";
@@ -587,7 +698,8 @@ class Field {
       return $options;
    }
 
-   public static function getSystemFonts() {
+   public static function getSystemFonts()
+   {
       $options = [];
       foreach (Constants::SYSTEM_FONTS as $value => $label) {
          $options[] = ['label' => $label, 'value' => "s~" . $value];
@@ -595,7 +707,38 @@ class Field {
       return $options;
    }
 
-   public static function getGoogleFonts() {
+   public static function getCustomFonts()
+   {
+      $fonts_path = JPATH_PLUGINS . '/system/jdbuilder/fonts';
+      if (!file_exists($fonts_path)) {
+         return [];
+      }
+      $fonts = [];
+      $font_extensions = ['otf', 'ttf', 'woff'];
+      foreach (scandir($fonts_path) as $font_path) {
+         if (is_file($fonts_path . '/' . $font_path)) {
+            $pathinfo = pathinfo($fonts_path . '/' . $font_path);
+            if (in_array($pathinfo['extension'], $font_extensions)) {
+               $font = \FontLib\Font::load($fonts_path . '/' . $font_path);
+               $font->parse();
+               $fontname = $font->getFontFullName();
+               $fontid = 'library-font-' . \JFilterOutput::stringURLSafe($fontname);
+               if (!isset($fonts[$fontid])) {
+                  $fonts[$fontid] = [];
+                  $fonts[$fontid]['id'] = $fontid;
+                  $fonts[$fontid]['name'] = $fontname;
+                  $fonts[$fontid]['files'] = [];
+               }
+               $fonts[$fontid]['files'][] = \JURI::root() . 'plugins/system/jdbuilder/fonts/' . $font_path;
+            }
+         }
+      }
+      file_put_contents($fonts_path . '/fonts.json', \json_encode($fonts));
+      return $fonts;
+   }
+
+   public static function getGoogleFonts()
+   {
       $options = [];
       foreach (Constants::SYSTEM_FONTS as $value => $label) {
          $options[] = ['label' => $label, 'value' => "s~" . $value];
@@ -603,7 +746,8 @@ class Field {
       return $options;
    }
 
-   public function getCategoryOptions() {
+   public function getCategoryOptions()
+   {
 
       $return = [['label' => \JText::_('JNONE'), 'value' => '0']];
       $extension = (string) $this->xml->attributes()->extension;
@@ -663,7 +807,8 @@ class Field {
       return $return;
    }
 
-   public function getLanguageOptions() {
+   public function getLanguageOptions()
+   {
       // Initialize some field attributes.
       $client = 'site';
 
@@ -707,7 +852,8 @@ class Field {
       return $options;
    }
 
-   public function getContentLanguageOptions() {
+   public function getContentLanguageOptions()
+   {
       $options = [['label' => \JText::_('JALL'), 'value' => '*']];
 
       $languages = \JHtml::_('contentlanguage.existing');
@@ -719,7 +865,8 @@ class Field {
       return $options;
    }
 
-   public function getChromeGroups() {
+   public function getChromeGroups()
+   {
       $groups = array();
 
       $tmp = '---' . \JText::_('JLIB_FORM_VALUE_FROM_TEMPLATE') . '---';
@@ -753,7 +900,8 @@ class Field {
       return $return;
    }
 
-   public function getTemplateModuleStyles() {
+   public function getTemplateModuleStyles()
+   {
       $moduleStyles = array();
 
       $templates = array($this->getSystemTemplate());
@@ -778,7 +926,8 @@ class Field {
       return $moduleStyles;
    }
 
-   public function getSystemTemplate() {
+   public function getSystemTemplate()
+   {
       $template = new \stdClass();
       $template->element = 'system';
       $template->name = 'system';
@@ -786,7 +935,8 @@ class Field {
       return $template;
    }
 
-   public function getTemplates() {
+   public function getTemplates()
+   {
       $db = \JFactory::getDbo();
 
       // Get the database object and a new query object.
@@ -794,10 +944,10 @@ class Field {
 
       // Build the query.
       $query->select('element, name')
-              ->from('#__extensions')
-              ->where('client_id = 0')
-              ->where('type = ' . $db->quote('template'))
-              ->where('enabled = 1');
+         ->from('#__extensions')
+         ->where('client_id = 0')
+         ->where('type = ' . $db->quote('template'))
+         ->where('enabled = 1');
 
       // Set the query and load the templates.
       $db->setQuery($query);
@@ -805,14 +955,12 @@ class Field {
       return $db->loadObjectList('element');
    }
 
-   public function getTypeTags() {
+   public function getTypeTags()
+   {
       $options = [['label' => \JText::_('JDEFAULT'), 'value' => '']];
       foreach (['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small'] as $tag) {
          $options[] = ['label' => ucfirst($tag), 'value' => $tag];
       }
       return $options;
    }
-
 }
-
-?>

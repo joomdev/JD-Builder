@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" group="system" method="upgrade">
-   <name>JD Builder Plugin</name>
-   <creationDate>August 2019</creationDate>
+   <name>System - JD Builder</name>
+   <creationDate>Nov 2019</creationDate>
    <author>Team Joomdev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
    <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>1.1.1</version>
+   <version>1.2.0</version>
    <description>{jdbplgdesc}</description>
    <files>
       <filename plugin="jdbuilder">jdbuilder.php</filename>
@@ -32,10 +32,10 @@
          <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
       </sql>
    </install>
-   <update> 
-      <schemas> 
-         <schemapath type="mysql">sql/updates</schemapath> 
-      </schemas> 
+   <update>
+      <schemas>
+         <schemapath type="mysql">sql/updates</schemapath>
+      </schemas>
    </update>
    <uninstall>
       <sql>
@@ -44,27 +44,6 @@
    </uninstall>
    <config>
       <fields name="params">
-         <fieldset addfieldpath="/plugins/system/jdbuilder/fields" name="basic">
-            <field type="spacer" name="global+colors" label="JDBUILDER_GLOBAL_COLORS_TITLE"></field>
-            <field type="color" name="global_primary" label="JDBUILDER_ELEMENT_PRIMARY_LBL"></field>
-            <field type="color" name="global_secondary" label="JDBUILDER_ELEMENT_SECONDARY_LBL"></field>
-            <field type="color" name="global_success" label="JDBUILDER_ELEMENT_SUCCESS_LBL"></field>
-            <field type="color" name="global_info" label="JDBUILDER_ELEMENT_INFO_LBL"></field>
-            <field type="color" name="global_warning" label="JDBUILDER_ELEMENT_WARNING_LBL"></field>
-            <field type="color" name="global_danger" label="JDBUILDER_ELEMENT_DANGER_LBL"></field>
-            
-            <field type="spacer" name="global-typography" label="JDBUILDER_GLOBAL_TYPOGRAPHY_TITLE"></field>
-            <field type="fonts" name="global_font" label="JDBUILDER_FONT_FAMILY_LABEL"></field>            
-            <field type="fonts" name="global_alt_font" label="JDBUILDER_ALT_FONT_FAMILY_LABEL"></field>                     
-                                       
-         </fieldset>
-         <fieldset name="advanced">
-            <field name="debug" type="radio" class="btn-group btn-group-yesno" default="0" label="Debug Builder">
-               <option value="0">JNO</option>
-               <option value="1">JYES</option>
-            </field>
-            <field name="key" type="text" default="" label="Builder Pro Activation Key"></field>
-         </fieldset>
       </fields>
    </config>
 </extension>

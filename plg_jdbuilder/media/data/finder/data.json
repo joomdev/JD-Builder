@@ -1,0 +1,64 @@
+[
+  {
+    "name":"New Article",
+    "web": "index.php?option=com_content&view=article&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new article",
+      "article"
+    ]
+  },	
+  {
+    "name":"New Module",
+    "web": "index.php?option=com_modules&view=select",
+    "description": "",
+    "keywords": [
+      "new",
+      "new module",
+      "module"
+    ]
+  },  
+  {
+    "name":"New Menu Item",
+    "web": "index.php?option=com_menus&view=item&client_id=0&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new menu item",
+      "menu item"
+    ]
+  },
+  {
+    "name":"New Menu",
+    "web": "index.php?option=com_menus&view=menu&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new menu",
+      "menu"
+    ]
+  },
+  {
+    "name":"New User",
+    "web": "index.php?option=com_users&view=user&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new user",
+      "user"
+    ]
+  },
+  {
+    "name":"New User Note",
+    "web": "index.php?option=com_users&view=note&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new user note",
+      "new user"
+    ]
+  }
+]
+
+

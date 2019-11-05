@@ -9,12 +9,17 @@
 
 namespace JDPageBuilder\Element;
 
-class Section extends BaseElement {
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+class Section extends BaseElement
+{
 
    protected $rows = [];
    protected $tag = 'section';
 
-   public function __construct($object, $parent = null) {
+   public function __construct($object, $parent = null)
+   {
       parent::__construct($object, $parent);
       if (isset($object->rows)) {
          foreach ($object->rows as $row) {
@@ -29,7 +34,8 @@ class Section extends BaseElement {
       $this->initSectionOptions();
    }
 
-   public function getContent() {
+   public function getContent()
+   {
       $content = [];
       // Top Shape Divider
       $content[] = $this->getShapeDivider('top');
@@ -55,6 +61,9 @@ class Section extends BaseElement {
       // Section Content Container Ends
       $content[] = '</div>';
 
+      // Background Particles
+      $content[] = $this->getParticlesBackground();
+
       // Background Video
       $content[] = $this->getBackgroundVideo();
       // Bottom Shape Divider
@@ -66,7 +75,8 @@ class Section extends BaseElement {
       return implode("", $content);
    }
 
-   public function getShapeDivider($position = 'top') {
+   public function getShapeDivider($position = 'top')
+   {
 
       $type = $this->params->get($position . 'ShapeDivider', '');
 
@@ -74,7 +84,7 @@ class Section extends BaseElement {
          return "";
       }
 
-      $height = $this->params->get($position . 'ShapeDividerHeight', 220);
+      $height = $this->params->get($position . 'ShapeDividerHeight', \json_decode('{value:220}', false));
 
       $color = $this->params->get($position . 'ShapeDividerColor', '#fff');
       $color = empty($color) ? 'transparent' : $color;
@@ -82,15 +92,25 @@ class Section extends BaseElement {
       $flip = $this->params->get($position . 'ShapeDividerFlip', false);
       $front = $this->params->get($position . 'ShapeDividerFront', false);
 
-      $this->addCss('position', 'relative');
-      $this->addStyle('>*{position:relative;z-index:4;}.jdb-sdivider{height:' . $height . 'px; &.jdb-sdivider-' . $position . ' .jdb-shape-fill{fill: ' . $color . '}}');
-      $return[] = '<div class="jdb-sdivider jdb-sdivider-' . $position . '' . ($flip ? ' jdb-sdivider-flip' : '') . '' . ($front ? ' jdb-sdivider-front' : '') . '">';
+      $this->addClass('jdb-has-shapedivider');
+
+      $sDividerStyle = new ElementStyle('.jdb-sdivider-' . $position);
+      $sDividerShapeStyle = new ElementStyle('.jdb-sdivider-' . $position . ' .jdb-shape-fill');
+
+      $this->addChildrenStyle([$sDividerStyle, $sDividerShapeStyle]);
+
+      $sDividerStyle->addCss('height', $height->value . 'px');
+      $sDividerShapeStyle->addCss('fill', $color);
+
+
+      $return[] = '<div class="jdb-sdivider jdb-sdivider-' . $type . ' jdb-sdivider-' . $position . '' . ($flip ? ' jdb-sdivider-flip' : '') . '' . ($front ? ' jdb-sdivider-front' : '') . '">';
       $return[] = file_get_contents(JPATH_SITE . '/media/jdbuilder/data/shape-dividers/' . $type . '.svg');
       $return[] = '</div>';
       return implode('', $return);
    }
 
-   public function initSectionOptions() {
+   public function initSectionOptions()
+   {
       // Section Basic Options
       $this->sectionBasicOptions();
 
@@ -98,7 +118,8 @@ class Section extends BaseElement {
       $this->sectionLayoutOptions();
    }
 
-   public function sectionBasicOptions() {
+   public function sectionBasicOptions()
+   {
       // html tag
       $htmlTag = $this->params->get('htmlTag', '');
       if (!empty($htmlTag)) {
@@ -106,7 +127,8 @@ class Section extends BaseElement {
       }
    }
 
-   public function sectionLayoutOptions() {
+   public function sectionLayoutOptions()
+   {
       $stretchSection = $this->params->get('stretchSection', true);
       if ($stretchSection) {
          $this->addAttribute('jdb-section');
@@ -121,7 +143,7 @@ class Section extends BaseElement {
                if (isset($contentWidthCustom->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($contentWidthCustom->{$deviceKey})) {
                   $containerStyle = new ElementStyle('> .jdb-container-fluid');
                   $this->addChildStyle($containerStyle);
-                  $containerStyle->addCss('max-width', $contentWidthCustom->{$deviceKey}->value . 'px', $device);
+                  $containerStyle->addCss('max-width', $contentWidthCustom->{$deviceKey}->value . $contentWidthCustom->{$deviceKey}->unit, $device);
                }
             }
          }
@@ -144,5 +166,4 @@ class Section extends BaseElement {
          }
       }
    }
-
 }

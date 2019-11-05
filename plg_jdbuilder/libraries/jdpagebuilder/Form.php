@@ -9,6 +9,9 @@
 
 namespace JDPageBuilder;
 
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
 class Form {
 
    public $fieldsets = [];
@@ -32,7 +35,7 @@ class Form {
          if (isset($this->fieldsets[$fname])) {
             $this->fieldsets[$fname]->merge($fieldset);
          } else {
-            $this->fieldsets[$fname] = new Fieldset($fieldset, $this->type);
+            $this->fieldsets[$fname] = new Fieldset($fieldset, $this->type, $this->fieldsets);
          }
       }
    }
@@ -54,5 +57,3 @@ class Form {
    }
 
 }
-
-?>

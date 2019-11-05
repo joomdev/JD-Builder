@@ -9,6 +9,13 @@
 
 namespace JDPageBuilder;
 
+use JDPageBuilder\Element\ElementStyle;
+
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+jimport('joomla.application.component.helper');
+
 abstract class Builder
 {
 
@@ -16,6 +23,7 @@ abstract class Builder
    protected static $styles = [];
    protected static $scripts = [];
    protected static $stylesheets = [];
+   protected static $customCSS = [];
    protected static $javascripts = [];
    protected static $authorised = null;
    protected static $forms = [];
@@ -96,6 +104,10 @@ abstract class Builder
 
       $stylesheets = array_reverse(self::$stylesheets);
 
+      foreach (self::$customCSS as $custom_css) {
+         $inlineScss .= $custom_css;
+      }
+
       foreach ($stylesheets as $stylesheet) {
          $inlineScss .= '@import "' . $stylesheet . '";';
       }
@@ -117,7 +129,7 @@ abstract class Builder
          }
       }
 
-      return '<style id="jdb-styles">' . $inlineScss . '</style>';
+      return $inlineScss;
    }
 
    public static function addScript($js = '')
@@ -128,6 +140,11 @@ abstract class Builder
    public static function addStylesheet($file)
    {
       static::$stylesheets[$file] = $file;
+   }
+
+   public static function addCustomStyle($css)
+   {
+      static::$customCSS[] = $css;
    }
 
    public static function addJavascript($file)
@@ -168,28 +185,6 @@ abstract class Builder
          $elements = array_merge(self::getElementsByPath($path));
       }
       return $elements;
-   }
-
-   public static function getLivePreview()
-   {
-      $request = self::request();
-      $params = $request->get('params', '{}', 'RAW');
-      $lid = $request->get('lid', 0, 'INT');
-      $id = $request->get('id', 0, 'INT');
-
-      $layout = new \stdClass();
-      $layout->id = $lid;
-      $layout->layout = $params;
-      $layout = new Element\Layout($layout);
-      $document = \JFactory::getDocument();
-      $return = [];
-      $beforehead = $document->getHeadData();
-      $html = $layout->render();
-      $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
-      $return['html'] = $html;
-      $afterhead = $document->getHeadData();
-      $return['head'] = Builder::getRenderHead($id, $beforehead, $afterhead);
-      return $return;
    }
 
    public static function getElementsByPath($path)
@@ -377,6 +372,10 @@ abstract class Builder
 
    public static function savePage()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
+      }
+
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -468,19 +467,27 @@ abstract class Builder
          $return = [];
          $return[] = $form_dir . 'default.xml';
          $return[] = $form_dir . $type . '.xml';
-         return $return;
       } else {
          $return = [];
          $return[] = $form_dir . 'default.xml';
-         $return[] = $form_dir . 'element.xml';
+         if ($type != 'inner-row') {
+            $return[] = $form_dir . 'element.xml';
+         }
          if (file_exists($plugin_element_dir . '/' . $type . '.xml')) {
             Helper::loadLanguage($type, $plugin_element_dir);
             $return[] = $plugin_element_dir . '/' . $type . '.xml';
          } else {
             throw new \Exception("Invalid Element");
          }
-         return $return;
       }
+      $count = 0;
+      foreach ($return as $index => $file) {
+         if (file_exists(str_replace('.xml', '-pro.xml', $file))) {
+            array_splice($return, $index + $count + 1, 0, [str_replace('.xml', '-pro.xml', $file)]);
+            $count++;
+         }
+      }
+      return $return;
    }
 
    public static function renderModule($type, $value, $style)
@@ -522,6 +529,75 @@ abstract class Builder
 
    public static function renderPage($item, $type = "page", $output = true)
    {
+      $request = \JDPageBuilder\Builder::request();
+      $document = \JFactory::getDocument();
+      $document->addCustomTag('<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>');
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+      if ($request->get('jdb-preview', 0)) {
+         $document->addCustomTag('<link rel="stylesheet" id="jdb-preview-css" />');
+         $date = new \DateTime(date('Y-m-d'), new \DateTimeZone(\JFactory::getConfig()->get('offset')));
+         $document->addScriptDeclaration('var JDBRenderer = null; var jdPageBaseUrl = "' . \JURI::root() . '"; var _JDBTIMEZONE="' . $date->format('O') . '";');
+         // add shapedividers
+         $fbAppId = 'var _JDBFBAPPID = "' . $buiderConfig->get('fbAppId',  '') . '";';
+         $dividersSVGs = 'var _JDBDIVIDERS = new Map([';
+         $dividersSVGArr = [];
+         $dividers = Field::getShapeDividers();
+         foreach ($dividers as $divider) {
+            $file = JPATH_SITE . '/media/jdbuilder/data/shape-dividers/' . $divider['value'] . '.svg';
+            if (file_exists($file)) {
+               $svg = file_get_contents($file);
+               $dividersSVGArr[] = "['" . $divider['value'] . "','" . str_replace('class="jdb-shape-fill"', 'fill="currentColor"', preg_replace("/\r|\n/", "", $svg)) . "']";
+            }
+         }
+         $dividersSVGs .= implode(',', $dividersSVGArr) . ']);';
+         $document->addScriptDeclaration($fbAppId);
+         $document->addScriptDeclaration($dividersSVGs);
+
+         if (file_exists(JPATH_PLUGINS . '/system/jdbuilder/fonts/fonts.json')) {
+            $customFonts = \json_decode(file_get_contents(JPATH_PLUGINS . '/system/jdbuilder/fonts/fonts.json'), true);
+         } else {
+            $customFonts = [];
+         }
+         $customFontsScript = 'var _JDBCFONTS = new Map([';
+         $customFontsArr = [];
+         if (!empty($customFonts)) {
+            foreach ($customFonts as $id => $customFont) {
+               $arr = ['files' => $customFont['files'], 'name' => $customFont['name']];
+               $customFontsArr[] = '["' . $id . '", ' . \json_encode($arr) . ']';
+            }
+         }
+         $customFontsScript .= (implode(',', $customFontsArr)) . ']);';
+         $document->addScriptDeclaration($customFontsScript);
+
+
+         $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
+
+         /*
+         $document->addScriptDeclaration('
+               var afterPreviewCompileTimeout = null;
+               function beforePreviewCompile(){
+                  clearParticles();
+                  clearTimeout(afterPreviewCompileTimeout);
+               }
+               function afterPreviewCompile(){
+                  afterPreviewCompileTimeout = setTimeout(function(){
+                     makeParticles();
+                  }, 400);
+               }
+         ');
+         */
+         self::getAdminElements();
+
+         Helper::renderGlobalScss();
+
+         $document->addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
+         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
+         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css');
+         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
+
+         return self::livePreviewArea();
+      }
+
       $layout = Helper::getLayout($item->layout_id);
       $page = Helper::getPage($item->id);
 
@@ -531,7 +607,6 @@ abstract class Builder
          $params->loadObject(\json_decode($page->params));
       }
 
-      $document = \JFactory::getDocument();
       $title = $params->get('metaTitle', '');
       $description = $params->get('metaDescription', '');
       $keywords = $params->get('metaKeywords', '');
@@ -563,29 +638,102 @@ abstract class Builder
       if (!empty($ogImage)) {
          $document->addCustomTag('<meta property="og:image" content="' . Helper::mediaValue($ogImage) . '" />');
       }
+      if (!empty($ogTitle) || !empty($ogDescription) || !empty($ogImage)) {
+         $document->addCustomTag('<meta name="twitter:card" content="summary" />');
+      }
+
+      Helper::renderGlobalScss();
 
       if (empty($layout)) {
-         return false;
+         return '';
       }
 
       $layout = new Element\Layout($layout);
-      $return = $layout->render();
+      $rendered = $layout->render();
+      \JDPageBuilder\Builder::renderPageStyle($params);
+      \JDPageBuilder\Builder::renderHead();
+      echo $rendered;
+   }
 
-      if ($output) {
-         echo $return;
-      } else {
-         return $return;
+   public static function renderPageStyle($params)
+   {
+      foreach (['Text', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'] as $type) {
+         if ($type === 'Text') {
+            $typeStyle = new ElementStyle('.jdbuilder');
+            $linkStyle = new ElementStyle('.jdbuilder a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder a:hover');
+         } else {
+            $typeStyle = new ElementStyle('.jdbuilder ' . strtolower($type));
+            $linkStyle = new ElementStyle('.jdbuilder ' . strtolower($type) . ' a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder '  . strtolower($type) . ' a:hover');
+         }
+
+         $color = $params->get('page' . $type . 'Color', '');
+         if ($color !== '') {
+            $typeStyle->addCss('color', $color);
+         }
+
+         $linkColor = $params->get('page' . $type . 'LinkColor', '');
+         if ($linkColor !== '') {
+            $linkStyle->addCss('color', $linkColor);
+         }
+
+         $linkHoverColor = $params->get('page' . $type . 'LinkHoverColor', '');
+         if ($linkHoverColor !== '') {
+            $linkHoverStyle->addCss('color', $linkHoverColor);
+         }
+
+         $typography = $params->get('page' . $type . 'Typography', null);
+         if (!empty($typography)) {
+            foreach (Helper::$devices as $deviceKey => $device) {
+               if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
+                  $typeStyle->addStyle(Helper::typographyValue($typography->{$deviceKey}), $device);
+               }
+            }
+         }
+
+         $typeStyle->render();
+         $linkStyle->render();
+         $linkHoverStyle->render();
       }
    }
 
-   public static function renderHead($id = null)
+   public static function livePreviewArea()
+   {
+      $return = '<div id="jdb-livepreview"></div>';
+      echo $return;
+   }
+
+   public static function onBeforeBodyClose()
+   {
+      $document = \JFactory::getDocument();
+      $request = \JDPageBuilder\Builder::request();
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+
+      if ($request->get('jdb-preview', 0)) {
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/preview.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdbfrontend.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+      }
+
+      if (!empty($buiderConfig->get('gmapkey', ''))) {
+         echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '" type="text/javascript"></script>';
+      }
+   }
+
+   public static function renderHead()
    {
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
 
-      $css = self::renderStyle();
-
-      $document->addCustomTag($css);
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js', ['version' => JDB_MEDIA_VERSION]);
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js', ['version' => JDB_MEDIA_VERSION]);
 
       // Add Rendered JS Files in Head
       foreach (self::$javascripts as $javascript) {
@@ -599,47 +747,12 @@ abstract class Builder
 
       Helper::renderGlobalScss();
 
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => $document->getMediaVersion()]);
 
-      $request = \JDPageBuilder\Builder::request();
-      if ($request->get('jdb-preview', 0)) {
-         $document->addScript(\JURI::root() . 'media/jdbuilder/js/preview.js', ['version' => $document->getMediaVersion()]);
-         $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/preview.css', ['version' => $document->getMediaVersion()]);
-         $document->addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
-         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
-         $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css');
-      }
 
-      $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css', ['version' => $document->getMediaVersion()]);
-   }
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
 
-   public static function getRenderHead($id = null, $before = [], $after = [])
-   {
-      // Add Rendered CSS in Head
-      $css = [];
-      foreach (self::$styles as $style) {
-         $css[] = $style;
-      }
-      $scss = implode('', $css);
-      $css = Helper::compileSass($scss, "jdbl-" . $id);
-
-      $imports = [];
-      foreach (self::$stylesheets as $stylesheet) {
-         $imports[] = '@import "' . $stylesheet . '";';
-      }
-
-      if ($after["styleSheets"] != $before["styleSheets"]) {
-         $after_styles = array_keys($after["styleSheets"]);
-         $before_styles = array_keys($before["styleSheets"]);
-         $styleSheets = array_diff($after_styles, $before_styles);
-         if (!empty($styleSheets)) {
-            foreach ($styleSheets as $styleSheet) {
-               $imports[] = '@import "' . $styleSheet . '";';
-            }
-         }
-      }
-
-      return '<style id="jdb-styles">' . implode($imports) . $css . '</style>';
+      $css = self::renderStyle();
+      $document->addStyleDeclaration($css);
    }
 
    public static function renderElement($object)
@@ -671,11 +784,39 @@ abstract class Builder
       }
    }
 
+   public static function loadAnimateCSS()
+   {
+      self::addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
+   }
+
+   public static function loadParticleJS()
+   {
+      self::addJavascript(\JURI::root() . 'media/jdbuilder/js/particles.min.js');
+   }
+
+   public static function loadAnimatedHeadingJS()
+   {
+      self::addJavascript(\JURI::root() . 'media/jdbuilder/js/animatedheading.js');
+   }
+
    public static function getFonts()
    {
       $return = [];
       $return['options'] = [['label' => \JText::_('JDEFAULT'), 'value' => '']];
 
+      $custom_fonts = [];
+      $custom_fonts['label'] = \JText::_('JDBUILDER_CUSTOM_FONTS_TITLE');
+      $custom_fonts['type'] = "custom";
+      $custom_fonts['options'] = [];
+      $customFonts = Field::customFonts();
+      $coptions = [];
+      if (!empty($customFonts)) {
+         foreach ($customFonts as $id => $customFont) {
+            $coptions[] = ['label' => $customFont['name'], 'value' => "c~" . $id];
+         }
+         $custom_fonts['options'] = $coptions;
+      }
+      $return['groups'][] = $custom_fonts;
 
       $system_fonts = [];
       $system_fonts['label'] = \JText::_('JDBUILDER_SYSTEM_FONTS_TITLE');
@@ -695,6 +836,9 @@ abstract class Builder
 
    public static function newFolder()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -703,6 +847,9 @@ abstract class Builder
 
    public static function deleteMedia()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -711,6 +858,9 @@ abstract class Builder
 
    public static function copyMedia()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -719,6 +869,9 @@ abstract class Builder
 
    public static function renameMedia()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -727,6 +880,9 @@ abstract class Builder
 
    public static function uploadMedia()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -853,6 +1009,9 @@ abstract class Builder
 
    public static function deleteTemplate()
    {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+      }
       if (!\JSession::checkToken()) {
          throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
       }
@@ -881,10 +1040,7 @@ abstract class Builder
 
          $javascript = file_exists($dir . '/' . 'tmpl/default.js') ? basename($dir) . '/' . 'tmpl/default.js' : basename($dir) . '/' . 'tmpl/' . basename($dir) . '.js';
 
-
-
          if (file_exists($path . '/' . $javascript)) {
-            //$document->addScript(\JURI::root() . 'plugins/system/jdbuilder/elements/' . $javascript, ['version' => $document->getMediaVersion()]);
             $files[] = $path . '/' . $javascript;
          }
       }
@@ -892,7 +1048,11 @@ abstract class Builder
 
       $script = Helper::minifyJS($files);
       $document->addScriptDeclaration($script);
-
       //JDPageBuilder\Helper::minifyJS
+   }
+
+   public static function downloadExternalMedia()
+   {
+      return Media::download();
    }
 }

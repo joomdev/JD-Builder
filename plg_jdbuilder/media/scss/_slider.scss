@@ -1,0 +1,268 @@
+.jdb-slider,
+.jdb-slideshow {
+    -webkit-tap-highlight-color: transparent;
+
+    .jdb-slider-controls {
+        overflow: hidden;
+    }
+
+    .jdb-slider-next,
+    .jdb-slider-prev {
+        position: absolute;
+        height: 100%;
+        z-index: 2;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        a {
+            margin: 0 15px;
+            position: relative;
+            opacity: 0;
+            will-change: opacity, left, right;
+            -webkit-transition: .2s all linear;
+            -moz-transition: .2s all linear;
+            -ms-transition: .2s all linear;
+            -o-transition: .2s all linear;
+            transition: .2s all linear;
+            font-size: 32px;
+        }
+    }
+
+    .jdb-slider-next {
+        &:not(.jdb-slider-outside) {
+            right: 0;
+
+            a {
+                right: -100%;
+            }
+        }
+
+        &.jdb-slider-outside {
+            left: 100%;
+
+            a {
+                left: -100%;
+            }
+        }
+    }
+
+    .jdb-slider-prev {
+        &:not(.jdb-slider-outside) {
+            left: 0;
+
+            a {
+                left: -100%;
+            }
+        }
+
+        &.jdb-slider-outside {
+            right: 100%;
+
+            a {
+                right: -100%;
+            }
+        }
+    }
+
+    &:hover {
+        .jdb-slider-next {
+            a {
+                opacity: 1;
+            }
+
+            &:not(.jdb-slider-outside) a {
+                right: 0;
+            }
+
+            &.jdb-slider-outside a {
+                left: 0;
+            }
+        }
+
+        .jdb-slider-prev {
+            a {
+                opacity: 1;
+            }
+
+            &:not(.jdb-slider-outside) a {
+                left: 0;
+            }
+
+            &.jdb-slider-outside a {
+                right: 0;
+            }
+        }
+    }
+
+    &.jdb-show-controls {
+        .jdb-slider-next {
+            a {
+                opacity: 1;
+            }
+
+            &:not(.jdb-slider-outside) a {
+                right: 0;
+            }
+
+            &.jdb-slider-outside a {
+                left: 0;
+            }
+        }
+
+        .jdb-slider-prev {
+            a {
+                opacity: 1;
+            }
+
+            &:not(.jdb-slider-outside) a {
+                left: 0;
+            }
+
+            &.jdb-slider-outside a {
+                right: 0;
+            }
+        }
+    }
+}
+
+.jdb-slider-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.jdb-slider-items {
+    will-change: transform;
+    position: relative;
+}
+
+.jdb-slider-items {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    -webkit-touch-callout: none;
+}
+
+.jdb-slider-items>* {
+    flex: none;
+    position: relative;
+    touch-action: pan-y;
+}
+
+.jdb-slider-items> :focus {
+    outline: none;
+}
+
+.jdb-slider-items>* {
+    width: 100%;
+}
+
+.jdb-dotnav {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-left: -12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.jdb-dotnav>* {
+    flex: none;
+    padding-left: 12px;
+}
+
+.jdb-dotnav>*>* {
+    display: block;
+    box-sizing: border-box;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.jdb-slideshow {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.jdb-slideshow-items {
+    position: relative;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+}
+
+.jdb-slideshow-items>* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    will-change: transform, opacity;
+    touch-action: pan-y;
+}
+
+.jdb-slideshow-items> :focus {
+    outline: none;
+}
+
+.jdb-slideshow-items> :not(.jdb-active) {
+    display: none;
+}
+
+.jdb-slideshow-item {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .jdb-slideshow-item-inner {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+
+        .jdb-slideshow-media {
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            max-width: 100%;
+            position: relative;
+            z-index: 4;
+
+            .jdb-video {
+                video {
+                    background: #333;
+                }
+            }
+        }
+
+        .jdb-slideshow-content {
+            -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+            max-width: 50%;
+            position: relative;
+            z-index: 4;
+        }
+    }
+}
+
+.jdb-slideshow-nav {
+    &.inside {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+}

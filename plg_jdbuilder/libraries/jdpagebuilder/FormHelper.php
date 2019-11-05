@@ -9,9 +9,14 @@
 
 namespace JDPageBuilder;
 
-class FormHelper {
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 
-   public static function sortByOrdering($a, $b) {
+class FormHelper
+{
+
+   public static function sortByOrdering($a, $b)
+   {
       $a_ordering = isset($a['ordering']) ? $a['ordering'] : 0;
       $b_ordering = isset($b['ordering']) ? $b['ordering'] : 0;
 
@@ -32,7 +37,8 @@ class FormHelper {
       }
    }
 
-   public static function displayExpression($expression = '') {
+   public static function displayExpression($expression = '')
+   {
       $expression = str_replace(' [OR] ', ' || ', $expression);
       $expression = str_replace('[OR]', ' || ', $expression);
       $expression = str_replace(' [AND] ', ' && ', $expression);
@@ -41,7 +47,8 @@ class FormHelper {
       return $expression;
    }
 
-   public static function getSpacingValue($object = null, $property = "") {
+   public static function getSpacingValue($object = null, $property = "")
+   {
       if (empty($object)) {
          return [];
       }
@@ -71,5 +78,4 @@ class FormHelper {
 
       return $return;
    }
-
 }

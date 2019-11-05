@@ -6,13 +6,20 @@
  * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+
+jimport('joomla.application.component.helper');
+
 extract($displayData);
 $builder_assets_path = JURI::root() . 'media/jdbuilder/';
+
+$buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
 $config = JFactory::getConfig();
 $dev = $config->get('jdbuilder_dev', 0);
 //$dev = 0;
-$version = '?' . JFactory::getDocument()->getMediaVersion();
+$version = '?' . JDB_MEDIA_VERSION;
 
 $itemid = JDPageBuilder\Helper::getPageItemIdByLink('index.php?option=com_jdbuilder&view=page&id=' . $id);
 $url = !empty($itemid) ? 'index.php?Itemid=' . $itemid : 'index.php?option=com_jdbuilder&view=page&id=' . $id;
@@ -78,6 +85,12 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    </div>
    <app-jdbuilder id="jdbuilder"></app-jdbuilder>
    <a href="javascript:void(0);" style="display: none;" id="jdb-export-link"></a>
+   <div class="component-version-container">
+      <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span> | Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
+      <div class="support-link">
+         <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/watch?v=oGRjZxAXpao&list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
+      </div>
+   </div>
 </div>
 <script>
    <?php echo JDPageBuilder\Helper::minifyJS([JPATH_SITE . '/media/jdbuilder/js/admin.js']); ?>
@@ -86,19 +99,23 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    var VERSION = '<?php echo $version; ?>';
    _JDB.DEBUG = <?php echo JDB_DEBUG ? 'true' : 'false'; ?>;
    _JDB.KEY = "<?php echo JDB_KEY; ?>";
+   _JDB.GMAPKEY = "<?php echo $buiderConfig->get('gmapkey',  ''); ?>";
+   _JDB.FBAPPID = "<?php echo $buiderConfig->get('fbAppId',  ''); ?>";
    _JDB.FAVOURITES = <?php echo \json_encode(JDPageBuilder\Helper::getFavouriteTemplates()); ?>;
 
    _JDB.URL = {
       SITEURL: '<?php echo JURI::root(); ?>',
       API: '<?php echo JURI::base(); ?>index.php',
       SITEAPI: '<?php echo JURI::root(); ?>index.php',
-      JDAPI: 'https://api.joomdev.com/',
+      JDAPI: 'https://api.joomdev.com/api/',
       DATA: '<?php echo $builder_assets_path; ?>data/',
+      ASSETS: '<?php echo $builder_assets_path; ?>/',
       IMAGE: '<?php echo \JURI::root(); ?>images/',
       MEDIA: '<?php echo \JURI::root(); ?>media/jdbuilder/',
       PREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url); ?>',
       LIVEPREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url . '&jdb-preview=1'); ?>',
       GLOBALOPTIONS: '<?php echo 'index.php?option=com_plugins&task=plugin.edit&extension_id=' . $plugin->id; ?>',
+      CONFIG: '<?php echo JURI::base(); ?>index.php?option=com_config&view=component&component=com_jdbuilder'
    };
 
    _JDB.ICONS = [];
@@ -117,8 +134,11 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    };
 
    var JDBADMIN = true;
-   if (typeof $ == 'undefined') {
+   if (typeof $ === 'undefined') {
       var $ = jQuery;
+   }
+   if ($ !== jQuery) {
+      $ = jQuery;
    }
 
    _JDB.admin = new JDBAdmin();
@@ -127,7 +147,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/runtime.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/polyfills.js<?php echo $version; ?>"></script>
 <?php if ($dev) { ?>
-<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/styles.js<?php echo $version; ?>"></script>
+   <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/styles.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/scripts.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/jdbuilder.min.js<?php echo $version; ?>"></script>
@@ -141,9 +161,15 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 <script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/javascript/javascript.js<?php echo $version; ?>"></script>
 <script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/xml/xml.js<?php echo $version; ?>"></script> -->
 <?php if ($dev) { ?>
-<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
+   <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.10.1/css/all.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
+
+<?php
+if (!empty($buiderConfig->get('gmapkey', ''))) {
+   echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '" type="text/javascript"></script>';
+}
+?>

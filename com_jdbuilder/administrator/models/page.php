@@ -6,6 +6,9 @@
  * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+use JDPageBuilder\Helper;
+
 // No direct access.
 defined('_JEXEC') or die;
 
@@ -16,7 +19,8 @@ jimport('joomla.application.component.modeladmin');
  *
  * @since  1.6
  */
-class JdbuilderModelPage extends JModelAdmin {
+class JdbuilderModelPage extends JModelAdmin
+{
 
    /**
     * @var      string    The prefix to use with controller messages.
@@ -47,7 +51,8 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @since    1.6
     */
-   public function getTable($type = 'Page', $prefix = 'JdbuilderTable', $config = array()) {
+   public function getTable($type = 'Page', $prefix = 'JdbuilderTable', $config = array())
+   {
       return JTable::getInstance($type, $prefix, $config);
    }
 
@@ -61,15 +66,19 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @since    1.6
     */
-   public function getForm($data = array(), $loadData = true) {
+   public function getForm($data = array(), $loadData = true)
+   {
       // Initialise variables.
       $app = JFactory::getApplication();
 
       // Get the form.
       $form = $this->loadForm(
-              'com_jdbuilder.page', 'page', array('control' => 'jform',
-          'load_data' => $loadData
-              )
+         'com_jdbuilder.page',
+         'page',
+         array(
+            'control' => 'jform',
+            'load_data' => $loadData
+         )
       );
 
 
@@ -88,7 +97,8 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @since    1.6
     */
-   protected function loadFormData() {
+   protected function loadFormData()
+   {
       // Check the session for previously entered form data.
       $data = JFactory::getApplication()->getUserState('com_jdbuilder.edit.page.data', array());
 
@@ -126,7 +136,8 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @since    1.6
     */
-   public function getItem($pk = null) {
+   public function getItem($pk = null)
+   {
 
       if ($item = parent::getItem($pk)) {
          // Do any procesing on fields here if needed
@@ -144,12 +155,17 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @throws  Exception
     */
-   public function duplicate(&$pks) {
+   public function duplicate(&$pks)
+   {
       $user = JFactory::getUser();
 
       // Access checks.
       if (!$user->authorise('core.create', 'com_jdbuilder')) {
          throw new Exception(JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
+      }
+
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
       }
 
       $dispatcher = JEventDispatcher::getInstance();
@@ -209,7 +225,8 @@ class JdbuilderModelPage extends JModelAdmin {
     *
     * @since    1.6
     */
-   protected function prepareTable($table) {
+   protected function prepareTable($table)
+   {
       jimport('joomla.filter.output');
 
       if (empty($table->id)) {
@@ -223,7 +240,12 @@ class JdbuilderModelPage extends JModelAdmin {
       }
    }
 
-   public function save($data) {
+   public function save($data)
+   {
+      if (Helper::isBuilderDemo()) {
+         throw new \Exception(\JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
+      }
+
       $input = JFactory::getApplication()->input;
 
       // Alter the title for save as copy
@@ -247,5 +269,4 @@ class JdbuilderModelPage extends JModelAdmin {
 
       return parent::save($data);
    }
-
 }

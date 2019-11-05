@@ -1,10 +1,13 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
  * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 extract($displayData);
 ?>
 <div id="jdbuilder-controls" class="<?php echo $enabled ? 'active' : ''; ?>">
@@ -14,7 +17,11 @@ extract($displayData);
    <div class="clearfix"></div>
 </div>
 <input type="hidden" name="jdbparams[enabled]" value="<?php echo $enabled ? 1 : 0; ?>" />
-<br/>
+<br />
 <script>
-   _JDB.ITEM = {"id": <?php echo $id; ?>, "layout_id": <?php echo $lid; ?>, "type": "article"};
+   _JDB.ITEM = {
+      "id": <?php echo $id; ?>,
+      "layout_id": <?php echo $lid; ?>,
+      "type": "article"
+   };
 </script>

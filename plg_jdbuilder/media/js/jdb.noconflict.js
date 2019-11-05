@@ -1,0 +1,1 @@
+var $JDB = $.noConflict();

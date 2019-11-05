@@ -6,8 +6,12 @@
  * @copyright  2019 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+use JDPageBuilder\Field;
+
 // no direct access
 defined('_JEXEC') or die;
+jimport('joomla.application.component.helper');
 
 JLoader::registerNamespace('JDPageBuilder', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder', false, false, 'psr4');
 JLoader::registerNamespace('JDPageBuilder\\Element', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder/element', false, false, 'psr4');
@@ -21,9 +25,14 @@ class plgSystemJDBuilder extends JPlugin
    function __construct(&$subject, $config)
    {
       parent::__construct($subject, $config);
+
+      $stat = stat(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.php');
+      define('JDB_MEDIA_VERSION', md5($stat['mtime']));
       if ($this->app->isAdmin()) {
+         $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
+
          define('JDB_DEBUG', $this->params->get('debug', 0));
-         define('JDB_KEY', $this->params->get('key', '', 'RAW'));
+         define('JDB_KEY', $buiderConfig->get('key', '', 'RAW'));
 
          $xml = JFactory::getXML(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.xml');
          $version = (string) $xml->version;
@@ -36,17 +45,28 @@ class plgSystemJDBuilder extends JPlugin
 
    // Events 
 
+   public function onAfterDispatch()
+   {
+      $app = JFactory::getApplication();
+      if ($app->input->get('method') == 'onsearchtitles' && $app->input->get('option') == 'com_ajax' && $app->input->get('plugin') == 'jdfinder') {
+         $q = $app->input->get('q', '', 'string');
+         $this->onSearchTitles($q);
+      }
+
+      // Check that we are in the site application.
+      if (JFactory::getApplication()->isClient('administrator')) {
+         $jdfinderBaseURL = Juri::root() . 'media/jdbuilder/data/finder/data.json';
+         $jdfinderdoc = JFactory::getDocument();
+         $jdfinderdoc->addStyleSheet(Juri::root() . 'media/jdbuilder/css/jdfinder.css',  ['version' => JDB_MEDIA_VERSION]);
+         $jdfinderdoc->addScript(Juri::root() . 'media/jdbuilder/js/jdfinder.js',  ['version' => JDB_MEDIA_VERSION]);
+         $jdfinderdoc->addScriptDeclaration(" var jdfinderSearch = '$jdfinderBaseURL';");
+      }
+   }
+
    public function onBeforeRender()
    {
 
       $request = \JDPageBuilder\Builder::request();
-
-      if ($this->isPageView() && !$this->app->isAdmin()) {
-         $id = $this->app->input->get('id', null);
-         if (!empty($id)) {
-            \JDPageBuilder\Builder::renderHead("jdbl-" . $id);
-         }
-      }
 
       if ($request->get('jdb-api', 0, "INT")) {
 
@@ -93,6 +113,9 @@ class plgSystemJDBuilder extends JPlugin
    public function onAfterRender()
    {
       if ($this->app->isAdmin()) {
+         // Check that we are in the site application. 
+         $this->addFinder();
+         $this->addAdminMenu();
          $this->addDescription();
       }
       if (!$this->app->isAdmin() || !$this->isValidView()) {
@@ -102,7 +125,7 @@ class plgSystemJDBuilder extends JPlugin
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilder($id);
       }
-      if (0) {
+      if ($this->isArticleEdit()) {
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilderOnArticle($id);
       }
@@ -111,8 +134,8 @@ class plgSystemJDBuilder extends JPlugin
    public function onBeforeCompileHead()
    {
       $docuemnt = \JFactory::getDocument();
-      //$docuemnt->addScript(JURI::root() . "media/jdbuilder/js/default-passive-events.js", ["version" => $docuemnt->getMediaVersion()]);
       $docuemnt->addScriptDeclaration("var _JDB = {};");
+
       $docuemnt->addScript(JURI::root() . 'media/system/js/core.js');
       if (!$this->app->isAdmin() || !$this->isValidView()) {
          return;
@@ -126,9 +149,9 @@ class plgSystemJDBuilder extends JPlugin
 
          $docuemnt->addStyleDeclaration($style);
          $docuemnt->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => $docuemnt->getMediaVersion()]);
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => $docuemnt->getMediaVersion()]);
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => $docuemnt->getMediaVersion()]);
+         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
+         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => JDB_MEDIA_VERSION]);
+         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => JDB_MEDIA_VERSION]);
       }
    }
 
@@ -150,6 +173,7 @@ class plgSystemJDBuilder extends JPlugin
 
    public function isArticleListing()
    {
+      return false;
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
       $layout = $this->app->input->get('layout', '');
@@ -165,6 +189,7 @@ class plgSystemJDBuilder extends JPlugin
 
    public function isArticleEdit()
    {
+      return false;
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
       $layout = $this->app->input->get('layout', '');
@@ -233,5 +258,135 @@ class plgSystemJDBuilder extends JPlugin
       $db = JFactory::getDbo();
       $db->setQuery($query);
       $db->execute();
+   }
+
+   public function addFinder()
+   {
+      $jdfinderpopup = $this->jdFinderModel();
+      $buffer = JFactory::getApplication()->getBody();
+      $buffer = str_ireplace('</body>', $jdfinderpopup . '</body>', $buffer);
+      JFactory::getApplication()->setBody($buffer);
+   }
+
+   public function onSearchTitles($q = null)
+   {
+      //Get the app
+      $app       = JFactory::getApplication();
+      $db       = JFactory::getDbo();
+      $results    =  array();
+      $response   = '';
+
+      if (empty($q)) {
+         $response .= "<li class='noresult'>" . JText::_('JDFINDER_NO_RESULTS') . "</li>";
+         echo new JResponseJson($response);
+         $app->close();
+      }
+
+      // search results in json file
+      $jsonData = json_decode(file_get_contents(JPATH_ROOT . '/media/jdbuilder/data/finder/data.json'), true);
+      if (!empty($jsonData)) {
+         foreach ($jsonData as $json) {
+            $search_result = array_filter($json['keywords'], function ($item) use ($q) {
+               if (stripos($item, $q) !== false) {
+                  return true;
+               }
+               return false;
+            });
+
+            if (!empty($search_result)) {
+               $results['new'][] =  $json;
+            }
+         }
+      }
+      // Module Titles
+      $db->setQuery("SELECT id,title,module FROM #__modules WHERE `title` LIKE '%$q%'");
+      $modules = $db->loadObjectList();
+
+      if (!empty($modules)) {
+         foreach ($modules as $k => $module) {
+            $results['modules'][$k]['web'] = 'index.php?option=com_modules&task=module.edit&id=' . $module->id;
+            $results['modules'][$k]['name'] = $module->title . ' <span class="jdfinder_results_item_description">(' . $module->module . ')</span>';
+         }
+      }
+
+      // Article Titles
+      $db->setQuery("SELECT id,title FROM #__content WHERE `title` LIKE '%$q%'");
+      $articles = $db->loadObjectList();
+
+      if (!empty($articles)) {
+         foreach ($articles as $k => $article) {
+            $results['articles'][$k]['web'] = 'index.php?option=com_content&task=article.edit&id=' . $article->id;
+            $results['articles'][$k]['name'] = $article->title;
+         }
+      }
+
+
+      // Menu titles & Menu items.
+      $db->setQuery("SELECT m.id,m.title,mt.title as menu_name FROM #__menu as m JOIN #__menu_types as mt ON m.menutype = mt.menutype WHERE m.title LIKE '%$q%' AND m.client_id = 0");
+      $menu_items  = $db->loadObjectList();
+
+      if (!empty($menu_items)) {
+         foreach ($menu_items as $k => $item) {
+            $results['menu_items'][$k]['web'] = 'index.php?option=com_menus&task=item.edit&id=' . $item->id;
+            $results['menu_items'][$k]['name'] = $item->title . ' <span class="jdfinder_results_item_description">(' . $item->menu_name . ')</span>';
+         }
+      }
+      // Users & Names
+      $db->setQuery("SELECT id,name FROM #__users WHERE `name` LIKE '%$q%'");
+      $users  = $db->loadObjectList();
+
+      if (!empty($users)) {
+         foreach ($users as $k => $item) {
+            $results['users'][$k]['web'] = 'index.php?option=com_users&task=user.edit&id=' . $item->id;
+            $results['users'][$k]['name'] = $item->name;
+         }
+      }
+
+      if (!empty($results)) {
+         foreach ($results as $key => $val) {
+            $type = ucwords(str_replace('_', ' ', $key));
+            $response .= '<div class="groupholder"><li><span class="group-label ' . strtolower($type) . '">' . $type . '</span></li>';
+            foreach ($val as $k => $v) {
+               $web = (isset($v['web'])) ? $v['web'] : '';
+               $name = (isset($v['name'])) ? $v['name'] : '';
+               $response .= '<li><a href="' . $web . '" target="_blank">' . $name . '</a></li>';
+            }
+            $response .= '</div>';
+         }
+      } else {
+         $response .= "<li class='noresult'>" . JText::_('JDFINDER_NO_RESULTS') . "</li>";
+      }
+      echo new JResponseJson($response);
+      $app->close();
+   }
+   public function jdFinderModel()
+   {
+      return '<div id="jdfinderUnderlay" class="jdfinder-underlay">
+		<div class="modal-outer">
+				<div id="helpModal" class="jdfinder-modal">
+					<div class="jdfinder-header">
+						<div class="jdfinder-name"><img class="jdfinder-icon" src="' . Juri::root() . 'media/jdbuilder/images/jdb-icon.svg"><span class="jdfinder-text">' . JText::_("JDFINDER") . '</span></div>
+						<div id="helpClose" class="jdfinder-close">&times;</div>
+					</div>
+						<div id="helpModalContent" class="jdfinder-modal-content">
+						   <div id="helpListWrap" class="jdfinder-list-wrap">  
+							<div class="search-wrapper">
+								<input type="text" name="jdfindersearch" id="jdfindersearch" placeholder="' . JText::_('JDFINDER_TYPE_TO_FIND_ANYTHING') . '" class="search" />
+								<i class="icon-search jdfinder-search-icon" aria-hidden="true"></i>
+							</div>
+							<ul class="jdfinder_results">
+							</ul>
+						   </div>
+					</div>
+				</div>
+			</div>
+		</div>';
+   }
+   public function addAdminMenu()
+   {
+      $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . ' <span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder.pages">' . \JText::_('JCATEGORIES') . '</a></li></ul></li></ul>';
+      $body = $this->app->getBody();
+      $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
+      $this->app->setBody($body);
    }
 }

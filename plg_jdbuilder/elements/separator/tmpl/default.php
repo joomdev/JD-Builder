@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
@@ -63,6 +64,19 @@ if (!empty($alignment)) {
                $style->addCss('margin-left', 'auto', $device);
                $style->addCss('margin-right', 'auto', $device);
                break;
+         }
+      }
+   }
+}
+
+$borderRadius = $element->params->get('separatorRadius', null);
+if (!empty($borderRadius)) {
+   foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($borderRadius->{$deviceKey}) && !empty($borderRadius->{$deviceKey})) {
+
+         $css = \JDPageBuilder\Helper::spacingValue($borderRadius->{$deviceKey}, "radius");
+         if (!empty($css)) {
+            $style->addStyle($css, $device);
          }
       }
    }
