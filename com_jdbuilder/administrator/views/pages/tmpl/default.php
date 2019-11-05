@@ -39,7 +39,7 @@ $version_message = '
       <h4>Get JD Builder Pro and unlock the magical power of page building</h4>
       <p>30+ premium elements, Priority email support, Library of prebuilt sections, Keyboard shortcuts and a bunch more! <strong>Get it today</strong> at <a href="https://www.joomdev.com/pro"><strong>joomdev.com/pro</strong></a></p>
    </div>
-   <style>.jdb-pro-message{background-image: linear-gradient( 110deg, #099a97 6%, #15cda8 100% );box-shadow: 7px 7px 4px #ddd;overflow:hidden;border-radius:4px;display:flex;align-items: center;color:#fff;margin-bottom:25px;}.jdb-pro-message h4 {font-size:16px;margin: 0 0 10px;}body.admin.com_jdbuilder #content .jdb-pro-message a{color:#fff;}.jdb-pro-logo{background-image:linear-gradient( 110.7deg, #099a97 6.3%, #15cda8 90.6% );padding:15px;margin-right:10px;}.jdb-content{padding:10px 5px;}</style>
+   <style>.jdb-pro-message{background-image:linear-gradient(110deg, #099a97 6%, #15cda8 100%);box-shadow:8px 8px 8px rgba(221, 221, 221, 0.81);overflow:hidden;border-radius:4px;display:flex;color:#fff;margin-bottom:25px;line-height: 1.5rem;font-size:14px;}.jdb-pro-message h4{font-size:16px;margin:0 0 10px;}body.admin.com_jdbuilder #content .jdb-pro-message a{color:#fff;}.jdb-pro-logo{background-image:linear-gradient(110.7deg, #099a97 6.3%, #15cda8 90.6%);display:flex;align-items:center;padding:15px;margin-right:10px;}.jdb-content{padding:10px 5px;}</style>
 </div>
 ';
 ?>
