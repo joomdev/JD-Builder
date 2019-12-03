@@ -12,14 +12,14 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_ELE_TAB_CONTENT_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <!--  Element Options -->
             <field
                type="code-editor"
                name="code"
-               label="JDBUILDER_ELE_OPTION_CODE_TITLE"
+               label="JDB_HTML_CODE"
                language="html"
-               description="JDBUILDER_ELE_OPTION_CODE_DESC"
+               description="JDB_HTML_CODE_DESC"
             >
             </field>
          </fieldset>

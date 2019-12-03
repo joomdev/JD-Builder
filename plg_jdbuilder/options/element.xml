@@ -2,47 +2,47 @@
 <element>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" ordering="1" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
-            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" group="basic">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
             </field>
          </fieldset>
          <!-- Design Options -->
-         <fieldset name="design" ordering="9" label="JDBUILDER_DESIGN_TITLE">
-            <field type="group" ordering="2" name="width" label="JDBUILDER_FIELD_WIDTH_LBL" description=""></field>
-            <field type="group" ordering="9" name="position" label="JDBUILDER_FIELD_POSITION_LBL" description=""></field>
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" ordering="2" name="width" label="JDB_WIDTH"></field>
+            <field type="group" ordering="9" name="position" label="JDB_POSITION"></field>
 
-            <field type="list" name="elementWidth" label="JDBUILDER_BLANK" default="" description="JDBUILDER_FIELD_WIDTH_DESC" search="false" group="width">
-               <option value="">JDBUILDER_FIELD_FULLWIDTH_LABEL</option>
-               <option value="natural">JDBUILDER_FIELD_INLINE_NATURAL_LABEL</option>
-               <option value="resize">JDBUILDER_FIELD_INLINE_RESIZE_LABEL</option>
-               <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+            <field type="list" name="elementWidth" label="JDB_BLANK_LABEL" default="" search="false" group="width">
+               <option value="">JDB_FULLWIDTH_LABEL</option>
+               <option value="natural">JDB_INLINE_NATURAL_LABEL</option>
+               <option value="resize">JDB_INLINE_RESIZE_LABEL</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
 
-            <field type="slider" name="elementWidthValue" label="JDBUILDER_FIELD_CUSTOM_WIDTH_LABEL" description="JDBUILDER_FIELD_CUSTOM_WIDTH_DESC" default='{"value":50,"unit":"%"}' max="1600" min="0" units="px,%,em" showon="params.elementWidth=='custom'" group="width" responsive="true">
+            <field type="slider" name="elementWidthValue" label="JDB_CUSTOM_WIDTH" default='{"value":50,"unit":"%"}' max="1600" min="0" units="px,%,em" showon="params.elementWidth=='custom'" group="width" responsive="true">
             </field>
-            <field type="list" name="elementPosition" label="JDBUILDER_BLANK" default="" description="JDBUILDER_FIELD_POSITION_DESC" search="false" group="position">
-               <option value="">JDBUILDER_FIELD_DEFAULT</option>
-               <option value="relative">JDBUILDER_POSITION_RELATIVE</option>
-               <option value="absolute">JDBUILDER_POSITION_ABSOLUTE</option>
-               <option value="fixed">JDBUILDER_POSITION_FIXED</option>
+            <field type="list" name="elementPosition" label="JDB_BLANK_LABEL" default="" search="false" group="position">
+               <option value="">JDB_DEFAULT</option>
+               <option value="relative">JDB_POSITION_RELATIVE</option>
+               <option value="absolute">JDB_POSITION_ABSOLUTE</option>
+               <option value="fixed">JDB_POSITION_FIXED</option>
             </field>
-            <field type="spacer" showon="params.elementPosition!=''" label="JDBUILDER_FIELD_POSITION_HORIZONTAL_LABEL" description="" group="position">
+            <field type="spacer" showon="params.elementPosition!=''" label="JDB_POSITION_HORIZONTAL" group="position">
             </field>
-            <field type="radio" name="elementPositionHorizontal" label="JDBUILDER_BLANK" default="left" description="JDBUILDER_FIELD_POSITION_HORIZONTAL_DESC" group="position" radiotype="buttons" showon="params.elementPosition!=''">
-               <option value="left" svg="media/jdbuilder/images/icons/to-left.svg">JDBUILDER_ELEMENT_LEFT_LBL</option>
-               <option value="right" svg="media/jdbuilder/images/icons/to-right.svg">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+            <field type="radio" name="elementPositionHorizontal" label="JDB_BLANK_LABEL" default="left" group="position" radiotype="buttons" showon="params.elementPosition!=''">
+               <option value="left" svg="media/jdbuilder/images/icons/to-left.svg">JDB_LEFT</option>
+               <option value="right" svg="media/jdbuilder/images/icons/to-right.svg">JDB_RIGHT</option>
             </field>
             
-            <field type="slider" name="elementPositionHOffset" label="JDBUILDER_FIELD_OFFSET_LABEL" description="JDBUILDER_FIELD_OFFSET_DESC" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
+            <field type="slider" name="elementPositionHOffset" label="JDB_OFFSET" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
             
-            <field type="spacer" showon="params.elementPosition!=''" label="JDBUILDER_FIELD_POSITION_VERTICAL_LABEL" description="" group="position">
+            <field type="spacer" showon="params.elementPosition!=''" label="JDB_POSITION_VERTICAL" group="position">
             </field>
-            <field type="radio" name="elementPositionVertical" label="JDBUILDER_BLANK" default="top" description="JDBUILDER_FIELD_POSITION_VERTICAL_DESC" group="position" radiotype="buttons" showon="params.elementPosition!=''">
-               <option value="top" svg="media/jdbuilder/images/icons/to-top.svg">JDBUILDER_ELEMENT_TOP_LBL</option>
-               <option value="bottom" svg="media/jdbuilder/images/icons/to-bottom.svg">JDBUILDER_ELEMENT_BOTTOM_LBL</option>
+            <field type="radio" name="elementPositionVertical" label="JDB_BLANK_LABEL" default="top" group="position" radiotype="buttons" showon="params.elementPosition!=''">
+               <option value="top" svg="media/jdbuilder/images/icons/to-top.svg">JDB_TOP</option>
+               <option value="bottom" svg="media/jdbuilder/images/icons/to-bottom.svg">JDB_BOTTOM</option>
             </field>
-            <field type="slider" name="elementPositionVOffset" label="JDBUILDER_FIELD_OFFSET_LABEL" description="JDBUILDER_FIELD_OFFSET_DESC" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
+            <field type="slider" name="elementPositionVOffset" label="JDB_OFFSET" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
          </fieldset>
       </fields>
    </form>

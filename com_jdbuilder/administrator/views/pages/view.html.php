@@ -75,10 +75,6 @@ class JdbuilderViewPages extends JViewLegacy
             JToolBarHelper::addNew('page.add', 'JTOOLBAR_NEW');
          }
 
-         if ($canDo->get('core.edit') && isset($this->items[0])) {
-            JToolBarHelper::editList('page.edit', 'JTOOLBAR_EDIT');
-         }
-
          if ($canDo->get('core.create')) {
             if (isset($this->items[0])) {
                JToolbarHelper::custom('pages.duplicate', 'copy.png', 'copy_f2.png', 'JTOOLBAR_DUPLICATE', true);
@@ -117,10 +113,16 @@ class JdbuilderViewPages extends JViewLegacy
          }
       }
 
+      $bar = JToolbar::getInstance('toolbar');
+      $bar->appendButton('Custom', '<a target="_blank" class="btn btn-small" href="https://www.youtube.com/playlist?list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K"><span class="icon-youtube"></span> ' . JText::_('COM_JDBUILDER_VIDEO_TUTORIALS') . '</a>', 'jdb-tutorials');
+
+      $bar->appendButton('Custom', '<a target="_blank" class="btn btn-small" href="https://docs.joomdev.com/category/jd-builder"><span class="icon-help"></span> ' . JText::_('COM_JDBUILDER_HELP') . '</a>', 'jdb-help');
+
       if ($canDo->get('core.admin')) {
-         // JToolbarHelper::custom('help', 'help.png', 'help_f2.png', 'Help', false, false);
          JToolBarHelper::preferences('com_jdbuilder');
       }
+
+
 
       // Set sidebar action - New in 3.0
       JHtmlSidebar::setAction('index.php?option=com_jdbuilder&view=pages');

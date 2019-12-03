@@ -3,31 +3,29 @@
    <form>
       <fields>
          <!-- General Options -->
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
-            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
             <!--  Basic Options -->
-            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" group="basic">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
             </field>
             
             <!--  Layout Options -->
             <field
                type="list"
                name="guttersType"
-               label="JDBUILDER_FIELD_COLUMN_GAP_LABEL"
-               description="JDBUILDER_FIELD_COLUMN_GAP_DESC"
+               label="JDB_COLUMN_GAP"
                default=""
                group="layout"
             >
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="none">JDBUILDER_FIELD_COLUMN_NOGAP_LABEL</option>
-               <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+               <option value="">JDB_INHERIT</option>
+               <option value="none">JDB_COLUMN_NO_GAP</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
             <field
                type="slider"
                name="guttersSize"
-               label="JDBUILDER_FIELD_COLUMN_GAP_SIZE_LABEL"
-               description="JDBUILDER_FIELD_COLUMN_GAP_SIZE_DESC"
+               label="JDB_COLUMN_GAP_SIZE"
                showon="params.guttersType=='custom'"
                default="15"
                min="5"
@@ -39,16 +37,14 @@
             </field>
             <field
                type="spacer"
-               label="JDBUILDER_FIELD_COLUMN_DIRECTION_LABEL"
-               description="JDBUILDER_FIELD_COLUMN_DIRECTION_DESC"
+               label="JDB_COLUMN_DIRECTION"
                group="layout"
             >
             </field>
             <field
                type="switch"
                name="columnReverseMedium"
-               label="JDBUILDER_FIELD_REVERSE_TABLET_LABEL"
-               description="JDBUILDER_FIELD_REVERSE_TABLET_DESC"
+               label="JDB_REVERSE_COLUMNS_TABLET"
                default="false"
                group="layout"
             >
@@ -56,8 +52,7 @@
             <field
                type="switch"
                name="columnReverseSmall"
-               label="JDBUILDER_FIELD_REVERSE_MOBILE_LABEL"
-               description="JDBUILDER_FIELD_REVERSE_MOBILE_DESC"
+               label="JDB_REVERSE_COLUMNS_MOBILE"
                default="false"
                group="layout"
             >

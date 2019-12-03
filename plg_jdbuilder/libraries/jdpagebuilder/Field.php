@@ -118,6 +118,7 @@ class Field
             }
             break;
          case 'repeatable':
+         case 'jcategory':
          case 'checkbox':
             if ($default == "") {
                $default = "[]";
@@ -190,6 +191,11 @@ class Field
          case 'text':
             $placeholder = (string) $this->xml->attributes()->placeholder;
             $return['placeholder'] = \JText::_($placeholder);
+            break;
+         case 'jcategory':
+            $extension = (string) $this->xml->attributes()->{'extension'};
+            $extension = empty($extension) ? 'com_content' : $extension;
+            $return['extension'] = $extension;
             break;
          case 'date':
             $placeholder = (string) $this->xml->attributes()->placeholder;
@@ -383,7 +389,7 @@ class Field
             $return['type'] = 'list';
             $return['multiple'] = false;
             $return['search'] = true;
-            $return['options'] = [['label' => \JText::_('JNONE'), 'value' => '']];
+            $return['options'] = [['label' => \JText::_('JDB_NONE'), 'value' => '']];
             $return['groups'] = $this->getAnimations();
             break;
          case 'typetag':
@@ -504,7 +510,7 @@ class Field
       \JLoader::register('ModulesHelper', JPATH_ADMINISTRATOR . '/components/com_modules/helpers/modules.php');
 
       $options = [];
-      $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
+      $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
       $positions = \ModulesHelper::getPositions(0);
       foreach ($positions as $option) {
          $item = [];
@@ -525,7 +531,7 @@ class Field
       $db->setQuery($query);
       $results = $db->loadObjectList();
 
-      $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
+      $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
 
       foreach ($results as $result) {
          $item = [];
@@ -551,7 +557,7 @@ class Field
    public static function getShapeDividers()
    {
       $options = [];
-      $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
+      $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
 
       $path = JPATH_SITE . '/media/jdbuilder/data/shape-dividers';
       $dividers = glob($path . "/*.svg");
@@ -641,7 +647,7 @@ class Field
    {
       $animations = Constants::HOVER_ANIMATIONS;
       $options = [];
-      $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
+      $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
       foreach ($animations as $value => $animation) {
          $item = [];
          $item['label'] = \JText::_($animation);
@@ -655,7 +661,7 @@ class Field
    {
       $animations = Constants::ICON_HOVER_ANIMATIONS;
       $options = [];
-      $options[] = ['label' => \JText::_('JNONE'), 'value' => ''];
+      $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
       foreach ($animations as $animation) {
          $item = [];
          $item['label'] = Helper::titlecase($animation);
@@ -670,7 +676,7 @@ class Field
 
       $options = [];
       $custom_fonts = [];
-      $custom_fonts['label'] = \JText::_('JDBUILDER_CUSTOM_FONTS_TITLE');
+      $custom_fonts['label'] = \JText::_('JDB_CUSTOM_FONTS_TITLE');
       $custom_fonts['type'] = "custom";
       $custom_fonts['options'] = [];
       $customFonts = Field::customFonts();
@@ -684,14 +690,14 @@ class Field
       $options[] = $custom_fonts;
 
       $system_fonts = [];
-      $system_fonts['label'] = \JText::_('JDBUILDER_SYSTEM_FONTS_TITLE');
+      $system_fonts['label'] = \JText::_('JDB_SYSTEM_FONTS_TITLE');
       $system_fonts['type'] = "system";
       $system_fonts['options'] = $this->getSystemFonts();
       $options[] = $system_fonts;
 
 
       $google_fonts = [];
-      $google_fonts['label'] = \JText::_('JDBUILDER_GOOGLE_FONTS_TITLE');
+      $google_fonts['label'] = \JText::_('JDB_GOOGLE_FONTS_TITLE');
       $google_fonts['type'] = "google";
       $google_fonts['options'] = [];
       $options[] = $google_fonts;
@@ -749,7 +755,7 @@ class Field
    public function getCategoryOptions()
    {
 
-      $return = [['label' => \JText::_('JNONE'), 'value' => '0']];
+      $return = [['label' => \JText::_('JDB_NONE'), 'value' => '0']];
       $extension = (string) $this->xml->attributes()->extension;
       $scope = (string) $this->xml->attributes()->scope;
 
@@ -957,7 +963,7 @@ class Field
 
    public function getTypeTags()
    {
-      $options = [['label' => \JText::_('JDEFAULT'), 'value' => '']];
+      $options = [['label' => \JText::_('JDB_DEFAULT'), 'value' => '']];
       foreach (['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small'] as $tag) {
          $options[] = ['label' => ucfirst($tag), 'value' => $tag];
       }

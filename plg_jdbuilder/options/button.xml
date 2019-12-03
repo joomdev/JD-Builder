@@ -3,17 +3,17 @@
     <field name="typography" type="typography" label="Typography" description="" default="" responsive="true">
     </field>
     <field type="list" name="type" label="Button Type" description="" default="primary" width="6">
-        <option value="primary">JDBUILDER_ELEMENT_PRIMARY_LBL</option>
-        <option value="secondary">JDBUILDER_ELEMENT_SECONDARY_LBL</option>
-        <option value="success">JDBUILDER_ELEMENT_SUCCESS_LBL</option>
-        <option value="danger">JDBUILDER_ELEMENT_DANGER_LBL</option>
-        <option value="warning">JDBUILDER_ELEMENT_WARNING_LBL</option>
-        <option value="info">JDBUILDER_ELEMENT_INFO_LBL</option>
+        <option value="primary">JDB_PRIMARY</option>
+        <option value="secondary">JDB_SECONDARY</option>
+        <option value="success">JDB_SUCCESS</option>
+        <option value="danger">JDB_DANGER</option>
+        <option value="warning">JDB_WARNING</option>
+        <option value="info">JDB_INFO</option>
     </field>
     <field type="list" name="size" label="Button Size" description="" default="" width="6">
-        <option value="sm">JDBUILDER_ELEMENT_SM_LBL</option>
-        <option value="">JDBUILDER_ELEMENT_MD_LBL</option>
-        <option value="lg">JDBUILDER_ELEMENT_LG_LBL</option>
+        <option value="sm">JDB_SIZE_SM</option>
+        <option value="">JDB_SIZE_MD</option>
+        <option value="lg">JDB_SIZE_LG</option>
     </field>
     <field type="hover-animations" name="animation" label="Button Animation" description="" default="">
     </field>
@@ -39,11 +39,11 @@
     <field name="buttonPadding" type="spacing" label="Button Padding" description="" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
     </field>
     <field type="list" name="borderStyle" label="Border Style" description="" default="solid">
-        <option value="none">JDBUILDER_BORDER_NONE</option>
-        <option value="solid">JDBUILDER_BORDER_SOLID</option>
-        <option value="dashed">JDBUILDER_BORDER_DASHED</option>
-        <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
-        <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+        <option value="none">JDB_BORDER_NONE</option>
+        <option value="solid">JDB_BORDER_SOLID</option>
+        <option value="dashed">JDB_BORDER_DASHED</option>
+        <option value="dotted">JDB_BORDER_DOTTED</option>
+        <option value="double">JDB_BORDER_DOUBLE</option>
     </field>
 
     <field type="spacing" name="borderWidth" label="Border Width" description="" showon="params._fgBorderStyle!='none'" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">

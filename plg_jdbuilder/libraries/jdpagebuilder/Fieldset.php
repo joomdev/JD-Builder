@@ -34,7 +34,7 @@ class Fieldset
       if (!empty($label)) {
          $this->title = \JText::_($label);
       }
-      $this->groups['_default'] = new FieldGroup('', 'JDBUILDER_GENERAL_TITLE');
+      $this->groups['_default'] = new FieldGroup('', 'JDB_GENERAL_TITLE');
       foreach ($this->xml->field as $field) {
          $type = (string) $field->attributes()->type;
          if ($type == "group") {

@@ -12,13 +12,12 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <!--  Element Options -->
             <field
                name="space"
                type="slider"
-               label="JDBUILDER_ELE_SOCIAL_EMPTY_LABEL"
-               description="JDBUILDER_ELE_SOCIAL_EMPTY_DESC"
+               label="JDB_EMPTY_SPACE"
                default="50"
                min="0"
                group="basic"
@@ -27,7 +26,6 @@
                responsive="true"
             >
             </field>
-            
          </fieldset>
       </fields>
    </form>

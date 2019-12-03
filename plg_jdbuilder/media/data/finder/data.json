@@ -58,7 +58,15 @@
       "new user note",
       "new user"
     ]
+  }, 
+  {
+    "name":"New JD Builder Page",
+    "web": "index.php?option=com_jdbuilder&view=page&layout=edit",
+    "description": "",
+    "keywords": [
+      "new",
+      "new user note",
+      "new user"
+    ]
   }
 ]
-
-

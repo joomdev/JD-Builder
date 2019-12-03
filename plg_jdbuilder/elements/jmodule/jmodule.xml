@@ -12,44 +12,41 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <field
                type="alert"
                label="warning"
-               description="JDBUILDER_ELEMENT_MODULE_ALERT"
+               description="JDB_MODULE_ALERT"
             >
             </field>
             <field
                type="radio"
-               label="JDBUILDER_ELEMENT_TYPE_LABEL"
+               label="JDB_ELEMENT_TYPE_LABEL"
                name="type"
                default="module"
                radiotype="buttons"
             >
-               <option value="module">JDBUILDER_ELEMENT_MODULE_LBL</option>
-               <option value="position">JDBUILDER_ELEMENT_MODULE_POSITION_LBL</option>
+               <option value="module">JDB_MODULE</option>
+               <option value="position">JDB_MODULE_POSITION</option>
             </field>
             <field
                name="module"
                type="jmodule"
-               label="JDBUILDER_ELEMENT_MODULE_LBL"
-               description="JDBUILDER_ELEMENT_MODULE_DESC"
+               label="JDB_MODULE"
                default=""
                showon="params.type == 'module'"
             />
             <field
                name="position"
                type="jposition"
-               label="JDBUILDER_ELEMENT_MODULE_POSITION_LBL"
-               description="JDBUILDER_ELEMENT_MODULE_POSITION_DESC"
+               label="JDB_MODULE_POSITION"
                default=""
                showon="params.type == 'position'"
             />
             <field
                name="style"
                type="chromestyle"
-               label="JDBUILDER_ELE_JMODULE_MODULE_STYLE_LBL"
-               description="JDBUILDER_ELE_JMODULE_MODULE_STYLE_DESC"
+               label="JDB_MODULE_STYLE"
                default="0"
             />
          </fieldset>

@@ -3,55 +3,54 @@
    <form>
       <fields>
          <!-- General Options -->
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
-            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
 
             <!-- Basic Options -->
-            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" group="basic">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
             </field>
 
-            <field type="list" name="htmlTag" label="JDBUILDER_FIELD_TAG_LBL" default="" description="JDBUILDER_FIELD_TAG_DESC" search="true" group="basic">
-               <option value="">JDBUILDER_FIELD_SECTION_DEFAULT</option>
-               <option value="div">JDBUILDER_FIELD_TAG_OPTIONS_DIV</option>
-               <option value="header">JDBUILDER_FIELD_TAG_OPTIONS_HEADER</option>
-               <option value="Footer">JDBUILDER_FIELD_TAG_OPTIONS_FOOTER</option>
-               <option value="main">JDBUILDER_FIELD_TAG_OPTIONS_MAIN</option>
-               <option value="article">JDBUILDER_FIELD_TAG_OPTIONS_ARTICLE</option>
-               <option value="section">JDBUILDER_FIELD_TAG_OPTIONS_SECTION</option>
-               <option value="aside">JDBUILDER_FIELD_TAG_OPTIONS_ASIDE</option>
-               <option value="nav">JDBUILDER_FIELD_TAG_OPTIONS_NAV</option>
+            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="basic">
+               <option value="">JDB_SECTION_DEFAULT_TAG</option>
+               <option value="div">JDB_DIV_TAG</option>
+               <option value="header">JDB_HEADER_TAG</option>
+               <option value="Footer">JDB_FOOTER_TAG</option>
+               <option value="main">JDB_MAIN_TAG</option>
+               <option value="article">JDB_ARTICLE_TAG</option>
+               <option value="section">JDB_SECTION_TAG</option>
+               <option value="aside">JDB_ASIDE_TAG</option>
+               <option value="nav">JDB_NAV_TAG</option>
             </field>
 
             <!-- Layout Options -->
-            <field type="switch" label="JDBUILDER_STRETCH_SECTION_LBL" group="layout" name="stretchSection" description="JDBUILDER_STRETCH_SECTION_DESC" default="false">
+            <field type="switch" label="JDB_STRETCH_SECTION_LBL" group="layout" name="stretchSection" description="JDB_STRETCH_SECTION_DESC" default="false">
             </field>
 
-            <field type="radio" radiotype="buttons" name="contentWidth" label="JDBUILDER_FIELD_CONTENT_WIDTH_LBL" description="JDBUILDER_FIELD_CONTENT_WIDTH_DESC" default="container" group="layout">
-               <option value="container-fluid">Fluid (Full-Width)</option>
-               <option value="container">Contained (Boxed)</option>
-               <option value="custom">Custom</option>
+            <field type="radio" radiotype="buttons" name="contentWidth" label="JDB_CONTENT_WIDTH_LBL" default="container" group="layout">
+               <option value="container-fluid">JDB_FLUID_FULL_WIDTH</option>
+               <option value="container">JDB_CONTAINED_BOXED</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
 
-            <field type="slider" name="contentWidthCustom" label="JDBUILDER_FIELD_WIDTH_LBL" description="JDBUILDER_FIELD_WIDTH_DESC" default='{"value":1140,"unit":"px"}' max="2560" min="0" units="px,%,vw" showon="params.contentWidth=='custom'" group="layout" responsive="true">
+            <field type="slider" name="contentWidthCustom" label="JDB_WIDTH" default='{"value":1140,"unit":"px"}' max="2560" min="0" units="px,%,vw" showon="params.contentWidth=='custom'" group="layout" responsive="true">
             </field>
 
-
-            <field type="list" name="height" label="JDBUILDER_FIELD_SECTION_HEIGHT_LBL" description="JDBUILDER_FIELD_SECTION_HEIGHT_DESC" group="layout" default="">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="screen-fit">JDBUILDER_FIELD_FITTOSCREEN_LABEL</option>
-               <option value="min-height">JDBUILDER_FIELD_MIN_HEIGHT_LBL</option>
+            <field type="list" name="height" label="JDB_SECTION_HEIGHT_LBL" group="layout" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="screen-fit">JDB_FITTOSCREEN</option>
+               <option value="min-height">JDB_MIN_HEIGHT</option>
             </field>
-            <field type="slider" name="minHeight" label="JDBUILDER_FIELD_MIN_HEIGHT_LBL" description="JDBUILDER_FIELD_MIN_HEIGHT_DESC" default='{"value":100,"unit":"px"}' max="1440" units="px,vh" showon="params.height=='min-height'" group="layout" responsive="true">
+            <field type="slider" name="minHeight" label="JDB_MIN_HEIGHT" default='{"value":100,"unit":"px"}' max="1440" units="px,vh" showon="params.height=='min-height'" group="layout" responsive="true">
             </field>
 
-            <field type="list" name="contentPosition" label="JDBUILDER_FIELD_CONTENT_POSITION_LBL" description="JDBUILDER_FIELD_CONTENT_POSITION_DESC" default="" group="layout">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="justify-content-start">CONTENT_POSITION_DEFAULT_TOPSTART_OPTIONS</option>
-               <option value="justify-content-center">CONTENT_POSITION_DEFAULT_OPTIONS_CENTER</option>
-               <option value="justify-content-end">CONTENT_POSITION_DEFAULT_OPTIONS_BOTTOM</option>
-               <option value="justify-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
-               <option value="justify-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            <field type="list" name="contentPosition" label="JDB_CONTENT_POSITION_LBL" description="JDB_CONTENT_POSITION_DESC" default="" group="layout">
+               <option value="">JDB_INHERIT</option>
+               <option value="justify-content-start">JDB_JUSTIFY_CONTENT_START</option>
+               <option value="justify-content-center">JDB_JUSTIFY_CONTENT_CENTER</option>
+               <option value="justify-content-end">JDB_JUSTIFY_CONTENT_END</option>
+               <option value="justify-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
+               <option value="justify-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
             </field>
          </fieldset>
       </fields>

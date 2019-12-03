@@ -95,7 +95,8 @@
       if (itemSpaceBetween != null) {
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {
             if ((_deviceObj.key in itemSpaceBetween) && JDBRenderer.Helper.checkSliderValue(itemSpaceBetween[_deviceObj.key])) {
-               linkStyle.addCss("margin-right", itemSpaceBetween[_deviceObj.key].value + 'px', _deviceObj.type);
+               linkStyle.addCss("margin-right", 'calc(' + itemSpaceBetween[_deviceObj.key].value + 'px / 2)', _deviceObj.type);
+               linkStyle.addCss("margin-left", 'calc(' + itemSpaceBetween[_deviceObj.key].value + 'px / 2)', _deviceObj.type);
             }
          });
       }

@@ -12,29 +12,27 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <!--  Element Options -->
             <field
                type="list"
                name="alertType"
-               label="JDBUILDER_ELEMENT_TYPE_LABEL"
-               description="JDBUILDER_ELEMENT_TYPE_DESC"
+               label="JDB_ALERT_TYPE_LABEL"
                default="success"
                group="basic"
             >
-               <option value="primary">JDBUILDER_ELEMENT_PRIMARY_LBL</option>
-               <option value="secondary">JDBUILDER_ELEMENT_SECONDARY_LBL</option>
-               <option value="success">JDBUILDER_ELEMENT_SUCCESS_LBL</option>
-               <option value="danger">JDBUILDER_ELEMENT_DANGER_LBL</option>
-               <option value="warning">JDBUILDER_ELEMENT_WARNING_LBL</option>
-               <option value="info">JDBUILDER_ELEMENT_INFO_LBL</option>
+               <option value="primary">JDB_PRIMARY</option>
+               <option value="secondary">JDB_SECONDARY</option>
+               <option value="success">JDB_SUCCESS</option>
+               <option value="danger">JDB_DANGER</option>
+               <option value="warning">JDB_WARNING</option>
+               <option value="info">JDB_INFO</option>
             </field>
             <field
                name="alertHeading"
                type="text"
-               label="JDBUILDER_FIELD_HEADING_LBL"
-               descriotion="JDBUILDER_FIELD_HEADING_DESC"
+               label="JDB_ALERT_HEADING_LABEL"
                default=""
                group="basic"
             >
@@ -43,8 +41,7 @@
                name="alertHeadingTypography"
                type="typography"
                language="html"
-               label="Heading Typography"
-               description=""
+               label="JDB_ALERT_HEADING_TYPOGRAPHY_LABEL"
                group="basic"
                showon="params.alertHeading!=''"
                responsive="true"
@@ -53,8 +50,7 @@
             <field
                name="alertContent"
                type="editor"
-               label="JDBUILDER_FIELD_CONTENT_LBL"
-               description="JDBUILDER_FIELD_CONTENT_DESC"
+               label="JDB_ALERT_CONTENT_LABEL"
                default="Alert Text"
                group="basic"
             >
@@ -63,8 +59,7 @@
                name="alertContentTypography"
                type="typography"
                language="html"
-               label="JDBUILDER_ELE_ALERT_TYPOGRAPHY"
-               description=""
+               label="JDB_ALERT_TYPOGRAPHY"
                group="basic"
                showon="params.alertContent!=''"
                responsive="true"
@@ -73,7 +68,7 @@
             <field
                name="alertIcon"
                type="icon"
-               label="JDBUILDER_ELE_ALERT_ICON_LABEL"
+               label="JDB_ALERT_ICON_LABEL"
                default=""
                group="basic"
             >
@@ -81,7 +76,7 @@
             <field
                name="dismissButton"
                type="switch"
-               label="JDBUILDER_ELE_ALERT_DISMISS_BUTTON_LABEL"
+               label="JDB_ALERT_DISMISS_BUTTON_LABEL"
                default="false"
                group="basic"
             >

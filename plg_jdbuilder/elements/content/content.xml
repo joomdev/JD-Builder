@@ -13,29 +13,27 @@
 
    <form>
       <fields>
-         <fieldset name="general" label="General">
-            <field type="group" name="basic" label="Basic"></field>
-            <field type="group" name="typography" label="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_LABEL" description="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_DESC"></field>
-            <!--  Element Options -->
-            <field type="editor" language="html" name="content" label="JDBUILDER_ELE_CONTENT_LABEL" default="" description="JDBUILDER_ELE_CONTENT_DESC" group="basic" />
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="group" name="typography" label="JDB_CONTENT_CONTENT_TYPOGRAPHY"></field>
+            <!-- Element Options -->
+            <field type="editor" language="html" name="content" label="JDB_CONTENT_CONTENT" default="" group="basic" />
 
-            <field name="contentTypography" type="typography" label="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_LABEL" description="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_DESC" group="typography" default="" responsive="true">
+            <field name="contentTypography" type="typography" label="JDB_TYPOGRAPHY" group="typography" default="" responsive="true">
             </field>
 
-
-            <field type="spacer" showon="params.dropcap==true" label="Drop Cap Options" group="typography">
+            <field name="dropcap" type="switch" label="JDB_CONTENT_DROP_CAP" default="false" group="typography">
             </field>
 
-            <field name="dropcap" type="switch" label="Drop Cap" description="" default="false" group="typography">
+            <field type="spacer" showon="params.dropcap==true" label="JDB_CONTENT_DROP_CAP_OPTIONS_SPACER" group="typography"></field>
+
+            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="JDB_COLOR_LABEL" default="" width="6" group="typography">
             </field>
 
-            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="Color" default="" description="" width="6" group="typography">
+            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="JDB_BACKGROUND_LABEL" default="" width="6" group="typography">
             </field>
 
-            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="Background" default="" description="" width="6" group="typography">
-            </field>
-
-            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" default='{"family":"", "size":72, "sizeUnit":"px", "alignment":"center", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":60, "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="typography">
+            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDB_TYPOGRAPHY_LABEL" default='{"family":"", "size":72, "sizeUnit":"px", "alignment":"center", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":60, "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="typography">
             </field>
          </fieldset>
       </fields>

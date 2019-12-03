@@ -257,6 +257,10 @@ img {
       flex-wrap: wrap;
 
       li {
+         &:first-child a {
+            margin-left: 0 !important;
+         }
+
          &:last-child a {
             margin-right: 0 !important;
          }
@@ -369,52 +373,49 @@ img {
 }
 
 .jdb-sdivider {
-   width: 100%;
-   position: absolute !important;
-   left: 0;
-   pointer-events: none;
-   z-index: 3 !important;
    overflow: hidden;
-   background-repeat: no-repeat !important;
-   background-position-x: center !important;
+   position: absolute;
+   left: 0;
+   width: 100%;
+   line-height: 0;
+   direction: ltr;
+   z-index: 8;
 
-   &:not(.jdb-sdivider-flip) {
-      transform: translateZ(0);
+   &[data-position=top] {
+      top: -1px;
+
+      &[data-flip] {
+         -webkit-transform: rotateY(180deg);
+         -ms-transform: rotateY(180deg);
+         transform: rotateY(180deg);
+      }
    }
 
-   &.jdb-sdivider-top {
-      top: 0;
-      transform: rotateX(180deg) translateZ(0);
-   }
+   &[data-position=bottom] {
+      bottom: -1px;
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
 
-   &.jdb-sdivider-bottom {
-      bottom: 0;
-   }
-
-   &.jdb-sdivider-flip {
-      transform: scaleX(1) translateZ(0) rotateY(180deg);
-
-      &.jdb-sdivider-top {
-         transform: rotateX(180deg) scaleX(1) rotateY(180deg) translateZ(0);
+      &[data-flip] {
+         -webkit-transform: rotateX(180deg);
+         -ms-transform: rotateX(180deg);
+         transform: rotateX(180deg);
       }
    }
 
    &.jdb-sdivider-front {
-      z-index: 5 !important;
+      z-index: 10 !important;
    }
 
    svg {
-      width: auto;
-      bottom: -1px;
-      height: 100%;
+      display: block;
+      width: calc(100% + 1.3px);
+      position: relative;
       left: 50%;
-      position: absolute;
-      transform: translatex(-50%);
-      overflow: hidden;
-   }
-
-   &.jdb-sdivider-flip svg {
-      transform: translateX(-50%) rotateY(180deg);
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%)
    }
 }
 
@@ -976,6 +977,10 @@ img {
    figure {
       margin: 0;
    }
+
+   figcaption {
+      display: block;
+   }
 }
 
 // Image Box Element
@@ -1072,6 +1077,7 @@ img {
             display: block;
             float: left;
             max-width: 100%;
+            margin-right: 10px;
          }
       }
 
@@ -1603,4 +1609,74 @@ img {
 .jdb-firstletter {
    float: left;
    margin-right: 5px;
+}
+
+.articles-layout-grid {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+
+   &.column-1 {
+      .article-item {
+         flex: 0 0 100%;
+      }
+   }
+
+   &.column-2 {
+      .article-item {
+         flex: 0 0 50%;
+      }
+   }
+
+   &.column-3 {
+      .article-item {
+         flex: 0 0 calc(100% / 3);
+      }
+   }
+
+   &.column-4 {
+      .article-item {
+         flex: 0 0 25%;
+      }
+   }
+
+   &.column-6 {
+      .article-item {
+         flex: 0 0 calc(100% / 6);
+      }
+   }
+}
+
+.jdb-joomla-articles {
+   .article-item {
+      padding: 10px;
+
+      article {
+         position: relative;
+         display: flex;
+         flex-direction: column;
+         min-width: 0;
+         word-wrap: break-word;
+         background-color: #fff;
+         background-clip: border-box;
+         border: 1px solid rgba(0, 0, 0, .125);
+         border-radius: .25rem;
+
+         .article-title {
+            padding: 10px;
+         }
+
+         .article-info {
+            padding: 10px;
+         }
+
+         .article-text {
+            padding: 10px;
+         }
+
+         .article-readmore {
+            padding: 10px;
+         }
+      }
+   }
 }

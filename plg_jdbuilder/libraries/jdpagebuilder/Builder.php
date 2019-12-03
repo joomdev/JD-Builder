@@ -20,6 +20,7 @@ abstract class Builder
 {
 
    protected static $request = null;
+   protected static $requestMethod = 'GET';
    protected static $styles = [];
    protected static $scripts = [];
    protected static $stylesheets = [];
@@ -34,8 +35,8 @@ abstract class Builder
    public static $reserved_elements = ["section", "row", "column", "element", "__page"];
    public static $css = [
       'desktop' => [],
-      'mobile' => [],
-      'tablet' => []
+      'tablet' => [],
+      'mobile' => []
    ];
 
    public static function request()
@@ -43,8 +44,10 @@ abstract class Builder
       if (!static::$request) {
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             static::$request = \JFactory::getApplication()->input->post;
+            static::$requestMethod = 'POST';
          } else {
             static::$request = \JFactory::getApplication()->input->get;
+            static::$requestMethod = $_SERVER['REQUEST_METHOD'];
          }
       }
       return static::$request;
@@ -91,7 +94,7 @@ abstract class Builder
    {
       static::$styles[] = $css;
 
-      foreach (['desktop', 'tablet', 'mobile'] as $device) {
+      foreach (['desktop', 'mobile', 'tablet'] as $device) {
          if (isset($css[$device]) && !empty($css[$device])) {
             self::$css[$device][] = $css[$device];
          }
@@ -108,15 +111,17 @@ abstract class Builder
          $inlineScss .= $custom_css;
       }
 
+      $document = \JFactory::getDocument();
       foreach ($stylesheets as $stylesheet) {
-         $inlineScss .= '@import "' . $stylesheet . '";';
+         $document->addStylesheet($stylesheet);
+         // $inlineScss .= '@import "' . $stylesheet . '";';
       }
 
       foreach (self::$css as $device => $script) {
          if (!empty($script)) {
             if ($device != 'desktop') {
                if ($device == 'tablet') {
-                  $inlineScss .= '@media (min-width: 768px) and (max-width: 991.98px) {';
+                  $inlineScss .= '@media (max-width: 991.98px) {';
                } else {
                   $inlineScss .= '@media (max-width: 767.98px) {';
                }
@@ -152,10 +157,10 @@ abstract class Builder
       static::$javascripts[$file] = $file;
    }
 
-   public static function builderArticleToggle($enabled = false, $id = 0)
+   public static function builderArticleToggle($enabled = false, $id = 0, $lid = 0)
    {
       $layout = new \JLayoutFile('article', JPATH_PLUGINS . '/system/jdbuilder/layouts');
-      return $layout->render(['enabled' => $enabled, 'id' => $id, 'lid' => 2]);
+      return $layout->render(['enabled' => $enabled, 'id' => $id, 'lid' => $lid]);
    }
 
    public static function builderArea($enabled = false, $type = 'page', $id = 0)
@@ -293,6 +298,15 @@ abstract class Builder
       return $formJSON;
    }
 
+   public static function getArticleForm()
+   {
+      $xml = JPATH_PLUGINS . '/system/jdbuilder/options/article.xml';
+      $form = new Form("article");
+      $form->load($xml);
+      $formJSON = $form->get();
+      return $formJSON;
+   }
+
    public static function getFormDefaults($form)
    {
       $return = [];
@@ -354,8 +368,8 @@ abstract class Builder
          if ($type == "page") {
             $query = "SELECT `#__jdbuilder_layouts`.* FROM `#__jdbuilder_pages` JOIN `#__jdbuilder_layouts` ON `#__jdbuilder_pages`.`layout_id`=`#__jdbuilder_layouts`.`id` WHERE `#__jdbuilder_pages`.`id`='{$id}'";
          }
-         if ($type == "article") {
-            $query = "SELECT `#__jdbuilder_layouts`.* FROM `#__jdbuilder_pages` JOIN `#__jdbuilder_layouts` ON `#__jdbuilder_pages`.`layout_id`=`#__jdbuilder_layouts`.`id` WHERE `#__jdbuilder_pages`.`id`='1'";
+         if ($type == "article" || $type == "module") {
+            $query = "SELECT `#__jdbuilder_layouts`.* FROM `#__jdbuilder_layouts` WHERE `#__jdbuilder_layouts`.`id`='{$id}'";
          }
          $db->setQuery($query);
          $result = $db->loadObject();
@@ -377,7 +391,7 @@ abstract class Builder
       }
 
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       $user = \JFactory::getUser();
       // Access checks.
@@ -422,6 +436,10 @@ abstract class Builder
 
          $jdbform = $request->get('_jdbform', [], 'ARRAY');
          $layout = @$jdbform['layout'];
+         /* $layout = '';
+         foreach ($layoutChunks as $layoutChunk) {
+            $layout .= $layoutChunk;
+         } */
          $db = \JFactory::getDbo();
          $object = new \stdClass();
          if (!empty($layout)) {
@@ -531,7 +549,6 @@ abstract class Builder
    {
       $request = \JDPageBuilder\Builder::request();
       $document = \JFactory::getDocument();
-      $document->addCustomTag('<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>');
       $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
       if ($request->get('jdb-preview', 0)) {
          $document->addCustomTag('<link rel="stylesheet" id="jdb-preview-css" />');
@@ -546,7 +563,7 @@ abstract class Builder
             $file = JPATH_SITE . '/media/jdbuilder/data/shape-dividers/' . $divider['value'] . '.svg';
             if (file_exists($file)) {
                $svg = file_get_contents($file);
-               $dividersSVGArr[] = "['" . $divider['value'] . "','" . str_replace('class="jdb-shape-fill"', 'fill="currentColor"', preg_replace("/\r|\n/", "", $svg)) . "']";
+               $dividersSVGArr[] = "['" . $divider['value'] . "','" . preg_replace("/\r|\n/", "", $svg) . "']";
             }
          }
          $dividersSVGs .= implode(',', $dividersSVGArr) . ']);';
@@ -590,10 +607,13 @@ abstract class Builder
 
          Helper::renderGlobalScss();
 
-         $document->addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
+         $document->addStylesheet('//use.fontawesome.com/releases/v5.11.2/css/all.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
+
+         $css = self::renderStyle();
+         $document->addStyleDeclaration($css);
 
          return self::livePreviewArea();
       }
@@ -696,6 +716,20 @@ abstract class Builder
          $linkStyle->render();
          $linkHoverStyle->render();
       }
+
+      $customCss = $params->get('custom_css', null);
+      if (!empty($customCss)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($customCss->{$deviceKey}) && !empty($customCss->{$deviceKey})) {
+               \JDPageBuilder\Helper::customCSS($customCss->{$deviceKey}, null, $device);
+            }
+         }
+      }
+
+      $customJs = $params->get('javascript', '');
+      if (!empty($customJs)) {
+         Builder::addScript($customJs);
+      }
    }
 
    public static function livePreviewArea()
@@ -773,7 +807,7 @@ abstract class Builder
 
       switch ($prefix) {
          case 'fa':
-            self::addStylesheet('//use.fontawesome.com/releases/v5.10.1/css/all.css');
+            self::addStylesheet('//use.fontawesome.com/releases/v5.11.2/css/all.css');
             break;
          case 'fi':
             self::addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
@@ -802,31 +836,17 @@ abstract class Builder
    public static function getFonts()
    {
       $return = [];
-      $return['options'] = [['label' => \JText::_('JDEFAULT'), 'value' => '']];
-
-      $custom_fonts = [];
-      $custom_fonts['label'] = \JText::_('JDBUILDER_CUSTOM_FONTS_TITLE');
-      $custom_fonts['type'] = "custom";
-      $custom_fonts['options'] = [];
-      $customFonts = Field::customFonts();
-      $coptions = [];
-      if (!empty($customFonts)) {
-         foreach ($customFonts as $id => $customFont) {
-            $coptions[] = ['label' => $customFont['name'], 'value' => "c~" . $id];
-         }
-         $custom_fonts['options'] = $coptions;
-      }
-      $return['groups'][] = $custom_fonts;
+      $return['options'] = [['label' => \JText::_('JDB_DEFAULT'), 'value' => '']];
 
       $system_fonts = [];
-      $system_fonts['label'] = \JText::_('JDBUILDER_SYSTEM_FONTS_TITLE');
+      $system_fonts['label'] = \JText::_('JDB_SYSTEM_FONTS_TITLE');
       $system_fonts['type'] = "system";
       $system_fonts['options'] = Field::getSystemFonts();
       $return['groups'][] = $system_fonts;
 
 
       $google_fonts = [];
-      $google_fonts['label'] = \JText::_('JDBUILDER_GOOGLE_FONTS_TITLE');
+      $google_fonts['label'] = \JText::_('JDB_GOOGLE_FONTS_TITLE');
       $google_fonts['type'] = "google";
       $google_fonts['options'] = \json_decode(file_get_contents(JPATH_SITE . '/media/jdbuilder/data/googlefonts.json'));
       $return['groups'][] = $google_fonts;
@@ -837,10 +857,10 @@ abstract class Builder
    public static function newFolder()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       return Media::create();
    }
@@ -848,10 +868,10 @@ abstract class Builder
    public static function deleteMedia()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       return Media::delete();
    }
@@ -859,10 +879,10 @@ abstract class Builder
    public static function copyMedia()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       return Media::copy();
    }
@@ -870,10 +890,10 @@ abstract class Builder
    public static function renameMedia()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       return Media::rename();
    }
@@ -881,10 +901,10 @@ abstract class Builder
    public static function uploadMedia()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       return Media::upload();
    }
@@ -892,7 +912,7 @@ abstract class Builder
    public static function addFavourite()
    {
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       $request = self::request();
       $id = $request->get('id', 0, 'INT');
@@ -913,7 +933,7 @@ abstract class Builder
    public static function removeFavourite()
    {
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       $request = self::request();
       $id = $request->get('id', 0, 'INT');
@@ -943,7 +963,7 @@ abstract class Builder
    public static function saveTemplate()
    {
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       $request = self::request();
       $data = $request->get('data', '{}', 'RAW');
@@ -1010,10 +1030,10 @@ abstract class Builder
    public static function deleteTemplate()
    {
       if (Helper::isBuilderDemo()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_NOT_PERMITTED'));
+         throw new \Exception(\JText::_('JDB_ERROR_NOT_PERMITTED'));
       }
       if (!\JSession::checkToken()) {
-         throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_SESSION'));
+         throw new \Exception(\JText::_('JDB_ERROR_INVALID_SESSION'));
       }
       $request = self::request();
       $db = \JFactory::getDbo();
@@ -1054,5 +1074,33 @@ abstract class Builder
    public static function downloadExternalMedia()
    {
       return Media::download();
+   }
+
+   public static function getArticles()
+   {
+      return Helper::getArticles([9], 10, 'random', 'show');
+   }
+
+   public static function getCategories()
+   {
+      $return = [];
+      $extensions = ['com_content'];
+      foreach ($extensions as $extension) {
+         $object = ['extension' => $extension, 'categories' => []];
+         $options = \JHtml::_('category.options', $extension);
+         $categories = [];
+         foreach ($options as $option) {
+            $categories[] = ['id' => $option->value, 'title' => $option->text];
+         }
+         $object['categories'] = $categories;
+         $return[] = $object;
+      }
+      return $return;
+   }
+
+   public static function jdApi()
+   {
+      $request = self::request();
+      return Helper::jdApiRequest($request->get('method', 'post'), $request->get('hook', '', 'RAW'), $request->get('data', [], 'ARRAY'));
    }
 }

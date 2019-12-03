@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+    <name>JD Builder Module</name>
+    <creationDate>Dec 2019</creationDate>
+    <author>Team Joomdev</author>
+    <authorEmail>info@joomdev.com</authorEmail>
+    <authorUrl>https://www.joomdev.com</authorUrl>
+    <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.3.0</version>
+    <description>JD Builder Module</description>
+    <files>
+        <filename>mod_jdbuilder.xml</filename>
+        <filename module="mod_jdbuilder">mod_jdbuilder.php</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset addfieldpath="/plugins/system/jdbuilder/fields" name="basic">
+                <field name="jdbuilder_layout" default="0" type="jdbeditor" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

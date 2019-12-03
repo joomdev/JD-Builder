@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <fieldset label="COM_JDBUILDER" name="jdbuilder">
-        <field name="key" type="text" default="" label="Builder Pro Activation Key"></field>
-        <field name="gmapkey" type="text" default="" label="Google Map API Key"></field>
-        <field name="fbAppId" type="text" default="" label="Facebook App ID"></field>
+        <field name="key" type="text" default="" label="JDB_ACTIVATION_KEY"></field>
+        <field name="gmapkey" type="text" default="" label="JDB_GOOGLE_MAP_KEY"></field>
+        <field name="fbAppId" type="text" default="" label="JDB_FB_APP_ID"></field>
     </fieldset>
 
-    <fieldset addfieldpath="/plugins/system/jdbuilder/fields" label="Typography" name="typography">
-        <field type="spacer" name="global+colors" label="JDBUILDER_GLOBAL_COLORS_TITLE"></field>
-        <field type="color" name="global_primary" label="JDBUILDER_ELEMENT_PRIMARY_LBL"></field>
-        <field type="color" name="global_secondary" label="JDBUILDER_ELEMENT_SECONDARY_LBL"></field>
-        <field type="color" name="global_success" label="JDBUILDER_ELEMENT_SUCCESS_LBL"></field>
-        <field type="color" name="global_info" label="JDBUILDER_ELEMENT_INFO_LBL"></field>
-        <field type="color" name="global_warning" label="JDBUILDER_ELEMENT_WARNING_LBL"></field>
-        <field type="color" name="global_danger" label="JDBUILDER_ELEMENT_DANGER_LBL"></field>
-
-        <field type="spacer" name="global-typography" label="JDBUILDER_GLOBAL_TYPOGRAPHY_TITLE"></field>
-        <field type="fonts" name="global_font" label="JDBUILDER_FONT_FAMILY_LABEL"></field>
-        <field type="fonts" name="global_alt_font" label="JDBUILDER_ALT_FONT_FAMILY_LABEL"></field>
-
+    <fieldset addfieldpath="/plugins/system/jdbuilder/fields" label="JDB_TYPOGRAPHY" name="typography">
+        <field type="spacer" name="global+colors" label="JDB_GLOBAL_COLORS_TITLE"></field>
+        <field type="color" name="global_primary" label="JDB_PRIMARY"></field>
+        <field type="color" name="global_secondary" label="JDB_SECONDARY"></field>
+        <field type="color" name="global_success" label="JDB_SUCCESS"></field>
+        <field type="color" name="global_info" label="JDB_INFO"></field>
+        <field type="color" name="global_warning" label="JDB_WARNING"></field>
+        <field type="color" name="global_danger" label="JDB_DANGER"></field>
+        <field type="spacer" name="global-typography" label="JDB_GLOBAL_TYPOGRAPHY_TITLE"></field>
+        <field type="fonts" name="global_font" label="JDB_FONT_FAMILY_LABEL"></field>
+        <field type="fonts" name="global_alt_font" label="JDB_ALT_FONT_FAMILY_LABEL"></field>
     </fieldset>
 
     <fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
@@ -27,17 +25,17 @@
 
     <fieldset name="component">
         <field name="save_history" type="radio" class="btn-group btn-group-yesno" default="0" label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL" description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC">
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
+            <option value="0">JDB_NO</option>
+            <option value="1">JDB_YES</option>
         </field>
 
         <field name="history_limit" type="text" filter="integer" label="JGLOBAL_HISTORY_LIMIT_OPTIONS_LABEL" description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC" default="5"/>
     </fieldset>
 
-    <fieldset label="Advanced" name="advanced">
-        <field name="debug" type="radio" class="btn-group btn-group-yesno" default="0" label="Debug Builder">
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
+    <fieldset label="JDB_ADVANCED_TITLE" name="advanced">
+        <field name="debug" type="radio" class="btn-group btn-group-yesno" default="0" label="JDB_DEBUG_BUILDER">
+            <option value="0">JDB_NO</option>
+            <option value="1">JDB_YES</option>
         </field>
     </fieldset>
 </config>

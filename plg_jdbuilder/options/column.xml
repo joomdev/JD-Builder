@@ -3,48 +3,47 @@
    <form>
       <fields>
          <!-- General Options -->
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
-            <field type="group" name="layout" label="JDBUILDER_LAYOUT_TITLE" description=""></field>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
             
             <!-- Basic Options -->
-            <field type="text" name="adminLabel" label="JDBUILDER_FIELD_ADMIN_LABEL" description="JDBUILDER_FIELD_ADMIN_DESC" default="" group="basic">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" default="" group="basic">
             </field>
             
-            <field type="list" name="htmlTag" label="JDBUILDER_FIELD_TAG_LBL" default="" description="JDBUILDER_FIELD_TAG_DESC" search="true" group="basic">
-               <option value="">JDBUILDER_FIELD_COLUMN_DEFAULT</option>
-               <option value="div">JDBUILDER_FIELD_TAG_OPTIONS_DIV</option>
-               <option value="header">JDBUILDER_FIELD_TAG_OPTIONS_HEADER</option>
-               <option value="Footer">JDBUILDER_FIELD_TAG_OPTIONS_FOOTER</option>
-               <option value="main">JDBUILDER_FIELD_TAG_OPTIONS_MAIN</option>
-               <option value="article">JDBUILDER_FIELD_TAG_OPTIONS_ARTICLE</option>
-               <option value="section">JDBUILDER_FIELD_TAG_OPTIONS_SECTION</option>
-               <option value="aside">JDBUILDER_FIELD_TAG_OPTIONS_ASIDE</option>
-               <option value="nav">JDBUILDER_FIELD_TAG_OPTIONS_NAV</option>
+            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="basic">
+               <option value="">JDB_COLUMN_DEFAULT_TAG</option>
+               <option value="div">JDB_DIV_TAG</option>
+               <option value="header">JDB_HEADER_TAG</option>
+               <option value="Footer">JDB_FOOTER_TAG</option>
+               <option value="main">JDB_MAIN_TAG</option>
+               <option value="article">JDB_ARTICLE_TAG</option>
+               <option value="section">JDB_SECTION_TAG</option>
+               <option value="aside">JDB_ASIDE_TAG</option>
+               <option value="nav">JDB_NAV_TAG</option>
             </field>
             
             <!-- Layout Options -->
-            <field type="list" name="verticalContentPosition" label="JDBUILDER_FIELD_CONTENT_VPOSITION_LBL" description="JDBUILDER_FIELD_CONTENT_VPOSITION_DESC" default="" group="layout">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="align-content-start">CONTENT_POSITION_DEFAULT_TOPSTART_OPTIONS</option>
-               <option value="align-content-center">CONTENT_POSITION_DEFAULT_OPTIONS_CENTER</option>
-               <option value="align-content-end">CONTENT_POSITION_DEFAULT_OPTIONS_BOTTOM</option>
-               <option value="align-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
-               <option value="align-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            <field type="list" name="verticalContentPosition" label="JDB_CONTENT_VPOSITION" default="" group="layout">
+               <option value="">JDB_INHERIT</option>
+               <option value="align-content-start">JDB_JUSTIFY_CONTENT_START</option>
+               <option value="align-content-center">JDB_JUSTIFY_CONTENT_CENTER</option>
+               <option value="align-content-end">JDB_JUSTIFY_CONTENT_END</option>
+               <option value="align-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
+               <option value="align-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
             </field>
-            <field type="list" name="horizontalContentPosition" label="JDBUILDER_FIELD_CONTENT_HPOSITION_LBL" description="JDBUILDER_FIELD_CONTENT_HPOSITION_DESC" default="" group="layout">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="justify-content-start">CONTENT_POSITION_DEFAULT_LEFTSTART_OPTIONS</option>
-               <option value="justify-content-center">CONTENT_POSITION_DEFAULT_CENTER_OPTIONS</option>
-               <option value="justify-content-end">CONTENT_POSITION_DEFAULT_RIGHTEND_OPTIONS</option>
-               <option value="justify-content-around">CONTENT_POSITION_DEFAULT_AROUND_OPTIONS</option>
-               <option value="justify-content-between">CONTENT_POSITION_DEFAULT_BETWEEN_OPTION</option>
+            <field type="list" name="horizontalContentPosition" label="JDB_CONTENT_HPOSITION" default="" group="layout">
+               <option value="">JDB_INHERIT</option>
+               <option value="justify-content-start">JDB_CONTENT_POSITION_DEFAULT_LEFTSTART_OPTIONS</option>
+               <option value="justify-content-center">JDB_CONTENT_POSITION_DEFAULT_CENTER_OPTIONS</option>
+               <option value="justify-content-end">JDB_CONTENT_POSITION_DEFAULT_RIGHTEND_OPTIONS</option>
+               <option value="justify-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
+               <option value="justify-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
             </field>
             <field
                type="slider"
                name="spaceBetweenElements"
-               label="Space Between Elements"
-               description=""
+               label="JDB_SPACE_BETWEEN_ELEMENTS"
                default=""
                min="-100"
                max="100"
@@ -55,53 +54,53 @@
             </field>
          </fieldset>
          <!--  Advanced Options -->
-         <fieldset name="advanced" ordering="10" label="JDBUILDER_ADVANCED_TITLE">
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
             <!--  Advanced Options Groups -->
-            <field type="group" name="responsive" ordering="1" label="JDBUILDER_FIELD_RESPONSIVE_LABEL" description="JDBUILDER_FIELD_RESPONSIVE_LABEL"></field>
-            <field type="spacer" label="Column Size" group="responsive"></field>
+            <field type="group" name="responsive" ordering="1" label="JDB_RESPONSIVE"></field>
+            <field type="spacer" label="JDB_COLUMN_SIZE" group="responsive"></field>
             <field
                type="list"
                name="columnSizeTablet"
-               label="On Tablet"
+               label="JDB_ON_TABLET"
                default=""
                group="responsive"
                width="6"
             >
-               <option value="">JDEFAULT</option>
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-               <option value="4">4</option>
-               <option value="5">5</option>
-               <option value="6">6</option>
-               <option value="7">7</option>
-               <option value="8">8</option>
-               <option value="9">9</option>
-               <option value="10">10</option>
-               <option value="11">11</option>
-               <option value="12">12</option>
+               <option value="">JDB_DEFAULT</option>
+               <option value="1">JDB1</option>
+               <option value="2">JDB2</option>
+               <option value="3">JDB3</option>
+               <option value="4">JDB4</option>
+               <option value="5">JDB5</option>
+               <option value="6">JDB6</option>
+               <option value="7">JDB7</option>
+               <option value="8">JDB8</option>
+               <option value="9">JDB9</option>
+               <option value="10">JDB10</option>
+               <option value="11">JDB11</option>
+               <option value="12">JDB12</option>
             </field>
             <field
                type="list"
                name="columnSizeMobile"
-               label="On Mobile"
+               label="JDB_ON_MOBILE"
                default=""
                group="responsive"
                width="6"
             >
-               <option value="">JDEFAULT</option>
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-               <option value="4">4</option>
-               <option value="5">5</option>
-               <option value="6">6</option>
-               <option value="7">7</option>
-               <option value="8">8</option>
-               <option value="9">9</option>
-               <option value="10">10</option>
-               <option value="11">11</option>
-               <option value="12">12</option>
+               <option value="">JDB_DEFAULT</option>
+               <option value="1">JDB1</option>
+               <option value="2">JDB2</option>
+               <option value="3">JDB3</option>
+               <option value="4">JDB4</option>
+               <option value="5">JDB5</option>
+               <option value="6">JDB6</option>
+               <option value="7">JDB7</option>
+               <option value="8">JDB8</option>
+               <option value="9">JDB9</option>
+               <option value="10">JDB10</option>
+               <option value="11">JDB11</option>
+               <option value="12">JDB12</option>
             </field>
          </fieldset>
       </fields>

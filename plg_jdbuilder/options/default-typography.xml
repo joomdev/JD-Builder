@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fieldsgroup> 
-   <field type="color" name="headingColor" label="JDBUILDER_FIELD_TYPE_HEADING_COLOR_LABEL" description="JDBUILDER_FIELD_TYPE_HEADING_COLOR_DESC" default="">
+   <field type="color" name="headingColor" label="JDB_HEADING_COLOR_LABEL" description="JDB_HEADING_COLOR_DESC" default="">
    </field>
-   <field type="color" name="textColor" label="JDBUILDER_FIELD_TYPE_COLOR_LABEL" description="JDBUILDER_FIELD_TYPE_COLOR_DESC" default="">
+   <field type="color" name="textColor" label="JDB_TEXT_COLOR" description="JDB_TEXT_COLOR_DESC" default="">
    </field>
-   <field type="color" name="linkColor" label="JDBUILDER_FIELD_TYPE_LINK_COLOR_LABEL" description="JDBUILDER_FIELD_TYPE_LINK_COLOR_DESC" default="">
+   <field type="color" name="linkColor" label="JDB_LINK_COLOR_LABEL" description="JDB_LINK_COLOR_DESC" default="">
    </field>
-   <field type="color" name="linkHoverColor" label="JDBUILDER_FIELD_TYPE_LINK_HOVER_COLOR_LABEL" description="JDBUILDER_FIELD_TYPE_LINK_HOVER_COLOR_DESC" default="">
+   <field type="color" name="linkHoverColor" label="JDB_LINK_HOVER_COLOR_LABEL" description="JDB_LINK_HOVER_COLOR_DESC" default="">
    </field>
    <field
       name="textAlignment"
       type="radio"
-      label="JDBUILDER_FIELD_TYPE_TEXT_ALIGN_LABEL"
-      description="JDBUILDER_FIELD_TYPE_TEXT_ALIGN_DESC"
+      label="JDB_TEXT_ALIGN_LABEL"
+      description="JDB_TEXT_ALIGN_DESC"
       default=""
       radiotype="buttons"
       icononly="true"
       responsive="true"
    >
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
-      <option value="left" icon="fa fa-align-left">JDBUILDER_ELEMENT_LEFT_LBL</option>
-      <option value="center" icon="fa fa-align-center">JDBUILDER_ELEMENT_CENTER_LBL</option>
-      <option value="right" icon="fa fa-align-right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
-      <option value="justify" icon="fa fa-align-justify">JDBUILDER_ELEMENT_JUSTIFY_LBL</option>
+      <option value="">JDB_DEFAULT</option>
+      <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
+      <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
+      <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
+      <option value="justify" icon="fa fa-align-justify">JDB_JUSTIFY</option>
    </field>
 </fieldsgroup>

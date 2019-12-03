@@ -4,20 +4,20 @@
       type="alert"
       label="warning"
       group="styling"
-      description="JDBUILDER_ELEMENT_TYPOGRAPHY_ALERT"
+      description="JDB_ELEMENT_TYPOGRAPHY_ALERT"
    >   
    </field>
-   <field type="font-family" name="fontFace" label="JDBUILDER_FIELD_TYPE_FONT_FAMILY_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_FAMILY_DESC">
+   <field type="font-family" name="fontFace" label="JDB_FONT_FAMILY_LABEL" default="" description="JDB_FONT_FAMILY_DESC">
    </field>
-   <field type="radio" name="fontSize" label="JDBUILDER_FIELD_TYPE_FONT_SIZE_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_SIZE_DESC" radiotype="buttons">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
-      <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+   <field type="radio" name="fontSize" label="JDB_FONT_SIZE_LABEL" default="" description="JDB_FONT_SIZE_DESC" radiotype="buttons">
+      <option value="">JDB_DEFAULT</option>
+      <option value="custom">JDB_CUSTOM</option>
    </field>
-   <field type="slider" name="customFontSize" label="JDBUILDER_BLANK" description="JDBUILDER_BLANK" default='{"value":24,"unit":"px"}' units="px,%,em" showon="params._fgFontSize=='custom'">
+   <field type="slider" name="customFontSize" label="JDB_BLANK_LABEL" description="" default='{"value":24,"unit":"px"}' units="px,%,em" showon="params._fgFontSize=='custom'">
    </field>
    
-   <field type="list" name="fontWeight" label="JDBUILDER_FIELD_TYPE_FONT_WEIGHT_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_WEIGHT_DESC" width="6">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
+   <field type="list" name="fontWeight" label="JDB_FONT_WEIGHT_LABEL" default="" description="JDB_FONT_WEIGHT_DESC" width="6">
+      <option value="">JDB_DEFAULT</option>
       <option value="lighter">Lighter</option>
       <option value="normal">Normal</option>
       <option value="bold">Bold</option>
@@ -33,42 +33,42 @@
       <option value="900">900</option>
    </field>
    
-   <field type="list" name="textTransform" label="JDBUILDER_FIELD_TYPE_FONT_TRANSFORM_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_TRANSFORM_DESC" width="6">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
+   <field type="list" name="textTransform" label="JDB_TEXT_TRANSFORM_DESC" default="" description="JDB_TEXT_TRANSFORM_DESC" width="6">
+      <option value="">JDB_DEFAULT</option>
       <option value="none">None</option>
       <option value="capitalize">Capitalize</option>
       <option value="uppercase">UPPERCASE</option>
       <option value="lowercase">lowercase</option>
    </field>
    
-   <field type="list" name="fontStyle" label="JDBUILDER_FIELD_TYPE_FONT_STYLE_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_STYLE_DESC" width="6">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
+   <field type="list" name="fontStyle" label="JDB_FONT_STYLE_LABEL" default="" description="JDB_FONT_STYLE_DESC" width="6">
+      <option value="">JDB_DEFAULT</option>
       <option value="normal">Normal</option>
       <option value="italic">Italic</option>
       <option value="oblique">Oblique</option>
    </field>
    
-   <field type="list" name="textDecoration" label="JDBUILDER_FIELD_TYPE_FONT_DECORATION_LABEL" default="" description="JDBUILDER_FIELD_TYPE_FONT_DECORATION_DESC" width="6">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
+   <field type="list" name="textDecoration" label="JDB_TET_DECORATION_LABEL" default="" description="JDB_TEXT_DECORATION_DESC" width="6">
+      <option value="">JDB_DEFAULT</option>
       <option value="none">None</option>
       <option value="underline">Underline</option>
       <option value="overline">Overline</option>
       <option value="line-through">Line-Through</option>
    </field>
    
-   <field type="radio" name="lineHeight" label="JDBUILDER_FIELD_TYPE_LINE_HEIGHT_LABEL" default="" description="JDBUILDER_FIELD_TYPE_LINE_HEIGHT_DESC" radiotype="buttons">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
-      <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+   <field type="radio" name="lineHeight" label="JDB_LINE_HEIGHT_LABEL" default="" description="JDB_LINE_HEIGHT_DESC" radiotype="buttons">
+      <option value="">JDB_DEFAULT</option>
+      <option value="custom">JDB_CUSTOM</option>
    </field>
    
-   <field type="slider" name="customLineHeight" label="JDBUILDER_BLANK" description="JDBUILDER_BLANK" default='{"value":1,"unit":"em"}' units="px,em" showon="params._fgLineHeight=='custom'">
+   <field type="slider" name="customLineHeight" label="JDB_BLANK_LABEL" description="" default='{"value":1,"unit":"em"}' units="px,em" showon="params._fgLineHeight=='custom'">
    </field>
    
-   <field type="radio" name="letterSpacing" label="JDBUILDER_FIELD_TYPE_LETTER_SPACING_LABEL" default="" description="JDBUILDER_FIELD_TYPE_LETTER_SPACING_DESC" radiotype="buttons">
-      <option value="">JDBUILDER_FIELD_DEFAULT</option>
-      <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+   <field type="radio" name="letterSpacing" label="JDB_LETTER_SPACING_LABEL" default="" description="JDB_LETTER_SPACING_DESC" radiotype="buttons">
+      <option value="">JDB_DEFAULT</option>
+      <option value="custom">JDB_CUSTOM</option>
    </field>
    
-   <field type="slider" name="customLetterSpacing" label="JDBUILDER_BLANK" description="JDBUILDER_BLANK" default='{"value":1,"unit":"em"}' units="px,em" showon="params._fgLetterSpacing=='custom'">
+   <field type="slider" name="customLetterSpacing" label="JDB_BLANK_LABEL" description="" default='{"value":1,"unit":"em"}' units="px,em" showon="params._fgLetterSpacing=='custom'">
    </field>
 </fieldsgroup>

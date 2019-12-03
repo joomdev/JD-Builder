@@ -12,12 +12,11 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <field
                name="image"
                type="image"
-               label="JDBUILDER_ELE_IMAGE_MEDIA_LABEL"
-               description="JDBUILDER_ELE_IMAGE_MEDIA_DESC"
+               label="JDB_IMAGE_CHOOSE_MEDIA"
                group="basic"
             >
             </field>
@@ -25,8 +24,7 @@
                name="title"
                type="text"
                default=""
-               label="JDBUILDER_ELE_TITLE_LABEL"
-               description="JDBUILDER_ELE_TITLE_DESC"
+               label="JDB_TITLE"
                group="basic"
             >
             </field>
@@ -34,30 +32,27 @@
                name="caption"
                type="text"
                default=""
-               label="JDBUILDER_ELE_CAPTION_LABEL"
-               description="JDBUILDER_ELE_CAPTION_DESC"
+               label="JDB_IMAGE_CAPTION"
                group="basic"
             >
             </field>
             <field
                name="imageSize"
                type="list"
-               label="JDBUILDER_ELE_IMAGE_SIZE_LABEL"
-               description="JDBUILDER_ELE_IMAGE_SIZE_DESC"
+               label="JDB_IMAGE_SIZE"
                default="original"
                group="basic"
             >
-               <option value="original">JDBUILDER_FIELD_ORIGINAL_LBL</option>
-               <option value="custom">JDBUILDER_FIELD_CUSTOM_LBL</option>
+               <option value="original">JDB_ORIGINAL</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
             <field
                name="width"
-               type="slider" 
-               label="JDBUILDER_ELE_WIDTH_LABEL" 
-               description="JDBUILDER_ELE_WIDTH_DESC"
-               default='{"value":"100", "unit": "%"}' 
-               min="0" 
-               max="2000" 
+               type="slider"
+               label="JDB_WIDTH"
+               default='{"value":"100", "unit": "%"}'
+               min="0"
+               max="2000"
                showon="params.imageSize=='custom'"
                units="px,%"
                group="basic"
@@ -67,8 +62,7 @@
             <field
                name="maxWidth"
                type="slider" 
-               label="Max Width" 
-               description="JDBUILDER_ELE_WIDTH_DESC"
+               label="JDB_MAX_WIDTH" 
                default='{"value":"100", "unit": "%"}' 
                min="0" 
                max="2000" 
@@ -81,22 +75,20 @@
             <field
                name="alignment"
                type="radio" 
-               label="JDBUILDER_ELE_ALIGNMENT_LABEL"
-               description="JDBUILDER_ELE_ALIGNMENT_DESC"
+               label="JDB_ALIGNMENT"
                default="left" 
                radiotype="buttons"
                group="basic"
                responsive="true"
             >
-               <option value="left" icon="fa fa-align-left">JDBUILDER_ELE_ALIGNMENT_OPTIONS_LEFT</option>
-               <option value="center" icon="fa fa-align-center">JDBUILDER_ELE_ALIGNMENT_OPTIONS_CENTER</option>
-               <option value="right" icon="fa fa-align-right">JDBUILDER_ELE_ALIGNMENT_OPTIONS_RIGHT</option>
+               <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
+               <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
+               <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
             <field
                name="link"
                type="text"
-               label="JDBUILDER_ELEMENT_LINK_LABEL"
-               description="JDBUILDER_ELEMENT_LINK_DESC"
+               label="JDB_LINK_LABEL"
                default=""
                group="basic"
             >
@@ -104,8 +96,7 @@
             <field
                name="linkTargetBlank"
                type="switch"
-               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
-               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               label="JDB_LINK_TARGET_LBL"
                default="false"
                showon="params.link!=''"
                group="basic"
@@ -114,9 +105,8 @@
             <field
                name="linkNoFollow"
                type="switch"
-               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
-               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
-               default="false"
+               label="JDB_LINK_NOFOLLOW_LBL"
+               description="JDB_LINK_NOFOLLOW_DESC"
                showon="params.link!=''"
                group="basic"
             >

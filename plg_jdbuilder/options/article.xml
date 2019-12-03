@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- General Options -->
+         <fieldset name="design" label="JDBUILDER_DESIGN_TITLE">
+            <field type="group" ordering="1" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+
+            <field type="group" label="Body Typography" description="" name="body_typography">
+            </field>
+            <field type="color" name="pageTextColor" label="Color" description="" default="" group="body_typography">
+            </field>
+            <field type="color" name="pageTextLinkColor" label="Link Color" description="" default="" group="body_typography">
+            </field>
+            <field type="color" name="pageTextLinkHoverColor" label="Link Hover Color" description="" default="" group="body_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageTextTypography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="body_typography">
+            </field>
+
+            <field type="group" label="H1 Typography" description="" name="h1_typography">
+            </field>
+            <field type="color" name="pageH1Color" label="Color" description="" default="" group="h1_typography">
+            </field>
+            <field type="color" name="pageH1LinkColor" label="Link Color" description="" default="" group="h1_typography">
+            </field>
+            <field type="color" name="pageH1LinkHoverColor" label="Link Hover Color" description="" default="" group="h1_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH1Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h1_typography">
+            </field>
+
+            <field type="group" label="H2 Typography" description="" name="h2_typography">
+            </field>
+            <field type="color" name="pageH2Color" label="Color" description="" default="" group="h2_typography">
+            </field>
+            <field type="color" name="pageH2LinkColor" label="Link Color" description="" default="" group="h2_typography">
+            </field>
+            <field type="color" name="pageH2LinkHoverColor" label="Link Hover Color" description="" default="" group="h2_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH2Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h2_typography">
+            </field>
+
+            <field type="group" label="H3 Typography" description="" name="h3_typography">
+            </field>
+            <field type="color" name="pageH3Color" label="Color" description="" default="" group="h3_typography">
+            </field>
+            <field type="color" name="pageH3LinkColor" label="Link Color" description="" default="" group="h3_typography">
+            </field>
+            <field type="color" name="pageH3LinkHoverColor" label="Link Hover Color" description="" default="" group="h3_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH3Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h3_typography">
+            </field>
+
+
+            <field type="group" label="H4 Typography" description="" name="h4_typography">
+            </field>
+            <field type="color" name="pageH4Color" label="Color" description="" default="" group="h4_typography">
+            </field>
+            <field type="color" name="pageH4LinkColor" label="Link Color" description="" default="" group="h4_typography">
+            </field>
+            <field type="color" name="pageH4LinkHoverColor" label="Link Hover Color" description="" default="" group="h4_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH4Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h4_typography">
+            </field>
+
+
+            <field type="group" label="H5 Typography" description="" name="h5_typography">
+            </field>
+            <field type="color" name="pageH5Color" label="Color" description="" default="" group="h5_typography">
+            </field>
+            <field type="color" name="pageH5LinkColor" label="Link Color" description="" default="" group="h5_typography">
+            </field>
+            <field type="color" name="pageH5LinkHoverColor" label="Link Hover Color" description="" default="" group="h5_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH5Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h5_typography">
+            </field>
+
+            <field type="group" label="H6 Typography" description="" name="h6_typography">
+            </field>
+            <field type="color" name="pageH6Color" label="Color" description="" default="" group="h6_typography">
+            </field>
+            <field type="color" name="pageH6LinkColor" label="Link Color" description="" default="" group="h6_typography">
+            </field>
+            <field type="color" name="pageH6LinkHoverColor" label="Link Hover Color" description="" default="" group="h6_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH6Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h6_typography">
+            </field>
+         </fieldset>
+
+         <fieldset name="advanced" label="JDBUILDER_ADVANCED_TITLE">
+            <field type="group" name="customcode" label="Custom Code" description=""></field>
+            <field type="group" name="permissions" label="Permissions" description=""></field>
+            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_DESC" group="customcode" language="css" default="" responsive="true">
+            </field>
+            <field type="alert" label="warning" description="Attention: Custom JS may not work in live preview. Please open in new window to make JS working." group="customcode" showon="params.javascript!=''"></field>
+            <field type="code-editor" language="javascript" label="JavaScript" description="" group="customcode" name="javascript" default="">
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

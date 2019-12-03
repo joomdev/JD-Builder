@@ -84,7 +84,7 @@ class Section extends BaseElement
          return "";
       }
 
-      $height = $this->params->get($position . 'ShapeDividerHeight', \json_decode('{value:220}', false));
+      // $height = $this->params->get($position . 'ShapeDividerHeight', \json_decode('{value:220}', false));
 
       $color = $this->params->get($position . 'ShapeDividerColor', '#fff');
       $color = empty($color) ? 'transparent' : $color;
@@ -94,16 +94,32 @@ class Section extends BaseElement
 
       $this->addClass('jdb-has-shapedivider');
 
-      $sDividerStyle = new ElementStyle('.jdb-sdivider-' . $position);
-      $sDividerShapeStyle = new ElementStyle('.jdb-sdivider-' . $position . ' .jdb-shape-fill');
+      $sDividerStyle = new ElementStyle('.jdb-sdivider[data-position=' . $position . ']' . ' svg');
+      $sDividerShapeStyle = new ElementStyle('.jdb-sdivider[data-position=' . $position . ']' . ' .jdb-shape-fill');
 
       $this->addChildrenStyle([$sDividerStyle, $sDividerShapeStyle]);
 
-      $sDividerStyle->addCss('height', $height->value . 'px');
       $sDividerShapeStyle->addCss('fill', $color);
 
+      $height = $this->params->get($position . 'ShapeDividerHeight', null);
+      if (!empty($height)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($height->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($height->{$deviceKey})) {
+               $sDividerStyle->addCss('height', $height->{$deviceKey}->value . 'px', $device);
+            }
+         }
+      }
 
-      $return[] = '<div class="jdb-sdivider jdb-sdivider-' . $type . ' jdb-sdivider-' . $position . '' . ($flip ? ' jdb-sdivider-flip' : '') . '' . ($front ? ' jdb-sdivider-front' : '') . '">';
+      $width = $this->params->get($position . 'ShapeDividerWidth', null);
+      if (!empty($width)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
+               $sDividerStyle->addCss('width', 'calc(' . $width->{$deviceKey}->value . '% + 1.3px)', $device);
+            }
+         }
+      }
+
+      $return[] = '<div class="jdb-sdivider jdb-sdivider-' . $type . '' . ($front ? ' jdb-sdivider-front' : '') . '" data-position="' . $position . '"' . ($flip ? ' data-flip' : '') . '>';
       $return[] = file_get_contents(JPATH_SITE . '/media/jdbuilder/data/shape-dividers/' . $type . '.svg');
       $return[] = '</div>';
       return implode('', $return);

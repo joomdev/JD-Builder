@@ -12,14 +12,14 @@
    <description>Element Description Here</description>
    <form>
       <fields>
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
-            <field type="group" name="iconstyle" label="JDBUILDER_ELEMENT_STYLING_LBL" description="JDBUILDER_ELEMENT_STYLING_DESC"></field>
-            <field type="group" name="iconborder" label="JDBUILDER_FIELD_BORDER_LABEL"></field>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="iconstyle" label="JDB_ICON_STYLING"></field>
+            <field type="group" name="iconborder" label="JDB_ICON_BORDER"></field>
             <!--  Element Options -->
             <field
                name="icon"
                type="icon"
-               label="JDBUILDER_ELE_ICON_ICON_LBL"
+               label="JDB_ICON"
                default="fab fa-joomla"
                group="basic"
             >
@@ -27,8 +27,7 @@
             <field
                name="link"
                type="text"
-               label="JDBUILDER_ELEMENT_LINK_LABEL"
-               description="JDBUILDER_ELEMENT_LINK_DESC"
+               label="JDB_LINK_LABEL"
                default=""
                group="basic"
             >
@@ -36,8 +35,7 @@
             <field
                name="linkTargetBlank"
                type="switch"
-               label="JDBUILDER_ELEMENT_LINK_TARGET_LBL"
-               description="JDBUILDER_ELEMENT_LINK_TARGET_DESC"
+               label="JDB_LINK_TARGET_LBL"
                default="false"
                width="6"
                showon="params.link!=''"
@@ -47,8 +45,7 @@
             <field
                name="linkNoFollow"
                type="switch"
-               label="JDBUILDER_ELEMENT_LINK_NOFOLLOW_LBL"
-               description="JDBUILDER_ELEMENT_LINK_NOFOLLOW_DESC"
+               label="JDB_LINK_NOFOLLOW_LBL"
                default="false"
                width="6"
                showon="params.link!=''"
@@ -58,23 +55,21 @@
             <field
                name="iconAlignment"
                type="radio"
-               label="JDBUILDER_ELE_ICON_ALIGNMENT_LBL"
+               label="JDB_ALIGNMENT"
                default="left"
                radiotype="buttons"
                group="basic"
                responsive="true"
-
             >
-               <option value="left" icon="fa fa-align-left">JDBUILDER_ELEMENT_LEFT_LBL</option>
-               <option value="center" icon="fa fa-align-center">JDBUILDER_ELEMENT_CENTER_LBL</option>
-               <option value="right" icon="fa fa-align-right">JDBUILDER_ELEMENT_RIGHT_LBL</option>
+               <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
+               <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
+               <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
-            
-            
+
             <field
                name="iconSize"
                type="slider"
-               label="JDBUILDER_ELE_ICON_SIZE_LBL"
+               label="JDB_ICON_SIZE"
                default="32"
                unit="px"
                min="1"
@@ -87,7 +82,7 @@
             <field
                name="iconRotate"
                type="slider"
-               label="Icon Rotate"
+               label="JDB_ICON_ROTATE"
                default=""
                unit="deg"
                min="0"
@@ -100,8 +95,7 @@
             <field
                type="hover-animations"
                name="iconHoverAnimation"
-               label="JDBUILDER_ELEMENT_HOVER_ANIMATION_LBL"
-               description="JDBUILDER_ELEMENT_HOVER_ANIMATION_DESC"
+               label="JDB_ICON_HOVER_ANIMATION"
                default=""
                group="basic"
             >
@@ -111,8 +105,8 @@
             <field
                name="iconTextColor"
                type="color"
-               label="JDBUILDER_ELE_ACCORDION_STYLE_COLOR_LABEL"
-               description="JDBUILDER_ELE_ACCORDION_STYLE_COLOR_DESC"
+               label="JDB_COLOR"
+               description="JDB_COLOR"
                default=""
                group="iconstyle"
                width="6"
@@ -121,8 +115,7 @@
             <field
                name="iconBackgroundColor"
                type="color"
-               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
-               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               label="JDB_BACKGROUND_COLOR"
                default=""
                group="iconstyle"
                width="6"
@@ -131,16 +124,14 @@
             <field
                name="iconBorderColor"
                type="color"
-               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
-               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               label="JDB_BORDER_COLOR"
                default=""
                group="iconstyle"
             >
             </field>
             <field
                type="gradient"
-               label="JDBUILDER_FIELD_GGRDIENT_LBL"
-			   description="JDBUILDER_FIELD_GGRDIENT_DESC"  
+               label="JDB_GRADIENT"
                name="iconGradient"
                default=""
                group="iconstyle"
@@ -148,15 +139,14 @@
             </field>
             <field
                type="spacer"
-               label="JDBUILDER_ELEMENT_HOVER_STYLING_LBL"
+               label="JDB_HOVER_OPTIONS_DIVIDER"
                group="iconstyle"
             >
             </field>
             <field
                name="iconTextColorHover"
                type="color"
-               label="JDBUILDER_COLOR"
-               description="JDBUILDER_COLOR_DESC"  
+               label="JDB_COLOR"
                default=""
                group="iconstyle"
                width="6"
@@ -165,8 +155,7 @@
             <field
                name="iconBackgroundColorHover"
                type="color"
-               label="JDBUILDER_ELEMENT_BACKGROUND_COLOR_LBL"
-               description="JDBUILDER_ELEMENT_BACKGROUND_COLOR_DESC"
+               label="JDB_BACKGROUND_COLOR"
                default=""
                group="iconstyle"
                width="6"
@@ -175,16 +164,14 @@
             <field
                name="iconBorderColorHover"
                type="color"
-               label="JDBUILDER_ELEMENT_BORDER_COLOR_LBL"
-               description="JDBUILDER_ELEMENT_BORDER_COLOR_DESC"
+               label="JDB_BORDER_COLOR"
                default=""
                group="iconstyle"
             >
             </field>
             <field
                type="gradient"
-               label="JDBUILDER_FIELD_GGRDIENT_LBL"
-               description="JDBUILDER_FIELD_GGRDIENT_DESC"
+               label="JDB_GRADIENT"
                name="iconGradientHover"
                group="iconstyle"
                default=""
@@ -200,8 +187,7 @@
             <field
                name="iconPadding"
                type="spacing"
-               label="JDBUILDER_FIELD_PADDING_LABEL"
-               description="JDBUILDER_FIELD_PADDING_DESC"
+               label="JDB_PADDING"
                group="iconstyle"
                default='{"unit":"px","top":10,"lock":1,"left":10,"right":10,"bottom":10}'
                responsive="true"
@@ -212,19 +198,18 @@
             <field
                name="iconShape"
                type="list"
-               label="JDBUILDER_ELE_ICON_SHAPE_LBL"
+               label="JDB_ICON_SHAPE"
                default="circle"
                group="iconborder"
             >
-               <option value="rounded">JDBUILDER_FIELD_OPTIONS_ROUNDED</option>
-               <option value="circle">JDBUILDER_FIELD_OPTIONS_CIRCLE</option>
-               <option value="square">JDBUILDER_FIELD_OPTIONS_SQUARE</option>
+               <option value="rounded">JDB_OPTIONS_ROUNDED</option>
+               <option value="circle">JDB_OPTIONS_CIRCLE</option>
+               <option value="square">JDB_OPTIONS_SQUARE</option>
             </field>
             <field
                type="spacing"
                name="iconBorderRadius"
-               label="JDBUILDER_ELEMENT_BORDER_RADIUS_LBL"
-               description="JDBUILDER_ELEMENT_BORDER_RADIUS_DESC"
+               label="JDB_BORDER_RADIUS"
                default='{"unit":"px","lock":1,"top":5,"left":5,"right":5,"bottom":5}'
                group="iconborder"
                showon="params.iconShape=='rounded'"
@@ -235,21 +220,19 @@
             <field
                type="list"
                name="iconBorderStyle" 
-               label="JDBUILDER_ELEMENT_BORDERTYPE_LBL"
-               description="JDBUILDER_ELEMENT_BORDERTYPE_DESC" 
+               label="JDB_BORDER_TYPE"
                default="none"  
                group="iconborder">
-               <option value="none">JDBUILDER_BORDER_NONE</option>
-               <option value="solid">JDBUILDER_BORDER_SOLID</option>
-               <option value="dashed">JDBUILDER_BORDER_DASHED</option>
-               <option value="dotted">JDBUILDER_BORDER_DOTTED</option>
-               <option value="double">JDBUILDER_BORDER_DOUBLE</option>
+               <option value="none">JDB_BORDER_NONE</option>
+               <option value="solid">JDB_BORDER_SOLID</option>
+               <option value="dashed">JDB_BORDER_DASHED</option>
+               <option value="dotted">JDB_BORDER_DOTTED</option>
+               <option value="double">JDB_BORDER_DOUBLE</option>
             </field>
             <field
                type="spacing"
                name="iconBorderWidth"
-               label="JDBUILDER_ELEMENT_BORDERWEIGHT_LBL"
-               description="JDBUILDER_ELEMENT_BORDERWEIGHT_DESC"
+               label="JDB_BORDER_WIDTH"
                showon="params.iconBorderStyle!='none'"
                default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}'
                group="iconborder"
@@ -259,8 +242,7 @@
             <field
                type="boxshadow"
                name="iconBoxShadow"
-               label="JDBUILDER_ELE_ICONSHADOW_LABEL"
-               description="JDBUILDER_ELE_ICONSHADOW_DESC"
+               label="JDB_ICON_SHADOW"
                default=""
                group="iconborder"
             >

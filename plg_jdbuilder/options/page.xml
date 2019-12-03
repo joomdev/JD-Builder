@@ -3,7 +3,7 @@
    <form>
       <fields>
          <!-- General Options -->
-         <fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <field type="group" name="publishing" label="Publishing" description=""></field>
             <field type="group" name="seo" label="SEO" description=""></field>
             <field type="group" name="opengraph" label="Open Graph" description=""></field>
@@ -38,8 +38,8 @@
             
          </fieldset>
 
-         <fieldset name="design" label="JDBUILDER_DESIGN_TITLE">
-            <field type="group" ordering="1" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
+         <fieldset name="design" label="JDB_DESIGN_TITLE">
+            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE" description=""></field>
 
             <field type="group" label="Body Typography" description="" name="body_typography">
             </field>
@@ -121,11 +121,13 @@
             </field>
          </fieldset>
 
-         <fieldset name="advanced" label="JDBUILDER_ADVANCED_TITLE">
+         <fieldset name="advanced" label="JDB_ADVANCED_TITLE">
             <field type="group" name="customcode" label="Custom Code" description=""></field>
             <field type="group" name="permissions" label="Permissions" description=""></field>
-            <field type="code-editor" language="css" label="CSS" description="" group="customcode" name="css" default="">
+            <field type="code-editor" language="css" label="CSS" description="" group="customcode" name="css" default=""></field>
+            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_DESC" group="customcode" language="css" default="" responsive="true">
             </field>
+            <field type="alert" label="warning" description="Attention: Custom JS may not work in live preview. Please open in new window to make JS working." group="customcode" showon="params.javascript!=''"></field>
             <field type="code-editor" language="javascript" label="JavaScript" description="" group="customcode" name="javascript" default="">
             </field>
          </fieldset>

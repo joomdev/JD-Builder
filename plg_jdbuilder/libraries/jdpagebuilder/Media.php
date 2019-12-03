@@ -524,19 +524,19 @@ class Media
             if ($fileError > 0) {
                switch ($fileError) {
                   case 1:
-                     throw new \Exception(\JText::_('JDBUILDER_ERROR_LARGE_FILE'));
+                     throw new \Exception(\JText::_('JDB_ERROR_LARGE_FILE'));
                      return;
 
                   case 2:
-                     throw new \Exception(\JText::_('JDBUILDER_ERROR_FILE_HTML_ALLOW'));
+                     throw new \Exception(\JText::_('JDB_ERROR_FILE_HTML_ALLOW'));
                      return;
 
                   case 3:
-                     throw new \Exception(\JText::_('JDBUILDER_ERROR_FILE_PARTIAL_ALLOW'));
+                     throw new \Exception(\JText::_('JDB_ERROR_FILE_PARTIAL_ALLOW'));
                      return;
 
                   case 4:
-                     throw new \Exception(\JText::_('JDBUILDER_ERROR_NO_FILE'));
+                     throw new \Exception(\JText::_('JDB_ERROR_NO_FILE'));
                      return;
                }
             }
@@ -553,7 +553,7 @@ class Media
                $validFileExts = explode(',', 'mp4,mpeg,mpg');
             }
             if (!in_array($uploadedFileExtension, $validFileExts)) {
-               throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_EXTENSION'));
+               throw new \Exception(\JText::_('JDB_ERROR_INVALID_EXTENSION'));
             }
 
             $fileTemp = $_FILES[$fieldName]['tmp_name'][$i];
@@ -563,7 +563,7 @@ class Media
                $okMIMETypes = 'image/jpeg,image/pjpeg,image/png,image/x-png,image/gif,image/x-icon,image/vnd.microsoft.icon';
                $validFileTypes = explode(",", $okMIMETypes);
                if (!is_int($imageinfo[0]) || !is_int($imageinfo[1]) || !in_array($imageinfo['mime'], $validFileTypes)) {
-                  throw new \Exception(\JText::_('JDBUILDER_ERROR_INVALID_FILETYPE'));
+                  throw new \Exception(\JText::_('JDB_ERROR_INVALID_FILETYPE'));
                }
             }
 
@@ -577,7 +577,7 @@ class Media
             }
             $uploadPath = $uploadDir . '/' . $newFilename;
             if (!\JFile::upload($fileTemp, $uploadPath)) {
-               throw new \Exception(\JText::_('JDBUILDER_ERROR_UPLOAD_ERROR'));
+               throw new \Exception(\JText::_('JDB_ERROR_UPLOAD_ERROR'));
             }
             $return[] = ['filename' => $newFilename, 'status' => 'success'];
          } catch (\Exception $e) {

@@ -386,8 +386,8 @@ class BaseElement
             $backgroundOverlayOpacity = $this->params->get('backgroundOverlayOpacity', null);
 
             if (\JDPageBuilder\Helper::checkSliderValue($backgroundOverlayOpacity)) {
-
-               $overlayCSS->addCss('opacity', ($backgroundOverlayOpacity->value / 100));
+               $opacity = (int) $backgroundOverlayOpacity->value;
+               $overlayCSS->addCss('opacity', ($opacity / 100) . '');
             }
             if (!empty($backgroundOverlayColor)) {
                $overlayCSS->addCss('background-color', $backgroundOverlayColor);
@@ -400,15 +400,48 @@ class BaseElement
                }
                $backgroundOverlaySize = $this->params->get('backgroundOverlaySize', '');
                if (!empty($backgroundOverlaySize)) {
-                  $overlayCSS->addCss('background-size', $backgroundOverlaySize);
+                  if ($backgroundOverlaySize != 'custom') {
+                     $overlayCSS->addCss('background-size', $backgroundOverlaySize);
+                  } else {
+                     $width = $this->params->get('backgroundOverlayWidth', null);
+                     if (!empty($width)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
+                              $overlayCSS->addCss('background-size', $width->{$deviceKey}->value . $width->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
+
+
                $backgroundOverlayAttachment = $this->params->get('backgroundOverlayAttachment', '');
                if (!empty($backgroundOverlayAttachment)) {
                   $overlayCSS->addCss('background-attachment', $backgroundOverlayAttachment);
                }
+
                $backgroundOverlayPosition = $this->params->get('backgroundOverlayPosition', '');
                if (!empty($backgroundOverlayPosition)) {
-                  $overlayCSS->addCss('background-position', $backgroundOverlayPosition);
+                  if ($backgroundOverlayPosition != 'custom') {
+                     $overlayCSS->addCss('background-position', $backgroundOverlayPosition);
+                  } else {
+                     $position = $this->params->get('backgroundOverlayXPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $overlayCSS->addCss('background-position-x', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                     $position = $this->params->get('backgroundOverlayYPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $overlayCSS->addCss('background-position-y', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
             }
          }
@@ -502,7 +535,7 @@ class BaseElement
       if (!empty($customCss)) {
          foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
             if (isset($customCss->{$deviceKey}) && !empty($customCss->{$deviceKey})) {
-               $this->addStyle($customCss->{$deviceKey}, $device);
+               \JDPageBuilder\Helper::customCSS($customCss->{$deviceKey}, $this, $device);
             }
          }
       }
@@ -611,10 +644,10 @@ class ElementStyle
       if ($value === null || $value === "") {
          return;
       }
-	  if(is_string($value)) {
-		  $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-		  $this->styles[$device][$property] = $value;
-	  }
+      if (is_string($value)) {
+         $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+         $this->styles[$device][$property] = $value;
+      }
    }
 
    public function addStyle($css, $device = "desktop")
@@ -645,12 +678,12 @@ class ElementStyle
          if (!empty($cssScripts)) {
             $cssscript = "";
             foreach ($cssScripts as $css) {
-				if(is_string($css)) {
-				   $cssscript .= $css;
-				   if (substr($cssscript, -1) != ";") {
-					  $cssscript .= ';';
-				   }
-				}
+               if (is_string($css)) {
+                  $cssscript .= $css;
+                  if (substr($cssscript, -1) != ";") {
+                     $cssscript .= ';';
+                  }
+               }
             }
             if (!empty($cssscript)) {
                $scss[$device] .= $cssscript;

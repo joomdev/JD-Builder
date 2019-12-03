@@ -11,8 +11,12 @@ namespace JDPageBuilder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use JDPageBuilder\Element\ElementStyle;
 use Leafo\ScssPhp\Compiler;
 use MatthiasMullie\Minify\Minify;
+
+\JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
+\JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel');
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -1013,13 +1017,211 @@ class Helper
       }
    }
 
-   function firstWord($html)
+   public static function firstWord($html)
    {
       $string = strip_tags($html);
       return explode(" ", $string)[0];
    }
-   function firstLetter($str)
+   public static function firstLetter($str)
    {
       return substr($str, 0, 1);
+   }
+
+   public static function customCSS($css, $parent, $device)
+   {
+      $parsed = self::parseCss($css);
+      foreach ($parsed as $selector => $properties) {
+         if ($selector === 'self' && $parent !== null) {
+            foreach ($properties as $property => $value) {
+               $parent->addCss($property, $value, $device);
+            }
+         } else {
+            $child = new ElementStyle($selector);
+            if ($parent != null) {
+               $parent->addChildStyle($child);
+            }
+            foreach ($properties as $property => $value) {
+               $child->addCss($property, $value, $device);
+            }
+            if ($parent == null) {
+               $child->render();
+            }
+         }
+      }
+   }
+
+   public static function parseCss($css)
+   {
+      if (empty($css) || !is_string($css)) {
+         return [];
+      }
+      $results = array();
+
+      preg_match_all('/(.+?)\s?\{\s?(.+?)\s?\}/', $css, $matches);
+      foreach ($matches[0] as $i => $original)
+         foreach (explode(';', $matches[2][$i]) as $attr)
+            if (strlen($attr) > 0) {
+               list($name, $value) = explode(':', $attr);
+               $results[$matches[1][$i]][trim($name)] = trim($value);
+            }
+      return $results;
+   }
+
+   public static function getJDArticleLayouts()
+   {
+      $db = \JFactory::getDbo();
+      $string = '"jdbuilder_layout_enabled":"1"';
+      $db->setQuery("SELECT `id` FROM `#__content` WHERE `attribs` LIKE '%{$string}%'");
+      $items = $db->loadObjectList();
+      $return = array_map(create_function('$o', 'return $o->id;'), $items);
+      return $return;
+   }
+
+   public static function jdApiRequest($method, $hook, $data)
+   {
+
+      $curl = curl_init();
+
+      $url = "https://api.joomdev.com/api/" . $hook;
+      $url .= '?' . http_build_query($data);
+
+      curl_setopt_array($curl, array(
+         CURLOPT_URL => $url,
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_ENCODING => "",
+         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+         CURLOPT_CUSTOMREQUEST => strtoupper($method),
+         CURLOPT_HTTPHEADER => array(
+            "Accept: */*",
+            "Accept-Encoding: gzip, deflate",
+            "Cache-Control: no-cache",
+            "Connection: keep-alive",
+            "Host: api.joomdev.com",
+            "cache-control: no-cache"
+         ),
+      ));
+
+      $response = curl_exec($curl);
+      curl_close($curl);
+
+      $output = \json_decode($response, true);
+      if ($output['status'] == 'error') {
+         throw new \Exception($output['message'], $output['code']);
+      }
+
+      $return = ['data' => null, 'messages' => []];
+      if (isset($output['data'])) {
+         $return['data'] = $output['data'];
+      }
+      if (isset($output['messages'])) {
+         $return['messages'] = $output['messages'];
+      }
+      return $return;
+   }
+
+   public static function getArticles($categories = [], $limit = 10, $ordering, $featured = 'show')
+   {
+      // Get the dbo
+      $db = \JFactory::getDbo();
+
+      // Get an instance of the generic articles model
+      $model = \JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request' => true));
+
+      // Set application parameters in model
+      $appParams = new \JRegistry();
+      $model->setState('params', $appParams);
+
+      $model->setState('list.start', 0);
+      $model->setState('filter.published', 1);
+
+      // Set the filters based on the module params
+      $model->setState('list.limit', $limit);
+
+      // This module does not use tags data
+      $model->setState('load_tags', false);
+
+      // Access filter
+      $access = !\JComponentHelper::getParams('com_content')->get('show_noauth');
+      $authorised = \JAccess::getAuthorisedViewLevels(\JFactory::getUser()->get('id'));
+      $model->setState('filter.access', $access);
+
+      // Category filter
+      $model->setState('filter.category_id', $categories);
+
+      // Featured switch
+      $model->setState('filter.featured', $featured);
+
+      // Set ordering
+      $order_map = array(
+         'm_dsc' => 'a.modified DESC, a.created',
+         'mc_dsc' => 'CASE WHEN (a.modified = ' . $db->quote($db->getNullDate()) . ') THEN a.created ELSE a.modified END',
+         'c_dsc' => 'a.created',
+         'p_dsc' => 'a.publish_up',
+         'random' => $db->getQuery(true)->Rand(),
+      );
+
+      $ordering = \Joomla\Utilities\ArrayHelper::getValue($order_map, 'random', 'a.publish_up');
+      $dir = 'DESC';
+
+      $model->setState('list.ordering', $ordering);
+      $model->setState('list.direction', $dir);
+
+      $items = $model->getItems();
+
+      foreach ($items as &$item) {
+         $item->readmore = strlen(trim($item->fulltext));
+         $item->slug = $item->id . ':' . $item->alias;
+
+         /** @deprecated Catslug is deprecated, use catid instead. 4.0 */
+         $item->catslug = $item->catid . ':' . $item->category_alias;
+
+         if ($access || in_array($item->access, $authorised)) {
+            // We know that user has the privilege to view the article
+            $item->link     = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
+            $item->linkText = \JText::_('MOD_ARTICLES_NEWS_READMORE');
+         } else {
+            $item->link = new \JUri(\JRoute::_('index.php?option=com_users&view=login', false));
+            $item->link->setVar('return', base64_encode(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)));
+            $item->linkText = \JText::_('MOD_ARTICLES_NEWS_READMORE_REGISTER');
+         }
+
+         $item->introtext = \JHtml::_('content.prepare', $item->introtext, '', 'jdbuilder_element_joomla-articles.content');
+
+         $item->introtext = preg_replace('/<img[^>]*>/', '', $item->introtext);
+
+
+         $images = json_decode($item->images);
+         $item->imageSrc = '';
+         $item->imageAlt = '';
+         $item->imageCaption = '';
+
+         if (!empty($images->image_fulltext)) {
+            $item->imageSrc = htmlspecialchars($images->image_fulltext, ENT_COMPAT, 'UTF-8');
+            $item->imageAlt = htmlspecialchars($images->image_fulltext_alt, ENT_COMPAT, 'UTF-8');
+
+            if ($images->image_intro_caption) {
+               $item->imageCaption = htmlspecialchars($images->image_fulltext_caption, ENT_COMPAT, 'UTF-8');
+            }
+         } elseif (!empty($images->image_intro)) {
+            $item->imageSrc = htmlspecialchars($images->image_intro, ENT_COMPAT, 'UTF-8');
+            $item->imageAlt = htmlspecialchars($images->image_intro_alt, ENT_COMPAT, 'UTF-8');
+
+            if ($images->image_intro_caption) {
+               $item->imageCaption = htmlspecialchars($images->image_intro_caption, ENT_COMPAT, 'UTF-8');
+            }
+         }
+      }
+
+      return $items;
+   }
+
+   public static function chopString($string, $limit = 100)
+   {
+      $string = strip_tags($string);
+      $subtring = substr($string, 0, $limit);
+      if (\strlen($subtring) != \strlen($string)) {
+         $subtring .= '...';
+      }
+      return $subtring;
    }
 }

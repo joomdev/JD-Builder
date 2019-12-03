@@ -3,131 +3,129 @@
    <form>
       <fields>
          <!-- Design Options -->
-         <fieldset name="design" ordering="9" label="JDBUILDER_DESIGN_TITLE">
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
             <!--  Design Groups -->
-            <field type="group" ordering="1" name="basic" label="JDBUILDER_BASIC_TITLE" description=""></field>
-            <field type="group" ordering="3" name="background" label="JDBUILDER_FIELD_BACKGROUND_LABEL" description="JDBUILDER_FIELD_BACKGROUND_DESC"></field>
-            <field type="group" ordering="4" name="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" label="Background Overlay" description=""></field>
-            <field type="group" ordering="5" name="border" label="JDBUILDER_FIELD_BORDER_LABEL" description="JDBUILDER_FIELD_BORDER_DESC"></field>
-            <field type="group" ordering="6" name="spacing" label="JDBUILDER_FIELD_SPACING_LABEL" description="JDBUILDER_FIELD_SPACING_DESC"></field>
-            <field type="group" ordering="7" name="typography" label="JDBUILDER_ELEMENT_TYPOGRAPHY_LBL" description="JDBUILDER_ELEMENT_TYPOGRAPHY_DESC"></field>
-            <field type="group" ordering="11" name="code" label="JDBUILDER_FIELD_CUSTOM_CSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSS_DESC"></field>
+            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE"></field>
+            <field type="group" ordering="3" name="background" label="JDB_BACKGROUND_LABEL"></field>
+            <field type="group" ordering="4" name="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" label="JDB_BACKGROUND_OVERLAY"></field>
+            <field type="group" ordering="5" name="border" label="JDB_BORDER_LABEL"></field>
+            <field type="group" ordering="6" name="spacing" label="JDB_SPACING"></field>
+            <field type="group" ordering="7" name="typography" label="JDB_ELEMENT_TYPOGRAPHY_LBL"></field>
+            <field type="group" ordering="11" name="code" label="JDB_CUSTOM_CSS_LABEL"></field>
 
             <!--  Basic Options -->
-            <field type="text" name="custom_id" label="JDBUILDER_FIELD_CUSTOM_ID_LABEL" description="JDBUILDER_FIELD_CUSTOM_ID_DESC" group="basic" default="">
+            <field type="text" name="custom_id" label="JDB_CUSTOM_ID_LABEL" group="basic" default="">
             </field>
-            <field type="text" name="custom_class" label="JDBUILDER_FIELD_CUSTOM_CLASS_LABEL" DESC="JDBUILDER_FIELD_CUSTOM_CLASS_DESC" group="basic" default="">
+            <field type="text" name="custom_class" label="JDB_CUSTOM_CLASS_LABEL" group="basic" default="">
             </field>
-            <field type="slider" name="zIndex" label="JDBUILDER_FIELD_ZINDEX_LABEL" description="JDBUILDER_FIELD_PADDING_DESC" group="basic" unit="" min="-999" max="999" step="1" default=''
-            >
-</field>
+            <field type="slider" name="zIndex" label="JDB_ZINDEX_LABEL" group="basic" unit="" min="-999" max="999" step="1" default="">
+            </field>
 
-<!--  Background Options -->
-<field type="radio" name="background" label="JDBUILDER_BLANK" default="none" description="JDBUILDER_FIELD_BACKGROUND_DESC" group="background" radiotype="buttons">
-               <option value="none">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_NONE</option>
-               <option value="color">JDBUILDER_FIELD_COLOR_LABEL</option>
-               <option value="gradient">JDBUILDER_FIELD_BACKGROUND_OPTIONS_GRADIENT</option>
-               <option value="image">JDBUILDER_FIELD_BACKGROUND_OPTIONS_IMAGE</option>
-               <option value="video">JDBUILDER_FIELD_BACKGROUND_OPTIONS_VIDEO</option>
+            <!--  Background Options -->
+            <field type="radio" name="background" label="JDB_BLANK_LABEL" default="none" group="background" radiotype="buttons">
+               <option value="none">JDB_NONE</option>
+               <option value="color">JDB_COLOR</option>
+               <option value="gradient">JDB_BACKGROUND_GRADIENT</option>
+               <option value="image">JDB_BACKGROUND_IMAGE</option>
+               <option value="video">JDB_BACKGROUND_VIDEO</option>
             </field>
 
             <!--  Background Color -->
-            <field type="color" name="backgroundColor" label="JDBUILDER_FIELD_BACKGROUND_COLOR_LABEL" description="JDBUILDER_FIELD_BACKGROUND_COLOR_DESC" group="background" showon="params.background=='color'[OR]params.background=='image'" default="">
+            <field type="color" name="backgroundColor" label="JDB_BACKGROUND_COLOR" group="background" showon="params.background=='color'[OR]params.background=='image'" default="">
             </field>
 
             <!--  Background Gradient  -->
-            <field type="gradient" name="backgroundGradient" label="JDBUILDER_FIELD_BACKGROUND_GRADIENT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_GRADIENT_DESC" group="background" showon="params.background=='gradient'" default="">
+            <field type="gradient" name="backgroundGradient" label="JDB_BACKGROUND_GRADIENT_LABEL" group="background" showon="params.background=='gradient'" default="">
             </field>
 
             <!--  Background Image -->
-            <field type="image" name="backgroundImage" label="JDBUILDER_FIELD_BACKGROUND_UPLOAD_IMAGE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_UPLOAD_IMAGE_DESC" group="background" showon="params.background=='image'" default="">
+            <field type="image" name="backgroundImage" label="JDB_BACKGROUND_UPLOAD_IMAGE_LABEL" group="background" showon="params.background=='image'" default="">
             </field>
 
-            <field type="list" name="backgroundRepeat" label="JDBUILDER_FIELD_BACKGROUND_REPEAT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_REPEAT_DESC" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
-               <option value="">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_INHERIT</option>
-               <option value="no-repeat">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_NO_REPEAT</option>
-               <option value="repeat-x">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_X</option>
-               <option value="repeat-y">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_Y</option>
-               <option value="space">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_SPACE</option>
-               <option value="round">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_ROUND</option>
+            <field type="list" name="backgroundRepeat" label="JDB_BACKGROUND_REPEAT_LABEL" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="no-repeat">JDB_BACKGROUND_NO_REPEAT</option>
+               <option value="repeat-x">JDB_BACKGROUND_REPEAT_X</option>
+               <option value="repeat-y">JDB_BACKGROUND_REPEAT_Y</option>
+               <option value="space">JDB_BACKGROUND_REPEAT_SPACE</option>
+               <option value="round">JDB_BACKGROUND_REPEAT_ROUND</option>
             </field>
-            <field type="list" name="backgroundSize" label="JDBUILDER_FIELD_BACKGROUND_SIZE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_SIZE_DESC" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
-               <option value="">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_INHERIT</option>
-               <option value="cover">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_COVER</option>
-               <option value="contain">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_CONTAIN</option>
-               <option value="custom">Custom</option>
-            </field>
-
-            <field type="slider" name="backgroundWidth" label="Background Width" description="" default='{"value":100,"unit":"%"}' max="1600" min="0" units="px,%,vw" showon="params.backgroundSize=='custom'" group="background" responsive="true">
+            <field type="list" name="backgroundSize" label="JDB_BACKGROUND_SIZE_LABEL" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="cover">JDB_BACKGROUND_SIZE_COVER</option>
+               <option value="contain">JDB_BACKGROUND_SIZE_CONTAIN</option>
             </field>
 
-            <field type="list" name="backgroundAttachment" label="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_DESC" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="fixed">JDBUILDER_FIELD_BACKGROUND_FIXED_OPTIONS</option>
-               <option value="scroll">JDBUILDER_FIELD_BACKGROUND_SCROLL_OPTIONS</option>
+            <field type="list" name="backgroundAttachment" label="JDB_BACKGROUND_ATTACHMENT" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="fixed">JDB_BACKGROUND_FIXED</option>
+               <option value="scroll">JDB_BACKGROUND_SCROLL</option>
             </field>
-            <field type="list" name="backgroundPosition" label="JDBUILDER_FIELD_BACKGROUND_POSITION_LABEL" description="JDBUILDER_FIELD_BACKGROUND_POSITION_DESC" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
-               <option value="">BACKGROUND_POSITION_DEFAULT</option>
-               <option value="left top">BACKGROUND_POSITION_LEFT_TOP</option>
-               <option value="left center">BACKGROUND_POSITION_LEFT_CENTER</option>
-               <option value="left bottom">BACKGROUND_POSITION_LEFT_BOTTOM</option>
-               <option value="right top">BACKGROUND_POSITION_RIGHT_TOP</option>
-               <option value="right center">BACKGROUND_POSITION_RIGHT_CENTER</option>
-               <option value="right bottom">BACKGROUND_POSITION_RIGHT_BOTTOM</option>
-               <option value="center top">BACKGROUND_POSITION_CENTER_TOP</option>
-               <option value="center center">BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
-               <option value="center bottom">BACKGROUND_POSITION_CENTER_BOTTOM</option>
-               <option value="custom">Custom</option>
-            </field>
-
-            <field type="slider" name="backgroundXPosition" label="Background X Position" description="" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vw" showon="params.backgroundPosition=='custom'" group="background" responsive="true">
-            </field>
-
-            <field type="slider" name="backgroundYPosition" label="Background Y Position" description="" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vh" showon="params.backgroundPosition=='custom'" group="background" responsive="true">
+            <field type="list" name="backgroundPosition" label="JDB_BACKGROUND_POSITION_LABEL" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="left top">JDB_BACKGROUND_POSITION_LEFT_TOP</option>
+               <option value="left center">JDB_BACKGROUND_POSITION_LEFT_CENTER</option>
+               <option value="left bottom">JDB_BACKGROUND_POSITION_LEFT_BOTTOM</option>
+               <option value="right top">JDB_BACKGROUND_POSITION_RIGHT_TOP</option>
+               <option value="right center">JDB_BACKGROUND_POSITION_RIGHT_CENTER</option>
+               <option value="right bottom">JDB_BACKGROUND_POSITION_RIGHT_BOTTOM</option>
+               <option value="center top">JDB_BACKGROUND_POSITION_CENTER_TOP</option>
+               <option value="center center">JDB_BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
+               <option value="center bottom">JDB_BACKGROUND_POSITION_CENTER_BOTTOM</option>
             </field>
 
             <!--  Background Video -->
-            <field type="video" label="Select/Upload Video" name="backgroundVideoMedia" description="" showon="params.background=='video'" group="background" default="">
+            <field type="video" label="JDB_UPLOAD_VIDEO" name="backgroundVideoMedia" showon="params.background=='video'" group="background" default="">
             </field>
 
             <!--  Overlay Options  -->
-            <field type="alert" label="warning" showon="params.background!='video'[AND]params.background!='image'" description="Background overlay is only working with background type video or image" group="backgroundOverlay">
+            <field type="alert" label="warning" showon="params.background!='video'[AND]params.background!='image'" description="JDB_BACKGROUND_OVERLAY_MESSAGE" group="backgroundOverlay">
             </field>
-            <field type="slider" name="backgroundOverlayOpacity" showon="params.background=='video'[OR]params.background=='image'" label="JDBUILDER_FIELD_OPACITY_LABEL" description="JDBUILDER_FIELD_OPACITY_DESC" group="backgroundOverlay" unit="%" default="50">
+            <field type="slider" name="backgroundOverlayOpacity" showon="params.background=='video'[OR]params.background=='image'" label="JDB_OPACITY" group="backgroundOverlay" unit="%" default="50">
             </field>
-            <field type="color" name="backgroundOverlayColor" label="Overlay Color" group="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" description="JDBUILDER_FIELD_OVERLAY_DESC" default="">
+            <field type="color" name="backgroundOverlayColor" label="JDB_OVERLAY_COLOR" group="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" default="">
             </field>
-            <field type="image" name="backgroundOverlayImage" label="Overlay Image" description="JDBUILDER_FIELD_BACKGROUND_UPLOAD_IMAGE_DESC" group="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" default="">
+            <field type="image" name="backgroundOverlayImage" label="JDB_OVERLAY_IMAGE_LABEL" group="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" default="">
             </field>
-            <field type="list" name="backgroundOverlayRepeat" label="JDBUILDER_FIELD_BACKGROUND_REPEAT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_REPEAT_DESC" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
-               <option value="">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_INHERIT</option>
-               <option value="no-repeat">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_NO_REPEAT</option>
-               <option value="repeat-x">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_X</option>
-               <option value="repeat-y">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_REPEAT_Y</option>
-               <option value="space">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_SPACE</option>
-               <option value="round">JDBUILDER_FIELD_BACKGROUND_REPEAT_OPTIONS_ROUND</option>
+            <field type="list" name="backgroundOverlayRepeat" label="JDB_BACKGROUND_REPEAT_LABEL" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="no-repeat">JDB_BACKGROUND_NO_REPEAT</option>
+               <option value="repeat-x">JDB_BACKGROUND_REPEAT_X</option>
+               <option value="repeat-y">JDB_BACKGROUND_REPEAT_Y</option>
+               <option value="space">JDB_BACKGROUND_REPEAT_SPACE</option>
+               <option value="round">JDB_BACKGROUND_REPEAT_ROUND</option>
             </field>
-            <field type="list" name="backgroundOverlaySize" label="JDBUILDER_FIELD_BACKGROUND_SIZE_LABEL" description="JDBUILDER_FIELD_BACKGROUND_SIZE_DESC" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
-               <option value="">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_INHERIT</option>
-               <option value="cover">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_COVER</option>
-               <option value="contain">JDBUILDER_FIELD_BACKGROUND_SIZE_OPTIONS_CONTAIN</option>
+            <field type="list" name="backgroundOverlaySize" label="JDB_BACKGROUND_SIZE_LABEL" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="cover">JDB_BACKGROUND_SIZE_COVER</option>
+               <option value="contain">JDB_BACKGROUND_SIZE_CONTAIN</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
-            <field type="list" name="backgroundOverlayAttachment" label="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_LABEL" description="JDBUILDER_FIELD_BACKGROUND_ATTACHMENT_DESC" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="fixed">JDBUILDER_FIELD_BACKGROUND_FIXED_OPTIONS</option>
-               <option value="scroll">JDBUILDER_FIELD_BACKGROUND_SCROLL_OPTIONS</option>
+            <field type="slider" name="backgroundOverlayWidth" label="JDB_BACKGROUND_OVERLAY_WIDTH" default='{"value":100,"unit":"%"}' max="1600" min="0" units="px,%,vw" showon="params.backgroundOverlaySize=='custom'" group="backgroundOverlay" responsive="true">
             </field>
-            <field type="list" name="backgroundOverlayPosition" label="JDBUILDER_FIELD_BACKGROUND_POSITION_LABEL" description="JDBUILDER_FIELD_BACKGROUND_POSITION_DESC" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
-               <option value="">BACKGROUND_POSITION_DEFAULT</option>
-               <option value="left top">BACKGROUND_POSITION_LEFT_TOP</option>
-               <option value="left center">BACKGROUND_POSITION_LEFT_CENTER</option>
-               <option value="left bottom">BACKGROUND_POSITION_LEFT_BOTTOM</option>
-               <option value="right top">BACKGROUND_POSITION_RIGHT_TOP</option>
-               <option value="right center">BACKGROUND_POSITION_RIGHT_CENTER</option>
-               <option value="right bottom">BACKGROUND_POSITION_RIGHT_BOTTOM</option>
-               <option value="center top">BACKGROUND_POSITION_CENTER_TOP</option>
-               <option value="center center">BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
-               <option value="center bottom">BACKGROUND_POSITION_CENTER_BOTTOM</option>
+            <field type="list" name="backgroundOverlayAttachment" label="JDB_BACKGROUND_ATTACHMENT" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="fixed">JDB_BACKGROUND_FIXED</option>
+               <option value="scroll">JDB_BACKGROUND_SCROLL</option>
+            </field>
+            <field type="list" name="backgroundOverlayPosition" label="JDB_BACKGROUND_POSITION_LABEL" group="backgroundOverlay" showon="(params.background=='video'[OR]params.background=='image')[AND](params.backgroundOverlayImage!='')" width="6" default="">
+               <option value="">JDB_INHERIT</option>
+               <option value="left top">JDB_BACKGROUND_POSITION_LEFT_TOP</option>
+               <option value="left center">JDB_BACKGROUND_POSITION_LEFT_CENTER</option>
+               <option value="left bottom">JDB_BACKGROUND_POSITION_LEFT_BOTTOM</option>
+               <option value="right top">JDB_BACKGROUND_POSITION_RIGHT_TOP</option>
+               <option value="right center">JDB_BACKGROUND_POSITION_RIGHT_CENTER</option>
+               <option value="right bottom">JDB_BACKGROUND_POSITION_RIGHT_BOTTOM</option>
+               <option value="center top">JDB_BACKGROUND_POSITION_CENTER_TOP</option>
+               <option value="center center">JDB_BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
+               <option value="center bottom">JDB_BACKGROUND_POSITION_CENTER_BOTTOM</option>
+               <option value="custom">JDB_CUSTOM</option>
+            </field>
+
+            <field type="slider" name="backgroundOverlayXPosition" label="JDB_BACKGROUND_OVERLAY_X_POSITION" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vw" showon="params.backgroundOverlayPosition=='custom'" group="backgroundOverlay" responsive="true">
+            </field>
+
+            <field type="slider" name="backgroundOverlayYPosition" label="JDB_BACKGROUND_OVERLAY_Y_POSITION" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vh" showon="params.backgroundOverlayPosition=='custom'" group="backgroundOverlay" responsive="true">
             </field>
 
             <!--  Border Options -->
@@ -135,9 +133,9 @@
             </field>
 
             <!--  Spacing Options  -->
-            <field type="spacing" name="margin" label="JDBUILDER_FIELD_SPACING_MARGIN_LABEL" description="JDBUILDER_FIELD_SPACING_MARGIN_DESC" group="spacing" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+            <field type="spacing" name="margin" label="JDB_SPACING_MARGIN_LABEL" group="spacing" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
             </field>
-            <field type="spacing" name="padding" min="0" label="JDBUILDER_FIELD_PADDING_LABEL" description="JDBUILDER_FIELD_PADDING_DESC" group="spacing" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+            <field type="spacing" name="padding" min="0" label="JDB_PADDING" group="spacing" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
             </field>
 
             <!-- Typography Options -->
@@ -145,52 +143,52 @@
             </field>
 
             <!--  Custom CSS Options -->
-            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_DESC" group="code" language="css" default="" responsive="true">
+            <field type="code-editor" name="custom_css" label="JDB_CUSTOM_CSS_LABEL" group="code" language="css" default="" responsive="true">
             </field>
          </fieldset>
 
          <!--  Advanced Options -->
-         <fieldset name="advanced" ordering="10" label="JDBUILDER_ADVANCED_TITLE">
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
             <!--  Advanced Options Groups -->
-            <field type="group" name="responsive" ordering="1" label="JDBUILDER_FIELD_RESPONSIVE_LABEL" description="JDBUILDER_FIELD_RESPONSIVE_LABEL"></field>
-            <field type="group" name="animation" ordering="2" label="JDBUILDER_ANIMATION_TITLE" description="JDBUILDER_FIELD_ANIMATION_DESC"></field>
-            <field type="group" name="acl" ordering="3" label="JDBUILDER_FIELD_ACL_CTRL_LABEL" description="JDBUILDER_FIELD_ACL_CTRL_DESC"></field>
-            <field type="group" name="info" ordering="4" label="JDBUILDER_FIELD_EL_INFO_LABEL" description="JDBUILDER_FIELD_EL_INFO_DESC"></field>
+            <field type="group" name="responsive" ordering="1" label="JDB_RESPONSIVE"></field>
+            <field type="group" name="animation" ordering="2" label="JDB_ANIMATION_TITLE"></field>
+            <field type="group" name="acl" ordering="3" label="JDB_ACL_CTRL_LABEL"></field>
+            <field type="group" name="info" ordering="4" label="JDB_INFO_LABEL"></field>
 
             <!--  Responsive Options -->
-            <field type="alert" label="warning" description="Attention: The display settings (Enable/Disable for mobile, tablet or desktop) will only take effect once you are on the preview or live page, and not while you're in editing mode in JD Builder." group="responsive"></field>
-            <field type="switch" name="hideDesktop" label="JDBUILDER_FIELD_HIDEON_DESKTOP_LABEL" description="JDBUILDER_FIELD_HIDEON_DESKTOP_DESC" default="false" group="responsive">
+            <field type="alert" label="warning" description="JDB_RESPONSIVE_MESSAGE" group="responsive"></field>
+            <field type="switch" name="hideDesktop" label="JDB_HIDEON_DESKTOP_LABEL" default="false" group="responsive">
             </field>
-            <field type="switch" name="hideTablet" label="JDBUILDER_FIELD_HIDEON_TABLET_LABEL" description="JDBUILDER_FIELD_HIDEON_TABLET_DESC" default="false" group="responsive">
+            <field type="switch" name="hideTablet" label="JDB_HIDEON_TABLET_LABEL" default="false" group="responsive">
             </field>
-            <field type="switch" name="hideMobile" label="JDBUILDER_FIELD_HIDEON_MOBILE_LABEL" description="JDBUILDER_FIELD_HIDEON_MOBILE_DESC" default="false" group="responsive">
+            <field type="switch" name="hideMobile" label="JDB_HIDEON_MOBILE_LABEL" default="false" group="responsive">
             </field>
 
             <!-- Animations Options -->
-            <field type="animations" name="animation" label="JDBUILDER_FIELD_ANIMATION_LABEL" description="JDBUILDER_FIELD_ANIMATION_DESC" default="" group="animation">
+            <field type="animations" name="animation" label="JDB_ANIMATION_LABEL" default="" group="animation">
             </field>
-            <field type="list" name="animationSpeed" label="JDBUILDER_FIELD_ANIMATION_SPEED_LABEL" description="JDBUILDER_FIELD_ANIMATION_SPEED_DESC" default="" group="animation" showon="params.animation!=''">
-               <option value="slower">Slower</option>
-               <option value="slow">Slow</option>
-               <option value="">Normal</option>
-               <option value="fast">Fast</option>
-               <option value="faster">Faster</option>
+            <field type="list" name="animationSpeed" label="JDB_ANIMATION_SPEED_LABEL" default="" group="animation" showon="params.animation!=''">
+               <option value="slower">JDB_SLOWER</option>
+               <option value="slow">JDB_SLOW</option>
+               <option value="">JDB_NORMAL</option>
+               <option value="fast">JDB_FAST</option>
+               <option value="faster">JDB_FASTER</option>
             </field>
-            <field type="list" name="animationDelay" label="JDBUILDER_FIELD_ANIMATION_DELAY_LABEL" description="JDBUILDER_FIELD_ANIMATION_DELAY_DESC" default="" group="animation" showon="params.animation!=''">
-               <option value="">JNONE</option>
-               <option value="delay-1s">1s</option>
-               <option value="delay-2s">2s</option>
-               <option value="delay-3s">3s</option>
-               <option value="delay-4s">4s</option>
-               <option value="delay-5s">5s</option>
+            <field type="list" name="animationDelay" label="JDB_ANIMATION_DELAY_LABEL" default="" group="animation" showon="params.animation!=''">
+               <option value="">JDB_NONE</option>
+               <option value="delay-1s">JDB_1S</option>
+               <option value="delay-2s">JDB_2S</option>
+               <option value="delay-3s">JDB_3S</option>
+               <option value="delay-4s">JDB_4S</option>
+               <option value="delay-5s">JDB_5S</option>
             </field>
-            <field type="switch" name="animationInfinite" label="JDBUILDER_FIELD_ANIMATION_INFINITE_LABEL" description="JDBUILDER_FIELD_ANIMATION_INFINITE_DESC" default="false" group="animation" showon="params.animation!=''">
+            <field type="switch" name="animationInfinite" label="JDB_ANIMATION_INFINITE_LABEL" default="false" group="animation" showon="params.animation!=''">
             </field>
 
             <!--  ACL Options -->
-            <field type="accesslevel" name="access" label="JDBUILDER_FIELD_ACCESS_LABEL" description="JDBUILDER_FIELD_ACCESS_DESC" group="acl" default=""></field>
+            <field type="accesslevel" name="access" label="JDB_ACCESS_LABEL" group="acl" default=""></field>
 
-            <field type="elementinfo" label="JDBUILDER_BLANK" description="JDBUILDER_BLANK" group="info"></field>
+            <field type="elementinfo" label="JDB_BLANK_LABEL" group="info"></field>
          </fieldset>
       </fields>
    </form>

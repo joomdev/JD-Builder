@@ -15,7 +15,7 @@
          <option value="">JOPTION_SELECT_PUBLISHED</option>
       </field>
 
-      <field name="category_id" published="0,1,2" class="multipleCategories"  multiple="true"  label="COM_JDBUILDER_FORM_LBL_PAGE_CATEGORY_ID" type="category" extension="com_jdbuilder.pages" onchange="this.form.submit();">
+      <field name="category_id" published="0,1,2" class="multipleCategories"  multiple="true"  label="COM_JDBUILDER_FORM_LBL_PAGE_CATEGORY_ID" type="category" extension="com_jdbuilder" onchange="this.form.submit();">
       </field>
       <field name="access" multiple="true" label="COM_JDBUILDER_FORM_LBL_PAGE_ACCESS" type="accesslevel" onchange="this.form.submit();"/>
       <field name="language"  label="COM_JDBUILDER_FORM_LBL_PAGE_LANGUAGE" type="contentlanguage" onchange="this.form.submit();">

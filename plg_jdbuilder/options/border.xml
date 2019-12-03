@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fieldsgroup>
-    <field type="list" name="style" label="JDBUILDER_FIELD_BORDERTYPE_LABEL" description="JDBUILDER_FIELD_BORDERTYPE_DESC" default="" search="true">
-        <option value="">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DEFAULT</option>
-        <option value="none">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_NONE</option>
-        <option value="dotted">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DOTTED</option>
-        <option value="dashed">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DASHED</option>
-        <option value="solid">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_SOLID</option>
-        <option value="double">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_DOUBLE</option>
-        <option value="groove">JDBUILDER_FIELD_BORDER_STYLE_OPTIONS_GROOVE</option>
+    <field type="list" name="style" label="JDB_BORDER_TYPE" description="" default="" search="true">
+        <option value="">JDB_BORDER_DEFAULT</option>
+        <option value="none">JDB_BORDER_NONE</option>
+        <option value="dotted">JDB_BORDER_DOTTED</option>
+        <option value="dashed">JDB_BORDER_DASHED</option>
+        <option value="solid">JDB_BORDER_SOLID</option>
+        <option value="double">JDB_BORDER_DOUBLE</option>
+        <option value="groove">JDB_BORDER_GROOVE</option>
     </field>
-    <field type="spacing" name="width" label="JDBUILDER_FIELD_BORDERWIDTH_LABEL" description="JDBUILDER_FIELD_BORDERWIDTH_DESC" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' units="px,%,em" responsive="true">
+    <field type="spacing" name="width" label="JDB_BORDER_WIDTH" description="JDB_BORDER_WIDTH_DESC" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' units="px,%,em" responsive="true">
     </field>
-    <field type="color" name="color" label="JDBUILDER_FIELD_BORDERCOLOR_LABEL" description="JDBUILDER_FIELD_BORDERCOLOR_DESC" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default="">
+    <field type="color" name="color" label="JDB_BORDER_COLOR" description="JDB_BORDER_COLOR_DESC" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default="">
     </field>
-    <field type="spacing" name="radius" label="JDBUILDER_FIELD_BORDER_RADIUS_LABEL" description="JDBUILDER_FIELD_BORDER_RADIUS_DESC" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,%,em" responsive="true">
+    <field type="spacing" name="radius" label="JDB_BORDER_RADIUS" description="JDB_BORDER_RADIUS_DESC" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,%,em" responsive="true">
     </field>
-    <field type="boxshadow" name="shadow" label="JDBUILDER_FIELD_BORDER_SHADOW_LABEL" description="JDBUILDER_FIELD_BORDER_SHADOW_DESC" default="" responsive="true">
+    <field type="boxshadow" name="shadow" label="JDB_BOX_SHADOW" description="" default="" responsive="true">
     </field>
 </fieldsgroup>

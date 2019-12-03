@@ -13,20 +13,20 @@
    <form>
       <fields>
          <!-- General Options -->
-         <fieldset name="general" label="JDBUILDER_LAYOUT_TITLE">
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
             <!--  Layout Options -->
-            <field type="list" name="guttersType" label="JDBUILDER_FIELD_COLUMN_GAP_LABEL" description="JDBUILDER_FIELD_COLUMN_GAP_DESC" default="" group="basic">
-               <option value="">JDBUILDER_FIELD_INHERIT</option>
-               <option value="none">JDBUILDER_FIELD_COLUMN_NOGAP_LABEL</option>
-               <option value="custom">JDBUILDER_FIELD_CUSTOM_LABEL</option>
+            <field type="list" name="guttersType" label="JDB_COLUMN_GAP" default="" group="basic">
+               <option value="">JDB_INHERIT</option>
+               <option value="none">JDB_COLUMN_NO_GAP</option>
+               <option value="custom">JDB_CUSTOM</option>
             </field>
-            <field type="slider" name="guttersSize" label="JDBUILDER_FIELD_COLUMN_GAP_SIZE_LABEL" description="JDBUILDER_FIELD_COLUMN_GAP_SIZE_DESC" showon="params.guttersType=='custom'" default="15" min="5" max="100" unit="px" group="basic" responsive="true">
+            <field type="slider" name="guttersSize" label="JDB_COLUMN_GAP_SIZE" showon="params.guttersType=='custom'" default="15" min="5" max="100" unit="px" group="basic" responsive="true">
             </field>
-            <field type="spacer" label="JDBUILDER_FIELD_COLUMN_DIRECTION_LABEL" description="JDBUILDER_FIELD_COLUMN_DIRECTION_DESC" group="basic">
+            <field type="spacer" label="JDB_COLUMN_DIRECTION" group="basic">
             </field>
-            <field type="switch" name="columnReverseMedium" label="JDBUILDER_FIELD_REVERSE_TABLET_LABEL" description="JDBUILDER_FIELD_REVERSE_TABLET_DESC" default="false" group="basic">
+            <field type="switch" name="columnReverseMedium" label="JDB_REVERSE_COLUMNS_TABLET" default="false" group="basic">
             </field>
-            <field type="switch" name="columnReverseSmall" label="JDBUILDER_FIELD_REVERSE_MOBILE_LABEL" description="JDBUILDER_FIELD_REVERSE_MOBILE_DESC" default="false" group="basic">
+            <field type="switch" name="columnReverseSmall" label="JDB_REVERSE_COLUMNS_MOBILE" default="false" group="basic">
             </field>
          </fieldset>
       </fields>

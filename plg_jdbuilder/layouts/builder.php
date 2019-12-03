@@ -88,7 +88,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    <div class="component-version-container">
       <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span> | Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
       <div class="support-link">
-         <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/watch?v=oGRjZxAXpao&list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
+         <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/playlist?list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
       </div>
    </div>
 </div>
@@ -114,7 +114,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
       MEDIA: '<?php echo \JURI::root(); ?>media/jdbuilder/',
       PREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url); ?>',
       LIVEPREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url . '&jdb-preview=1'); ?>',
-      GLOBALOPTIONS: '<?php echo 'index.php?option=com_plugins&task=plugin.edit&extension_id=' . $plugin->id; ?>',
+      GLOBALOPTIONS: 'index.php?option=com_config&view=component&component=com_jdbuilder',
       CONFIG: '<?php echo JURI::base(); ?>index.php?option=com_config&view=component&component=com_jdbuilder'
    };
 
@@ -143,6 +143,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 
    _JDB.admin = new JDBAdmin();
    _JDB.admin.init();
+   _JDB.JDB_CATEGORIES = new Map();
 </script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/runtime.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/polyfills.js<?php echo $version; ?>"></script>
@@ -164,7 +165,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.10.1/css/all.css">
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.11.2/css/all.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
 
