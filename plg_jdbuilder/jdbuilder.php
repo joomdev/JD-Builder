@@ -161,6 +161,11 @@ class plgSystemJDBuilder extends JPlugin
       }
    }
 
+   public function addBuilderOnHikashop($id)
+   {
+      return;
+   }
+
    public function setLinkAndLabel()
    {
       $articleLayouts = self::$article_layouts;
