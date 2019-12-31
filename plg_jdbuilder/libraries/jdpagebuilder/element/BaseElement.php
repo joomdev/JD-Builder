@@ -49,6 +49,11 @@ class BaseElement
       }
       $this->params = $params;
       if (!empty($this->id)) {
+         // custom id
+         $custom_id = $this->params->get('custom_id', '');
+         if (!empty($custom_id)) {
+            $this->id = $custom_id;
+         }
          $this->style = new ElementStyle('#' . $this->id);
       }
       // Design Options
@@ -288,12 +293,6 @@ class BaseElement
       $custom_class = $this->params->get('custom_class', '');
       if (!empty($custom_class)) {
          $this->addClass($custom_class);
-      }
-
-      // custom id
-      $custom_id = $this->params->get('custom_id', '');
-      if (!empty($custom_id)) {
-         $this->id = $custom_id;
       }
    }
 

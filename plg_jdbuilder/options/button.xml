@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fieldsgroup>
-    <field name="typography" type="typography" label="Typography" description="" default="" responsive="true">
-    </field>
-    <field type="list" name="type" label="Button Type" description="" default="primary" width="6">
+    <field type="list" name="type" label="JDB_BUTTON_TYPE" default="primary" width="6">
         <option value="primary">JDB_PRIMARY</option>
         <option value="secondary">JDB_SECONDARY</option>
         <option value="success">JDB_SUCCESS</option>
@@ -10,35 +8,62 @@
         <option value="warning">JDB_WARNING</option>
         <option value="info">JDB_INFO</option>
     </field>
-    <field type="list" name="size" label="Button Size" description="" default="" width="6">
+    <field type="list" name="size" label="JDB_BUTTON_SIZE" default="" width="6">
         <option value="sm">JDB_SIZE_SM</option>
         <option value="">JDB_SIZE_MD</option>
         <option value="lg">JDB_SIZE_LG</option>
     </field>
-    <field type="hover-animations" name="animation" label="Button Animation" description="" default="">
+    <field type="radio" radiotype="buttons" name="alignment" label="JDB_ALIGNMENT" default="left" responsive="true">
+        <option value="">JDB_DEFAULT</option>
+        <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
+        <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
+        <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
+        <option value="block" icon="fa fa-align-justify">JDB_BLOCK</option>
     </field>
-    <field name="foreground" type="color" label="Button Text Color" description="" default="" width="6">
+    <field type="hover-animations" name="animation" label="JDB_BUTTON_ANIMATION" default="">
     </field>
-    <field name="background" type="color" label="Button Background Color" description="" default="" width="6">
+    <!-- Icon -->
+    <field type="spacer" name="iconSpacer" label="JDB_BUTTON_ICON">
     </field>
-    <field name="borderColor" type="color" label="Border Color" description="" default="">
+    <field name="icon" type="icon" label="JDB_ICON" default="">
     </field>
-    <field type="gradient" label="Button Gradient" description="" name="gradient">
+    <field type="radio" name="iconPosition" label="JDB_ICON_POSITION" radiotype="buttons" default="right" showon="params._fgIcon!=''" width="6">
+        <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
+        <option value="right" con="fa fa-align-right">JDB_RIGHT</option>
     </field>
-    <field type="spacer" label="Hover Styling">
+    <field name="iconColor" type="color" showon="params._fgIcon!=''" label="JDB_ICON_COLOR_LABEL" default="" width="6">
     </field>
-    <field name="foregroundHover" type="color" label="Button Text Color" description="" default="" width="6">
+    <field type="slider" name="iconSpacing" label="JDB_ICON_SPACING" unit="px" min="0" max="50" step="1" default="3" showon="params._fgIcon!=''">
     </field>
-    <field name="backgroundHover" type="color" label="Button Background Color" description="" default="" width="6">
+    <field type="icon-animations" name="iconAnimation" label="JDB_ICON_ANIMATION" default="" showon="params._fgIcon!=''">
     </field>
-    <field name="borderColorHover" type="color" label="Border Color" description="" default="">
+    <!-- Icon End -->
+    <field type="spacer" label="JDB_BUTTON_STYLING">
     </field>
-    <field type="gradient" label="Button Gradient" description="" name="gradientHover">
+    <field name="typography" type="typography" label="JDB_TYPOGRAPHY" default="" responsive="true">
     </field>
-    <field type="spacer"></field>
-    <field name="buttonPadding" type="spacing" label="Button Padding" description="" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+    <field name="foreground" type="color" label="JDB_BUTTON_TEXT_COLOR" default="" width="6">
     </field>
-    <field type="list" name="borderStyle" label="Border Style" description="" default="solid">
+    <field name="background" type="color" label="JDB_BUTTON_BACKGROUND_COLOR" default="" width="6">
+    </field>
+    <field name="borderColor" type="color" label="JDB_BORDER_COLOR" default="">
+    </field>
+    <field type="gradient" label="JDB_BUTTON_GRADIENT" name="gradient">
+    </field>
+    <field type="spacer" label="JDB_HOVER_STYLING_DIVIDER">
+    </field>
+    <field name="foregroundHover" type="color" label="JDB_BUTTON_TEXT_COLOR" default="" width="6">
+    </field>
+    <field name="backgroundHover" type="color" label="JDB_BUTTON_BACKGROUND_COLOR" default="" width="6">
+    </field>
+    <field name="borderColorHover" type="color" label="JDB_BORDER_COLOR" default="">
+    </field>
+    <field type="gradient" label="JDB_BUTTON_GRADIENT" name="gradientHover">
+    </field>
+    <field type="spacer" label="false"></field>
+    <field name="padding" type="spacing" label="JDB_BUTTON_PADDING" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+    </field>
+    <field type="list" name="borderStyle" label="JDB_BORDER_STYLE_LABEL" default="none">
         <option value="none">JDB_BORDER_NONE</option>
         <option value="solid">JDB_BORDER_SOLID</option>
         <option value="dashed">JDB_BORDER_DASHED</option>
@@ -46,11 +71,11 @@
         <option value="double">JDB_BORDER_DOUBLE</option>
     </field>
 
-    <field type="spacing" name="borderWidth" label="Border Width" description="" showon="params._fgBorderStyle!='none'" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
+    <field type="spacing" name="borderWidth" label="JDB_BORDER_WIDTH" showon="params._fgBorderStyle!='none'" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
     </field>
 
-    <field type="spacing" name="borderRadius" label="Border Radius" description="" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" responsive="true">
+    <field type="spacing" name="borderRadius" label="JDB_BORDER_RADIUS" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" responsive="true">
     </field>
-    <field type="boxshadow" name="boxShadow" label="Box Shadow" description="" default="">
+    <field type="boxshadow" name="boxShadow" label="JDB_BOX_SHADOW" default="">
     </field>
 </fieldsgroup>

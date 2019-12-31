@@ -171,7 +171,7 @@
             <field type="color" name="contentColor" label="JDB_TEXT_COLOR" default="" group="tab-content">
             </field>
             
-            <field type="color" name="contentBackground" label="JDB_BACKGROUND_LABEL" default="" group="tab-content">
+            <field type="color" name="contentBackground" label="JDB_BACKGROUND" default="" group="tab-content">
             </field>
 
             <field

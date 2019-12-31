@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 class Layout extends BaseElement
 {
 
-   protected $sections = [];
+   public $sections = [];
 
    public function __construct($object)
    {

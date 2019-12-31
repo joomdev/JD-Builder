@@ -131,7 +131,6 @@
                name="itemBorderColor"
                type="color"
                label="JDB_BORDER_COLOR"
-               description="JDB_BORDER_COLOR_DESC"
                default="#eeeeee"
                showon="params.itemBorderStyle!='none'"
                group="accordion-item"
@@ -142,11 +141,10 @@
                name="itemBorderColorHover"
                type="color"
                label="JDB_BORDER_HOVER_COLOR_LABEL"
-               description="JDB_BORDER_HOVER_COLOR_DESC"
                default="#dddddd"
                showon="params.itemBorderStyle!='none'"
                group="accordion-item"
-			   width="6"
+			      width="6"
             >
             </field>
             
@@ -154,11 +152,10 @@
                name="itemBorderColorActive"
                type="color"
                label="JDB_BORDER_ACTIVE_COLOR_LABEL"
-               description="JDB_BORDER_ACTIVE_COLOR_DESC"
                default="#888888"
                showon="params.itemBorderStyle!='none'"
                group="accordion-item"
-			   width="6"
+			      width="6"
             >
             </field>
             
@@ -166,7 +163,6 @@
                type="spacing"
                name="itemBorderRadius"
                label="JDB_BORDER_RADIUS"
-               description="JDB_BORDER_RADIUS_DESC"
                default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
                group="accordion-item"
                corners="true"
@@ -178,7 +174,6 @@
                type="boxshadow"
                name="itemBoxShadow"
                label="JDB_BOX_SHADOW"
-               description="JDB_BOX_SHADOW_DESC"
                default=""
                group="accordion-item"
             >
@@ -193,13 +188,13 @@
                group="accordion-title"
             >
             </field>
-            <field type="header_tag" label="JDB_ACCORDION_TITLE_COLORS_LABEL" description="JDB_ACCORDION_TITLE_COLORS_DESC" default="h4" group="accordion-title">
+            <field type="header_tag" label="JDB_ACCORDION_TITLE_COLORS_LABEL" default="h4" group="accordion-title">
             </field>
             <field type="color" name="titleColor" label="JDB_ACCORDION_COLOR_LABEL" default="#666666" group="accordion-title" width="6">
             </field>
             <field type="color" name="titleBackground" label="JDB_ACCORDION_BACKGROUND_COLOR_LABEL" default="" group="accordion-title" width="6">
             </field>
-            <field type="spacer" label="JDB_ACTIVE_STATE" group="accordion-title">
+            <field type="spacer" label="JDB_ACCORDION_ACTICE_STATE" group="accordion-title">
             </field>
             <field type="color" name="titleColorActive" label="JDB_ACCORDION_COLOR_LABEL" default="#000000" group="accordion-title" width="6">
             </field>
@@ -245,7 +240,6 @@
                name="titleBorderColor"
                type="color"
                label="JDB_BORDER_COLOR"
-               description="JDB_BORDER_COLOR_DESC"
                default=""
                showon="params.titleBorderStyle!='none'"
                group="accordion-title"
@@ -256,7 +250,6 @@
                name="titleBorderColorHover"
                type="color"
                label="JDB_BORDER_HOVER_COLOR_LABEL"
-               description="JDB_BORDER_HOVER_COLOR_DESC"
                default=""
                showon="params.titleBorderStyle!='none'"
                group="accordion-title"
@@ -268,7 +261,6 @@
                name="titleBorderColorActive"
                type="color"
                label="JDB_BORDER_ACTIVE_COLOR_LABEL"
-               description="JDB_BORDER_ACTIVE_COLOR_DESC"
                default=""
                showon="params.titleBorderStyle!='none'"
                group="accordion-title"
@@ -330,7 +322,6 @@
                name="contentBorderColor"
                type="color"
                label="JDB_BORDER_COLOR"
-               description="JDB_BORDER_COLOR_DESC"
                default=""
                showon="params.contentBorderStyle!='none'"
                group="accordion-content"
@@ -341,7 +332,6 @@
                type="spacing"
                name="accordionContentPadding"
                label="JDB_CONTENT_PADDING_LBL"
-               description="JDB_CONTENT_PADDING_DESC"
                group="accordion-content"
                default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
                responsive="true"
@@ -402,7 +392,7 @@
             
             <field
                type="spacer"
-               label="JDB_ACTIVE_STATE"
+               label="JDB_ACCORDION_ACTICE_STATE"
                group="accordion-icon"
                showon="params.accordionIcon!='none'"
             >

@@ -29,13 +29,13 @@
 
       var faqSchema = element.params.get('faqSchema', false);
 
-      _html.push('<ul ' + (faqSchema ? 'itemscope itemtype="https://schema.org/FAQPage" ' : '') + 'jdb-accordion="collapsible:' + (collapsible ? 'true' : 'false') + ';active:' + (firstactive ? 0 : 'false') + ';multiple:' + (multiple ? 'true' : 'false') + '">');
+      _html.push('<ul ' + (faqSchema ? 'itemScope itemType="https://schema.org/FAQPage" ' : '') + 'jdb-accordion="collapsible:' + (collapsible ? 'true' : 'false') + ';active:' + (firstactive ? 0 : 'false') + ';multiple:' + (multiple ? 'true' : 'false') + '">');
 
       items.forEach(function (_item) {
          let _li = [];
-         _li.push('<li ' + (faqSchema ? 'itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" ' : '') + '' + (opanAll ? ' class="jdb-active"' : '') + '>');
+         _li.push('<li ' + (faqSchema ? 'itemScope itemProp="mainEntity" itemType="https://schema.org/Question" ' : '') + '' + (opanAll ? ' class="jdb-active"' : '') + '>');
          _li.push('<a class="jdb-accordion-title jdb-caret-' + (element.params.get('accordionIconAlignment', 'right')) + '" href="#">');
-         _li.push('<' + titleTag + ' ' + (faqSchema ? 'itemprop="name" ' : '') + 'class="jdb-accordion-text">');
+         _li.push('<' + titleTag + ' ' + (faqSchema ? 'itemProp="name" ' : '') + 'class="jdb-accordion-text">');
          if (typeof _item.icon != 'undefined' && _item.icon != '') {
             JDBRenderer.Document.loadFontLibraryByIcon(_item.icon);
             _li.push('<i class="jdb-accordion-icon ' + _item.icon + '"></i>');
@@ -44,7 +44,7 @@
          _li.push('</' + titleTag + '>');
          _li.push(JDBRenderer.Helper.caretValue(element.params.get('accordionIcon', '')));
          _li.push('</a>');
-         _li.push('<div ' + (faqSchema ? 'itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" ' : '') + 'class="jdb-accordion-content"><div' + (faqSchema ? ' itemprop="text"' : '') + '>' + _item.content + '</div></div>')
+         _li.push('<div ' + (faqSchema ? 'itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" ' : '') + 'class="jdb-accordion-content"><div' + (faqSchema ? ' itemProp="text"' : '') + '>' + _item.content + '</div></div>')
          _li.push('</li>');
          _html.push(_li.join(''));
       });

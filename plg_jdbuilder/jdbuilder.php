@@ -40,6 +40,10 @@ class plgSystemJDBuilder extends JPlugin
 
 
          \JDPageBuilder\Helper::loadLanguage();
+
+         $style = '.jdb-version-label{padding: 0px 8px; display: inline-block; background: #84d155; border-radius: 100px;margin: 0px 5px;color: #fff;font-weight: bold;line-height: 16px;font-size: 10px;vertical-align: baseline;position: relative;top: -2px;}';
+         $docuemnt = \JFactory::getDocument();
+         $docuemnt->addStyleDeclaration($style);
       }
    }
 
@@ -161,11 +165,6 @@ class plgSystemJDBuilder extends JPlugin
       }
    }
 
-   public function addBuilderOnHikashop($id)
-   {
-      return;
-   }
-
    public function setLinkAndLabel()
    {
       $articleLayouts = self::$article_layouts;
@@ -256,7 +255,7 @@ class plgSystemJDBuilder extends JPlugin
       $option = $this->app->input->get('option', '');
       $view = $this->app->input->get('view', '');
       $layout = $this->app->input->get('layout', '');
-      $return = ($option == "com_modules" && $view == "module" && $layout == "edit");
+      $return = (($option == "com_modules" || $option == "com_advancedmodules") && $view == "module" && $layout == "edit");
       if ($return) {
          $extension_id = $this->app->getUserState('com_modules.add.module.extension_id');
          $id = $this->app->input->get('id', 0, 'INT');
@@ -305,6 +304,30 @@ class plgSystemJDBuilder extends JPlugin
    public function addBuilderOnArticle($id)
    {
       return;
+   }
+
+   public function addBuilderOnHikashop($id)
+   {
+      return;
+      /* $article = \JTable::getInstance("content");
+      $article->load($id);
+      $params = new \JRegistry();
+      if (isset($article->attribs)) {
+         $params->loadObject(\json_decode($article->attribs));
+      }
+      $layout_id = $params->get('jdbuilder_layout_id', 0);
+      $enabled = $params->get('jdbuilder_layout_enabled', 0);
+      $enabled = $enabled ? 1 : $this->app->input->get('jdb', 0); */
+
+      $enabled = true;
+      $id = 2;
+      $layout_id = 2;
+      $this->addBodyClass();
+      $body = $this->app->getBody();
+
+      // $body = str_replace('<fieldset class="adminform">', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<fieldset class="adminform">' . \JDPageBuilder\Builder::builderArea($enabled, 'hikashop', $layout_id), $body);
+      $body = str_replace('<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>' . \JDPageBuilder\Builder::builderArea($enabled, 'article', $layout_id), $body);
+      $this->app->setBody($body);
    }
 
    public function addDescription()
@@ -475,7 +498,7 @@ class plgSystemJDBuilder extends JPlugin
       if ($layout === "edit") {
          $adminMenu = '<ul class="nav disabled"><li class="disabled"><a class="no-dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '</a></li></ul>';
       } else {
-         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . ' <span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li></ul></li></ul>';
+         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li></ul></li></ul>';
       }
       $body = $this->app->getBody();
       $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
@@ -516,5 +539,44 @@ class plgSystemJDBuilder extends JPlugin
       }
 
       return true;
+   }
+
+   public static function onAjaxJDBuilder()
+   {
+      try {
+         $app = JFactory::getApplication();
+         $task = $app->input->get('task', '', 'RAW');
+         $task = \explode('.', $task);
+         $element = $task[0];
+         $func = $task[1];
+         $data = null;
+
+         if (!file_exists(JPATH_PLUGINS . '/system/jdbuilder/elements/' . $element . '/helper.php')) {
+            throw new \Exception('Bad Request', 400);
+         }
+
+         require_once(JPATH_PLUGINS . '/system/jdbuilder/elements/' . $element . '/helper.php');
+
+         $class = 'JDBuilder' . \JDPageBuilder\Helper::classify($element) . 'ElementHelper';
+
+         if (!method_exists($class, $func)) {
+            throw new \Exception('Bad Request', 400);
+         } else {
+            $namespace = new $class();
+            $data = $namespace->$func();
+         }
+
+         $return['status'] = 'success';
+         $return['code'] = 200;
+         $return['data'] = $data;
+      } catch (\Exception $e) {
+         $return['status'] = 'error';
+         $return['message'] = $e->getMessage();
+         $return['code'] = $e->getCode();
+      }
+
+      header('Content-Type: application/json');
+      echo \json_encode($return);
+      exit;
    }
 }

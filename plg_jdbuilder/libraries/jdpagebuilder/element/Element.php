@@ -37,6 +37,10 @@ class Element extends BaseElement
          $layout = new \JLayoutFile('default', $path);
       }
 
+      if (file_exists($path . '/../helper.php')) {
+         require_once($path . '/../helper.php');
+      }
+
       $content = [];
 
       // Element Content

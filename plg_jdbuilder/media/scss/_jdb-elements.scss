@@ -76,6 +76,8 @@ img {
 
 // Button Element
 .jdb-button {
+   display: inline-block;
+
    >.jdb-button-link {
       display: inline-block;
       text-align: center;
@@ -1611,72 +1613,20 @@ img {
    margin-right: 5px;
 }
 
-.articles-layout-grid {
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
+.jdb-jarticles-live-preview {
+   position: relative;
 
-   &.column-1 {
-      .article-item {
-         flex: 0 0 100%;
-      }
+   .jdb-loader {
+      display: none;
    }
 
-   &.column-2 {
-      .article-item {
-         flex: 0 0 50%;
-      }
-   }
-
-   &.column-3 {
-      .article-item {
-         flex: 0 0 calc(100% / 3);
-      }
-   }
-
-   &.column-4 {
-      .article-item {
-         flex: 0 0 25%;
-      }
-   }
-
-   &.column-6 {
-      .article-item {
-         flex: 0 0 calc(100% / 6);
-      }
-   }
-}
-
-.jdb-joomla-articles {
-   .article-item {
-      padding: 10px;
-
-      article {
-         position: relative;
+   &.loading {
+      .jdb-loader {
          display: flex;
-         flex-direction: column;
-         min-width: 0;
-         word-wrap: break-word;
-         background-color: #fff;
-         background-clip: border-box;
-         border: 1px solid rgba(0, 0, 0, .125);
-         border-radius: .25rem;
+      }
 
-         .article-title {
-            padding: 10px;
-         }
-
-         .article-info {
-            padding: 10px;
-         }
-
-         .article-text {
-            padding: 10px;
-         }
-
-         .article-readmore {
-            padding: 10px;
-         }
+      .jdb-jarticles {
+         display: none;
       }
    }
 }

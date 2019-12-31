@@ -6,7 +6,7 @@
          <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
             <!--  Design Groups -->
             <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE"></field>
-            <field type="group" ordering="3" name="background" label="JDB_BACKGROUND_LABEL"></field>
+            <field type="group" ordering="3" name="background" label="JDB_BACKGROUND"></field>
             <field type="group" ordering="4" name="backgroundOverlay" showon="params.background=='video'[OR]params.background=='image'" label="JDB_BACKGROUND_OVERLAY"></field>
             <field type="group" ordering="5" name="border" label="JDB_BORDER_LABEL"></field>
             <field type="group" ordering="6" name="spacing" label="JDB_SPACING"></field>

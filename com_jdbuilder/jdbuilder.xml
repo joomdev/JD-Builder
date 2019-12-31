@@ -8,7 +8,7 @@
    <author>Team Joomdev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <version>1.3.0</version>
+   <version>1.4.0</version>
    <description>{jdbcomdesc}</description>
    <install> <!-- Runs on install -->
       <sql>

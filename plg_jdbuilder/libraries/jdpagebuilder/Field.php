@@ -25,9 +25,10 @@ class Field
    public $responsive;
    public $ordering = 0;
    public $description;
+   public $required;
    protected static $fonts = null;
 
-   public function __construct($xml, $prefix = '', $defaults = [], $parentShowon = null)
+   public function __construct($xml, $prefix = '', $defaults = [], $parentShowon = null, $invisible = false)
    {
       $this->xml = $xml;
       $this->prefix = $prefix;
@@ -55,6 +56,9 @@ class Field
       $description = (string) $this->xml->attributes()->description;
       $this->description = \JText::_($description);
 
+      $required = (string) $this->xml->attributes()->required;
+      $this->required = $required == 'true' ? true : false;
+
       $ordering = (string) $this->xml->attributes()->ordering;
       $this->ordering = empty($ordering) ? 1 : (int) $ordering;
 
@@ -74,6 +78,7 @@ class Field
 
       $responsive = (string) $this->xml->attributes()->responsive;
       $this->responsive = strtolower($responsive) == "true" ? true : false;
+      $this->invisible = $invisible;
 
       $this->setValue($defaults);
    }
@@ -129,6 +134,22 @@ class Field
                $this->value = [];
             }
             break;
+         case 'list':
+            $multiple = (string) $this->xml->attributes()->multiple;
+            $multiple = strtolower($multiple) == 'true' ? true : false;
+            if ($multiple) {
+               if ($default == "") {
+                  $default = "[]";
+               }
+               if (Helper::isValidJSON($default)) {
+                  $this->value = Helper::jsonDecode($default);
+               } else {
+                  $this->value = [];
+               }
+            } else {
+               $this->value = $default;
+            }
+            break;
          default:
             $this->value = $default;
             break;
@@ -145,6 +166,7 @@ class Field
       $return['type'] = $this->type;
       $return['label'] = $this->label;
       $return['description'] = $this->description;
+      $return['required'] = $this->required;
       $return['responsive'] = $this->responsive;
       $return['ordering'] = $this->ordering;
 
@@ -316,9 +338,6 @@ class Field
             $multiple = (string) $this->xml->attributes()->multiple;
             $search = (string) $this->xml->attributes()->search;
             $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
-            if ($return['multiple']) {
-               $this->value = empty($this->value) ? [] : Helper::jsonDecode($this->value);
-            }
             $return['search'] = strtolower($search) == 'true' ? true : false;
             $return['options'] = $this->getOptions();
             $return['groups'] = $this->getOptionGroup();
@@ -421,6 +440,14 @@ class Field
             $return['options'] = [];
             $return['groups'] = [];
             break;
+         case 'menuitems':
+            $return['type'] = 'list';
+            $return['menuitems'] = true;
+            $return['multiple'] = false;
+            $return['search'] = true;
+            $return['options'] = [];
+            $return['groups'] = [];
+            break;
          case 'chromestyle':
             $return['type'] = 'list';
             $return['multiple'] = false;
@@ -465,6 +492,7 @@ class Field
          }
          // $return['default'] = $this->value;
       }
+      $return['invisible'] = $this->invisible;
       return $return;
    }
 
@@ -965,7 +993,7 @@ class Field
    {
       $options = [['label' => \JText::_('JDB_DEFAULT'), 'value' => '']];
       foreach (['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'small'] as $tag) {
-         $options[] = ['label' => ucfirst($tag), 'value' => $tag];
+         $options[] = ['label' => \JText::_('JDB_' . ucfirst($tag)), 'value' => $tag];
       }
       return $options;
    }

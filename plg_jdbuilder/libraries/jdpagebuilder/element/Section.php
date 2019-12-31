@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 class Section extends BaseElement
 {
 
-   protected $rows = [];
+   public $rows = [];
    protected $tag = 'section';
 
    public function __construct($object, $parent = null)

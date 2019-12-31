@@ -27,10 +27,10 @@
 
             <field type="spacer" showon="params.dropcap==true" label="JDB_CONTENT_DROP_CAP_OPTIONS_SPACER" group="typography"></field>
 
-            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="JDB_COLOR_LABEL" default="" width="6" group="typography">
+            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="JDB_COLOR" default="" width="6" group="typography">
             </field>
 
-            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="JDB_BACKGROUND_LABEL" default="" width="6" group="typography">
+            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="JDB_BACKGROUND" default="" width="6" group="typography">
             </field>
 
             <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDB_TYPOGRAPHY_LABEL" default='{"family":"", "size":72, "sizeUnit":"px", "alignment":"center", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":60, "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="typography">

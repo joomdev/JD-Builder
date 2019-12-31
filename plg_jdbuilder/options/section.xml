@@ -44,7 +44,7 @@
             <field type="slider" name="minHeight" label="JDB_MIN_HEIGHT" default='{"value":100,"unit":"px"}' max="1440" units="px,vh" showon="params.height=='min-height'" group="layout" responsive="true">
             </field>
 
-            <field type="list" name="contentPosition" label="JDB_CONTENT_POSITION_LBL" description="JDB_CONTENT_POSITION_DESC" default="" group="layout">
+            <field type="list" name="contentPosition" label="JDB_CONTENT_POSITION_LBL" default="" group="layout">
                <option value="">JDB_INHERIT</option>
                <option value="justify-content-start">JDB_JUSTIFY_CONTENT_START</option>
                <option value="justify-content-center">JDB_JUSTIFY_CONTENT_CENTER</option>

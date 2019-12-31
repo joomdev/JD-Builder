@@ -44,16 +44,16 @@ class FieldGroup
       }
    }
 
-   public function addField($xml, $prefix = '', $defaults = [], $showon = null)
+   public function addField($xml, $prefix = '', $defaults = [], $showon = null, $invisible = false)
    {
       $type = (string) $xml->attributes()->type;
       if ($type != "group") {
          $name = (string) $xml->attributes()->name;
          $type = (string) $xml->attributes()->type;
          if (!empty($name) && !empty($type)) {
-            $this->fields[] = new Field($xml, $prefix, $defaults, $showon);
+            $this->fields[] = new Field($xml, $prefix, $defaults, $showon, $invisible);
          } else if (in_array($type, Form::$fields_without_name)) {
-            $this->fields[] = new Field($xml, $prefix, $defaults, $showon);
+            $this->fields[] = new Field($xml, $prefix, $defaults, $showon, $invisible);
          }
       }
    }

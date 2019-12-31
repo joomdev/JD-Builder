@@ -266,3 +266,19 @@
         z-index: 1;
     }
 }
+
+.jdb-slideshow-buttons {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .jdb-button {
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%;
+        padding: 0px 5px;
+    }
+}

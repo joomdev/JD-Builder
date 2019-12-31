@@ -1,0 +1,114 @@
+// For Styling Purpose End
+
+// Common CSS Start
+
+.jdb-jarticle {
+    position: relative;
+    height: 100%;
+}
+
+.jdb-jarticle-introtext {
+    color: #696262;
+}
+
+.jdb-button-link {
+    color: #1CD2AD;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.jdb-jarticle-link-full-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.jdb-jarticle-viewmore {
+    text-align: center;
+}
+
+.jdb-jarticle-meta-info {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    font-size: 14px;
+    span,
+    a {
+        margin-right: 10px;
+        color: #949494;
+    }
+
+    span {
+        color: inherit;
+        i {
+            margin-right: 2px;
+        }
+    }
+}
+
+// Common CSS End Here
+
+// Grid View
+
+.jdb-jarticles-grid-view {
+    .jdb-jarticle-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .jdb-jarticle-body {
+        padding: 20px;
+    }
+
+    .jdb-jarticle {
+        border: 1px solid #ddd;
+    }
+}
+
+// List View
+
+.jdb-jarticles-list-view {
+    .jdb-jarticle-wrapper {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .jdb-jarticle {
+        border: 1px solid #ddd;
+    }
+
+    .jdb-jarticle-body {
+        padding: 20px;
+    }
+
+    +.jdb-jarticle-viewmore {
+        margin-top: 20px;
+    }
+}
+
+@media (min-width:768px) {
+    .jdb-jarticles-list-view {
+        .jdb-jarticle {
+            display: flex;
+        }
+
+        .jdb-jarticle-img-wrap {
+            width: 30%;
+        }
+
+        .jdb-jarticle-body {
+            flex: 1;
+            align-self: center;
+        }
+    }
+
+    .jdb-jarticles-list-view-alternate {
+        .jdb-jarticle-wrapper:nth-child(even) {
+            .jdb-jarticle-img-wrap {
+                order: 1;
+            }
+        }
+    }
+}

@@ -4,34 +4,34 @@
       <fields>
          <!-- General Options -->
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="publishing" label="Publishing" description=""></field>
-            <field type="group" name="seo" label="SEO" description=""></field>
-            <field type="group" name="opengraph" label="Open Graph" description=""></field>
+            <field type="group" name="publishing" label="JDB_PUBLISHING"></field>
+            <field type="group" name="seo" label="JDB_SEO"></field>
+            <field type="group" name="opengraph" label="JDB_OPEN_GRAPH"></field>
             <!-- Publishing Options -->
-            <field type="contentlanguage" name="language" label="Language" description="" group="publishing" default="*">
+            <field type="contentlanguage" name="language" label="JDB_LANGUAGE" group="publishing" default="*">
             </field>
-            <field type="list" name="state" label="Status" default="1" description="" group="publishing">
-               <option value="1">JPUBLISHED</option>
-               <option value="0">JUNPUBLISHED</option>
-               <option value="2">JARCHIVED</option>
-               <option value="-2">JTRASHED</option>
+            <field type="list" name="state" label="JDB_STATUS" default="1" group="publishing">
+               <option value="1">JDB_PUBLISHED</option>
+               <option value="0">JDB_UNPUBLISHED</option>
+               <option value="2">JDB_ARCHIVED</option>
+               <option value="-2">JDB_TRASHED</option>
             </field>
-            <field name="category_id" extension="com_jdbuilder.pages" multiple="false" type="category" label="Category" description="" group="publishing" action="true" default="0" />
+            <field name="category_id" extension="com_jdbuilder" multiple="false" type="category" label="JDB_CATEGORY" group="publishing" action="true" default="0" />
             
             <!-- SEO Options -->
-            <field type="text" name="metaTitle" label="Title" description="" group="seo" default="">
+            <field type="text" name="metaTitle" label="JDB_TITLE" group="seo" default="">
             </field>
-            <field type="textarea" name="metaDescription" label="Description" description="" group="seo" default="">
+            <field type="textarea" name="metaDescription" label="JDB_DESCRIPTION" group="seo" default="">
             </field>
-            <field type="textarea" name="metaKeywords" label="Keywords" description="" group="seo" default="">
+            <field type="textarea" name="metaKeywords" label="JDB_KEYWORDS" group="seo" default="">
             </field>
             
             <!-- Open Graph Options -->
-            <field type="text" name="ogTitle" label="Title" description="" group="opengraph" default="">
+            <field type="text" name="ogTitle" label="JDB_TITLE" group="opengraph" default="">
             </field>
-            <field type="textarea" name="ogDescription" label="Description" description="" group="opengraph" default="">
+            <field type="textarea" name="ogDescription" label="JDB_DESCRIPTION" group="opengraph" default="">
             </field>
-            <field type="image" name="ogImage" label="Image" description="" group="opengraph" default="">
+            <field type="image" name="ogImage" label="JDB_IMAGE" group="opengraph" default="">
             </field>
             
             <!-- Open Graph Options -->
@@ -39,97 +39,93 @@
          </fieldset>
 
          <fieldset name="design" label="JDB_DESIGN_TITLE">
-            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE" description=""></field>
+            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE"></field>
 
-            <field type="group" label="Body Typography" description="" name="body_typography">
+            <field type="group" label="JDB_BODY_TYPOGRAPHY" name="body_typography">
             </field>
-            <field type="color" name="pageTextColor" label="Color" description="" default="" group="body_typography">
+            <field type="color" name="pageTextColor" label="JDB_COLOR" default="" group="body_typography">
             </field>
-            <field type="color" name="pageTextLinkColor" label="Link Color" description="" default="" group="body_typography">
+            <field type="color" name="pageTextLinkColor" label="JDB_LINK_COLOR" default="" group="body_typography">
             </field>
-            <field type="color" name="pageTextLinkHoverColor" label="Link Hover Color" description="" default="" group="body_typography">
+            <field type="color" name="pageTextLinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="body_typography">
             </field>
-            <field type="typography" responsive="true" name="pageTextTypography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="body_typography">
-            </field>
-
-            <field type="group" label="H1 Typography" description="" name="h1_typography">
-            </field>
-            <field type="color" name="pageH1Color" label="Color" description="" default="" group="h1_typography">
-            </field>
-            <field type="color" name="pageH1LinkColor" label="Link Color" description="" default="" group="h1_typography">
-            </field>
-            <field type="color" name="pageH1LinkHoverColor" label="Link Hover Color" description="" default="" group="h1_typography">
-            </field>
-            <field type="typography" responsive="true" name="pageH1Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h1_typography">
+            <field type="typography" responsive="true" name="pageTextTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="body_typography">
             </field>
 
-            <field type="group" label="H2 Typography" description="" name="h2_typography">
+            <field type="group" label="JDB_H1_TYPOGRAPHY" name="h1_typography">
             </field>
-            <field type="color" name="pageH2Color" label="Color" description="" default="" group="h2_typography">
+            <field type="color" name="pageH1Color" label="JDB_COLOR" default="" group="h1_typography">
             </field>
-            <field type="color" name="pageH2LinkColor" label="Link Color" description="" default="" group="h2_typography">
+            <field type="color" name="pageH1LinkColor" label="JDB_LINK_COLOR" default="" group="h1_typography">
             </field>
-            <field type="color" name="pageH2LinkHoverColor" label="Link Hover Color" description="" default="" group="h2_typography">
+            <field type="color" name="pageH1LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h1_typography">
             </field>
-            <field type="typography" responsive="true" name="pageH2Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h2_typography">
-            </field>
-
-            <field type="group" label="H3 Typography" description="" name="h3_typography">
-            </field>
-            <field type="color" name="pageH3Color" label="Color" description="" default="" group="h3_typography">
-            </field>
-            <field type="color" name="pageH3LinkColor" label="Link Color" description="" default="" group="h3_typography">
-            </field>
-            <field type="color" name="pageH3LinkHoverColor" label="Link Hover Color" description="" default="" group="h3_typography">
-            </field>
-            <field type="typography" responsive="true" name="pageH3Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h3_typography">
+            <field type="typography" responsive="true" name="pageH1Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h1_typography">
             </field>
 
+            <field type="group" label="JDB_H2_TYPOGRAPHY" name="h2_typography">
+            </field>
+            <field type="color" name="pageH2Color" label="JDB_COLOR" default="" group="h2_typography">
+            </field>
+            <field type="color" name="pageH2LinkColor" label="JDB_LINK_COLOR" default="" group="h2_typography">
+            </field>
+            <field type="color" name="pageH2LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h2_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH2Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h2_typography">
+            </field>
 
-            <field type="group" label="H4 Typography" description="" name="h4_typography">
+            <field type="group" label="JDB_H3_TYPOGRAPHY" name="h3_typography">
             </field>
-            <field type="color" name="pageH4Color" label="Color" description="" default="" group="h4_typography">
+            <field type="color" name="pageH3Color" label="JDB_COLOR" default="" group="h3_typography">
             </field>
-            <field type="color" name="pageH4LinkColor" label="Link Color" description="" default="" group="h4_typography">
+            <field type="color" name="pageH3LinkColor" label="JDB_LINK_COLOR" default="" group="h3_typography">
             </field>
-            <field type="color" name="pageH4LinkHoverColor" label="Link Hover Color" description="" default="" group="h4_typography">
+            <field type="color" name="pageH3LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h3_typography">
             </field>
-            <field type="typography" responsive="true" name="pageH4Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h4_typography">
+            <field type="typography" responsive="true" name="pageH3Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h3_typography">
+            </field>
+
+
+            <field type="group" label="JDB_H4_TYPOGRAPHY" name="h4_typography">
+            </field>
+            <field type="color" name="pageH4Color" label="JDB_COLOR" default="" group="h4_typography">
+            </field>
+            <field type="color" name="pageH4LinkColor" label="JDB_LINK_COLOR" default="" group="h4_typography">
+            </field>
+            <field type="color" name="pageH4LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h4_typography">
+            </field>
+            <field type="typography" responsive="true" name="pageH4Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h4_typography">
             </field>
             
 
-            <field type="group" label="H5 Typography" description="" name="h5_typography">
+            <field type="group" label="JDB_H5_TYPOGRAPHY" name="h5_typography">
             </field>
-            <field type="color" name="pageH5Color" label="Color" description="" default="" group="h5_typography">
+            <field type="color" name="pageH5Color" label="JDB_COLOR" default="" group="h5_typography">
             </field>
-            <field type="color" name="pageH5LinkColor" label="Link Color" description="" default="" group="h5_typography">
+            <field type="color" name="pageH5LinkColor" label="JDB_LINK_COLOR" default="" group="h5_typography">
             </field>
-            <field type="color" name="pageH5LinkHoverColor" label="Link Hover Color" description="" default="" group="h5_typography">
+            <field type="color" name="pageH5LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h5_typography">
             </field>
-            <field type="typography" responsive="true" name="pageH5Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h5_typography">
+            <field type="typography" responsive="true" name="pageH5Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h5_typography">
             </field>
 
-            <field type="group" label="H6 Typography" description="" name="h6_typography">
+            <field type="group" label="JDB_H6_TYPOGRAPHY" name="h6_typography">
             </field>
-            <field type="color" name="pageH6Color" label="Color" description="" default="" group="h6_typography">
+            <field type="color" name="pageH6Color" label="JDB_COLOR" default="" group="h6_typography">
             </field>
-            <field type="color" name="pageH6LinkColor" label="Link Color" description="" default="" group="h6_typography">
+            <field type="color" name="pageH6LinkColor" label="JDB_LINK_COLOR" default="" group="h6_typography">
             </field>
-            <field type="color" name="pageH6LinkHoverColor" label="Link Hover Color" description="" default="" group="h6_typography">
+            <field type="color" name="pageH6LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h6_typography">
             </field>
-            <field type="typography" responsive="true" name="pageH6Typography" label="Typography" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' description="" group="h6_typography">
+            <field type="typography" responsive="true" name="pageH6Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h6_typography">
             </field>
          </fieldset>
 
          <fieldset name="advanced" label="JDB_ADVANCED_TITLE">
-            <field type="group" name="customcode" label="Custom Code" description=""></field>
-            <field type="group" name="permissions" label="Permissions" description=""></field>
-            <field type="code-editor" language="css" label="CSS" description="" group="customcode" name="css" default=""></field>
-            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_DESC" group="customcode" language="css" default="" responsive="true">
-            </field>
-            <field type="alert" label="warning" description="Attention: Custom JS may not work in live preview. Please open in new window to make JS working." group="customcode" showon="params.javascript!=''"></field>
-            <field type="code-editor" language="javascript" label="JavaScript" description="" group="customcode" name="javascript" default="">
-            </field>
+            <field type="group" name="customcode" label="JDB_CUSTOM_CODE"></field>
+            <field type="code-editor" name="custom_css" label="JDB_PAGE_CUSTOM_CSS" group="customcode" language="css" default="" responsive="true"></field>
+            <field type="alert" label="warning" description="JDB_PAGE_CUSTOM_JS_ALERT" group="customcode" showon="params.javascript!=''"></field>
+            <field type="code-editor" language="javascript" label="JDB_PAGE_JAVASCRIPT" group="customcode" name="javascript" default=""></field>
          </fieldset>
       </fields>
    </form>

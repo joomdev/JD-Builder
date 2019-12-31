@@ -16,10 +16,13 @@
     background-color: $input-focus-bg;
     border-color: $input-focus-border-color;
     outline: 0;
+
     // Avoid using mixin so we can pass custom focus shadow properly
     @if $enable-shadows {
       box-shadow: $input-box-shadow, $input-focus-box-shadow;
-    } @else {
+    }
+
+    @else {
       box-shadow: $input-focus-box-shadow;
     }
   }
@@ -50,7 +53,8 @@
     @include border-radius($form-feedback-tooltip-border-radius);
   }
 
-  .form-control {
+  .jdb-form-control {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
       border-color: $color;
@@ -68,15 +72,16 @@
         box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
       }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
     }
   }
 
   // stylelint-disable-next-line selector-no-qualifying-type
-  textarea.form-control {
+  textarea.jdb-form-control {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
       @if $enable-validation-icons {
@@ -87,6 +92,7 @@
   }
 
   .custom-select {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
       border-color: $color;
@@ -101,42 +107,46 @@
         box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
       }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
     }
   }
 
 
-  .form-control-file {
+  .jdb-form-control-file {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
     }
   }
 
-  .form-check-input {
+  .jdb-form-check-input {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
-      ~ .form-check-label {
+      ~.jdb-form-check-label {
         color: $color;
       }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
     }
   }
 
   .custom-control-input {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
-      ~ .custom-control-label {
+      ~.custom-control-label {
         color: $color;
 
         &::before {
@@ -144,24 +154,24 @@
         }
       }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
 
       &:checked {
-        ~ .custom-control-label::before {
+        ~.custom-control-label::before {
           border-color: lighten($color, 10%);
           @include gradient-bg(lighten($color, 10%));
         }
       }
 
       &:focus {
-        ~ .custom-control-label::before {
+        ~.custom-control-label::before {
           box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
         }
 
-        &:not(:checked) ~ .custom-control-label::before {
+        &:not(:checked)~.custom-control-label::before {
           border-color: $color;
         }
       }
@@ -170,19 +180,20 @@
 
   // custom file
   .custom-file-input {
+
     .was-validated &:#{$state},
     &.is-#{$state} {
-      ~ .custom-file-label {
+      ~.custom-file-label {
         border-color: $color;
       }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
+      ~.#{$state}-feedback,
+      ~.#{$state}-tooltip {
         display: block;
       }
 
       &:focus {
-        ~ .custom-file-label {
+        ~.custom-file-label {
           border-color: $color;
           box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
         }

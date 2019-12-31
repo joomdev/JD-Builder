@@ -20,7 +20,7 @@
             <field
                type="text"
                name="buttonText"
-               label="JDB_BUTTON_TEXT_LBL"
+               label="JDB_BUTTON_TEXT"
                default="Button"
                group="basic"
             >
@@ -101,7 +101,6 @@
                type="hover-animations"
                name="buttonAnimation"
                label="JDB_HOVER_ANIMATION_LABEL"
-               description="JDB_HOVER_ANIMATION_DESC"
                default=""
                group="basic"
             >

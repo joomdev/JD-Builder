@@ -12,9 +12,13 @@ namespace JDPageBuilder;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use JDPageBuilder\Element\ElementStyle;
+use JDPageBuilder\Element\Layout;
 use Leafo\ScssPhp\Compiler;
 use MatthiasMullie\Minify\Minify;
+use Mustache_Autoloader;
+use Mustache_Engine;
 
+Mustache_Autoloader::register();
 \JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
 \JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel');
 
@@ -32,6 +36,15 @@ class Helper
    public static function classify($word)
    {
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
+   }
+
+   public static function log($title = '', $txt = '')
+   {
+      $dir = JPATH_SITE . '/tmp/jdblogs';
+      if (!file_exists($dir)) {
+         mkdir($dir, 0777);
+      }
+      file_put_contents($dir . '/' . $title . '-' . date('d-M-Y-H-i-s') . '.txt', $txt);
    }
 
    public static function isBuilderDemo()
@@ -1073,7 +1086,10 @@ class Helper
       $string = '"jdbuilder_layout_enabled":"1"';
       $db->setQuery("SELECT `id` FROM `#__content` WHERE `attribs` LIKE '%{$string}%'");
       $items = $db->loadObjectList();
-      $return = array_map(create_function('$o', 'return $o->id;'), $items);
+      $return = [];
+      foreach ($items as $item) {
+         $return[] = $item->id;
+      }
       return $return;
    }
 
@@ -1110,6 +1126,9 @@ class Helper
       }
 
       $return = ['data' => null, 'messages' => []];
+      if (is_object($output)) {
+         $output = (array) $output;
+      }
       if (isset($output['data'])) {
          $return['data'] = $output['data'];
       }
@@ -1117,102 +1136,6 @@ class Helper
          $return['messages'] = $output['messages'];
       }
       return $return;
-   }
-
-   public static function getArticles($categories = [], $limit = 10, $ordering, $featured = 'show')
-   {
-      // Get the dbo
-      $db = \JFactory::getDbo();
-
-      // Get an instance of the generic articles model
-      $model = \JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request' => true));
-
-      // Set application parameters in model
-      $appParams = new \JRegistry();
-      $model->setState('params', $appParams);
-
-      $model->setState('list.start', 0);
-      $model->setState('filter.published', 1);
-
-      // Set the filters based on the module params
-      $model->setState('list.limit', $limit);
-
-      // This module does not use tags data
-      $model->setState('load_tags', false);
-
-      // Access filter
-      $access = !\JComponentHelper::getParams('com_content')->get('show_noauth');
-      $authorised = \JAccess::getAuthorisedViewLevels(\JFactory::getUser()->get('id'));
-      $model->setState('filter.access', $access);
-
-      // Category filter
-      $model->setState('filter.category_id', $categories);
-
-      // Featured switch
-      $model->setState('filter.featured', $featured);
-
-      // Set ordering
-      $order_map = array(
-         'm_dsc' => 'a.modified DESC, a.created',
-         'mc_dsc' => 'CASE WHEN (a.modified = ' . $db->quote($db->getNullDate()) . ') THEN a.created ELSE a.modified END',
-         'c_dsc' => 'a.created',
-         'p_dsc' => 'a.publish_up',
-         'random' => $db->getQuery(true)->Rand(),
-      );
-
-      $ordering = \Joomla\Utilities\ArrayHelper::getValue($order_map, 'random', 'a.publish_up');
-      $dir = 'DESC';
-
-      $model->setState('list.ordering', $ordering);
-      $model->setState('list.direction', $dir);
-
-      $items = $model->getItems();
-
-      foreach ($items as &$item) {
-         $item->readmore = strlen(trim($item->fulltext));
-         $item->slug = $item->id . ':' . $item->alias;
-
-         /** @deprecated Catslug is deprecated, use catid instead. 4.0 */
-         $item->catslug = $item->catid . ':' . $item->category_alias;
-
-         if ($access || in_array($item->access, $authorised)) {
-            // We know that user has the privilege to view the article
-            $item->link     = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
-            $item->linkText = \JText::_('MOD_ARTICLES_NEWS_READMORE');
-         } else {
-            $item->link = new \JUri(\JRoute::_('index.php?option=com_users&view=login', false));
-            $item->link->setVar('return', base64_encode(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)));
-            $item->linkText = \JText::_('MOD_ARTICLES_NEWS_READMORE_REGISTER');
-         }
-
-         $item->introtext = \JHtml::_('content.prepare', $item->introtext, '', 'jdbuilder_element_joomla-articles.content');
-
-         $item->introtext = preg_replace('/<img[^>]*>/', '', $item->introtext);
-
-
-         $images = json_decode($item->images);
-         $item->imageSrc = '';
-         $item->imageAlt = '';
-         $item->imageCaption = '';
-
-         if (!empty($images->image_fulltext)) {
-            $item->imageSrc = htmlspecialchars($images->image_fulltext, ENT_COMPAT, 'UTF-8');
-            $item->imageAlt = htmlspecialchars($images->image_fulltext_alt, ENT_COMPAT, 'UTF-8');
-
-            if ($images->image_intro_caption) {
-               $item->imageCaption = htmlspecialchars($images->image_fulltext_caption, ENT_COMPAT, 'UTF-8');
-            }
-         } elseif (!empty($images->image_intro)) {
-            $item->imageSrc = htmlspecialchars($images->image_intro, ENT_COMPAT, 'UTF-8');
-            $item->imageAlt = htmlspecialchars($images->image_intro_alt, ENT_COMPAT, 'UTF-8');
-
-            if ($images->image_intro_caption) {
-               $item->imageCaption = htmlspecialchars($images->image_intro_caption, ENT_COMPAT, 'UTF-8');
-            }
-         }
-      }
-
-      return $items;
    }
 
    public static function chopString($string, $limit = 100)
@@ -1223,5 +1146,277 @@ class Helper
          $subtring .= '...';
       }
       return $subtring;
+   }
+
+   public static function renderMustacheTemplate($template, $data = [])
+   {
+      $m = new Mustache_Engine();
+      return $m->render($template, $data);
+   }
+
+   public static function renderMustacheTemplateByFile($file, $data = [])
+   {
+      if (!file_exists($file)) {
+         return '';
+      }
+      $m = new Mustache_Engine();
+      return $m->render(file_get_contents($file), $data);
+   }
+
+   public static function getElementParams($elementId)
+   {
+      $db = \JFactory::getDbo();
+      $query = "SELECT * FROM `#__jdbuilder_layouts` WHERE `layout` LIKE '%{$elementId}%'";
+      $db->setQuery($query);
+      $result = $db->loadObject();
+      if (empty($result)) {
+         throw new \Exception('Bad Request', 400);
+      }
+      $params = null;
+      $layout = new Layout($result);
+      foreach ($layout->sections as $section) {
+         foreach ($section->rows as $row) {
+            foreach ($row->columns as $column) {
+               foreach ($column->elements as $element) {
+                  if ($element->id === $elementId) {
+                     $params = $element->params;
+                     break 4;
+                  }
+               }
+            }
+         }
+      }
+      return $params;
+   }
+
+   public static function sendMail($from = '', $to = [], $subject = '', $body = '', $attachments = [], $fromName = '', $replyTo = '', $cc = [], $bcc = [], $html = true)
+   {
+      $mailer = \JFactory::getMailer();
+      $config = \JFactory::getConfig();
+
+      $sender = [];
+      $sender[] = !empty($from) ? $from : $config->get('mailfrom');
+      $sender[] = !empty($fromName) ? $fromName : $config->get('fromname');
+      $mailer->setSender($sender);
+
+      $user = \JFactory::getUser();
+      $recipient = !empty($to) ? $to : $user->email;
+      $mailer->addRecipient($recipient);
+
+      if (!empty($replyTo)) {
+         $mailer->addReplyTo($replyTo);
+      }
+
+      if (!empty($cc)) {
+         $mailer->addCc($cc);
+      }
+
+      if (!empty($bcc)) {
+         $mailer->addBcc($bcc);
+      }
+
+      $mailer->setSubject($subject);
+      if ($html) {
+         $mailer->isHtml(true);
+         $mailer->Encoding = 'base64';
+      }
+      $mailer->setBody($body);
+
+      foreach ($attachments as $attachment) {
+         $mailer->addAttachment($attachment);
+      }
+
+      $send = $mailer->Send();
+      self::log('mail', \json_encode($mailer));
+      if ($send !== true) {
+         return false;
+      } else {
+         return true;
+      }
+   }
+
+   public static function renderButtonValue($key, $element, $text = '', $classes = [], $type = "link", $link = '#')
+   {
+      $params = $element->params;
+      $html = [];
+      $size = $params->get($key . 'Size', '');
+      $animation = $params->get($key . 'Animation', '');
+
+      $class = [];
+      $class[] = 'jdb-button';
+      $class[] = 'jdb-button-' . $params->get($key . 'Type', 'primary');
+      if (!empty($size)) {
+         $class[] = 'jdb-button-' . $size;
+      }
+      $class[] = 'jdb-button-' . $key;
+      foreach ($classes as $c) {
+         $class[] = str_replace('*', $key, $c);
+      }
+
+      $iconHTML = '';
+      $buttonIcon = $params->get($key . 'Icon', '');
+      $iconPosition = $params->get($key . 'IconPosition', 'right');
+      if (!empty($buttonIcon)) {
+         $iconAnimation = $params->get($key . 'IconAnimation', '');
+         if (!empty($iconAnimation)) {
+            $class[] = 'jdb-hover-' . $iconAnimation;
+         }
+         \JDPageBuilder\Builder::loadFontLibraryByIcon($buttonIcon);
+         $iconHTML = '<span class="jdb-button-icon jdb-hover-icon ' . $buttonIcon . ' jdb-button-icon-' . $iconPosition . '"></span>';
+      }
+
+      $html[] = '<div class="jdb-button-container-' . $key . '">';
+      $html[] = '<div class="' . implode(' ', $class) . '">';
+      if ($type == 'link') {
+         $html[] = '<a title="' . $text . '" href="' . $link . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '">';
+      } else {
+         $html[] = '<button type="' . $type . '" title="' . $text . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '">';
+      }
+
+      if ($iconPosition == 'left') {
+         $html[] = $iconHTML;
+      }
+      $html[] = $text;
+      if ($iconPosition == 'right') {
+         $html[] = $iconHTML;
+      }
+
+      if ($type == 'link') {
+         $html[] = '</a>';
+      } else {
+         $html[] = '</button>';
+      }
+      $html[] = '</div>';
+      $html[] = '</div>';
+      self::applyButtonValue($key, $element);
+      return implode('', $html);
+   }
+
+   public static function applyButtonValue($btnKey, $element)
+   {
+      $buttonContainerStyle = new ElementStyle(".jdb-button-container-" . $btnKey);
+      $buttonWrapperStyle = new ElementStyle(".jdb-button-" . $btnKey);
+      $buttonStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link");
+      $buttonHoverStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link:hover");
+
+      $element->addChildrenStyle([$buttonWrapperStyle, $buttonStyle, $buttonHoverStyle, $buttonContainerStyle]);
+
+      // button alignment
+      $alignment = $element->params->get($btnKey . 'Alignment', null);
+      if (!empty($alignment)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+               $align = $alignment->{$deviceKey};
+               if ($align != 'block') {
+                  $buttonContainerStyle->addCss('text-align', $align, $device);
+               } else {
+                  $buttonWrapperStyle->addCss("width", "100%", $device);
+                  $buttonStyle->addCss("width", "100%", $device);
+               }
+            }
+         }
+      }
+
+      // Background
+      $buttonStyle->addCss("background-color", $element->params->get($btnKey . 'Background', ''));
+      $buttonHoverStyle->addCss("background-color", $element->params->get($btnKey . 'BackgroundHover', ''));
+
+      // Text Color
+      $buttonStyle->addCss("color", $element->params->get($btnKey . 'Foreground', ''));
+      $buttonHoverStyle->addCss("color", $element->params->get($btnKey . 'ForegroundHover', ''));
+
+
+      // Border Color
+      $buttonStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColor', ''));
+      $buttonHoverStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColorHover', ''));
+
+      // Gradient
+      $buttonStyle->addCss("background-image", $element->params->get($btnKey . 'Gradient', ''));
+      $buttonHoverStyle->addCss("background-image", $element->params->get($btnKey . 'GradientHover', ''));
+      if (!empty($element->params->get($btnKey . 'Gradient', '')) && empty($element->params->get($btnKey . 'GradientHover', ''))) {
+         $buttonHoverStyle->addCss("background-image", 'none');
+      }
+
+      // Typography
+      $typography = $element->params->get($btnKey . 'Typography', null);
+      if (!empty($typography)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
+               $buttonStyle->addStyle(self::typographyValue($typography->{$deviceKey}), $device);
+            }
+         }
+      }
+
+      // Padding
+      $padding = $element->params->get($btnKey . 'Padding', null);
+      if (!empty($padding)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($padding->{$deviceKey}) && !empty($padding->{$deviceKey})) {
+               $buttonStyle->addStyle(self::spacingValue($padding->{$deviceKey}, "padding"), $device);
+            }
+         }
+      }
+
+      // Border
+      $borderType = $element->params->get($btnKey . 'BorderStyle', 'solid');
+      $buttonStyle->addCss("border-style", $borderType);
+      if ($borderType != 'none') {
+         $borderWidth = $element->params->get($btnKey . 'BorderWidth', null);
+         if ($borderWidth != null) {
+            foreach (self::$devices as $deviceKey => $device) {
+               if (isset($borderWidth->{$deviceKey}) && !empty($borderWidth->{$deviceKey})) {
+                  $css = self::spacingValue($borderWidth->{$deviceKey}, "border");
+                  $buttonStyle->addStyle($css, $device);
+               }
+            }
+         }
+      }
+
+      // Radius
+      $borderRadius = $element->params->get($btnKey . 'BorderRadius', null);
+      if (!empty($borderRadius)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($borderRadius->{$deviceKey}) && !empty($borderRadius->{$deviceKey})) {
+               $css = self::spacingValue($borderRadius->{$deviceKey}, "radius");
+               $buttonStyle->addStyle($css, $device);
+            }
+         }
+      }
+
+      // shadow
+      $buttonStyle->addCss("box-shadow", $element->params->get($btnKey . 'BoxShadow', ''));
+
+      // Icon
+      $buttonIcon = $element->params->get($btnKey . 'Icon', '');
+      $iconPosition = $element->params->get($btnKey . 'IconPosition', 'right');
+      if (!empty($buttonIcon)) {
+         $iconStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link > .jdb-button-icon");
+         $element->addChildStyle($iconStyle);
+         $iconColor = $element->params->get($btnKey . 'IconColor', '');
+         $iconStyle->addCss("color", $iconColor);
+         $iconSpacing = $element->params->get($btnKey . 'IconSpacing', null);
+         if (self::checkSliderValue($iconSpacing)) {
+            if ($iconPosition == "right") {
+               $iconStyle->addCss("margin-left", $iconSpacing->value . "px");
+            } else {
+               $iconStyle->addCss("margin-right", $iconSpacing->value . "px");
+            }
+         }
+      }
+   }
+
+   public static function getMenuLinkByItemId($itemId)
+   {
+      if (empty($itemId)) {
+         return '';
+      }
+
+      $app = \JFactory::getApplication();
+      $menu = $app->getMenu();
+      $menu_item = $menu->getItem($itemId);
+      if ($menu_item->type == 'url') {
+         return $menu_item->link;
+      }
+      return \JRoute::_('index.php?Itemid=' . $itemId);
    }
 }

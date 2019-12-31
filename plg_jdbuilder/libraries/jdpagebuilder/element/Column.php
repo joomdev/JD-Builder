@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 class Column extends BaseElement
 {
 
-   protected $elements = [];
+   public $elements = [];
    protected $size;
 
    public function __construct($object, $parent = null)

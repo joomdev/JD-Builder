@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fieldsgroup>
     <!--  Background Options -->
-    <field type="radio" name="type" label="JDB_BACKGROUND_LABEL" default="none" radiotype="buttons">
+    <field type="radio" name="type" label="JDB_BACKGROUND" default="none" radiotype="buttons">
         <option value="none">JDB_NONE</option>
         <option value="color">JDB_COLOR</option>
         <option value="gradient">JDB_BACKGROUND_GRADIENT</option>

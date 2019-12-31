@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @package   JD Simple Contact Form
- * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2019 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 use JDPageBuilder\Helper;

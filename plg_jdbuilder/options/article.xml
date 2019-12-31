@@ -89,7 +89,7 @@
          <fieldset name="advanced" label="JDBUILDER_ADVANCED_TITLE">
             <field type="group" name="customcode" label="Custom Code" description=""></field>
             <field type="group" name="permissions" label="Permissions" description=""></field>
-            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" description="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_DESC" group="customcode" language="css" default="" responsive="true">
+            <field type="code-editor" name="custom_css" label="JDBUILDER_FIELD_CUSTOM_CSSORSCSS_LABEL" group="customcode" language="css" default="" responsive="true">
             </field>
             <field type="alert" label="warning" description="Attention: Custom JS may not work in live preview. Please open in new window to make JS working." group="customcode" showon="params.javascript!=''"></field>
             <field type="code-editor" language="javascript" label="JavaScript" description="" group="customcode" name="javascript" default="">

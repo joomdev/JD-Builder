@@ -41,11 +41,22 @@ class ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'M' => 
+        array (
+            'Mustache' => 
+            array (
+                0 => __DIR__ . '/..' . '/mustache/mustache/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8c4911ac06bc0a233a2e954c85bbc6ca::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

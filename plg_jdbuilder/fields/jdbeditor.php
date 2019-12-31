@@ -23,7 +23,7 @@ class JFormFieldJdbeditor extends JFormField
    public function getInput()
    {
       $document = JFactory::getDocument();
-      $style = '#general .control-label{display: none}#general .controls{margin: 0}';
+      $style = '#general .span9 .control-label{display: none}#general .controls{margin: 0}';
       $document->addStyleDeclaration($style);
 
       return '<input name="' . $this->name . '" type="hidden" id="' . $this->id . '" value="' . $this->value . '" />

@@ -553,7 +553,7 @@ abstract class Builder
       if ($request->get('jdb-preview', 0)) {
          $document->addCustomTag('<link rel="stylesheet" id="jdb-preview-css" />');
          $date = new \DateTime(date('Y-m-d'), new \DateTimeZone(\JFactory::getConfig()->get('offset')));
-         $document->addScriptDeclaration('var JDBRenderer = null; var jdPageBaseUrl = "' . \JURI::root() . '"; var _JDBTIMEZONE="' . $date->format('O') . '";');
+         $document->addScriptDeclaration('var JDBRenderer = null; var _JDBDATA = new Map(); var jdPageBaseUrl = "' . \JURI::root() . '"; var _JDBTIMEZONE="' . $date->format('O') . '";');
          // add shapedividers
          $fbAppId = 'var _JDBFBAPPID = "' . $buiderConfig->get('fbAppId',  '') . '";';
          $dividersSVGs = 'var _JDBDIVIDERS = new Map([';
@@ -607,7 +607,7 @@ abstract class Builder
 
          Helper::renderGlobalScss();
 
-         $document->addStylesheet('//use.fontawesome.com/releases/v5.11.2/css/all.css');
+         $document->addStylesheet('//use.fontawesome.com/releases/v' . \JDPageBuilder\Constants::FONTAWESOME_VERSION . '/css/all.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css');
          $document->addStylesheet('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
@@ -751,6 +751,7 @@ abstract class Builder
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . JDB_MEDIA_VERSION . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . JDB_MEDIA_VERSION . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdbfrontend.js?v=' . JDB_MEDIA_VERSION . '"></script>';
@@ -807,7 +808,7 @@ abstract class Builder
 
       switch ($prefix) {
          case 'fa':
-            self::addStylesheet('//use.fontawesome.com/releases/v5.11.2/css/all.css');
+            self::addStylesheet('//use.fontawesome.com/releases/v' . \JDPageBuilder\Constants::FONTAWESOME_VERSION . '/css/all.css');
             break;
          case 'fi':
             self::addStylesheet('//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css');
@@ -1095,6 +1096,51 @@ abstract class Builder
          $object['categories'] = $categories;
          $return[] = $object;
       }
+      return $return;
+   }
+
+   public static function getMenuitems()
+   {
+      require_once realpath(JPATH_ADMINISTRATOR . '/components/com_menus/helpers/menus.php');
+      $return = [];
+      $groups = [];
+      $items = \MenusHelper::getMenuLinks('', 0, 0, [], [], 0);
+      // Build the groups arrays.
+      foreach ($items as $menu) {
+         // Initialize the group.
+         $groups[$menu->title] = [];
+
+         // Build the options array.
+         foreach ($menu->links as $link) {
+            $levelPrefix = str_repeat('- ', max(0, $link->level - 1));
+
+            // Displays language code if not set to All
+            if ($link->language !== '*') {
+               $lang = ' (' . $link->language . ')';
+            } else {
+               $lang = '';
+            }
+
+            $groups[$menu->title][] = \JHtml::_(
+               'select.option',
+               $link->value,
+               $levelPrefix . $link->text . $lang,
+               'value',
+               'text',
+               false
+            );
+         }
+      }
+
+      $return = ['options' => [['label' => 'None', 'value' => '']], 'groups' => []];
+      foreach ($groups as $groupTitle => $group) {
+         $options = [];
+         foreach ($group as $option) {
+            $options[] = ['label' => $option->text, 'value' => $option->value];
+         }
+         $return['groups'][] = ['label' => $groupTitle, 'options' => $options];
+      }
+
       return $return;
    }
 

@@ -41,12 +41,12 @@ $sortFields = $this->getSortFields();
       </div>
       <div id="j-main-container" class="span10">
       <?php
-         echo JdbuilderHelper::versionMessage();
-      else : ?>
+      echo JdbuilderHelper::versionMessage();
+   else : ?>
          <div id="j-main-container">
          <?php
-            echo JdbuilderHelper::versionMessage();
-         endif; ?>
+         echo JdbuilderHelper::versionMessage();
+      endif; ?>
 
          <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 
@@ -82,7 +82,7 @@ $sortFields = $this->getSortFields();
                      <?php echo JHtml::_('searchtools.sort', 'COM_JDBUILDER_PAGES_LANGUAGE', 'a.`language`', $listDirn, $listOrder); ?>
                   </th>
                   <th class='left'>
-                     <?php echo JHtml::_('searchtools.sort', 'Created By', 'a.`created_by`', $listDirn, $listOrder); ?>
+                     <?php echo JHtml::_('searchtools.sort', 'COM_JDBUILDER_PAGES_CREATED_BY', 'a.`created_by`', $listDirn, $listOrder); ?>
                   </th>
                   <th class='left'>
                      <?php echo JHtml::_('searchtools.sort', 'COM_JDBUILDER_PAGES_ID', 'a.`id`', $listDirn, $listOrder); ?>
@@ -105,21 +105,21 @@ $sortFields = $this->getSortFields();
                   $canEdit = $user->authorise('core.edit', 'com_jdbuilder');
                   $canCheckin = $user->authorise('core.manage', 'com_jdbuilder');
                   $canChange = $user->authorise('core.edit.state', 'com_jdbuilder');
-                  ?>
+               ?>
                   <tr class="row<?php echo $i % 2; ?>">
 
                      <?php if (isset($this->items[0]->ordering)) : ?>
                         <td class="order nowrap center hidden-phone">
                            <?php
-                                 if ($canChange) :
-                                    $disableClassName = '';
-                                    $disabledLabel = '';
+                           if ($canChange) :
+                              $disableClassName = '';
+                              $disabledLabel = '';
 
-                                    if (!$saveOrder) :
-                                       $disabledLabel = JText::_('JORDERINGDISABLED');
-                                       $disableClassName = 'inactive tip-top';
-                                    endif;
-                                    ?>
+                              if (!$saveOrder) :
+                                 $disabledLabel = JText::_('JORDERINGDISABLED');
+                                 $disableClassName = 'inactive tip-top';
+                              endif;
+                           ?>
                               <span class="sortable-handler hasTooltip <?php echo $disableClassName ?>" title="<?php echo $disabledLabel ?>">
                                  <i class="icon-menu"></i>
                               </span>
@@ -140,13 +140,13 @@ $sortFields = $this->getSortFields();
                            <?php echo JHtml::_('jgrid.published', $item->state, $i, 'pages.', $canChange, 'cb'); ?>
 
                            <?php
-                              // Create dropdown items and render the dropdown list.
-                              if ($canChange) {
-                                 //JHtml::_('actionsdropdown.' . ((int) $item->state === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'pages');
-                                 JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'pages');
-                                 echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
-                              }
-                              ?>
+                           // Create dropdown items and render the dropdown list.
+                           if ($canChange) {
+                              //JHtml::_('actionsdropdown.' . ((int) $item->state === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'pages');
+                              JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'pages');
+                              echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
+                           }
+                           ?>
                         </div>
                      </td>
 
@@ -192,7 +192,7 @@ $sortFields = $this->getSortFields();
          <input type="hidden" name="list[fullorder]" value="<?php echo $listOrder; ?> <?php echo $listDirn; ?>" />
          <?php echo JHtml::_('form.token'); ?>
          <div class="component-version-container">
-            <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span> | Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
+            <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span><?php echo \JText::_('JDBUILDER_VERSION_LABEL'); ?>| Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
             <div class="support-link">
                <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/playlist?list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
             </div>

@@ -4,7 +4,7 @@
 // Textual form controls
 //
 
-.form-control {
+.jdb-form-control {
   display: block;
   width: 100%;
   height: $input-height;
@@ -53,7 +53,7 @@
   }
 }
 
-select.form-control {
+select.jdb-form-control {
   &:focus::-ms-value {
     // Suppress the nested default white text on blue background highlight given to
     // the selected option text when the (still closed) <select> receives focus
@@ -66,8 +66,8 @@ select.form-control {
 }
 
 // Make file inputs better match text inputs by forcing them to new lines.
-.form-control-file,
-.form-control-range {
+.jdb-form-control-file,
+.jdb-form-control-range {
   display: block;
   width: 100%;
 }
@@ -79,7 +79,7 @@ select.form-control {
 
 // For use with horizontal and inline forms, when you need the label (or legend)
 // text to align with the form controls.
-.col-form-label {
+.jdb-col-form-label {
   padding-top: calc(#{$input-padding-y} + #{$input-border-width});
   padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
   margin-bottom: 0; // Override the `<label>/<legend>` default
@@ -87,14 +87,14 @@ select.form-control {
   line-height: $input-line-height;
 }
 
-.col-form-label-lg {
+.jdb-col-form-label-lg {
   padding-top: calc(#{$input-padding-y-lg} + #{$input-border-width});
   padding-bottom: calc(#{$input-padding-y-lg} + #{$input-border-width});
   @include font-size($input-font-size-lg);
   line-height: $input-line-height-lg;
 }
 
-.col-form-label-sm {
+.jdb-col-form-label-sm {
   padding-top: calc(#{$input-padding-y-sm} + #{$input-border-width});
   padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
   @include font-size($input-font-size-sm);
@@ -107,7 +107,7 @@ select.form-control {
 // Apply class to a readonly input to make it appear like regular plain
 // text (without any border, background color, focus indicator)
 
-.form-control-plaintext {
+.jdb-form-control-plaintext {
   display: block;
   width: 100%;
   padding-top: $input-padding-y;
@@ -119,8 +119,8 @@ select.form-control {
   border: solid transparent;
   border-width: $input-border-width 0;
 
-  &.form-control-sm,
-  &.form-control-lg {
+  &.jdb-form-control-sm,
+  &.jdb-form-control-lg {
     padding-right: 0;
     padding-left: 0;
   }
@@ -134,7 +134,7 @@ select.form-control {
 //
 // Repeated in `_input_group.scss` to avoid Sass extend issues.
 
-.form-control-sm {
+.jdb-form-control-sm {
   height: $input-height-sm;
   padding: $input-padding-y-sm $input-padding-x-sm;
   @include font-size($input-font-size-sm);
@@ -142,7 +142,7 @@ select.form-control {
   @include border-radius($input-border-radius-sm);
 }
 
-.form-control-lg {
+.jdb-form-control-lg {
   height: $input-height-lg;
   padding: $input-padding-y-lg $input-padding-x-lg;
   @include font-size($input-font-size-lg);
@@ -151,14 +151,15 @@ select.form-control {
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
-select.form-control {
+select.jdb-form-control {
+
   &[size],
   &[multiple] {
     height: auto;
   }
 }
 
-textarea.form-control {
+textarea.jdb-form-control {
   height: auto;
 }
 
@@ -167,11 +168,17 @@ textarea.form-control {
 // Designed to help with the organization and spacing of vertical forms. For
 // horizontal forms, use the predefined grid classes.
 
-.form-group {
+.jdb-form-group {
   margin-bottom: $form-group-margin-bottom;
+
+  .jdb-form-label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-weight: bold;
+  }
 }
 
-.form-text {
+.jdb-form-text {
   display: block;
   margin-top: $form-text-margin-top;
 }
@@ -181,14 +188,14 @@ textarea.form-control {
 //
 // Special replacement for our grid system's `.row` for tighter form layouts.
 
-.form-row {
+.jdb-form-row {
   display: flex;
   flex-wrap: wrap;
   margin-right: -$form-grid-gutter-width / 2;
   margin-left: -$form-grid-gutter-width / 2;
 
-  > .col,
-  > [class*="col-"] {
+  >.col,
+  >[class*="col-"] {
     padding-right: $form-grid-gutter-width / 2;
     padding-left: $form-grid-gutter-width / 2;
   }
@@ -199,38 +206,46 @@ textarea.form-control {
 //
 // Indent the labels to position radios/checkboxes as hanging controls.
 
-.form-check {
+.jdb-form-check {
   position: relative;
   display: block;
   padding-left: $form-check-input-gutter;
 }
 
-.form-check-input {
-  position: absolute;
-  margin-top: $form-check-input-margin-y;
-  margin-left: -$form-check-input-gutter;
 
-  &:disabled ~ .form-check-label {
+
+input[type="checkbox"],
+input[type="radio"] {
+  &.jdb-form-check-input {
+    position: absolute;
+    margin-top: $form-check-input-margin-y;
+    margin-left: -$form-check-input-gutter;
+  }
+
+  &:disabled~.jdb-form-check-label {
     color: $text-muted;
   }
 }
 
-.form-check-label {
+.jdb-form-check-label {
   margin-bottom: 0; // Override default `<label>` bottom margin
 }
 
-.form-check-inline {
+.jdb-form-check-inline {
   display: inline-flex;
   align-items: center;
   padding-left: 0; // Override base .form-check
   margin-right: $form-check-inline-margin-x;
 
   // Undo .form-check-input defaults and add some `margin-right`.
-  .form-check-input {
-    position: static;
-    margin-top: 0;
-    margin-right: $form-check-inline-input-margin-x;
-    margin-left: 0;
+  input[type="checkbox"],
+  input[type="radio"] {
+    &.jdb-form-check-input {
+      position: static;
+      margin-top: 0;
+      margin-right: $form-check-inline-input-margin-x;
+      margin-left: 0;
+    }
   }
 }
 
@@ -242,7 +257,8 @@ textarea.form-control {
 // pseudo-classes but also includes `.is-invalid` and `.is-valid` classes for
 // server side validation.
 
-@each $state, $data in $form-validation-states {
+@each $state,
+$data in $form-validation-states {
   @include form-validation-state($state, map-get($data, color), map-get($data, icon));
 }
 
@@ -255,7 +271,7 @@ textarea.form-control {
 // Requires wrapping inputs and labels with `.form-group` for proper display of
 // default HTML form controls and our custom form controls (e.g., input groups).
 
-.form-inline {
+.jdb-form-inline {
   display: flex;
   flex-flow: row wrap;
   align-items: center; // Prevent shorter elements from growing to same height as others (e.g., small buttons growing to normal sized button height)
@@ -263,7 +279,7 @@ textarea.form-control {
   // Because we use flex, the initial sizing of checkboxes is collapsed and
   // doesn't occupy the full-width (which is what we want for xs grid tier),
   // so we force that here.
-  .form-check {
+  .jdb-form-check {
     width: 100%;
   }
 
@@ -277,7 +293,7 @@ textarea.form-control {
     }
 
     // Inline-block all the things for "inline"
-    .form-group {
+    .jdb-form-group {
       display: flex;
       flex: 0 0 auto;
       flex-flow: row wrap;
@@ -286,14 +302,14 @@ textarea.form-control {
     }
 
     // Allow folks to *not* use `.form-group`
-    .form-control {
+    .jdb-form-control {
       display: inline-block;
       width: auto; // Prevent labels from stacking above inputs in `.form-group`
       vertical-align: middle;
     }
 
     // Make static controls behave like regular ones
-    .form-control-plaintext {
+    .jdb-form-control-plaintext {
       display: inline-block;
     }
 
@@ -304,27 +320,59 @@ textarea.form-control {
 
     // Remove default margin on radios/checkboxes that were used for stacking, and
     // then undo the floating of radios and checkboxes to match.
-    .form-check {
+    .jdb-form-check {
       display: flex;
       align-items: center;
       justify-content: center;
       width: auto;
       padding-left: 0;
     }
-    .form-check-input {
-      position: relative;
-      flex-shrink: 0;
-      margin-top: 0;
-      margin-right: $form-check-input-margin-x;
-      margin-left: 0;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      &.jdb-form-check-input {
+        position: relative;
+        flex-shrink: 0;
+        margin-top: 0;
+        margin-right: $form-check-input-margin-x;
+        margin-left: 0;
+      }
     }
 
     .custom-control {
       align-items: center;
       justify-content: center;
     }
+
     .custom-control-label {
       margin-bottom: 0;
     }
   }
+}
+
+.jdb-form-input-errors {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+  font-size: small;
+  color: red;
+  padding: 0 !important;
+
+  li {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+}
+
+.jdb-reuired-mark {
+  color: red;
+}
+
+.jdb-input-success {}
+
+.jdb-input-error {
+  border-color: red !important;
 }

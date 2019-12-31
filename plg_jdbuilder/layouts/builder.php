@@ -86,7 +86,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    <app-jdbuilder id="jdbuilder"></app-jdbuilder>
    <a href="javascript:void(0);" style="display: none;" id="jdb-export-link"></a>
    <div class="component-version-container">
-      <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span> | Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
+      <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span><?php echo \JText::_('JDBUILDER_VERSION_LABEL'); ?>| Developed with <span style="color: red">&hearts;</span> by <a href="https://www.joomdev.com" target="_blank">JoomDev</a></span>
       <div class="support-link">
          <a href="https://docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="https://www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="https://www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="https://www.youtube.com/playlist?list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="https://extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
       </div>
@@ -121,6 +121,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.ICONS = [];
    _JDB.ELEMENTS = [];
    _JDB.FONTS = [];
+   _JDB.MENUITEMS = [];
 
 
    _JDB.LOGGER = new JDLogger();
@@ -152,7 +153,6 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/scripts.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/jdbuilder.min.js<?php echo $version; ?>"></script>
-<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/csslint.js<?php echo $version; ?>"></script>
 <script>
    JDBRenderer.Helper.baseUrl = '<?php echo JURI::root(); ?>';
 </script>
@@ -165,7 +165,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v<?php echo JDPageBuilder\Constants::FONTAWESOME_VERSION; ?>/css/all.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
 

@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 class Row extends BaseElement
 {
 
-   protected $columns = [];
+   public $columns = [];
    public $inner = false;
 
    public function __construct($object, $parent = null, $inner = false)

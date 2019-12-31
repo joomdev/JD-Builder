@@ -106,7 +106,6 @@
                name="linkNoFollow"
                type="switch"
                label="JDB_LINK_NOFOLLOW_LBL"
-               description="JDB_LINK_NOFOLLOW_DESC"
                showon="params.link!=''"
                group="basic"
             >
