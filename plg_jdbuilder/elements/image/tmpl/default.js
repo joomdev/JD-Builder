@@ -14,7 +14,7 @@
       // image title and alt
       var imageTitle = element.params.get('title', '');
       if (imageTitle != '') {
-         attrs.push('title="' + imageTitle + '"');
+         // attrs.push('title="' + imageTitle + '"');
          attrs.push('alt="' + imageTitle + '"');
       }
 
