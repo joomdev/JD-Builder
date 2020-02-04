@@ -20,7 +20,7 @@ if (empty($image)) {
 // image title and alt
 $imageTitle = $element->params->get('title', '');
 if (!empty($imageTitle)) {
-   $attrs[] = 'title="' . $imageTitle . '"';
+   // $attrs[] = 'title="' . $imageTitle . '"';
    $attrs[] = 'alt="' . $imageTitle . '"';
 }
 
