@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `#__jdbuilder_favourites` (
 `created` BIGINT(12) NOT NULL DEFAULT '0',
 `updated` BIGINT(12) NOT NULL DEFAULT '0',
 PRIMARY KEY (`id`)
-);
+) DEFAULT COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__jdbuilder_templates` (
 `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS `#__jdbuilder_templates` (
 `created` BIGINT(12) NOT NULL DEFAULT '0',
 `updated` BIGINT(12) NOT NULL DEFAULT '0',
 PRIMARY KEY (`id`)
-);
+) DEFAULT COLLATE=utf8mb4_unicode_ci;

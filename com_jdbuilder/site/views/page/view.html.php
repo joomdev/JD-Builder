@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -49,8 +49,10 @@ class JdbuilderViewPage extends JViewLegacy {
          throw new Exception(implode("\n", $errors));
       }
 
-      if (!in_array($this->item->access, $user->getAuthorisedViewLevels())) {
-         return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+      if(!JDB_LIVE_PREVIEW){
+         if (!in_array($this->item->access, $user->getAuthorisedViewLevels())) {
+            return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+         }
       }
 
 

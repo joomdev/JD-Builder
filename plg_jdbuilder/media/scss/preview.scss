@@ -1,70 +1,113 @@
-$width: 30px;
+$width: 40px;
 
-@mixin edit-btn($color){
+@mixin edit-btn($color) {
    display: none;
    position: absolute;
    z-index: 999;
-   background: $color;
-   width: $width;
-   height: $width;
-   cursor: pointer;
+   background-color: $color;
+   outline: 0 !important;
+   color: #fff;
+
+   // width: $width;
+   // height: $width;
+   // border-radius: $width;
+   // cursor: pointer;
+   ~.element-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid $color;
+      z-index: 99;
+      display: none;
+   }
+
+   &:hover {
+      background-color: $color;
+
+      ~.element-border {
+         display: block;
+      }
+   }
 }
 
-.jdb-section{
+.jdb-section {
    position: relative;
-   > .jdb-settings{
+
+   >.jdb-settings {
       @include edit-btn(#84d155);
       top: 0;
       left: 0;
    }
-   &:hover{
-      > .jdb-settings{
+
+   &:hover {
+      >.jdb-settings {
          display: block;
       }
    }
 }
 
-.jdb-row{
+.jdb-row {
    position: relative;
-   > .jdb-settings{
+
+   >.jdb-settings {
       @include edit-btn(#dd506a);
       top: 0;
       right: 0;
    }
-   &:hover{
-      > .jdb-settings{
+
+   &:hover {
+      >.jdb-settings {
          display: block;
       }
    }
 }
 
-.jdb-column{
+.jdb-column {
    position: relative;
-   > .jdb-settings{
+
+   >.jdb-settings {
       @include edit-btn(#8E2DE2);
       top: 0;
       left: 50%;
       margin-left: -$width/2;
+      margin-top: -$width/2;
    }
-   &:hover{
-      > .jdb-settings{
+
+   &:hover {
+      >.jdb-settings {
          display: block;
       }
    }
 }
 
-.jdb-element{
+.jdb-element {
    position: relative;
-   > .jdb-settings{
+
+   >.jdb-settings {
       @include edit-btn(#464ed2);
       top: 50%;
       left: 50%;
       margin-left: -$width/2;
       margin-top: -$width/2;
    }
-   &:hover{
-      > .jdb-settings{
+
+   &:hover {
+      >.jdb-settings {
          display: block;
       }
    }
+}
+
+.jdb-preview-guides {
+   &:hover {
+      outline: 2px dashed rgba(0, 0, 0, 0.2);
+      outline-offset: -2px;
+   }
+}
+
+.jd-edit-panel{
+   width: 300px;
+   padding: 20px 60px;
 }

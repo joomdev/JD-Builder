@@ -13,11 +13,11 @@
             <field type="list" name="state" label="JDB_STATUS" default="1" group="publishing">
                <option value="1">JDB_PUBLISHED</option>
                <option value="0">JDB_UNPUBLISHED</option>
-               <option value="2">JDB_ARCHIVED</option>
                <option value="-2">JDB_TRASHED</option>
             </field>
             <field name="category_id" extension="com_jdbuilder" multiple="false" type="category" label="JDB_CATEGORY" group="publishing" action="true" default="0" />
-            
+            <field type="accesslevel" name="access" label="JDB_ACCESS_LABEL" default="1" group="publishing"></field>
+
             <!-- SEO Options -->
             <field type="text" name="metaTitle" label="JDB_TITLE" group="seo" default="">
             </field>
@@ -25,7 +25,7 @@
             </field>
             <field type="textarea" name="metaKeywords" label="JDB_KEYWORDS" group="seo" default="">
             </field>
-            
+
             <!-- Open Graph Options -->
             <field type="text" name="ogTitle" label="JDB_TITLE" group="opengraph" default="">
             </field>
@@ -33,9 +33,9 @@
             </field>
             <field type="image" name="ogImage" label="JDB_IMAGE" group="opengraph" default="">
             </field>
-            
+
             <!-- Open Graph Options -->
-            
+
          </fieldset>
 
          <fieldset name="design" label="JDB_DESIGN_TITLE">
@@ -96,7 +96,7 @@
             </field>
             <field type="typography" responsive="true" name="pageH4Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h4_typography">
             </field>
-            
+
 
             <field type="group" label="JDB_H5_TYPOGRAPHY" name="h5_typography">
             </field>

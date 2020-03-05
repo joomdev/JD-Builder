@@ -13,6 +13,12 @@ img {
    font-family: $font-family-base;
 }
 
+.empty-hidden {
+   &:empty {
+      display: none !important;
+   }
+}
+
 // column
 .jdb-column {
    .jdb-column-inner {
@@ -75,10 +81,26 @@ img {
 }
 
 // Button Element
+.jdb-button-container {
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-wrap: wrap;
+   flex-wrap: wrap;
+}
+
+.jdb-button-wrapper {
+   -ms-flex: 0 0 auto;
+   flex: 0 0 auto;
+   width: auto;
+   max-width: 100%;
+}
+
 .jdb-button {
    display: inline-block;
+   width: 100%;
 
    >.jdb-button-link {
+      width: 100%;
       display: inline-block;
       text-align: center;
       vertical-align: middle;
@@ -101,6 +123,13 @@ img {
          >.jdb-button-link {
             @include button-variant($value, $value);
          }
+      }
+   }
+
+   &.jdb-button-anchor {
+      >.jdb-button-link {
+         @include button-variant(transparent, transparent, #f1f3fe, transparent, #dee2fc, transparent);
+         color: #1b43ef;
       }
    }
 
@@ -1047,6 +1076,8 @@ img {
       margin-bottom: 15px;
       color: #fff;
       box-sizing: content-box;
+      display: inline-block;
+      width: 100%;
 
       .jdb-progressbar-progress {
          position: absolute;
@@ -1121,6 +1152,10 @@ img {
                color: $value;
             }
          }
+      }
+
+      &:last-child {
+         margin-bottom: 0 !important;
       }
    }
 }
@@ -1499,6 +1534,15 @@ img {
             padding-right: 15px;
             margin-left: 15px;
          }
+
+         .jdb-testimonial-author-avatar {
+            align-items: flex-start;
+            flex: 0;
+         }
+
+         .jdb-testimonial-author-info {
+            justify-content: flex-start;
+         }
       }
 
       &.jdb-testimonial-imageright {
@@ -1514,6 +1558,15 @@ img {
             padding-left: 15px;
             padding-right: 15px;
             margin-right: 15px;
+         }
+
+         .jdb-testimonial-author-avatar {
+            align-items: flex-start;
+            flex: 0;
+         }
+
+         .jdb-testimonial-author-info {
+            justify-content: flex-start;
          }
       }
    }

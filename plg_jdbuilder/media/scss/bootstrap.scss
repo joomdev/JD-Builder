@@ -18,10 +18,16 @@
 @import "gallery";
 @import "before-after";
 @import "position";
-@import "forms";
+
+.jdbuilder {
+    @import "forms";
+    @import "input-group";
+}
+
 @import "joomla-articles";
 @import "custom-forms";
 @import "jdb-elements";
 @import "spinners";
 @import "animated-headings";
 @import "hover/hover";
+@import "pikaday";

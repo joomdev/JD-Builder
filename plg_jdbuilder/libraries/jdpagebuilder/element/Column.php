@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -64,11 +64,6 @@ class Column extends BaseElement
 
       // Background Video
       $content[] = $this->getBackgroundVideo();
-
-      if ($this->livepreview) {
-         //$content[] = '<div class="jdb-settings" data-element-id="' . $this->id . '"></div>';
-      }
-
 
       return implode("", $content);
    }

@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -54,7 +54,11 @@ class Field
          $this->label = $this->name;
       }
       $description = (string) $this->xml->attributes()->description;
-      $this->description = \JText::_($description);
+      if ($description == 'JDB_PHP_MAX_UPLOAD_SIZE') {
+         $this->description = \JText::sprintf('JDB_PHP_MAX_UPLOAD_SIZE', '<strong>' . \JFilesystemHelper::fileUploadMaxSize() . '</strong>');
+      } else {
+         $this->description = \JText::_($description);
+      }
 
       $required = (string) $this->xml->attributes()->required;
       $this->required = $required == 'true' ? true : false;
@@ -79,6 +83,12 @@ class Field
       $responsive = (string) $this->xml->attributes()->responsive;
       $this->responsive = strtolower($responsive) == "true" ? true : false;
       $this->invisible = $invisible;
+
+      $showInfo = (string) $this->xml->attributes()->showInfo;
+      $this->showInfo = ($showInfo == 'true' ? true : false);
+
+      $taggable = (string) $this->xml->attributes()->taggable;
+      $this->taggable = ($taggable == 'true' ? true : false);
 
       $this->setValue($defaults);
    }
@@ -106,6 +116,7 @@ class Field
          $default = $defaults[$this->name];
       } else {
          $default = (string) $this->xml->attributes()->default;
+         $default = \JText::_($default);
       }
       switch ($this->type) {
          case 'typography':
@@ -268,6 +279,14 @@ class Field
             if (!empty($itemtitle)) {
                $return['itemtitle'] = \JText::_($itemtitle);
             }
+            if ($this->taggable) {
+               $tagkey = (string) $this->xml->attributes()->{'tag-key'};
+               if (!empty($tagkey)) {
+                  $return['tagkey'] = $tagkey;
+               } else {
+                  $this->taggable = false;
+               }
+            }
             $itemicon = (string) $this->xml->attributes()->{'item-icon'};
             if (!empty($itemicon)) {
                $return['itemicon'] = \JText::_($itemicon);
@@ -365,9 +384,9 @@ class Field
             break;
          case 'accesslevel':
             $return['type'] = 'list';
-            $return['multiple'] = true;
-            $this->value = empty($this->value) ? [] : Helper::jsonDecode($this->value);
-            $return['search'] = true;
+            $return['multiple'] = false;
+            $this->value = (empty($this->value) || !is_numeric($this->value)) ? '' : $this->value;
+            $return['search'] = false;
             $return['options'] = $this->getAccessLevels();
             $return['groups'] = [];
             break;
@@ -493,6 +512,12 @@ class Field
          // $return['default'] = $this->value;
       }
       $return['invisible'] = $this->invisible;
+      if ($this->showInfo) {
+         $return['showInfo'] = true;
+      }
+      if ($this->taggable) {
+         $return['taggable'] = true;
+      }
       return $return;
    }
 
@@ -587,7 +612,7 @@ class Field
       $options = [];
       $options[] = ['label' => \JText::_('JDB_NONE'), 'value' => ''];
 
-      $path = JPATH_SITE . '/media/jdbuilder/data/shape-dividers';
+      $path = JDBPATH_MEDIA . '/data/shape-dividers';
       $dividers = glob($path . "/*.svg");
       foreach ($dividers as $divider) {
          $name = basename($divider);
@@ -616,6 +641,7 @@ class Field
       // Get the options.
       $db->setQuery($query);
       $options = $db->loadObjectList();
+      $default = [['label' => \JText::_('JDB_DEFAULT'), 'value' => '']];
       return (array) $options;
    }
 
@@ -940,10 +966,9 @@ class Field
 
       $templates = array($this->getSystemTemplate());
       $templates = array_merge($templates, $this->getTemplates());
-      $path = JPATH_SITE;
 
       foreach ($templates as $template) {
-         $modulesFilePath = $path . '/templates/' . $template->element . '/html/modules.php';
+         $modulesFilePath = JPATH_SITE . '/templates/' . $template->element . '/html/modules.php';
          if (file_exists($modulesFilePath)) {
             $modulesFileData = file_get_contents($modulesFilePath);
 

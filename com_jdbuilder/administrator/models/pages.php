@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -172,6 +172,10 @@ class JdbuilderModelPages extends JModelList {
          $access = implode(',', $access);
          $query->where('a.access IN (' . $access . ')');
       }
+      /* if(!empty($access)){
+         $access = implode('|', $access);
+         $query->where('CONCAT(",", `access`, ",") REGEXP ",(' . $access . '),"');
+      } */
 
       // Filtering language
       $filter_language = $this->state->get("filter.language");
@@ -214,6 +218,20 @@ class JdbuilderModelPages extends JModelList {
 
             $oneItem->category_id = !empty($result) ? implode(', ', $result) : '';
          }
+         
+         /* if (isset($oneItem->access)) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query
+                    ->select($db->quoteName('title'))
+                    ->from($db->quoteName('#__viewlevels'))
+                    ->where('FIND_IN_SET(' . $db->quoteName('id') . ', ' . $db->quote($oneItem->access) . ')');
+
+            $db->setQuery($query);
+            $result = $db->loadColumn();
+
+            $oneItem->access = !empty($result) ? implode(', ', $result) : '';
+         } */
       }
 
       return $items;

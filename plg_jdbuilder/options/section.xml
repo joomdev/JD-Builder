@@ -15,7 +15,7 @@
                <option value="">JDB_SECTION_DEFAULT_TAG</option>
                <option value="div">JDB_DIV_TAG</option>
                <option value="header">JDB_HEADER_TAG</option>
-               <option value="Footer">JDB_FOOTER_TAG</option>
+               <option value="footer">JDB_FOOTER_TAG</option>
                <option value="main">JDB_MAIN_TAG</option>
                <option value="article">JDB_ARTICLE_TAG</option>
                <option value="section">JDB_SECTION_TAG</option>

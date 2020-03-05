@@ -3,12 +3,12 @@
    <name>JD Builder</name>
    <element>com_jdbuilder</element>
    <creationDate>Dec 2019</creationDate>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <author>Team Joomdev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <version>1.4.0</version>
+   <version>1.5.0</version>
    <description>{jdbcomdesc}</description>
    <install> <!-- Runs on install -->
       <sql>
@@ -16,9 +16,9 @@
       </sql>
    </install>
    <update> <!-- Runs on update -->
-      <sql>
-         <file driver="mysql" charset="utf8">sql/update.mysql.utf8.sql</file>
-      </sql>
+      <schemas>
+         <schemapath type="mysql">sql/updates</schemapath>
+      </schemas>
    </update>
    <uninstall> <!-- Runs on uninstall -->
       <sql>

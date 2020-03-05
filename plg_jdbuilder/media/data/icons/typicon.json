@@ -1,0 +1,1350 @@
+{
+    "title": "Typicons",
+    "version": "2.0.9",
+    "icons": [
+        {
+            "label": "adjust-brightness",
+            "class": "typcn typcn-adjust-brightness"
+        },
+        {
+            "label": "adjust-contrast",
+            "class": "typcn typcn-adjust-contrast"
+        },
+        {
+            "label": "anchor-outline",
+            "class": "typcn typcn-anchor-outline"
+        },
+        {
+            "label": "anchor",
+            "class": "typcn typcn-anchor"
+        },
+        {
+            "label": "archive",
+            "class": "typcn typcn-archive"
+        },
+        {
+            "label": "arrow-back-outline",
+            "class": "typcn typcn-arrow-back-outline"
+        },
+        {
+            "label": "arrow-back",
+            "class": "typcn typcn-arrow-back"
+        },
+        {
+            "label": "arrow-down-outline",
+            "class": "typcn typcn-arrow-down-outline"
+        },
+        {
+            "label": "arrow-down-thick",
+            "class": "typcn typcn-arrow-down-thick"
+        },
+        {
+            "label": "arrow-down",
+            "class": "typcn typcn-arrow-down"
+        },
+        {
+            "label": "arrow-forward-outline",
+            "class": "typcn typcn-arrow-forward-outline"
+        },
+        {
+            "label": "arrow-forward",
+            "class": "typcn typcn-arrow-forward"
+        },
+        {
+            "label": "arrow-left-outline",
+            "class": "typcn typcn-arrow-left-outline"
+        },
+        {
+            "label": "arrow-left-thick",
+            "class": "typcn typcn-arrow-left-thick"
+        },
+        {
+            "label": "arrow-left",
+            "class": "typcn typcn-arrow-left"
+        },
+        {
+            "label": "arrow-loop-outline",
+            "class": "typcn typcn-arrow-loop-outline"
+        },
+        {
+            "label": "arrow-loop",
+            "class": "typcn typcn-arrow-loop"
+        },
+        {
+            "label": "arrow-maximise-outline",
+            "class": "typcn typcn-arrow-maximise-outline"
+        },
+        {
+            "label": "arrow-maximise",
+            "class": "typcn typcn-arrow-maximise"
+        },
+        {
+            "label": "arrow-minimise-outline",
+            "class": "typcn typcn-arrow-minimise-outline"
+        },
+        {
+            "label": "arrow-minimise",
+            "class": "typcn typcn-arrow-minimise"
+        },
+        {
+            "label": "arrow-move-outline",
+            "class": "typcn typcn-arrow-move-outline"
+        },
+        {
+            "label": "arrow-move",
+            "class": "typcn typcn-arrow-move"
+        },
+        {
+            "label": "arrow-repeat-outline",
+            "class": "typcn typcn-arrow-repeat-outline"
+        },
+        {
+            "label": "arrow-repeat",
+            "class": "typcn typcn-arrow-repeat"
+        },
+        {
+            "label": "arrow-right-outline",
+            "class": "typcn typcn-arrow-right-outline"
+        },
+        {
+            "label": "arrow-right-thick",
+            "class": "typcn typcn-arrow-right-thick"
+        },
+        {
+            "label": "arrow-right",
+            "class": "typcn typcn-arrow-right"
+        },
+        {
+            "label": "arrow-shuffle",
+            "class": "typcn typcn-arrow-shuffle"
+        },
+        {
+            "label": "arrow-sorted-down",
+            "class": "typcn typcn-arrow-sorted-down"
+        },
+        {
+            "label": "arrow-sorted-up",
+            "class": "typcn typcn-arrow-sorted-up"
+        },
+        {
+            "label": "arrow-sync-outline",
+            "class": "typcn typcn-arrow-sync-outline"
+        },
+        {
+            "label": "arrow-sync",
+            "class": "typcn typcn-arrow-sync"
+        },
+        {
+            "label": "arrow-unsorted",
+            "class": "typcn typcn-arrow-unsorted"
+        },
+        {
+            "label": "arrow-up-outline",
+            "class": "typcn typcn-arrow-up-outline"
+        },
+        {
+            "label": "arrow-up-thick",
+            "class": "typcn typcn-arrow-up-thick"
+        },
+        {
+            "label": "arrow-up",
+            "class": "typcn typcn-arrow-up"
+        },
+        {
+            "label": "at",
+            "class": "typcn typcn-at"
+        },
+        {
+            "label": "attachment-outline",
+            "class": "typcn typcn-attachment-outline"
+        },
+        {
+            "label": "attachment",
+            "class": "typcn typcn-attachment"
+        },
+        {
+            "label": "backspace-outline",
+            "class": "typcn typcn-backspace-outline"
+        },
+        {
+            "label": "backspace",
+            "class": "typcn typcn-backspace"
+        },
+        {
+            "label": "battery-charge",
+            "class": "typcn typcn-battery-charge"
+        },
+        {
+            "label": "battery-full",
+            "class": "typcn typcn-battery-full"
+        },
+        {
+            "label": "battery-high",
+            "class": "typcn typcn-battery-high"
+        },
+        {
+            "label": "battery-low",
+            "class": "typcn typcn-battery-low"
+        },
+        {
+            "label": "battery-mid",
+            "class": "typcn typcn-battery-mid"
+        },
+        {
+            "label": "beaker",
+            "class": "typcn typcn-beaker"
+        },
+        {
+            "label": "beer",
+            "class": "typcn typcn-beer"
+        },
+        {
+            "label": "bell",
+            "class": "typcn typcn-bell"
+        },
+        {
+            "label": "book",
+            "class": "typcn typcn-book"
+        },
+        {
+            "label": "bookmark",
+            "class": "typcn typcn-bookmark"
+        },
+        {
+            "label": "briefcase",
+            "class": "typcn typcn-briefcase"
+        },
+        {
+            "label": "brush",
+            "class": "typcn typcn-brush"
+        },
+        {
+            "label": "business-card",
+            "class": "typcn typcn-business-card"
+        },
+        {
+            "label": "calculator",
+            "class": "typcn typcn-calculator"
+        },
+        {
+            "label": "calendar-outline",
+            "class": "typcn typcn-calendar-outline"
+        },
+        {
+            "label": "calendar",
+            "class": "typcn typcn-calendar"
+        },
+        {
+            "label": "camera-outline",
+            "class": "typcn typcn-camera-outline"
+        },
+        {
+            "label": "camera",
+            "class": "typcn typcn-camera"
+        },
+        {
+            "label": "cancel-outline",
+            "class": "typcn typcn-cancel-outline"
+        },
+        {
+            "label": "cancel",
+            "class": "typcn typcn-cancel"
+        },
+        {
+            "label": "chart-area-outline",
+            "class": "typcn typcn-chart-area-outline"
+        },
+        {
+            "label": "chart-area",
+            "class": "typcn typcn-chart-area"
+        },
+        {
+            "label": "chart-bar-outline",
+            "class": "typcn typcn-chart-bar-outline"
+        },
+        {
+            "label": "chart-bar",
+            "class": "typcn typcn-chart-bar"
+        },
+        {
+            "label": "chart-line-outline",
+            "class": "typcn typcn-chart-line-outline"
+        },
+        {
+            "label": "chart-line",
+            "class": "typcn typcn-chart-line"
+        },
+        {
+            "label": "chart-pie-outline",
+            "class": "typcn typcn-chart-pie-outline"
+        },
+        {
+            "label": "chart-pie",
+            "class": "typcn typcn-chart-pie"
+        },
+        {
+            "label": "chevron-left-outline",
+            "class": "typcn typcn-chevron-left-outline"
+        },
+        {
+            "label": "chevron-left",
+            "class": "typcn typcn-chevron-left"
+        },
+        {
+            "label": "chevron-right-outline",
+            "class": "typcn typcn-chevron-right-outline"
+        },
+        {
+            "label": "chevron-right",
+            "class": "typcn typcn-chevron-right"
+        },
+        {
+            "label": "clipboard",
+            "class": "typcn typcn-clipboard"
+        },
+        {
+            "label": "cloud-storage",
+            "class": "typcn typcn-cloud-storage"
+        },
+        {
+            "label": "cloud-storage-outline",
+            "class": "typcn typcn-cloud-storage-outline"
+        },
+        {
+            "label": "code-outline",
+            "class": "typcn typcn-code-outline"
+        },
+        {
+            "label": "code",
+            "class": "typcn typcn-code"
+        },
+        {
+            "label": "coffee",
+            "class": "typcn typcn-coffee"
+        },
+        {
+            "label": "cog-outline",
+            "class": "typcn typcn-cog-outline"
+        },
+        {
+            "label": "cog",
+            "class": "typcn typcn-cog"
+        },
+        {
+            "label": "compass",
+            "class": "typcn typcn-compass"
+        },
+        {
+            "label": "contacts",
+            "class": "typcn typcn-contacts"
+        },
+        {
+            "label": "credit-card",
+            "class": "typcn typcn-credit-card"
+        },
+        {
+            "label": "css3",
+            "class": "typcn typcn-css3"
+        },
+        {
+            "label": "database",
+            "class": "typcn typcn-database"
+        },
+        {
+            "label": "delete-outline",
+            "class": "typcn typcn-delete-outline"
+        },
+        {
+            "label": "delete",
+            "class": "typcn typcn-delete"
+        },
+        {
+            "label": "device-desktop",
+            "class": "typcn typcn-device-desktop"
+        },
+        {
+            "label": "device-laptop",
+            "class": "typcn typcn-device-laptop"
+        },
+        {
+            "label": "device-phone",
+            "class": "typcn typcn-device-phone"
+        },
+        {
+            "label": "device-tablet",
+            "class": "typcn typcn-device-tablet"
+        },
+        {
+            "label": "directions",
+            "class": "typcn typcn-directions"
+        },
+        {
+            "label": "divide-outline",
+            "class": "typcn typcn-divide-outline"
+        },
+        {
+            "label": "divide",
+            "class": "typcn typcn-divide"
+        },
+        {
+            "label": "document-add",
+            "class": "typcn typcn-document-add"
+        },
+        {
+            "label": "document-delete",
+            "class": "typcn typcn-document-delete"
+        },
+        {
+            "label": "document-text",
+            "class": "typcn typcn-document-text"
+        },
+        {
+            "label": "document",
+            "class": "typcn typcn-document"
+        },
+        {
+            "label": "download-outline",
+            "class": "typcn typcn-download-outline"
+        },
+        {
+            "label": "download",
+            "class": "typcn typcn-download"
+        },
+        {
+            "label": "dropbox",
+            "class": "typcn typcn-dropbox"
+        },
+        {
+            "label": "edit",
+            "class": "typcn typcn-edit"
+        },
+        {
+            "label": "eject-outline",
+            "class": "typcn typcn-eject-outline"
+        },
+        {
+            "label": "eject",
+            "class": "typcn typcn-eject"
+        },
+        {
+            "label": "equals-outline",
+            "class": "typcn typcn-equals-outline"
+        },
+        {
+            "label": "equals",
+            "class": "typcn typcn-equals"
+        },
+        {
+            "label": "export-outline",
+            "class": "typcn typcn-export-outline"
+        },
+        {
+            "label": "export",
+            "class": "typcn typcn-export"
+        },
+        {
+            "label": "eye-outline",
+            "class": "typcn typcn-eye-outline"
+        },
+        {
+            "label": "eye",
+            "class": "typcn typcn-eye"
+        },
+        {
+            "label": "feather",
+            "class": "typcn typcn-feather"
+        },
+        {
+            "label": "film",
+            "class": "typcn typcn-film"
+        },
+        {
+            "label": "filter",
+            "class": "typcn typcn-filter"
+        },
+        {
+            "label": "flag-outline",
+            "class": "typcn typcn-flag-outline"
+        },
+        {
+            "label": "flag",
+            "class": "typcn typcn-flag"
+        },
+        {
+            "label": "flash-outline",
+            "class": "typcn typcn-flash-outline"
+        },
+        {
+            "label": "flash",
+            "class": "typcn typcn-flash"
+        },
+        {
+            "label": "flow-children",
+            "class": "typcn typcn-flow-children"
+        },
+        {
+            "label": "flow-merge",
+            "class": "typcn typcn-flow-merge"
+        },
+        {
+            "label": "flow-parallel",
+            "class": "typcn typcn-flow-parallel"
+        },
+        {
+            "label": "flow-switch",
+            "class": "typcn typcn-flow-switch"
+        },
+        {
+            "label": "folder-add",
+            "class": "typcn typcn-folder-add"
+        },
+        {
+            "label": "folder-delete",
+            "class": "typcn typcn-folder-delete"
+        },
+        {
+            "label": "folder-open",
+            "class": "typcn typcn-folder-open"
+        },
+        {
+            "label": "folder",
+            "class": "typcn typcn-folder"
+        },
+        {
+            "label": "gift",
+            "class": "typcn typcn-gift"
+        },
+        {
+            "label": "globe-outline",
+            "class": "typcn typcn-globe-outline"
+        },
+        {
+            "label": "globe",
+            "class": "typcn typcn-globe"
+        },
+        {
+            "label": "group-outline",
+            "class": "typcn typcn-group-outline"
+        },
+        {
+            "label": "group",
+            "class": "typcn typcn-group"
+        },
+        {
+            "label": "headphones",
+            "class": "typcn typcn-headphones"
+        },
+        {
+            "label": "heart-full-outline",
+            "class": "typcn typcn-heart-full-outline"
+        },
+        {
+            "label": "heart-half-outline",
+            "class": "typcn typcn-heart-half-outline"
+        },
+        {
+            "label": "heart-outline",
+            "class": "typcn typcn-heart-outline"
+        },
+        {
+            "label": "heart",
+            "class": "typcn typcn-heart"
+        },
+        {
+            "label": "home-outline",
+            "class": "typcn typcn-home-outline"
+        },
+        {
+            "label": "home",
+            "class": "typcn typcn-home"
+        },
+        {
+            "label": "html5",
+            "class": "typcn typcn-html5"
+        },
+        {
+            "label": "image-outline",
+            "class": "typcn typcn-image-outline"
+        },
+        {
+            "label": "image",
+            "class": "typcn typcn-image"
+        },
+        {
+            "label": "infinity-outline",
+            "class": "typcn typcn-infinity-outline"
+        },
+        {
+            "label": "infinity",
+            "class": "typcn typcn-infinity"
+        },
+        {
+            "label": "info-large-outline",
+            "class": "typcn typcn-info-large-outline"
+        },
+        {
+            "label": "info-large",
+            "class": "typcn typcn-info-large"
+        },
+        {
+            "label": "info-outline",
+            "class": "typcn typcn-info-outline"
+        },
+        {
+            "label": "info",
+            "class": "typcn typcn-info"
+        },
+        {
+            "label": "input-checked-outline",
+            "class": "typcn typcn-input-checked-outline"
+        },
+        {
+            "label": "input-checked",
+            "class": "typcn typcn-input-checked"
+        },
+        {
+            "label": "key-outline",
+            "class": "typcn typcn-key-outline"
+        },
+        {
+            "label": "key",
+            "class": "typcn typcn-key"
+        },
+        {
+            "label": "keyboard",
+            "class": "typcn typcn-keyboard"
+        },
+        {
+            "label": "leaf",
+            "class": "typcn typcn-leaf"
+        },
+        {
+            "label": "lightbulb",
+            "class": "typcn typcn-lightbulb"
+        },
+        {
+            "label": "link-outline",
+            "class": "typcn typcn-link-outline"
+        },
+        {
+            "label": "link",
+            "class": "typcn typcn-link"
+        },
+        {
+            "label": "location-arrow-outline",
+            "class": "typcn typcn-location-arrow-outline"
+        },
+        {
+            "label": "location-arrow",
+            "class": "typcn typcn-location-arrow"
+        },
+        {
+            "label": "location-outline",
+            "class": "typcn typcn-location-outline"
+        },
+        {
+            "label": "location",
+            "class": "typcn typcn-location"
+        },
+        {
+            "label": "lock-closed-outline",
+            "class": "typcn typcn-lock-closed-outline"
+        },
+        {
+            "label": "lock-closed",
+            "class": "typcn typcn-lock-closed"
+        },
+        {
+            "label": "lock-open-outline",
+            "class": "typcn typcn-lock-open-outline"
+        },
+        {
+            "label": "lock-open",
+            "class": "typcn typcn-lock-open"
+        },
+        {
+            "label": "mail",
+            "class": "typcn typcn-mail"
+        },
+        {
+            "label": "map",
+            "class": "typcn typcn-map"
+        },
+        {
+            "label": "media-eject-outline",
+            "class": "typcn typcn-media-eject-outline"
+        },
+        {
+            "label": "media-eject",
+            "class": "typcn typcn-media-eject"
+        },
+        {
+            "label": "media-fast-forward-outline",
+            "class": "typcn typcn-media-fast-forward-outline"
+        },
+        {
+            "label": "media-fast-forward",
+            "class": "typcn typcn-media-fast-forward"
+        },
+        {
+            "label": "media-pause-outline",
+            "class": "typcn typcn-media-pause-outline"
+        },
+        {
+            "label": "media-pause",
+            "class": "typcn typcn-media-pause"
+        },
+        {
+            "label": "media-play-outline",
+            "class": "typcn typcn-media-play-outline"
+        },
+        {
+            "label": "media-play-reverse-outline",
+            "class": "typcn typcn-media-play-reverse-outline"
+        },
+        {
+            "label": "media-play-reverse",
+            "class": "typcn typcn-media-play-reverse"
+        },
+        {
+            "label": "media-play",
+            "class": "typcn typcn-media-play"
+        },
+        {
+            "label": "media-record-outline",
+            "class": "typcn typcn-media-record-outline"
+        },
+        {
+            "label": "media-record",
+            "class": "typcn typcn-media-record"
+        },
+        {
+            "label": "media-rewind-outline",
+            "class": "typcn typcn-media-rewind-outline"
+        },
+        {
+            "label": "media-rewind",
+            "class": "typcn typcn-media-rewind"
+        },
+        {
+            "label": "media-stop-outline",
+            "class": "typcn typcn-media-stop-outline"
+        },
+        {
+            "label": "media-stop",
+            "class": "typcn typcn-media-stop"
+        },
+        {
+            "label": "message-typing",
+            "class": "typcn typcn-message-typing"
+        },
+        {
+            "label": "message",
+            "class": "typcn typcn-message"
+        },
+        {
+            "label": "messages",
+            "class": "typcn typcn-messages"
+        },
+        {
+            "label": "microphone-outline",
+            "class": "typcn typcn-microphone-outline"
+        },
+        {
+            "label": "microphone",
+            "class": "typcn typcn-microphone"
+        },
+        {
+            "label": "minus-outline",
+            "class": "typcn typcn-minus-outline"
+        },
+        {
+            "label": "minus",
+            "class": "typcn typcn-minus"
+        },
+        {
+            "label": "mortar-board",
+            "class": "typcn typcn-mortar-board"
+        },
+        {
+            "label": "news",
+            "class": "typcn typcn-news"
+        },
+        {
+            "label": "notes-outline",
+            "class": "typcn typcn-notes-outline"
+        },
+        {
+            "label": "notes",
+            "class": "typcn typcn-notes"
+        },
+        {
+            "label": "pen",
+            "class": "typcn typcn-pen"
+        },
+        {
+            "label": "pencil",
+            "class": "typcn typcn-pencil"
+        },
+        {
+            "label": "phone-outline",
+            "class": "typcn typcn-phone-outline"
+        },
+        {
+            "label": "phone",
+            "class": "typcn typcn-phone"
+        },
+        {
+            "label": "pi-outline",
+            "class": "typcn typcn-pi-outline"
+        },
+        {
+            "label": "pi",
+            "class": "typcn typcn-pi"
+        },
+        {
+            "label": "pin-outline",
+            "class": "typcn typcn-pin-outline"
+        },
+        {
+            "label": "pin",
+            "class": "typcn typcn-pin"
+        },
+        {
+            "label": "pipette",
+            "class": "typcn typcn-pipette"
+        },
+        {
+            "label": "plane-outline",
+            "class": "typcn typcn-plane-outline"
+        },
+        {
+            "label": "plane",
+            "class": "typcn typcn-plane"
+        },
+        {
+            "label": "plug",
+            "class": "typcn typcn-plug"
+        },
+        {
+            "label": "plus-outline",
+            "class": "typcn typcn-plus-outline"
+        },
+        {
+            "label": "plus",
+            "class": "typcn typcn-plus"
+        },
+        {
+            "label": "point-of-interest-outline",
+            "class": "typcn typcn-point-of-interest-outline"
+        },
+        {
+            "label": "point-of-interest",
+            "class": "typcn typcn-point-of-interest"
+        },
+        {
+            "label": "power-outline",
+            "class": "typcn typcn-power-outline"
+        },
+        {
+            "label": "power",
+            "class": "typcn typcn-power"
+        },
+        {
+            "label": "printer",
+            "class": "typcn typcn-printer"
+        },
+        {
+            "label": "puzzle-outline",
+            "class": "typcn typcn-puzzle-outline"
+        },
+        {
+            "label": "puzzle",
+            "class": "typcn typcn-puzzle"
+        },
+        {
+            "label": "radar-outline",
+            "class": "typcn typcn-radar-outline"
+        },
+        {
+            "label": "radar",
+            "class": "typcn typcn-radar"
+        },
+        {
+            "label": "refresh-outline",
+            "class": "typcn typcn-refresh-outline"
+        },
+        {
+            "label": "refresh",
+            "class": "typcn typcn-refresh"
+        },
+        {
+            "label": "rss-outline",
+            "class": "typcn typcn-rss-outline"
+        },
+        {
+            "label": "rss",
+            "class": "typcn typcn-rss"
+        },
+        {
+            "label": "scissors-outline",
+            "class": "typcn typcn-scissors-outline"
+        },
+        {
+            "label": "scissors",
+            "class": "typcn typcn-scissors"
+        },
+        {
+            "label": "shopping-bag",
+            "class": "typcn typcn-shopping-bag"
+        },
+        {
+            "label": "shopping-cart",
+            "class": "typcn typcn-shopping-cart"
+        },
+        {
+            "label": "social-at-circular",
+            "class": "typcn typcn-social-at-circular"
+        },
+        {
+            "label": "social-dribbble-circular",
+            "class": "typcn typcn-social-dribbble-circular"
+        },
+        {
+            "label": "social-dribbble",
+            "class": "typcn typcn-social-dribbble"
+        },
+        {
+            "label": "social-facebook-circular",
+            "class": "typcn typcn-social-facebook-circular"
+        },
+        {
+            "label": "social-facebook",
+            "class": "typcn typcn-social-facebook"
+        },
+        {
+            "label": "social-flickr-circular",
+            "class": "typcn typcn-social-flickr-circular"
+        },
+        {
+            "label": "social-flickr",
+            "class": "typcn typcn-social-flickr"
+        },
+        {
+            "label": "social-github-circular",
+            "class": "typcn typcn-social-github-circular"
+        },
+        {
+            "label": "social-github",
+            "class": "typcn typcn-social-github"
+        },
+        {
+            "label": "social-google-plus-circular",
+            "class": "typcn typcn-social-google-plus-circular"
+        },
+        {
+            "label": "social-google-plus",
+            "class": "typcn typcn-social-google-plus"
+        },
+        {
+            "label": "social-instagram-circular",
+            "class": "typcn typcn-social-instagram-circular"
+        },
+        {
+            "label": "social-instagram",
+            "class": "typcn typcn-social-instagram"
+        },
+        {
+            "label": "social-last-fm-circular",
+            "class": "typcn typcn-social-last-fm-circular"
+        },
+        {
+            "label": "social-last-fm",
+            "class": "typcn typcn-social-last-fm"
+        },
+        {
+            "label": "social-linkedin-circular",
+            "class": "typcn typcn-social-linkedin-circular"
+        },
+        {
+            "label": "social-linkedin",
+            "class": "typcn typcn-social-linkedin"
+        },
+        {
+            "label": "social-pinterest-circular",
+            "class": "typcn typcn-social-pinterest-circular"
+        },
+        {
+            "label": "social-pinterest",
+            "class": "typcn typcn-social-pinterest"
+        },
+        {
+            "label": "social-skype-outline",
+            "class": "typcn typcn-social-skype-outline"
+        },
+        {
+            "label": "social-skype",
+            "class": "typcn typcn-social-skype"
+        },
+        {
+            "label": "social-tumbler-circular",
+            "class": "typcn typcn-social-tumbler-circular"
+        },
+        {
+            "label": "social-tumbler",
+            "class": "typcn typcn-social-tumbler"
+        },
+        {
+            "label": "social-twitter-circular",
+            "class": "typcn typcn-social-twitter-circular"
+        },
+        {
+            "label": "social-twitter",
+            "class": "typcn typcn-social-twitter"
+        },
+        {
+            "label": "social-vimeo-circular",
+            "class": "typcn typcn-social-vimeo-circular"
+        },
+        {
+            "label": "social-vimeo",
+            "class": "typcn typcn-social-vimeo"
+        },
+        {
+            "label": "social-youtube-circular",
+            "class": "typcn typcn-social-youtube-circular"
+        },
+        {
+            "label": "social-youtube",
+            "class": "typcn typcn-social-youtube"
+        },
+        {
+            "label": "sort-alphabetically-outline",
+            "class": "typcn typcn-sort-alphabetically-outline"
+        },
+        {
+            "label": "sort-alphabetically",
+            "class": "typcn typcn-sort-alphabetically"
+        },
+        {
+            "label": "sort-numerically-outline",
+            "class": "typcn typcn-sort-numerically-outline"
+        },
+        {
+            "label": "sort-numerically",
+            "class": "typcn typcn-sort-numerically"
+        },
+        {
+            "label": "spanner-outline",
+            "class": "typcn typcn-spanner-outline"
+        },
+        {
+            "label": "spanner",
+            "class": "typcn typcn-spanner"
+        },
+        {
+            "label": "spiral",
+            "class": "typcn typcn-spiral"
+        },
+        {
+            "label": "star-full-outline",
+            "class": "typcn typcn-star-full-outline"
+        },
+        {
+            "label": "star-half-outline",
+            "class": "typcn typcn-star-half-outline"
+        },
+        {
+            "label": "star-half",
+            "class": "typcn typcn-star-half"
+        },
+        {
+            "label": "star-outline",
+            "class": "typcn typcn-star-outline"
+        },
+        {
+            "label": "star",
+            "class": "typcn typcn-star"
+        },
+        {
+            "label": "starburst-outline",
+            "class": "typcn typcn-starburst-outline"
+        },
+        {
+            "label": "starburst",
+            "class": "typcn typcn-starburst"
+        },
+        {
+            "label": "stopwatch",
+            "class": "typcn typcn-stopwatch"
+        },
+        {
+            "label": "support",
+            "class": "typcn typcn-support"
+        },
+        {
+            "label": "tabs-outline",
+            "class": "typcn typcn-tabs-outline"
+        },
+        {
+            "label": "tag",
+            "class": "typcn typcn-tag"
+        },
+        {
+            "label": "tags",
+            "class": "typcn typcn-tags"
+        },
+        {
+            "label": "th-large-outline",
+            "class": "typcn typcn-th-large-outline"
+        },
+        {
+            "label": "th-large",
+            "class": "typcn typcn-th-large"
+        },
+        {
+            "label": "th-list-outline",
+            "class": "typcn typcn-th-list-outline"
+        },
+        {
+            "label": "th-list",
+            "class": "typcn typcn-th-list"
+        },
+        {
+            "label": "th-menu-outline",
+            "class": "typcn typcn-th-menu-outline"
+        },
+        {
+            "label": "th-menu",
+            "class": "typcn typcn-th-menu"
+        },
+        {
+            "label": "th-small-outline",
+            "class": "typcn typcn-th-small-outline"
+        },
+        {
+            "label": "th-small",
+            "class": "typcn typcn-th-small"
+        },
+        {
+            "label": "thermometer",
+            "class": "typcn typcn-thermometer"
+        },
+        {
+            "label": "thumbs-down",
+            "class": "typcn typcn-thumbs-down"
+        },
+        {
+            "label": "thumbs-ok",
+            "class": "typcn typcn-thumbs-ok"
+        },
+        {
+            "label": "thumbs-up",
+            "class": "typcn typcn-thumbs-up"
+        },
+        {
+            "label": "tick-outline",
+            "class": "typcn typcn-tick-outline"
+        },
+        {
+            "label": "tick",
+            "class": "typcn typcn-tick"
+        },
+        {
+            "label": "ticket",
+            "class": "typcn typcn-ticket"
+        },
+        {
+            "label": "time",
+            "class": "typcn typcn-time"
+        },
+        {
+            "label": "times-outline",
+            "class": "typcn typcn-times-outline"
+        },
+        {
+            "label": "times",
+            "class": "typcn typcn-times"
+        },
+        {
+            "label": "trash",
+            "class": "typcn typcn-trash"
+        },
+        {
+            "label": "tree",
+            "class": "typcn typcn-tree"
+        },
+        {
+            "label": "upload-outline",
+            "class": "typcn typcn-upload-outline"
+        },
+        {
+            "label": "upload",
+            "class": "typcn typcn-upload"
+        },
+        {
+            "label": "user-add-outline",
+            "class": "typcn typcn-user-add-outline"
+        },
+        {
+            "label": "user-add",
+            "class": "typcn typcn-user-add"
+        },
+        {
+            "label": "user-delete-outline",
+            "class": "typcn typcn-user-delete-outline"
+        },
+        {
+            "label": "user-delete",
+            "class": "typcn typcn-user-delete"
+        },
+        {
+            "label": "user-outline",
+            "class": "typcn typcn-user-outline"
+        },
+        {
+            "label": "user",
+            "class": "typcn typcn-user"
+        },
+        {
+            "label": "vendor-android",
+            "class": "typcn typcn-vendor-android"
+        },
+        {
+            "label": "vendor-apple",
+            "class": "typcn typcn-vendor-apple"
+        },
+        {
+            "label": "vendor-microsoft",
+            "class": "typcn typcn-vendor-microsoft"
+        },
+        {
+            "label": "video-outline",
+            "class": "typcn typcn-video-outline"
+        },
+        {
+            "label": "video",
+            "class": "typcn typcn-video"
+        },
+        {
+            "label": "volume-down",
+            "class": "typcn typcn-volume-down"
+        },
+        {
+            "label": "volume-mute",
+            "class": "typcn typcn-volume-mute"
+        },
+        {
+            "label": "volume-up",
+            "class": "typcn typcn-volume-up"
+        },
+        {
+            "label": "volume",
+            "class": "typcn typcn-volume"
+        },
+        {
+            "label": "warning-outline",
+            "class": "typcn typcn-warning-outline"
+        },
+        {
+            "label": "warning",
+            "class": "typcn typcn-warning"
+        },
+        {
+            "label": "watch",
+            "class": "typcn typcn-watch"
+        },
+        {
+            "label": "waves-outline",
+            "class": "typcn typcn-waves-outline"
+        },
+        {
+            "label": "waves",
+            "class": "typcn typcn-waves"
+        },
+        {
+            "label": "weather-cloudy",
+            "class": "typcn typcn-weather-cloudy"
+        },
+        {
+            "label": "weather-downpour",
+            "class": "typcn typcn-weather-downpour"
+        },
+        {
+            "label": "weather-night",
+            "class": "typcn typcn-weather-night"
+        },
+        {
+            "label": "weather-partly-sunny",
+            "class": "typcn typcn-weather-partly-sunny"
+        },
+        {
+            "label": "weather-shower",
+            "class": "typcn typcn-weather-shower"
+        },
+        {
+            "label": "weather-snow",
+            "class": "typcn typcn-weather-snow"
+        },
+        {
+            "label": "weather-stormy",
+            "class": "typcn typcn-weather-stormy"
+        },
+        {
+            "label": "weather-sunny",
+            "class": "typcn typcn-weather-sunny"
+        },
+        {
+            "label": "weather-windy-cloudy",
+            "class": "typcn typcn-weather-windy-cloudy"
+        },
+        {
+            "label": "weather-windy",
+            "class": "typcn typcn-weather-windy"
+        },
+        {
+            "label": "wi-fi-outline",
+            "class": "typcn typcn-wi-fi-outline"
+        },
+        {
+            "label": "wi-fi",
+            "class": "typcn typcn-wi-fi"
+        },
+        {
+            "label": "wine",
+            "class": "typcn typcn-wine"
+        },
+        {
+            "label": "world-outline",
+            "class": "typcn typcn-world-outline"
+        },
+        {
+            "label": "world",
+            "class": "typcn typcn-world"
+        },
+        {
+            "label": "zoom-in-outline",
+            "class": "typcn typcn-zoom-in-outline"
+        },
+        {
+            "label": "zoom-in",
+            "class": "typcn typcn-zoom-in"
+        },
+        {
+            "label": "zoom-out-outline",
+            "class": "typcn typcn-zoom-out-outline"
+        },
+        {
+            "label": "zoom-out",
+            "class": "typcn typcn-zoom-out"
+        },
+        {
+            "label": "zoom-outline",
+            "class": "typcn typcn-zoom-outline"
+        },
+        {
+            "label": "zoom",
+            "class": "typcn typcn-zoom"
+        }
+    ]
+}

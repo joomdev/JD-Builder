@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <fieldset label="COM_JDBUILDER" name="jdbuilder">
-        <field name="key" type="text" default="" label="JDB_ACTIVATION_KEY"></field>
-        <field name="gmapkey" type="text" default="" label="JDB_GOOGLE_MAP_KEY"></field>
         <field name="fbAppId" type="text" default="" label="JDB_FB_APP_ID"></field>
     </fieldset>
 
@@ -36,6 +34,12 @@
         <field name="debug" type="radio" class="btn-group btn-group-yesno" default="0" label="JDB_DEBUG_BUILDER">
             <option value="0">JDB_NO</option>
             <option value="1">JDB_YES</option>
+        </field>
+    </fieldset>
+    <fieldset label="JDB_INTEGRATIONS_TITLE" name="integrations">
+        <field name="article_integration" type="radio" class="btn-group btn-group-yesno" default="1" label="JDB_JOOMLA_ARTICLES_INTEGRATION">
+            <option value="0">JDB_DISABLED</option>
+            <option value="1">JDB_ENABLED</option>
         </field>
     </fieldset>
 </config>

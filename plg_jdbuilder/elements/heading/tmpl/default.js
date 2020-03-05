@@ -62,6 +62,19 @@
       ['heading', 'subheading'].forEach(function (_heading) {
          var _style = JDBRenderer.ElementStyle("> .jdb-heading-" + _heading);
          element.addChildStyle(_style);
+
+         if (_heading == 'heading') {
+            let headingSpacing = element.params.get('headingSpacing', null);
+            if (headingSpacing != null) {
+               JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+                  if ((_deviceObj.key in headingSpacing) && JDBRenderer.Helper.checkSliderValue(headingSpacing[_deviceObj.key])) {
+                     var mPos = element.params.get('subtitlePosition', 'below') == 'below' ? 'margin-bottom' : 'margin-top';
+                     _style.addCss(mPos, headingSpacing[_deviceObj.key].value + 'px', _deviceObj.type);
+                  }
+               });
+            }
+         }
+
          _style.addCss("color", element.params.get(_heading + "FontColor", ""));
          _style.addCss("text-shadow", element.params.get(_heading + "TextShadow", ""));
 

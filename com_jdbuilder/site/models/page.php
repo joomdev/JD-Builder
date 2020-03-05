@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access.
@@ -90,9 +90,11 @@ class JdbuilderModelPage extends JModelItem {
 
 
             // Check published state.
-            if ($published = $this->getState('filter.published')) {
-               if (isset($table->state) && $table->state != $published) {
-                  throw new Exception(JText::_('COM_JDBUILDER_ITEM_NOT_LOADED'), 403);
+            if(!JDB_LIVE_PREVIEW && !JDB_PREVIEW){
+               if ($published = $this->getState('filter.published')) {
+                  if (isset($table->state) && $table->state != $published) {
+                     throw new Exception(JText::_('COM_JDBUILDER_ITEM_NOT_LOADED'), 403);
+                  }
                }
             }
 

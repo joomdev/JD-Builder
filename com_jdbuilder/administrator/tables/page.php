@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -86,6 +86,7 @@ class JdbuilderTablepage extends JTable {
             $array['category_id'] = $params['category_id'];
             $array['language'] = $params['language'];
             $array['state'] = $params['state'];
+            $array['access'] = $params['access'];
          }
       }
 

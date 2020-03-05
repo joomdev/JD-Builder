@@ -4,36 +4,57 @@
 
       // button title
       var buttonTitle = element.params.get('buttonText', '');
-      element.addClass('jdb-button');
+      var buttonClass = [];
+      buttonClass.push('jdb-button');
 
-      let buttonStyle = JDBRenderer.ElementStyle('> .jdb-button-link');
-      let buttonHoverStyle = JDBRenderer.ElementStyle('> .jdb-button-link:hover');
+      let buttonWrapperStyle = JDBRenderer.ElementStyle('.jdb-button-wrapper');
+      let buttonStyle = JDBRenderer.ElementStyle('.jdb-button-link');
+      let buttonHoverStyle = JDBRenderer.ElementStyle('.jdb-button-link:hover');
 
       element.addChildStyle(buttonStyle);
       element.addChildStyle(buttonHoverStyle);
+      element.addChildStyle(buttonWrapperStyle);
 
       var _class = [];
       _class.push('jdb-button-link');
 
       // button type
       var buttonType = element.params.get('buttonType', 'primary');
-      element.addClass('jdb-button-' + buttonType);
+      buttonClass.push('jdb-button-' + buttonType);
 
       // button size
       var buttonSize = element.params.get('buttonSize', '');
       if (buttonSize != '') {
-         element.addClass('jdb-button-' + buttonSize);
+         buttonClass.push('jdb-button-' + buttonSize);
       }
 
       // Button Alignment
       var alignment = element.params.get('buttonAlignment', null);
       if (alignment != null) {
+
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {
-            if (_.isObject(alignment) && (_deviceObj.key in alignment) && alignment[_deviceObj.key] != '') {
-               if (alignment[_deviceObj.key] == 'block') {
-                  buttonStyle.addCss("width", "100%");
+            if (_deviceObj.key in alignment) {
+               var align = alignment[_deviceObj.key];
+               if (align != 'block') {
+                  buttonWrapperStyle.addCss('flex', '0 0 auto', _deviceObj.type);
+                  buttonWrapperStyle.addCss('-ms-flex', '0 0 auto', _deviceObj.type);
+                  buttonWrapperStyle.addCss('width', 'auto', _deviceObj.type);
+                  if (align == 'center') {
+                     buttonWrapperStyle.addCss('margin-right', 'auto', _deviceObj.type);
+                     buttonWrapperStyle.addCss('margin-left', 'auto', _deviceObj.type);
+                  } else if (align == 'right') {
+                     buttonWrapperStyle.addCss('margin-right', 'initial', _deviceObj.type);
+                     buttonWrapperStyle.addCss('margin-left', 'auto', _deviceObj.type);
+                  } else {
+                     buttonWrapperStyle.addCss('margin-right', 'auto', _deviceObj.type);
+                     buttonWrapperStyle.addCss('margin-left', 'initial', _deviceObj.type);
+                  }
                } else {
-                  element.addCss("text-align", alignment[_deviceObj.key], _deviceObj.type);
+                  buttonWrapperStyle.addCss('flex', '0 0 100%', _deviceObj.type);
+                  buttonWrapperStyle.addCss('-ms-flex', '0 0 100%', _deviceObj.type);
+                  buttonWrapperStyle.addCss('width', '100%', _deviceObj.type);
+                  buttonWrapperStyle.addCss('margin-right', 'initial', _deviceObj.type);
+                  buttonWrapperStyle.addCss('margin-left', 'initial', _deviceObj.type);
                }
             }
          });
@@ -43,7 +64,7 @@
 
 
       // link
-      var link = element.params.get("link", "javascript:void(0);");
+      var link = element.params.get("link", "#");
 
       var linkTargetBlank = element.params.get('linkTargetBlank', false);
       var linkTarget = linkTargetBlank ? ' target="_blank"' : "";
@@ -62,7 +83,7 @@
       var buttonIcon = element.params.get('buttonIcon', '');
       var iconPosition = element.params.get('iconPosition', 'right');
       if (buttonIcon != '') {
-         var iconStyle = JDBRenderer.ElementStyle('> .jdb-button-link > .jdb-button-icon');
+         var iconStyle = JDBRenderer.ElementStyle('.jdb-button-link > .jdb-button-icon');
          element.addChildStyle(iconStyle);
 
          var iconAnimation = element.params.get('iconAnimation', '');
@@ -82,7 +103,6 @@
             }
          }
       }
-
 
       // Background
       buttonStyle.addCss("background-color", element.params.get('buttonBackgroundColor', ''));
@@ -155,6 +175,9 @@
       buttonStyle.addCss("box-shadow", element.params.get('buttonBoxShadow', ''));
 
       var _html = [];
+      _html.push('<div class="jdb-button-container">')
+      _html.push('<div class="jdb-button-wrapper">')
+      _html.push('<div class="' + buttonClass.join(' ') + '">')
       _html.push('<a class="' + _class.join(" ") + '" href="' + link + '" title="' + buttonTitle + '"' + linkTarget + '' + linkRel + '>');
 
       if (iconPosition == 'left') {
@@ -168,6 +191,9 @@
       }
 
       _html.push('</a>');
+      _html.push('</div>');
+      _html.push('</div>');
+      _html.push('</div>');
 
       return _html.join("");
    }

@@ -1,0 +1,1138 @@
+{
+    "title": "Foundation",
+    "version": "3.0.0",
+    "icons": [
+        {
+            "label": "address-book",
+            "class": "fi-address-book"
+        },
+        {
+            "label": "alert",
+            "class": "fi-alert"
+        },
+        {
+            "label": "align-center",
+            "class": "fi-align-center"
+        },
+        {
+            "label": "align-justify",
+            "class": "fi-align-justify"
+        },
+        {
+            "label": "align-left",
+            "class": "fi-align-left"
+        },
+        {
+            "label": "align-right",
+            "class": "fi-align-right"
+        },
+        {
+            "label": "anchor",
+            "class": "fi-anchor"
+        },
+        {
+            "label": "annotate",
+            "class": "fi-annotate"
+        },
+        {
+            "label": "archive",
+            "class": "fi-archive"
+        },
+        {
+            "label": "arrow-down",
+            "class": "fi-arrow-down"
+        },
+        {
+            "label": "arrow-left",
+            "class": "fi-arrow-left"
+        },
+        {
+            "label": "arrow-right",
+            "class": "fi-arrow-right"
+        },
+        {
+            "label": "arrow-up",
+            "class": "fi-arrow-up"
+        },
+        {
+            "label": "arrows-compress",
+            "class": "fi-arrows-compress"
+        },
+        {
+            "label": "arrows-expand",
+            "class": "fi-arrows-expand"
+        },
+        {
+            "label": "arrows-in",
+            "class": "fi-arrows-in"
+        },
+        {
+            "label": "arrows-out",
+            "class": "fi-arrows-out"
+        },
+        {
+            "label": "asl",
+            "class": "fi-asl"
+        },
+        {
+            "label": "asterisk",
+            "class": "fi-asterisk"
+        },
+        {
+            "label": "at-sign",
+            "class": "fi-at-sign"
+        },
+        {
+            "label": "background-color",
+            "class": "fi-background-color"
+        },
+        {
+            "label": "battery-empty",
+            "class": "fi-battery-empty"
+        },
+        {
+            "label": "battery-full",
+            "class": "fi-battery-full"
+        },
+        {
+            "label": "battery-half",
+            "class": "fi-battery-half"
+        },
+        {
+            "label": "bitcoin-circle",
+            "class": "fi-bitcoin-circle"
+        },
+        {
+            "label": "bitcoin",
+            "class": "fi-bitcoin"
+        },
+        {
+            "label": "blind",
+            "class": "fi-blind"
+        },
+        {
+            "label": "bluetooth",
+            "class": "fi-bluetooth"
+        },
+        {
+            "label": "bold",
+            "class": "fi-bold"
+        },
+        {
+            "label": "book-bookmark",
+            "class": "fi-book-bookmark"
+        },
+        {
+            "label": "book",
+            "class": "fi-book"
+        },
+        {
+            "label": "bookmark",
+            "class": "fi-bookmark"
+        },
+        {
+            "label": "braille",
+            "class": "fi-braille"
+        },
+        {
+            "label": "burst-new",
+            "class": "fi-burst-new"
+        },
+        {
+            "label": "burst-sale",
+            "class": "fi-burst-sale"
+        },
+        {
+            "label": "burst",
+            "class": "fi-burst"
+        },
+        {
+            "label": "calendar",
+            "class": "fi-calendar"
+        },
+        {
+            "label": "camera",
+            "class": "fi-camera"
+        },
+        {
+            "label": "check",
+            "class": "fi-check"
+        },
+        {
+            "label": "checkbox",
+            "class": "fi-checkbox"
+        },
+        {
+            "label": "clipboard-notes",
+            "class": "fi-clipboard-notes"
+        },
+        {
+            "label": "clipboard-pencil",
+            "class": "fi-clipboard-pencil"
+        },
+        {
+            "label": "clipboard",
+            "class": "fi-clipboard"
+        },
+        {
+            "label": "clock",
+            "class": "fi-clock"
+        },
+        {
+            "label": "closed-caption",
+            "class": "fi-closed-caption"
+        },
+        {
+            "label": "cloud",
+            "class": "fi-cloud"
+        },
+        {
+            "label": "comment-minus",
+            "class": "fi-comment-minus"
+        },
+        {
+            "label": "comment-quotes",
+            "class": "fi-comment-quotes"
+        },
+        {
+            "label": "comment-video",
+            "class": "fi-comment-video"
+        },
+        {
+            "label": "comment",
+            "class": "fi-comment"
+        },
+        {
+            "label": "comments",
+            "class": "fi-comments"
+        },
+        {
+            "label": "compass",
+            "class": "fi-compass"
+        },
+        {
+            "label": "contrast",
+            "class": "fi-contrast"
+        },
+        {
+            "label": "credit-card",
+            "class": "fi-credit-card"
+        },
+        {
+            "label": "crop",
+            "class": "fi-crop"
+        },
+        {
+            "label": "crown",
+            "class": "fi-crown"
+        },
+        {
+            "label": "css3",
+            "class": "fi-css3"
+        },
+        {
+            "label": "database",
+            "class": "fi-database"
+        },
+        {
+            "label": "die-five",
+            "class": "fi-die-five"
+        },
+        {
+            "label": "die-four",
+            "class": "fi-die-four"
+        },
+        {
+            "label": "die-one",
+            "class": "fi-die-one"
+        },
+        {
+            "label": "die-six",
+            "class": "fi-die-six"
+        },
+        {
+            "label": "die-three",
+            "class": "fi-die-three"
+        },
+        {
+            "label": "die-two",
+            "class": "fi-die-two"
+        },
+        {
+            "label": "dislike",
+            "class": "fi-dislike"
+        },
+        {
+            "label": "dollar-bill",
+            "class": "fi-dollar-bill"
+        },
+        {
+            "label": "dollar",
+            "class": "fi-dollar"
+        },
+        {
+            "label": "download",
+            "class": "fi-download"
+        },
+        {
+            "label": "eject",
+            "class": "fi-eject"
+        },
+        {
+            "label": "elevator",
+            "class": "fi-elevator"
+        },
+        {
+            "label": "euro",
+            "class": "fi-euro"
+        },
+        {
+            "label": "eye",
+            "class": "fi-eye"
+        },
+        {
+            "label": "fast-forward",
+            "class": "fi-fast-forward"
+        },
+        {
+            "label": "female-symbol",
+            "class": "fi-female-symbol"
+        },
+        {
+            "label": "female",
+            "class": "fi-female"
+        },
+        {
+            "label": "filter",
+            "class": "fi-filter"
+        },
+        {
+            "label": "first-aid",
+            "class": "fi-first-aid"
+        },
+        {
+            "label": "flag",
+            "class": "fi-flag"
+        },
+        {
+            "label": "folder-add",
+            "class": "fi-folder-add"
+        },
+        {
+            "label": "folder-lock",
+            "class": "fi-folder-lock"
+        },
+        {
+            "label": "folder",
+            "class": "fi-folder"
+        },
+        {
+            "label": "foot",
+            "class": "fi-foot"
+        },
+        {
+            "label": "foundation",
+            "class": "fi-foundation"
+        },
+        {
+            "label": "graph-bar",
+            "class": "fi-graph-bar"
+        },
+        {
+            "label": "graph-horizontal",
+            "class": "fi-graph-horizontal"
+        },
+        {
+            "label": "graph-pie",
+            "class": "fi-graph-pie"
+        },
+        {
+            "label": "graph-trend",
+            "class": "fi-graph-trend"
+        },
+        {
+            "label": "guide-dog",
+            "class": "fi-guide-dog"
+        },
+        {
+            "label": "hearing-aid",
+            "class": "fi-hearing-aid"
+        },
+        {
+            "label": "heart",
+            "class": "fi-heart"
+        },
+        {
+            "label": "home",
+            "class": "fi-home"
+        },
+        {
+            "label": "html5",
+            "class": "fi-html5"
+        },
+        {
+            "label": "indent-less",
+            "class": "fi-indent-less"
+        },
+        {
+            "label": "indent-more",
+            "class": "fi-indent-more"
+        },
+        {
+            "label": "info",
+            "class": "fi-info"
+        },
+        {
+            "label": "italic",
+            "class": "fi-italic"
+        },
+        {
+            "label": "key",
+            "class": "fi-key"
+        },
+        {
+            "label": "laptop",
+            "class": "fi-laptop"
+        },
+        {
+            "label": "layout",
+            "class": "fi-layout"
+        },
+        {
+            "label": "lightbulb",
+            "class": "fi-lightbulb"
+        },
+        {
+            "label": "like",
+            "class": "fi-like"
+        },
+        {
+            "label": "link",
+            "class": "fi-link"
+        },
+        {
+            "label": "list-bullet",
+            "class": "fi-list-bullet"
+        },
+        {
+            "label": "list-number",
+            "class": "fi-list-number"
+        },
+        {
+            "label": "list-thumbnails",
+            "class": "fi-list-thumbnails"
+        },
+        {
+            "label": "list",
+            "class": "fi-list"
+        },
+        {
+            "label": "lock",
+            "class": "fi-lock"
+        },
+        {
+            "label": "loop",
+            "class": "fi-loop"
+        },
+        {
+            "label": "magnifying-glass",
+            "class": "fi-magnifying-glass"
+        },
+        {
+            "label": "mail",
+            "class": "fi-mail"
+        },
+        {
+            "label": "male-female",
+            "class": "fi-male-female"
+        },
+        {
+            "label": "male-symbol",
+            "class": "fi-male-symbol"
+        },
+        {
+            "label": "male",
+            "class": "fi-male"
+        },
+        {
+            "label": "map",
+            "class": "fi-map"
+        },
+        {
+            "label": "marker",
+            "class": "fi-marker"
+        },
+        {
+            "label": "megaphone",
+            "class": "fi-megaphone"
+        },
+        {
+            "label": "microphone",
+            "class": "fi-microphone"
+        },
+        {
+            "label": "minus-circle",
+            "class": "fi-minus-circle"
+        },
+        {
+            "label": "minus",
+            "class": "fi-minus"
+        },
+        {
+            "label": "mobile-signal",
+            "class": "fi-mobile-signal"
+        },
+        {
+            "label": "mobile",
+            "class": "fi-mobile"
+        },
+        {
+            "label": "monitor",
+            "class": "fi-monitor"
+        },
+        {
+            "label": "mountains",
+            "class": "fi-mountains"
+        },
+        {
+            "label": "music",
+            "class": "fi-music"
+        },
+        {
+            "label": "next",
+            "class": "fi-next"
+        },
+        {
+            "label": "no-dogs",
+            "class": "fi-no-dogs"
+        },
+        {
+            "label": "no-smoking",
+            "class": "fi-no-smoking"
+        },
+        {
+            "label": "page-add",
+            "class": "fi-page-add"
+        },
+        {
+            "label": "page-copy",
+            "class": "fi-page-copy"
+        },
+        {
+            "label": "page-csv",
+            "class": "fi-page-csv"
+        },
+        {
+            "label": "page-delete",
+            "class": "fi-page-delete"
+        },
+        {
+            "label": "page-doc",
+            "class": "fi-page-doc"
+        },
+        {
+            "label": "page-edit",
+            "class": "fi-page-edit"
+        },
+        {
+            "label": "page-export-csv",
+            "class": "fi-page-export-csv"
+        },
+        {
+            "label": "page-export-doc",
+            "class": "fi-page-export-doc"
+        },
+        {
+            "label": "page-export-pdf",
+            "class": "fi-page-export-pdf"
+        },
+        {
+            "label": "page-export",
+            "class": "fi-page-export"
+        },
+        {
+            "label": "page-filled",
+            "class": "fi-page-filled"
+        },
+        {
+            "label": "page-multiple",
+            "class": "fi-page-multiple"
+        },
+        {
+            "label": "page-pdf",
+            "class": "fi-page-pdf"
+        },
+        {
+            "label": "page-remove",
+            "class": "fi-page-remove"
+        },
+        {
+            "label": "page-search",
+            "class": "fi-page-search"
+        },
+        {
+            "label": "page",
+            "class": "fi-page"
+        },
+        {
+            "label": "paint-bucket",
+            "class": "fi-paint-bucket"
+        },
+        {
+            "label": "paperclip",
+            "class": "fi-paperclip"
+        },
+        {
+            "label": "pause",
+            "class": "fi-pause"
+        },
+        {
+            "label": "paw",
+            "class": "fi-paw"
+        },
+        {
+            "label": "paypal",
+            "class": "fi-paypal"
+        },
+        {
+            "label": "pencil",
+            "class": "fi-pencil"
+        },
+        {
+            "label": "photo",
+            "class": "fi-photo"
+        },
+        {
+            "label": "play-circle",
+            "class": "fi-play-circle"
+        },
+        {
+            "label": "play-video",
+            "class": "fi-play-video"
+        },
+        {
+            "label": "play",
+            "class": "fi-play"
+        },
+        {
+            "label": "plus",
+            "class": "fi-plus"
+        },
+        {
+            "label": "pound",
+            "class": "fi-pound"
+        },
+        {
+            "label": "power",
+            "class": "fi-power"
+        },
+        {
+            "label": "previous",
+            "class": "fi-previous"
+        },
+        {
+            "label": "price-tag",
+            "class": "fi-price-tag"
+        },
+        {
+            "label": "pricetag-multiple",
+            "class": "fi-pricetag-multiple"
+        },
+        {
+            "label": "print",
+            "class": "fi-print"
+        },
+        {
+            "label": "prohibited",
+            "class": "fi-prohibited"
+        },
+        {
+            "label": "projection-screen",
+            "class": "fi-projection-screen"
+        },
+        {
+            "label": "puzzle",
+            "class": "fi-puzzle"
+        },
+        {
+            "label": "quote",
+            "class": "fi-quote"
+        },
+        {
+            "label": "record",
+            "class": "fi-record"
+        },
+        {
+            "label": "refresh",
+            "class": "fi-refresh"
+        },
+        {
+            "label": "results-demographics",
+            "class": "fi-results-demographics"
+        },
+        {
+            "label": "results",
+            "class": "fi-results"
+        },
+        {
+            "label": "rewind-ten",
+            "class": "fi-rewind-ten"
+        },
+        {
+            "label": "rewind",
+            "class": "fi-rewind"
+        },
+        {
+            "label": "rss",
+            "class": "fi-rss"
+        },
+        {
+            "label": "safety-cone",
+            "class": "fi-safety-cone"
+        },
+        {
+            "label": "save",
+            "class": "fi-save"
+        },
+        {
+            "label": "share",
+            "class": "fi-share"
+        },
+        {
+            "label": "sheriff-badge",
+            "class": "fi-sheriff-badge"
+        },
+        {
+            "label": "shield",
+            "class": "fi-shield"
+        },
+        {
+            "label": "shopping-bag",
+            "class": "fi-shopping-bag"
+        },
+        {
+            "label": "shopping-cart",
+            "class": "fi-shopping-cart"
+        },
+        {
+            "label": "shuffle",
+            "class": "fi-shuffle"
+        },
+        {
+            "label": "skull",
+            "class": "fi-skull"
+        },
+        {
+            "label": "social-500px",
+            "class": "fi-social-500px"
+        },
+        {
+            "label": "social-adobe",
+            "class": "fi-social-adobe"
+        },
+        {
+            "label": "social-amazon",
+            "class": "fi-social-amazon"
+        },
+        {
+            "label": "social-android",
+            "class": "fi-social-android"
+        },
+        {
+            "label": "social-apple",
+            "class": "fi-social-apple"
+        },
+        {
+            "label": "social-behance",
+            "class": "fi-social-behance"
+        },
+        {
+            "label": "social-bing",
+            "class": "fi-social-bing"
+        },
+        {
+            "label": "social-blogger",
+            "class": "fi-social-blogger"
+        },
+        {
+            "label": "social-delicious",
+            "class": "fi-social-delicious"
+        },
+        {
+            "label": "social-designer-news",
+            "class": "fi-social-designer-news"
+        },
+        {
+            "label": "social-deviant-art",
+            "class": "fi-social-deviant-art"
+        },
+        {
+            "label": "social-digg",
+            "class": "fi-social-digg"
+        },
+        {
+            "label": "social-dribbble",
+            "class": "fi-social-dribbble"
+        },
+        {
+            "label": "social-drive",
+            "class": "fi-social-drive"
+        },
+        {
+            "label": "social-dropbox",
+            "class": "fi-social-dropbox"
+        },
+        {
+            "label": "social-evernote",
+            "class": "fi-social-evernote"
+        },
+        {
+            "label": "social-facebook",
+            "class": "fi-social-facebook"
+        },
+        {
+            "label": "social-flickr",
+            "class": "fi-social-flickr"
+        },
+        {
+            "label": "social-forrst",
+            "class": "fi-social-forrst"
+        },
+        {
+            "label": "social-foursquare",
+            "class": "fi-social-foursquare"
+        },
+        {
+            "label": "social-game-center",
+            "class": "fi-social-game-center"
+        },
+        {
+            "label": "social-github",
+            "class": "fi-social-github"
+        },
+        {
+            "label": "social-google-plus",
+            "class": "fi-social-google-plus"
+        },
+        {
+            "label": "social-hacker-news",
+            "class": "fi-social-hacker-news"
+        },
+        {
+            "label": "social-hi5",
+            "class": "fi-social-hi5"
+        },
+        {
+            "label": "social-instagram",
+            "class": "fi-social-instagram"
+        },
+        {
+            "label": "social-joomla",
+            "class": "fi-social-joomla"
+        },
+        {
+            "label": "social-lastfm",
+            "class": "fi-social-lastfm"
+        },
+        {
+            "label": "social-linkedin",
+            "class": "fi-social-linkedin"
+        },
+        {
+            "label": "social-medium",
+            "class": "fi-social-medium"
+        },
+        {
+            "label": "social-myspace",
+            "class": "fi-social-myspace"
+        },
+        {
+            "label": "social-orkut",
+            "class": "fi-social-orkut"
+        },
+        {
+            "label": "social-path",
+            "class": "fi-social-path"
+        },
+        {
+            "label": "social-picasa",
+            "class": "fi-social-picasa"
+        },
+        {
+            "label": "social-pinterest",
+            "class": "fi-social-pinterest"
+        },
+        {
+            "label": "social-rdio",
+            "class": "fi-social-rdio"
+        },
+        {
+            "label": "social-reddit",
+            "class": "fi-social-reddit"
+        },
+        {
+            "label": "social-skillshare",
+            "class": "fi-social-skillshare"
+        },
+        {
+            "label": "social-skype",
+            "class": "fi-social-skype"
+        },
+        {
+            "label": "social-smashing-mag",
+            "class": "fi-social-smashing-mag"
+        },
+        {
+            "label": "social-snapchat",
+            "class": "fi-social-snapchat"
+        },
+        {
+            "label": "social-spotify",
+            "class": "fi-social-spotify"
+        },
+        {
+            "label": "social-squidoo",
+            "class": "fi-social-squidoo"
+        },
+        {
+            "label": "social-stack-overflow",
+            "class": "fi-social-stack-overflow"
+        },
+        {
+            "label": "social-steam",
+            "class": "fi-social-steam"
+        },
+        {
+            "label": "social-stumbleupon",
+            "class": "fi-social-stumbleupon"
+        },
+        {
+            "label": "social-treehouse",
+            "class": "fi-social-treehouse"
+        },
+        {
+            "label": "social-tumblr",
+            "class": "fi-social-tumblr"
+        },
+        {
+            "label": "social-twitter",
+            "class": "fi-social-twitter"
+        },
+        {
+            "label": "social-vimeo",
+            "class": "fi-social-vimeo"
+        },
+        {
+            "label": "social-windows",
+            "class": "fi-social-windows"
+        },
+        {
+            "label": "social-xbox",
+            "class": "fi-social-xbox"
+        },
+        {
+            "label": "social-yahoo",
+            "class": "fi-social-yahoo"
+        },
+        {
+            "label": "social-yelp",
+            "class": "fi-social-yelp"
+        },
+        {
+            "label": "social-youtube",
+            "class": "fi-social-youtube"
+        },
+        {
+            "label": "social-zerply",
+            "class": "fi-social-zerply"
+        },
+        {
+            "label": "social-zurb",
+            "class": "fi-social-zurb"
+        },
+        {
+            "label": "sound",
+            "class": "fi-sound"
+        },
+        {
+            "label": "star",
+            "class": "fi-star"
+        },
+        {
+            "label": "stop",
+            "class": "fi-stop"
+        },
+        {
+            "label": "strikethrough",
+            "class": "fi-strikethrough"
+        },
+        {
+            "label": "subscript",
+            "class": "fi-subscript"
+        },
+        {
+            "label": "superscript",
+            "class": "fi-superscript"
+        },
+        {
+            "label": "tablet-landscape",
+            "class": "fi-tablet-landscape"
+        },
+        {
+            "label": "tablet-portrait",
+            "class": "fi-tablet-portrait"
+        },
+        {
+            "label": "target-two",
+            "class": "fi-target-two"
+        },
+        {
+            "label": "target",
+            "class": "fi-target"
+        },
+        {
+            "label": "telephone-accessible",
+            "class": "fi-telephone-accessible"
+        },
+        {
+            "label": "telephone",
+            "class": "fi-telephone"
+        },
+        {
+            "label": "text-color",
+            "class": "fi-text-color"
+        },
+        {
+            "label": "thumbnails",
+            "class": "fi-thumbnails"
+        },
+        {
+            "label": "ticket",
+            "class": "fi-ticket"
+        },
+        {
+            "label": "torso-business",
+            "class": "fi-torso-business"
+        },
+        {
+            "label": "torso-female",
+            "class": "fi-torso-female"
+        },
+        {
+            "label": "torso",
+            "class": "fi-torso"
+        },
+        {
+            "label": "torsos-all-female",
+            "class": "fi-torsos-all-female"
+        },
+        {
+            "label": "torsos-all",
+            "class": "fi-torsos-all"
+        },
+        {
+            "label": "torsos-female-male",
+            "class": "fi-torsos-female-male"
+        },
+        {
+            "label": "torsos-male-female",
+            "class": "fi-torsos-male-female"
+        },
+        {
+            "label": "torsos",
+            "class": "fi-torsos"
+        },
+        {
+            "label": "trash",
+            "class": "fi-trash"
+        },
+        {
+            "label": "trees",
+            "class": "fi-trees"
+        },
+        {
+            "label": "trophy",
+            "class": "fi-trophy"
+        },
+        {
+            "label": "underline",
+            "class": "fi-underline"
+        },
+        {
+            "label": "universal-access",
+            "class": "fi-universal-access"
+        },
+        {
+            "label": "unlink",
+            "class": "fi-unlink"
+        },
+        {
+            "label": "unlock",
+            "class": "fi-unlock"
+        },
+        {
+            "label": "upload-cloud",
+            "class": "fi-upload-cloud"
+        },
+        {
+            "label": "upload",
+            "class": "fi-upload"
+        },
+        {
+            "label": "usb",
+            "class": "fi-usb"
+        },
+        {
+            "label": "video",
+            "class": "fi-video"
+        },
+        {
+            "label": "volume-none",
+            "class": "fi-volume-none"
+        },
+        {
+            "label": "volume-strike",
+            "class": "fi-volume-strike"
+        },
+        {
+            "label": "volume",
+            "class": "fi-volume"
+        },
+        {
+            "label": "web",
+            "class": "fi-web"
+        },
+        {
+            "label": "wheelchair",
+            "class": "fi-wheelchair"
+        },
+        {
+            "label": "widget",
+            "class": "fi-widget"
+        },
+        {
+            "label": "wrench",
+            "class": "fi-wrench"
+        },
+        {
+            "label": "x-circle",
+            "class": "fi-x-circle"
+        },
+        {
+            "label": "x",
+            "class": "fi-x"
+        },
+        {
+            "label": "yen",
+            "class": "fi-yen"
+        },
+        {
+            "label": "zoom-in",
+            "class": "fi-zoom-in"
+        },
+        {
+            "label": "zoom-out",
+            "class": "fi-zoom-out"
+        }
+    ]
+}

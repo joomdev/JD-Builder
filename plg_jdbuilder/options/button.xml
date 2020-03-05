@@ -7,6 +7,7 @@
         <option value="danger">JDB_DANGER</option>
         <option value="warning">JDB_WARNING</option>
         <option value="info">JDB_INFO</option>
+        <option value="anchor">JDB_LINK</option>
     </field>
     <field type="list" name="size" label="JDB_BUTTON_SIZE" default="" width="6">
         <option value="sm">JDB_SIZE_SM</option>
@@ -14,7 +15,6 @@
         <option value="lg">JDB_SIZE_LG</option>
     </field>
     <field type="radio" radiotype="buttons" name="alignment" label="JDB_ALIGNMENT" default="left" responsive="true">
-        <option value="">JDB_DEFAULT</option>
         <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
         <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
         <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
@@ -29,7 +29,7 @@
     </field>
     <field type="radio" name="iconPosition" label="JDB_ICON_POSITION" radiotype="buttons" default="right" showon="params._fgIcon!=''" width="6">
         <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
-        <option value="right" con="fa fa-align-right">JDB_RIGHT</option>
+        <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
     </field>
     <field name="iconColor" type="color" showon="params._fgIcon!=''" label="JDB_ICON_COLOR_LABEL" default="" width="6">
     </field>

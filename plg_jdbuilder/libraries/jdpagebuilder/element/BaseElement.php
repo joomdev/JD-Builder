@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -26,15 +26,10 @@ class BaseElement
    public $parent;
    public $authorised = false;
    public $style;
-   public $livepreview = false;
    public $childStyles = [];
 
    public function __construct($object, $parent = null)
    {
-      $request = \JDPageBuilder\Builder::request();
-      if ($request->get('jdb-preview', 0) || $request->get('task', '') == 'livePreview') {
-         $this->livepreview = true;
-      }
       $this->id = isset($object->id) ? $object->id : null;
       $this->parent = $parent;
       if (isset($object->type)) {
@@ -553,13 +548,6 @@ class BaseElement
 
    public function responsiveOptions()
    {
-
-      $request = \JDPageBuilder\Builder::request();
-
-      if ($request->get('task', '') == 'livePreview') {
-         return;
-      }
-
       $hideDesktop = $this->params->get('hideDesktop', false);
       if ($hideDesktop) {
          $this->addClass('jdb-hide-desktop');
@@ -610,17 +598,14 @@ class BaseElement
 
    public function aclOptions()
    {
-      $access = $this->params->get('access', []);
+      $access = $this->params->get('access', 1);
       $authorised = false;
-      $auh = \JDPageBuilder\Builder::authorised();
-      if (!empty($access)) {
-         foreach ($access as $acl) {
-            if (\in_array($acl, \JDPageBuilder\Builder::authorised())) {
-               $authorised = true;
-            }
-         }
-      } else {
+
+      $access = is_array($access) ? 1 : $access;
+      if (\in_array($access, \JDPageBuilder\Builder::authorised())) {
          $authorised = true;
+      } else {
+         $authorised = false;
       }
       $this->authorised = $authorised;
    }
@@ -646,6 +631,8 @@ class ElementStyle
       if (is_string($value)) {
          $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
          $this->styles[$device][$property] = $value;
+      } else if (is_numeric($value)) {
+         $this->styles[$device][$property] = $value;
       }
    }
 
@@ -668,6 +655,12 @@ class ElementStyle
       foreach ($this->styles as $device => $styles) {
          if (!empty($styles)) {
             foreach ($styles as $property => $value) {
+               /* if ($device !== 'desktop' && isset($this->styles['desktop'][$property]) && $this->styles['desktop'][$property] == $value) {
+                  continue;
+               }
+               if ($device == 'mobile' && isset($this->styles['tablet'][$property]) && $this->styles['tablet'][$property] == $value) {
+                  continue;
+               } */
                $scss[$device] .= "{$property}:{$value};";
             }
          }

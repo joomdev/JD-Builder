@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -14,7 +14,6 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.helper');
 
 JLoader::registerNamespace('JDPageBuilder', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder', false, false, 'psr4');
-JLoader::registerNamespace('JDPageBuilder\\Element', JPATH_PLUGINS . '/system/jdbuilder/libraries/jdpagebuilder/element', false, false, 'psr4');
 
 class plgSystemJDBuilder extends JPlugin
 {
@@ -22,19 +21,18 @@ class plgSystemJDBuilder extends JPlugin
    protected $app;
    static $article_layouts = [];
 
-   function __construct(&$subject, $config)
+   public function onAfterRoute()
    {
-      parent::__construct($subject, $config);
-
-      $stat = stat(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', md5($stat['mtime']));
+      \JDPageBuilder\Builder::init($this->app);
+      $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 25 : md5($stat['mtime']));
       if ($this->app->isAdmin()) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
          define('JDB_DEBUG', $this->params->get('debug', 0));
          define('JDB_KEY', $buiderConfig->get('key', '', 'RAW'));
 
-         $xml = JFactory::getXML(JPATH_PLUGINS . '/system/jdbuilder/jdbuilder.xml');
+         $xml = JFactory::getXML(JDBPATH_PLUGIN . '/jdbuilder.xml');
          $version = (string) $xml->version;
          define('JDB_VERSION', $version);
 
@@ -216,7 +214,7 @@ class plgSystemJDBuilder extends JPlugin
    public function isValidView()
    {
       $option = $this->app->input->get('option', '');
-      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == "com_hikashop");
+      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == 'com_advancedmodules' || $option == "com_hikashop");
    }
 
    public function isPageView()
@@ -244,10 +242,7 @@ class plgSystemJDBuilder extends JPlugin
 
    public function isHikashopEdit()
    {
-      $option = $this->app->input->get('option', '');
-      $task = $this->app->input->get('task', '');
-      $ctrl = $this->app->input->get('ctrl', '');
-      return ($option == "com_hikashop" && $task == "edit" && $ctrl == "product");
+      return false;
    }
 
    public function isModuleEdit()
@@ -258,6 +253,9 @@ class plgSystemJDBuilder extends JPlugin
       $return = (($option == "com_modules" || $option == "com_advancedmodules") && $view == "module" && $layout == "edit");
       if ($return) {
          $extension_id = $this->app->getUserState('com_modules.add.module.extension_id');
+         if ($option == 'com_advancedmodules') {
+            $extension_id = $this->app->getUserState('com_advancedmodules.add.module.extension_id');
+         }
          $id = $this->app->input->get('id', 0, 'INT');
          $db = JFactory::getDbo();
          if (!empty($extension_id)) {
@@ -284,7 +282,7 @@ class plgSystemJDBuilder extends JPlugin
    public function addBodyClass()
    {
       $body = $this->app->getBody();
-      $body = preg_replace_callback('/(<body\s[^>]*class=")([^"]*)("[^>]*>)(.*)(<\/body>)/siU', function ($matches) {
+      $body = preg_replace_callback('/(<body\s[^>]*class=")([^"]*)("[^>]*>)/siU', function ($matches) {
          $class = $matches[2];
          $class = empty($class) ? 'jdbuilder' : $class . ' jdbuilder';
          $html = str_replace('class="' . $matches[2] . '"', 'class="' . $class . '"', $matches[0]);
@@ -498,14 +496,14 @@ class plgSystemJDBuilder extends JPlugin
       if ($layout === "edit") {
          $adminMenu = '<ul class="nav disabled"><li class="disabled"><a class="no-dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '</a></li></ul>';
       } else {
-         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li></ul></li></ul>';
+         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_config&view=component&component=com_jdbuilder">' . \JText::_('COM_JDBUILDER_TITLE_SETTINGS') . '</a></li></ul></li></ul>';
       }
       $body = $this->app->getBody();
       $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
       $this->app->setBody($body);
    }
 
-   public function onExtensionBeforeSave($context, &$item, $isNew)
+   public function onExtensionBeforeSave($context, $item, $isNew)
    {
       if ($context !== 'com_modules.module' || $item->module !== 'mod_jdbuilder') {
          return true;
@@ -551,17 +549,18 @@ class plgSystemJDBuilder extends JPlugin
          $func = $task[1];
          $data = null;
 
-         if (!file_exists(JPATH_PLUGINS . '/system/jdbuilder/elements/' . $element . '/helper.php')) {
+         if (!file_exists(JDBPATH_ELEMENTS . '/' . $element . '/helper.php')) {
             throw new \Exception('Bad Request', 400);
          }
 
-         require_once(JPATH_PLUGINS . '/system/jdbuilder/elements/' . $element . '/helper.php');
+         require_once(JDBPATH_ELEMENTS . '/' . $element . '/helper.php');
 
          $class = 'JDBuilder' . \JDPageBuilder\Helper::classify($element) . 'ElementHelper';
 
          if (!method_exists($class, $func)) {
             throw new \Exception('Bad Request', 400);
          } else {
+            \JDPageBuilder\Helper::loadLanguage();
             $namespace = new $class();
             $data = $namespace->$func();
          }

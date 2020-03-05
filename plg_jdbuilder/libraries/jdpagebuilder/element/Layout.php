@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -17,9 +17,11 @@ class Layout extends BaseElement
 
    public $sections = [];
 
-   public function __construct($object)
+   public function __construct($object, $type = 'page', $id = 0)
    {
       parent::__construct($object);
+      $this->itemType = $type;
+      $this->itemID = $id;
       $layout = \json_decode($object->layout, FALSE);
       if (isset($layout->sections)) {
          foreach ($layout->sections as $section) {

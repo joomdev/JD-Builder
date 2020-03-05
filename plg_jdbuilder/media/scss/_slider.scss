@@ -272,13 +272,29 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    justify-content: center;
+
+    &.center {
+        justify-content: center;
+    }
+    
+    &.left {
+        justify-content: flex-start;
+    }
+    
+    &.right {
+        justify-content: flex-end;
+    }
+    
+    &.stacked {
+        justify-content: center;
+        flex-direction: column;
+    }
 
     .jdb-button {
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
         width: auto;
         max-width: 100%;
-        padding: 0px 5px;
+        padding: 5px;
     }
 }

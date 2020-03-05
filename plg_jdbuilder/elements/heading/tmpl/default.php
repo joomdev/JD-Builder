@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -50,14 +50,14 @@ if ($subtitlePosition == "above") {
 
    <?php
    if (!empty($link)) {
-      ?>
+   ?>
       <a title="<?php echo $title; ?>" href="<?php echo $link; ?>" <?php echo $linkTarget; ?><?php echo $linkRel; ?>>
       <?php
-      }
+   }
 
-      echo $title;
-      if (!empty($link)) {
-         ?>
+   echo $title;
+   if (!empty($link)) {
+      ?>
       </a>
    <?php
    }
@@ -73,6 +73,18 @@ foreach (['heading', 'subheading'] as $heading) {
 
    $style = new JDPageBuilder\Element\ElementStyle("> .jdb-heading-" . $heading);
    $element->addChildStyle($style);
+
+   if ($heading == 'heading') {
+      $headingSpacing = $element->params->get('headingSpacing', null);
+      if ($headingSpacing != null) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($headingSpacing->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($headingSpacing->{$deviceKey})) {
+               $mPos = $element->params->get('subtitlePosition', 'below') == 'below' ? 'margin-bottom' : 'margin-top';
+               $style->addCss($mPos, $headingSpacing->{$deviceKey}->value . "px", $device);
+            }
+         }
+      }
+   }
 
    // color
    $style->addCss("color", $element->params->get($heading . "FontColor", ""));

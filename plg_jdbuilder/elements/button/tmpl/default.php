@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -12,23 +13,25 @@ extract($displayData);
 $defaultButtonTitle = $element->params->exists('buttonText') ? '' : 'Button';
 $buttonTitle = $element->params->get('buttonText', $defaultButtonTitle);
 
-$element->addClass('jdb-button');
+$buttonClass = [];
+$buttonClass[] = 'jdb-button';
 
-$buttonStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-button-link');
-$buttonHoverStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-button-link:hover');
+$buttonWrapperStyle = new JDPageBuilder\Element\ElementStyle('.jdb-button-wrapper');
+$buttonStyle = new JDPageBuilder\Element\ElementStyle('.jdb-button-link');
+$buttonHoverStyle = new JDPageBuilder\Element\ElementStyle('.jdb-button-link:hover');
 
-$element->addChildrenStyle([$buttonStyle, $buttonHoverStyle]);
+$element->addChildrenStyle([$buttonStyle, $buttonHoverStyle, $buttonWrapperStyle]);
 
 $class = ['jdb-button-link'];
 
 // button type
 $buttonType = $element->params->get('buttonType', 'primary');
-$element->addClass('jdb-button-' . $buttonType);
+$buttonClass[] = 'jdb-button-' . $buttonType;
 
 // button size
 $buttonSize = $element->params->get('buttonSize', '');
 if (!empty($buttonSize)) {
-   $element->addClass('jdb-button-' . $buttonSize);
+   $buttonClass[] = 'jdb-button-' . $buttonSize;
 }
 
 // button alignment
@@ -47,9 +50,40 @@ if (!empty($alignment)) {
 }
 
 
+$alignment = $element->params->get('buttonAlignment', null);
+if (!empty($alignment)) {
+   foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+         $align = $alignment->{$deviceKey};
+         if ($align != 'block') {
+            $buttonWrapperStyle->addCss('flex', '0 0 auto', $device);
+            $buttonWrapperStyle->addCss('-ms-flex', '0 0 auto', $device);
+            $buttonWrapperStyle->addCss('width', 'auto', $device);
+            if ($align == 'center') {
+               $buttonWrapperStyle->addCss('margin-right', 'auto', $device);
+               $buttonWrapperStyle->addCss('margin-left', 'auto', $device);
+            } else if ($align == 'right') {
+               $buttonWrapperStyle->addCss('margin-right', 'initial', $device);
+               $buttonWrapperStyle->addCss('margin-left', 'auto', $device);
+            } else {
+               $buttonWrapperStyle->addCss('margin-right', 'auto', $device);
+               $buttonWrapperStyle->addCss('margin-left', 'initial', $device);
+            }
+         } else {
+            $buttonWrapperStyle->addCss('flex', '0 0 100%', $device);
+            $buttonWrapperStyle->addCss('-ms-flex', '0 0 100%', $device);
+            $buttonWrapperStyle->addCss('width', '100%', $device);
+            $buttonWrapperStyle->addCss('margin-right', 'initial', $device);
+            $buttonWrapperStyle->addCss('margin-left', 'initial', $device);
+         }
+      }
+   }
+}
+
+
 // button link
-$link = $element->params->get('link', 'javascript:void(0);');
-$link = empty($link) ? 'javascript:void(0);' : $link;
+$link = $element->params->get('link', '#');
+$link = empty($link) ? '#' : $link;
 
 // link target
 $linkTargetBlank = $element->params->get('linkTargetBlank', FALSE);
@@ -70,7 +104,7 @@ $iconHTML = '';
 $buttonIcon = $element->params->get('buttonIcon', '');
 $iconPosition = $element->params->get('iconPosition', 'right');
 if (!empty($buttonIcon)) {
-   $iconStyle = new JDPageBuilder\Element\ElementStyle('> .jdb-button-link > .jdb-button-icon');
+   $iconStyle = new JDPageBuilder\Element\ElementStyle('.jdb-button-link > .jdb-button-icon');
 
    $element->addChildStyle($iconStyle);
    $iconAnimation = $element->params->get('iconAnimation', '');
@@ -160,14 +194,20 @@ if (!empty($borderRadius)) {
 // shadow
 $buttonStyle->addCss("box-shadow", $element->params->get('buttonBoxShadow', ''));
 ?>
-<a class="<?php echo implode(" ", $class); ?>" href="<?php echo $link; ?>" title="<?php echo $buttonTitle; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
-   <?php
-   if ($iconPosition == 'left') {
-      echo $iconHTML;
-   }
-   echo $buttonTitle;
-   if ($iconPosition == 'right') {
-      echo $iconHTML;
-   }
-   ?>
-</a>
+<div class="jdb-button-container">
+   <div class="jdb-button-wrapper">
+      <div class="<?php echo implode(' ', $buttonClass); ?>">
+         <a class="<?php echo implode(" ", $class); ?>" href="<?php echo $link; ?>" title="<?php echo $buttonTitle; ?>" <?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+            <?php
+            if ($iconPosition == 'left') {
+               echo $iconHTML;
+            }
+            echo $buttonTitle;
+            if ($iconPosition == 'right') {
+               echo $iconHTML;
+            }
+            ?>
+         </a>
+      </div>
+   </div>
+</div>

@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -22,6 +22,16 @@ class Element extends BaseElement
       $this->addClass('jdb-element');
       $this->addClass($this->id);
       $this->initPositioning();
+      if (isset($this->parent->parent->parent->parent->itemID)) {
+         $this->ajaxID = $this->parent->parent->parent->parent->itemID . '$' . $this->parent->parent->parent->parent->itemType . '$' . $this->id;
+      } else if (isset($this->parent->parent->parent->parent->parent->parent->itemID)) {
+         $this->ajaxID = $this->parent->parent->parent->parent->parent->parent->itemID . '$' . $this->parent->parent->parent->parent->parent->parent->itemType . '$' . $this->id;
+      }
+   }
+
+   public function ajaxUrl($task)
+   {
+      return \JURI::root() . 'index.php?option=com_ajax&plugin=jdbuilder&group=system&method=element&format=json&task=' . $this->type . '.' . $task . '&ajaxID=' . $this->ajaxID;
    }
 
    public function getContent()
@@ -52,10 +62,6 @@ class Element extends BaseElement
       // Background Video
       $content[] = $this->getBackgroundVideo();
 
-      if ($this->livepreview) {
-         //$content[] = '<div class="jdb-settings" data-element-id="' . $this->id . '"></div>';
-      }
-
       return implode("", $content);
    }
 
@@ -64,21 +70,17 @@ class Element extends BaseElement
    {
       $template = \JFactory::getApplication()->getTemplate(true);
       $template_path = JPATH_THEMES . '/' . $template->template;
-      $component_path = JPATH_SITE . '/components/com_jdbuilder';
-      $plugin_path = JPATH_PLUGINS . '/system/jdbuilder';
 
       $layout_path = null;
-
-
 
       if (file_exists($template_path . '/html/jdbuilder/' . $this->type . '.php')) {
          $layout_path = $template_path . '/html/jdbuilder/';
       } else if (file_exists($template_path . '/elements/' . $this->type) && file_exists($template_path . '/elements/' . $this->type . '/tmpl/default.php')) {
          $layout_path = $template_path . '/elements/' . $this->type . '/tmpl';
-      } else if (file_exists($component_path . '/elements/' . $this->type) && file_exists($component_path . '/elements/' . $this->type . '/tmpl/default.php')) {
-         $layout_path = $component_path . '/elements/' . $this->type . '/tmpl';
-      } else if (file_exists($plugin_path . '/elements/' . $this->type) && file_exists($plugin_path . '/elements/' . $this->type . '/tmpl/default.php')) {
-         $layout_path = $plugin_path . '/elements/' . $this->type . '/tmpl';
+      } else if (file_exists(JDBPATH_COMPONENT . '/elements/' . $this->type) && file_exists(JDBPATH_COMPONENT . '/elements/' . $this->type . '/tmpl/default.php')) {
+         $layout_path = JDBPATH_COMPONENT . '/elements/' . $this->type . '/tmpl';
+      } else if (file_exists(JDBPATH_ELEMENTS . '/' . $this->type) && file_exists(JDBPATH_ELEMENTS . '/' . $this->type . '/tmpl/default.php')) {
+         $layout_path = JDBPATH_ELEMENTS . '/' . $this->type . '/tmpl';
       }
 
       return $layout_path;
@@ -88,16 +90,14 @@ class Element extends BaseElement
    {
       $template = \JFactory::getApplication()->getTemplate(true);
       $template_path = JPATH_THEMES . '/' . $template->template . '/html/jdbuilder';
-      $component_path = JPATH_SITE . '/components/com_jdbuilder';
-      $plugin_path = JPATH_PLUGINS . '/system/jdbuilder';
 
       $path = null;
       if (file_exists($template_path . '/elements/' . $this->type)) {
          $path = $template_path . '/elements/' . $this->type;
-      } else if (file_exists($component_path . '/elements/' . $this->type)) {
-         $path = $component_path . '/elements/' . $this->type;
-      } else if (file_exists($plugin_path . '/elements/' . $this->type)) {
-         $path = $plugin_path . '/elements/' . $this->type;
+      } else if (file_exists(JDBPATH_COMPONENT . '/elements/' . $this->type)) {
+         $path = JDBPATH_COMPONENT . '/elements/' . $this->type;
+      } else if (file_exists(JDBPATH_PLUGIN . '/elements/' . $this->type)) {
+         $path = JDBPATH_PLUGIN . '/elements/' . $this->type;
       }
 
       return $path;

@@ -186,7 +186,7 @@
             </field>
 
             <!--  ACL Options -->
-            <field type="accesslevel" name="access" label="JDB_ACCESS_LABEL" group="acl" default=""></field>
+            <field type="accesslevel" name="access" label="JDB_ACCESS_LABEL" group="acl" default="1"></field>
 
             <field type="elementinfo" label="JDB_BLANK_LABEL" group="info"></field>
          </fieldset>

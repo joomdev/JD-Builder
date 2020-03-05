@@ -15,4 +15,3 @@ CREATE TABLE IF NOT EXISTS `#__jdbuilder_pages` (
 `modified_by` INT(11)  NOT NULL ,
 PRIMARY KEY (`id`)
 ) DEFAULT COLLATE=utf8mb4_unicode_ci;
-

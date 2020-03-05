@@ -5,10 +5,10 @@
     <author>Team Joomdev</author>
     <authorEmail>info@joomdev.com</authorEmail>
     <authorUrl>https://www.joomdev.com</authorUrl>
-    <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <version>1.4.0</version>
-    <description>JD Builder Module</description>
+    <description>This Module allows you to create your own Module using the JD Builder.</description>
     <files>
         <filename>mod_jdbuilder.xml</filename>
         <filename module="mod_jdbuilder">mod_jdbuilder.php</filename>

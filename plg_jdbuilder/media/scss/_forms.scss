@@ -17,6 +17,8 @@
   background-color: $input-bg;
   background-clip: padding-box;
   border: $input-border-width solid $input-border-color;
+  box-shadow: none;
+  box-sizing: border-box;
 
   // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
   @include border-radius($input-border-radius, 0);
@@ -85,6 +87,7 @@ select.jdb-form-control {
   margin-bottom: 0; // Override the `<label>/<legend>` default
   @include font-size(inherit); // Override the `<legend>` default
   line-height: $input-line-height;
+  font-weight: bold;
 }
 
 .jdb-col-form-label-lg {
@@ -92,6 +95,7 @@ select.jdb-form-control {
   padding-bottom: calc(#{$input-padding-y-lg} + #{$input-border-width});
   @include font-size($input-font-size-lg);
   line-height: $input-line-height-lg;
+  font-weight: bold;
 }
 
 .jdb-col-form-label-sm {
@@ -99,6 +103,7 @@ select.jdb-form-control {
   padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
   @include font-size($input-font-size-sm);
   line-height: $input-line-height-sm;
+  font-weight: bold;
 }
 
 
@@ -156,6 +161,7 @@ select.jdb-form-control {
   &[size],
   &[multiple] {
     height: auto;
+    overflow: auto;
   }
 }
 
@@ -175,6 +181,19 @@ textarea.jdb-form-control {
     display: inline-block;
     margin-bottom: .5rem;
     font-weight: bold;
+  }
+}
+
+.jdb-form-recaptcha {
+  margin-bottom: $form-group-margin-bottom;
+  display: flex;
+
+  &.right {
+    flex-direction: row-reverse;
+  }
+
+  &.center {
+    justify-content: center;
   }
 }
 
@@ -375,4 +394,12 @@ $data in $form-validation-states {
 
 .jdb-input-error {
   border-color: red !important;
+}
+
+.jdb-file-input {
+  input[type=file] {
+    height: inherit;
+    line-height: inherit;
+    width: 100%;
+  }
 }

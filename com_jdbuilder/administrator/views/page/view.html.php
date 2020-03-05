@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -46,6 +46,7 @@ class JdbuilderViewPage extends JViewLegacy {
          $this->item->params['state'] = $this->item->state;
          $this->item->params['language'] = $this->item->language;
          $this->item->params['category_id'] = $this->item->category_id;
+         $this->item->params['access'] = $this->item->access;
       } else {
          $this->item->id = 0;
          $defaults = JDPageBuilder\Builder::getFormDefaults(JDPageBuilder\Builder::getPageForm());

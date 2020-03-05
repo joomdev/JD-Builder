@@ -6,10 +6,11 @@
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <version>1.0</version>
    <description>Element Description Here</description>
+   <documentation>https://docs.joomdev.com/article/raw-html-element/</documentation>
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">

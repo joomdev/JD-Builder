@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -21,7 +22,11 @@ if (empty($image)) {
 $imageTitle = $element->params->get('title', '');
 if (!empty($imageTitle)) {
    $attrs[] = 'title="' . $imageTitle . '"';
-   $attrs[] = 'alt="' . $imageTitle . '"';
+}
+
+$imageAlt = $element->params->get('alt', '');
+if (!empty($imageAlt)) {
+   $attrs[] = 'alt="' . $imageAlt . '"';
 }
 
 // image caption
@@ -42,7 +47,7 @@ if (!empty($caption)) {
 $attrs = empty($attrs) ? '' : ' ' . implode(" ", $attrs);
 
 if (!empty($link)) {
-// link title
+   // link title
    $linktitle = "";
    if (!empty($imageTitle)) {
       $linktitle = $imageTitle;
@@ -60,13 +65,13 @@ if (!empty($link)) {
 ?>
 <figure class="jdb-image-wrapper">
    <?php if (!empty($link)) { ?>
-      <a class="jdb-image-link" href="<?php echo $link; ?>"<?php echo $linkTitle; ?><?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+      <a class="jdb-image-link" href="<?php echo $link; ?>" <?php echo $linkTitle; ?><?php echo $linkTarget; ?><?php echo $linkRel; ?>>
       <?php } ?>
-      <img src="<?php echo \JDPageBuilder\Helper::mediaValue($image); ?>"<?php echo $attrs; ?> />
+      <img src="<?php echo \JDPageBuilder\Helper::mediaValue($image); ?>" <?php echo $attrs; ?> />
       <?php if (!empty($caption)) { ?>
          <figcaption class="jdb-image-caption"><?php echo $caption; ?></figcaption>
-         <?php } ?>
-         <?php if (!empty($link)) { ?>
+      <?php } ?>
+      <?php if (!empty($link)) { ?>
       </a>
    <?php } ?>
 </figure>
@@ -103,4 +108,6 @@ if ($element->params->get('imageSize', 'original') == "custom") {
       }
    }
 }
+
+JDPageBuilder\Helper::applyBorderValue($imageStyle, $element->params, "imageBorder");
 ?>

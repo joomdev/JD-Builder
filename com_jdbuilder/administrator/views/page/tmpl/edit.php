@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
@@ -18,7 +19,7 @@ $document = JFactory::getDocument();
 $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
 ?>
 <script type="text/javascript">
-   Joomla.submitbutton = function (task) {
+   Joomla.submitbutton = function(task) {
       if (task == 'page.cancel') {
          Joomla.submitform(task, document.getElementById('page-form'));
       } else {
@@ -30,12 +31,15 @@ $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
    }
 </script>
 <script id="jdb-form-page-permissions-template" type="text/x-lodash-template">
-<?php if (JFactory::getUser()->authorise('core.admin', 'jdbuilder')) : ?>
+   <?php if (JFactory::getUser()->authorise('core.admin', 'jdbuilder')) : ?>
    <?php echo $this->form->getInput('rules'); ?>
 <?php endif; ?>
 </script>
 <script>
-   _JDB.ITEM = {"id": <?php echo $this->item->id; ?>, "title": "<?php echo $this->item->title; ?>", "layout_id": <?php echo empty($this->item->layout_id) ? 0 : $this->item->layout_id; ?>, "type": "page", "params": <?php echo \json_encode($this->item->params); ?>};
+   <?php
+   $item = ["id" => $this->item->id, "title" => empty($this->item->title) ? '' : $this->item->title, "layout_id" => empty($this->item->layout_id) ? 0 : $this->item->layout_id, "type" => "page", "params" => $this->item->params];
+   ?>
+   _JDB.ITEM = <?php echo \json_encode($item); ?>;
 </script>
 <script>
    _JDB.ACCESS = <?php echo \json_encode($this->accessibility); ?>;
@@ -56,12 +60,14 @@ $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
 
 
 
-               <?php //echo $this->form->renderField('title');    ?>
-               <?php //echo $this->form->renderField('category_id');      ?>
+               <?php //echo $this->form->renderField('title');    
+               ?>
+               <?php //echo $this->form->renderField('category_id');      
+               ?>
 
                <?php
-               foreach ((array) $this->item->category_id as $value):
-                  if (!is_array($value)):
+               foreach ((array) $this->item->category_id as $value) :
+                  if (!is_array($value)) :
                      echo '<input type="hidden" class="category_id" name="jform[category_idhidden][' . $value . ']" value="' . $value . '" />';
                   endif;
                endforeach;
@@ -78,9 +84,7 @@ $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
             </fieldset>
          </div>
       </div>
-      <input type="hidden" name="task" value=""/>
-      <input type="hidden" name="<?php echo \JSession::getFormToken(); ?>" value="1" id="joomla-form-token"/>
-
+      <input type="hidden" name="task" value="" />
    </div>
    <div>
       {jdbuilder}

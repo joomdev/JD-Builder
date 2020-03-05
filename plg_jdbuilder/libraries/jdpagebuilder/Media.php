@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -547,18 +547,18 @@ class Media
 
             $validFileExts = [];
             if ($media == 'image') {
-               $validFileExts = explode(',', 'jpeg,jpg,png,gif,ico,odg,xcf,bmp,tiff,webp');
+               $validFileExts = explode(',', 'jpeg,jpg,png,gif,ico,odg,xcf,bmp,tiff,webp,svg');
             }
             if ($media == 'video') {
                $validFileExts = explode(',', 'mp4,mpeg,mpg');
             }
             if (!in_array($uploadedFileExtension, $validFileExts)) {
-               throw new \Exception(\JText::_('JDB_ERROR_INVALID_EXTENSION'));
+               throw new \Exception(\JText::sprintf('JDB_ERROR_INVALID_EXTENSION', implode(', ', $validFileExts)));
             }
 
             $fileTemp = $_FILES[$fieldName]['tmp_name'][$i];
 
-            if ($media == 'image') {
+            if ($media == 'image' && $uploadedFileExtension != 'svg') {
                $imageinfo = getimagesize($fileTemp);
                $okMIMETypes = 'image/jpeg,image/pjpeg,image/png,image/x-png,image/gif,image/x-icon,image/vnd.microsoft.icon';
                $validFileTypes = explode(",", $okMIMETypes);

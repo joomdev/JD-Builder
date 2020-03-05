@@ -6,109 +6,45 @@
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <version>1.0</version>
    <description>Element Description Here</description>
+   <documentation>https://docs.joomdev.com/article/image-element/</documentation>
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field
-               name="image"
-               type="image"
-               label="JDB_IMAGE_CHOOSE_MEDIA"
-               group="basic"
-            >
+            <field type="group" name="borderOptions" label="JDB_IMAGE_BORDER"></field>
+
+            <field name="image" type="image" label="JDB_IMAGE_CHOOSE_MEDIA" group="basic">
             </field>
-            <field
-               name="title"
-               type="text"
-               default=""
-               label="JDB_TITLE"
-               group="basic"
-            >
+            <field name="title" type="text" default="" label="JDB_TITLE" group="basic">
             </field>
-            <field
-               name="caption"
-               type="text"
-               default=""
-               label="JDB_IMAGE_CAPTION"
-               group="basic"
-            >
+            <field name="alt" type="text" default="" label="JDB_ALT" group="basic">
             </field>
-            <field
-               name="imageSize"
-               type="list"
-               label="JDB_IMAGE_SIZE"
-               default="original"
-               group="basic"
-            >
+            <field name="caption" type="text" default="" label="JDB_IMAGE_CAPTION" group="basic">
+            </field>
+            <field name="imageSize" type="list" label="JDB_IMAGE_SIZE" default="original" group="basic">
                <option value="original">JDB_ORIGINAL</option>
                <option value="custom">JDB_CUSTOM</option>
             </field>
-            <field
-               name="width"
-               type="slider"
-               label="JDB_WIDTH"
-               default='{"value":"100", "unit": "%"}'
-               min="0"
-               max="2000"
-               showon="params.imageSize=='custom'"
-               units="px,%"
-               group="basic"
-               responsive="true"
-            >
+            <field name="width" type="slider" label="JDB_WIDTH" default='{"value":"100", "unit": "%"}' min="0" max="2000" showon="params.imageSize=='custom'" units="px,%" group="basic" responsive="true">
             </field>
-            <field
-               name="maxWidth"
-               type="slider" 
-               label="JDB_MAX_WIDTH" 
-               default='{"value":"100", "unit": "%"}' 
-               min="0" 
-               max="2000" 
-               showon="params.imageSize=='custom'"
-               units="px,%"
-               group="basic"
-               responsive="true"
-            >
+            <field name="maxWidth" type="slider" label="JDB_MAX_WIDTH" default='{"value":"100", "unit": "%"}' min="0" max="2000" showon="params.imageSize=='custom'" units="px,%" group="basic" responsive="true">
             </field>
-            <field
-               name="alignment"
-               type="radio" 
-               label="JDB_ALIGNMENT"
-               default="left" 
-               radiotype="buttons"
-               group="basic"
-               responsive="true"
-            >
+            <field name="alignment" type="radio" label="JDB_ALIGNMENT" default="left" radiotype="buttons" group="basic" responsive="true">
                <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
-            <field
-               name="link"
-               type="text"
-               label="JDB_LINK_LABEL"
-               default=""
-               group="basic"
-            >
+            <field name="link" type="text" label="JDB_LINK_LABEL" default="" group="basic">
             </field>
-            <field
-               name="linkTargetBlank"
-               type="switch"
-               label="JDB_LINK_TARGET_LBL"
-               default="false"
-               showon="params.link!=''"
-               group="basic"
-            >
+            <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" showon="params.link!=''" group="basic">
             </field>
-            <field
-               name="linkNoFollow"
-               type="switch"
-               label="JDB_LINK_NOFOLLOW_LBL"
-               showon="params.link!=''"
-               group="basic"
-            >
+            <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" showon="params.link!=''" group="basic">
+            </field>
+
+            <field type="fieldsgroup" name="imageBorder" filename="border" group="borderOptions">
             </field>
          </fieldset>
       </fields>

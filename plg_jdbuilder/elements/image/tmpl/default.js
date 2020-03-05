@@ -13,9 +13,12 @@
 
       // image title and alt
       var imageTitle = element.params.get('title', '');
+      var imageAlt = element.params.get('alt', '');
       if (imageTitle != '') {
          attrs.push('title="' + imageTitle + '"');
-         attrs.push('alt="' + imageTitle + '"');
+      }
+      if (imageAlt != '') {
+         attrs.push('alt="' + imageAlt + '"');
       }
 
       // image caption
@@ -85,7 +88,10 @@
                imageStyle.addCss("max-width", width[_deviceObj.key].value + width[_deviceObj.key].unit, _deviceObj.type);
             }
          });
+
       }
+
+      JDBRenderer.Helper.applyBorderValue(imageStyle, element.params, "imageBorder");
    }
 
    window.JDBuilderElementImage = JDBuilderElementImage;
