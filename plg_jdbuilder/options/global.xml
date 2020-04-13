@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+    <form>
+        <fields>
+            <!-- General Options -->
+            <fieldset name="general" ordering="1" label="JDB_GENERAL_TITLE">
+                <field type="group" name="colors" label="JDB_COLOR"></field>
+                <field type="group" name="typography" label="JDB_TYPOGRAPHY"></field>
+                <field type="color" group="colors" default="#6E00FF" name="globalPrimary" label="JDB_PRIMARY"></field>
+                <field type="color" group="colors" default="#273444" name="globalSecondary" label="JDB_SECONDARY"></field>
+                <field type="color" group="colors" default="#36B37E" name="globalSuccess" label="JDB_SUCCESS"></field>
+                <field type="color" group="colors" default="#17A2B8" name="globalInfo" label="JDB_INFO"></field>
+                <field type="color" group="colors" default="#FFAB00" name="globalWarning" label="JDB_WARNING"></field>
+                <field type="color" group="colors" default="#FF5630" name="globalDanger" label="JDB_DANGER"></field>
+
+                <field type="group" label="JDB_BODY_TYPOGRAPHY" name="body_typography">
+                </field>
+                <field type="color" name="globalTextColor" label="JDB_COLOR" default="" group="body_typography">
+                </field>
+                <field type="color" name="globalTextLinkColor" label="JDB_LINK_COLOR" default="" group="body_typography">
+                </field>
+                <field type="color" name="globalTextLinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="body_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalTextTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="body_typography">
+                </field>
+
+                <field type="group" label="JDB_H1_TYPOGRAPHY" name="h1_typography">
+                </field>
+                <field type="color" name="globalH1Color" label="JDB_COLOR" default="" group="h1_typography">
+                </field>
+                <field type="color" name="globalH1LinkColor" label="JDB_LINK_COLOR" default="" group="h1_typography">
+                </field>
+                <field type="color" name="globalH1LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h1_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH1Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h1_typography">
+                </field>
+
+                <field type="group" label="JDB_H2_TYPOGRAPHY" name="h2_typography">
+                </field>
+                <field type="color" name="globalH2Color" label="JDB_COLOR" default="" group="h2_typography">
+                </field>
+                <field type="color" name="globalH2LinkColor" label="JDB_LINK_COLOR" default="" group="h2_typography">
+                </field>
+                <field type="color" name="globalH2LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h2_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH2Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h2_typography">
+                </field>
+
+                <field type="group" label="JDB_H3_TYPOGRAPHY" name="h3_typography">
+                </field>
+                <field type="color" name="globalH3Color" label="JDB_COLOR" default="" group="h3_typography">
+                </field>
+                <field type="color" name="globalH3LinkColor" label="JDB_LINK_COLOR" default="" group="h3_typography">
+                </field>
+                <field type="color" name="globalH3LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h3_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH3Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h3_typography">
+                </field>
+
+
+                <field type="group" label="JDB_H4_TYPOGRAPHY" name="h4_typography">
+                </field>
+                <field type="color" name="globalH4Color" label="JDB_COLOR" default="" group="h4_typography">
+                </field>
+                <field type="color" name="globalH4LinkColor" label="JDB_LINK_COLOR" default="" group="h4_typography">
+                </field>
+                <field type="color" name="globalH4LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h4_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH4Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h4_typography">
+                </field>
+
+
+                <field type="group" label="JDB_H5_TYPOGRAPHY" name="h5_typography">
+                </field>
+                <field type="color" name="globalH5Color" label="JDB_COLOR" default="" group="h5_typography">
+                </field>
+                <field type="color" name="globalH5LinkColor" label="JDB_LINK_COLOR" default="" group="h5_typography">
+                </field>
+                <field type="color" name="globalH5LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h5_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH5Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h5_typography">
+                </field>
+
+                <field type="group" label="JDB_H6_TYPOGRAPHY" name="h6_typography">
+                </field>
+                <field type="color" name="globalH6Color" label="JDB_COLOR" default="" group="h6_typography">
+                </field>
+                <field type="color" name="globalH6LinkColor" label="JDB_LINK_COLOR" default="" group="h6_typography">
+                </field>
+                <field type="color" name="globalH6LinkHoverColor" label="JDB_LINK_HOVER_COLOR" default="" group="h6_typography">
+                </field>
+                <field type="typography" responsive="true" name="globalH6Typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="h6_typography">
+                </field>
+            </fieldset>
+
+            <!-- Component Options -->
+            <fieldset name="component" ordering="3" label="JDB_COMPONENTS">
+                <field type="group" name="lightboxOptions" label="JDB_LIGHTBOX_OPTIONS"></field>
+
+                <field name="lightbox" type="switch" label="JDB_LIGHTBOX" default="true" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" name="lightboxCounter" type="switch" label="JDB_COUNTER" default="true" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" name="lightboxFullscreen" type="switch" label="JDB_FULL_SCREEN" default="true" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" name="lightboxTitleSource" type="list" label="JDB_TITLE" default="title" group="lightboxOptions" search="false">
+                    <option value="title">JDB_TITLE</option>
+                    <option value="caption">JDB_CAPTION</option>
+                    <option value="alt">JDB_ALT_TEXT</option>
+                </field>
+
+                <field showon="params.lightbox" name="lightboxDescriptionSource" type="list" label="JDB_DESCRIPTION" default="caption" group="lightboxOptions" search="false">
+                    <option value="title">JDB_TITLE</option>
+                    <option value="caption">JDB_CAPTION</option>
+                    <option value="alt">JDB_ALT_TEXT</option>
+                </field>
+
+                <field showon="params.lightbox" type="spacer" label="JDB_LIGHTBOX_DESIGN" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" type="color" width="6" name="lightboxTextColor" label="JDB_TEXT_COLOR" default="" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" type="color" width="6" name="lightboxBackgroundColor" label="JDB_BACKGROUND_COLOR" default="" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" type="color" width="6" name="lightboxIconColor" label="JDB_ICON_COLOR_LABEL" default="" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" type="color" width="6" name="lightboxIconHoverColor" label="JDB_ICON_HOVER_COLOR_LABEL" default="" group="lightboxOptions">
+                </field>
+
+                <field showon="params.lightbox" type="slider" name="lightboxIconSize" label="JDB_ICON_SIZE" max="200" min="10" unit="" group="lightboxOptions" responsive="true">
+                </field>
+
+                <field showon="params.lightbox" type="slider" name="lightboxNavigationIconSize" label="JDB_NAVIGATION_ICON_SIZE" max="200" min="10" unit="" group="lightboxOptions" responsive="true">
+                </field>
+            </fieldset>
+        </fields>
+    </form>
+</element>

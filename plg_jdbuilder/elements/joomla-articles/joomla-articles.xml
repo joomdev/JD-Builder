@@ -13,7 +13,7 @@
 	<documentation>https://docs.joomdev.com/article/joomla-article-element/</documentation>
 	<form>
 		<fields>
-			<fieldset name="general" label="JDBUILDER_GENERAL_TITLE">
+			<fieldset name="general" label="JDB_GENERAL_TITLE">
 				<field type="group" name="layout" label="JD_JARTICLES_LAYOUT"></field>
 				<field type="group" name="meta" label="JD_JARTICLES_META"></field>
 				<field type="group" name="common" label="JD_JARTICLES_COMMON_SETTINGS"></field>
@@ -27,24 +27,24 @@
 				</field>
 				<field name="articleCount" type="number" label="JD_JARTICLES_ARTICLE_COUNT" default="10" min="1" max="100" group="basic">
 				</field>
-				<field type="list" name="featuredArticle" label="JD_JARTICLES_FEATURED_ARTICLES" default="show" group="basic">
+				<field type="list" name="featuredArticle" label="JD_JARTICLES_FEATURED_ARTICLES" default="show" group="basic" search="false">
 					<option value="show">JDB_SHOW</option>
 					<option value="hide">JDB_HIDE</option>
 					<option value="only">JD_JARTICLES_ONLY_FEATURED</option>
 				</field>
-				<field type="list" name="articleOrdering" label="JD_JARTICLES_ARTICLE_ORDERING" default="a.ordering" group="basic">
+				<field type="list" name="articleOrdering" label="JD_JARTICLES_ARTICLE_ORDERING" default="a.ordering" group="basic" search="false">
 					<option value="a.created">JD_JARTICLES_CREATED_DATE</option>
 					<option value="a.title">JDB_TITLE</option>
 					<option value="a.hits">JD_JARTICLES_HITS</option>
 					<option value="random">JD_JARTICLES_RANDOM</option>
 					<option value="a.ordering">JD_JARTICLES_ARTICLE_ORDER</option>
 				</field>
-				<field type="list" showon="params.articleOrdering!='random'" name="articleOrderingDirection" label="JD_JARTICLES_ORDERING_DIRECTION" default="ASC" group="basic">
+				<field type="list" showon="params.articleOrdering!='random'" name="articleOrderingDirection" label="JD_JARTICLES_ORDERING_DIRECTION" search="false" default="ASC" group="basic">
 					<option value="ASC">JDB_ASCENDING</option>
 					<option value="DESC">JDB_DESCENDING</option>
 				</field>
 
-				<field type="list" name="articleLayout" label="JD_JARTICLES_SELECT_LAYOUT" default="grid" group="layout">
+				<field type="list" name="articleLayout" label="JD_JARTICLES_SELECT_LAYOUT" default="grid" group="layout" search="false">
 					<option value="grid">JD_JARTICLES_GRID</option>
 					<option value="list">JD_JARTICLES_LIST</option>
 					<option value="list-alternate">JD_JARTICLES_LIST_ALTERNATE</option>
@@ -65,7 +65,7 @@
 				</field>
 
 				<!-- Meta Option -->
-				<field name="articleMetaData" type="list" label="JD_JARTICLES_META_DATA" default='["author","publish-date","category","hits"]' group="meta" multiple="true">
+				<field name="articleMetaData" type="list" label="JD_JARTICLES_META_DATA" default='["author","publish-date","category"]' group="meta" multiple="true">
 					<option value="author">JD_JARTICLES_AUTHOR</option>
 					<option value="publish-date">JD_JARTICLES_PUBLISH_DATE</option>
 					<option value="modified-date">JD_JARTICLES_MODIFIED_DATE</option>
@@ -80,9 +80,9 @@
 				<field type="spacer" label="JD_JARTICLES_META_STYLING" description="" group="meta" />
 				<field type="color" name="metaColor" label="JDB_TEXT_COLOR" default="" group="meta" />
 				<field type="color" name="metaIconColor" label="JDB_ICON_COLOR_LABEL" default="" group="meta" />
-				<field type="slider" name="metaSpacing" label="JDB_SPACING" min="0" max="200" unit="px" default="10" responsive="true" group="meta">
+				<field type="slider" name="metaSpacing" label="JDB_SPACING" min="0" max="200" unit="px" default="" responsive="true" group="meta">
 				</field>
-				<field name="metaMargin" type="spacing" label="JDB_MARGIN" group="meta" default='{"unit":"px","top":0,"lock":0,"left":0,"right":0,"bottom":10}' responsive="true">
+				<field name="metaMargin" type="spacing" label="JDB_MARGIN" group="meta" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
 				</field>
 				<field type="typography" name="metaTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="meta">
 				</field>
@@ -91,7 +91,7 @@
 				<!-- common Settings -->
 				<field type="text" name="readmoreText" default="Read More" label="JD_JARTICLES_READ_MORE_TEXT" group="common">
 				</field>
-				<field type="list" name="linkOn" label="JD_JARTICLES_APPLY_LINK_ON" group="common" default="title">
+				<field type="list" search="false" name="linkOn" label="JD_JARTICLES_APPLY_LINK_ON" group="common" default="title">
 					<option value="title">JDB_TITLE</option>
 					<option value="thumbnail">JDB_THUMBNAIL_LBL</option>
 					<option value="title-thumbnail">JDB_TITLE_AND_THUMBNAIL_LBL</option>
@@ -104,7 +104,7 @@
 				<!-- common Settings End -->
 
 				<!-- Title Options -->
-				<field name="titleHtmlTag" type="list" label="JDB_HTML_TAG" default="h2" group="title-styling">
+				<field name="titleHtmlTag" type="list" label="JDB_HTML_TAG" default="h3" group="title-styling">
 					<option value="h1">JDB_H1</option>
 					<option value="h2">JDB_H2</option>
 					<option value="h3">JDB_H3</option>
@@ -121,7 +121,7 @@
 				</field>
 				<field type="typography" name="titleTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="title-styling">
 				</field>
-				<field type="spacing" name="titleMargin" label="JDB_MARGIN" group="title-styling" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+				<field type="spacing" name="titleMargin" label="JDB_MARGIN" group="title-styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
 				</field>
 				<!-- Title Options End -->
 
@@ -130,19 +130,20 @@
 				</field>
 				<field type="typography" name="contentTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="content-styling">
 				</field>
-				<field type="spacing" name="contentMargin" label="JDB_MARGIN" group="content-styling" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
+				<field type="spacing" name="contentMargin" label="JDB_MARGIN" group="content-styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
 				</field>
 				<!-- Content Options End -->
 
 				<field showon="params.readmoreText!=''" type="fieldsgroup" name="readmore" filename="button" group="readmore-styling">
-					<property name="foreground" default="#1cd2ad"></property>
-					<property name="background" default="#fff"></property>
-					<property name="padding" default='{"unit":"px","top":0,"lock":1,"left":0,"right":0,"bottom":0}'></property>
+					<property name="foreground" default=""></property>
+					<property name="background" default=""></property>
+					<property name="padding" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'></property>
 				</field>
 
 				<field showon="params.viewmoreText!=''" type="fieldsgroup" name="viewmore" filename="button" group="viewmore-styling">
 					<property name="alignment" default="center"></property>
-					<property name="background" default="#1cd2ad"></property>
+					<property name="background" default=""></property>
+					<property name="type" default="secondary"></property>
 				</field>
 
 			</fieldset>

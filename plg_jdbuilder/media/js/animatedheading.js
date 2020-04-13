@@ -124,7 +124,7 @@
 
         } else if ($word.parents('.cd-headline').hasClass('clip')) {
             $word.parents('.cd-words-wrapper').animate({
-                'width': $word.width() + 10
+                'width': $word.width() + 0
             }, revealDuration, function () {
                 setTimeout(function () {
                     hideWord($word)

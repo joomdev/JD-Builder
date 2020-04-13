@@ -23,15 +23,33 @@
 
       // image caption
       var caption = element.params.get('caption', '');
+      var settings = JDBRenderer.Helper.globalSettings();
+      var lightbox = element.params.get('lightbox', '');
+      lightbox = lightbox == '' ? (settings.get('lightbox', true) == 'true' ? true : false) : (Number(lightbox) ? true : false);
 
       // link
-      var link = element.params.get("link", "");
+      var linkType = element.params.get("linkType", "");
+      if (linkType == 'none') {
+         var link = "";
+      } else if (linkType == 'media') {
+         var link = JDBRenderer.Helper.mediaValue(image);
+         var linkTarget = ' target="_blank"';
+         var linkRel = "";
+         var linkLightbox = "";
 
-      var linkTargetBlank = element.params.get('linkTargetBlank', false);
-      var linkTarget = linkTargetBlank ? ' target="_blank"' : "";
+         if (lightbox) {
+            linkLightbox = ' data-jdb-lightbox="lightbox-' + element.id + '" data-jdb-lightbox-caption="' + JDBRenderer.Helper.getLightboxContent('description', imageTitle, caption, imageAlt) + '" data-jdb-lightbox-title="' + JDBRenderer.Helper.getLightboxContent('title', imageTitle, caption, imageAlt) + '"';
+         }
+      } else {
+         var link = element.params.get("link", "");
 
-      var linkNoFollow = element.params.get('linkNoFollow', false);
-      var linkRel = linkNoFollow ? ' rel="nofollow"' : "";
+         var linkTargetBlank = element.params.get('linkTargetBlank', false);
+         var linkTarget = linkTargetBlank ? ' target="_blank"' : "";
+
+         var linkNoFollow = element.params.get('linkNoFollow', false);
+         var linkRel = linkNoFollow ? ' rel="nofollow"' : "";
+         var linkLightbox = "";
+      }
 
 
       // attributes, classes and styles
@@ -46,7 +64,7 @@
 
       _html.push('<figure class="jdb-image-wrapper">');
       if (link != '') {
-         _html.push('<a class="jdb-image-link" href="' + link + '"' + linkTarget + linkRel + '>');
+         _html.push('<a class="jdb-image-link" href="' + link + '"' + linkTarget + linkRel + linkLightbox + '>');
       }
       _html.push('<img src="' + JDBRenderer.Helper.mediaValue(image) + '"' + attrs + ' />');
       if (caption != '') {
@@ -90,7 +108,6 @@
          });
 
       }
-
       JDBRenderer.Helper.applyBorderValue(imageStyle, element.params, "imageBorder");
    }
 

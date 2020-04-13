@@ -52,7 +52,7 @@
 					<option value="bottom">JDB_OPTIONS_BOTTOM</option>
 				</field>
 
-				<field type="slider" group="styling" label="JDB_INNER_PADDING_LBL" name="innerPadding" unit="px" default="15" responsive="true">
+				<field type="slider" group="styling" label="JDB_INNER_PADDING_LBL" name="innerPadding" unit="px" default="" responsive="true">
 				</field>
 
 				<field type="spacer" group="styling" />
@@ -89,13 +89,13 @@
 				<field type="color" width="12" group="colorstyling" label="JDB_BORDER_COLOR" name="slBorderHoverColor">
 				</field>
 
-				<field type="slider" group="styling" label="JDB_SOCIAL_LINKS_ICON_SIZE" name="iconSize" unit="px" showon="params.slDisplay!='title-only'" default="24" responsive="true">
+				<field type="slider" group="styling" label="JDB_SOCIAL_LINKS_ICON_SIZE" name="iconSize" unit="px" showon="params.slDisplay!='title-only'" default="" responsive="true">
 				</field>
 
-				<field type="slider" group="styling" label="JDB_SOCIAL_LINKS_TEXT_SIZE" name="textSize" unit="px" showon="params.slDisplay!='icon-only'" default="24" responsive="true">
+				<field type="slider" group="styling" label="JDB_SOCIAL_LINKS_TEXT_SIZE" name="textSize" unit="px" showon="params.slDisplay!='icon-only'" default="" responsive="true">
 				</field>
 
-				<field type="slider" group="styling" label="JDB_SPACE_BETWEEN" name="slSpaceBetween" unit="px" default="10" responsive="true">
+				<field type="slider" group="styling" label="JDB_SPACE_BETWEEN" name="slSpaceBetween" unit="px" default="" responsive="true">
 				</field>
 
 				<field type="spacer" group="styling" />
@@ -109,12 +109,12 @@
 					<option value="groove">JDB_BORDER_GROOVE</option>
 				</field>
 
-				<field type="spacing" name="slBorderWidth" label="JDB_BORDER_WIDTH" group="styling" showon="params.slBorderStyle!='none'" default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}' units="px,%,em" responsive="true">
+				<field type="spacing" name="slBorderWidth" label="JDB_BORDER_WIDTH" group="styling" showon="params.slBorderStyle!='none'" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' units="px,%,em" responsive="true">
 				</field>
 
 				<field type="spacer" group="styling" showon="params.slBorderStyle!='none'" />
 
-				<field type="spacing" name="slBorderRadius" label="JDB_BORDER_RADIUS" group="styling" default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}' corners="true" units="px,%,em" responsive="true"></field>
+				<field type="spacing" name="slBorderRadius" label="JDB_BORDER_RADIUS" group="styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,%,em" responsive="true"></field>
 
 				<field type="boxshadow" name="slBoxShadow" label="JDB_BOX_SHADOW" group="styling"></field>
 

@@ -10,7 +10,7 @@
             <!-- Publishing Options -->
             <field type="contentlanguage" name="language" label="JDB_LANGUAGE" group="publishing" default="*">
             </field>
-            <field type="list" name="state" label="JDB_STATUS" default="1" group="publishing">
+            <field type="list" search="false" name="state" label="JDB_STATUS" default="1" group="publishing">
                <option value="1">JDB_PUBLISHED</option>
                <option value="0">JDB_UNPUBLISHED</option>
                <option value="-2">JDB_TRASHED</option>

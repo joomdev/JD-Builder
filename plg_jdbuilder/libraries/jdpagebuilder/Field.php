@@ -281,8 +281,10 @@ class Field
             }
             if ($this->taggable) {
                $tagkey = (string) $this->xml->attributes()->{'tag-key'};
+               $tagExclude = (string) $this->xml->attributes()->{'tag-exclude'};
                if (!empty($tagkey)) {
                   $return['tagkey'] = $tagkey;
+                  $return['tagExclude'] = empty($tagExclude) ? [] : \json_decode($tagExclude);
                } else {
                   $this->taggable = false;
                }
@@ -307,6 +309,9 @@ class Field
             $slider = (string) $this->xml->attributes()->slider;
             $return['slider'] = strtolower($slider) == 'false' ? false : true;
 
+            $changeOnSlide = (string) $this->xml->attributes()->changeOnSlide;
+            $return['changeOnSlide'] = strtolower($changeOnSlide) == 'false' ? false : true;
+
             $min = (string) $this->xml->attributes()->min;
             $return['min'] = empty($min) ? 0 : ($min + 0);
 
@@ -317,7 +322,7 @@ class Field
             $return['step'] = empty($step) ? 1 : ($step + 0);
 
             $unit = (string) $this->xml->attributes()->unit;
-            $unit = empty($unit) ? '#' : $unit;
+            $return['unit'] = $unit;
 
             $units = (string) $this->xml->attributes()->units;
             if (empty($units)) {
@@ -357,9 +362,14 @@ class Field
             $multiple = (string) $this->xml->attributes()->multiple;
             $search = (string) $this->xml->attributes()->search;
             $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
-            $return['search'] = strtolower($search) == 'true' ? true : false;
+            $return['search'] = strtolower($search) == 'false' ? false : true;
             $return['options'] = $this->getOptions();
             $return['groups'] = $this->getOptionGroup();
+            break;
+         case 'tab':
+            $return['options'] = $this->getOptions();
+            $tab = (string) $this->xml->attributes()->tab;
+            $return['tab'] = $tab;
             break;
          case 'jposition':
             $return['type'] = 'list';
@@ -388,6 +398,15 @@ class Field
             $this->value = (empty($this->value) || !is_numeric($this->value)) ? '' : $this->value;
             $return['search'] = false;
             $return['options'] = $this->getAccessLevels();
+            $return['groups'] = [];
+            break;
+         case 'ajax':
+            $return['type'] = 'ajax';
+            $multiple = (string) $this->xml->attributes()->multiple;
+            $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
+            $this->value = (empty($this->value) || !is_numeric($this->value)) ? '' : $this->value;
+            $return['search'] = true;
+            $return['options'] = [];
             $return['groups'] = [];
             break;
          case 'category':
@@ -422,13 +441,6 @@ class Field
             $return['search'] = true;
             $return['options'] = $this->getContentLanguageOptions();
             $return['groups'] = [];
-            break;
-         case 'animations':
-            $return['type'] = 'list';
-            $return['multiple'] = false;
-            $return['search'] = true;
-            $return['options'] = [['label' => \JText::_('JDB_NONE'), 'value' => '']];
-            $return['groups'] = $this->getAnimations();
             break;
          case 'typetag':
             $return['type'] = 'list';
@@ -675,26 +687,6 @@ class Field
       }
       $group = $formgroup->get();
       return $group['fields'];
-   }
-
-   public function getAnimations()
-   {
-      $allAnimations = Constants::ANIMATIONS;
-      $options = [];
-      foreach ($allAnimations as $animationGroup => $animations) {
-         $group = [];
-         $group['label'] = \JText::_($animationGroup);
-         $group['options'] = [];
-         foreach ($animations as $value => $animation) {
-            $item = [];
-            $item['label'] = \JText::_($animation);
-            $item['value'] = $value;
-            $group['options'][] = $item;
-         }
-         $options[] = $group;
-      }
-
-      return $options;
    }
 
    public function getHoverAnimations()

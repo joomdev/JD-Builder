@@ -16,23 +16,11 @@
          <fieldset name="general" label="JDB_GENERAL_TITLE">
             <field type="group" name="buttonstyle" label="JDB_BUTTON_STYLING"></field>
             <field type="group" name="buttonborder" label="JDB_BUTTON_BORDER"></field>
-            
+
             <!--  Element Options -->
-            <field
-               type="text"
-               name="buttonText"
-               label="JDB_BUTTON_TEXT"
-               default="Button"
-               group="basic"
-            >
+            <field type="text" name="buttonText" label="JDB_BUTTON_TEXT" default="Button" group="basic">
             </field>
-            <field
-               type="list"
-               name="buttonType"
-               label="JDB_ELEMENT_TYPE_LABEL"
-               default="primary"
-               group="basic"
-            >
+            <field type="list" name="buttonType" label="JDB_ELEMENT_TYPE_LABEL" default="primary" group="basic">
                <option value="primary">JDB_PRIMARY</option>
                <option value="secondary">JDB_SECONDARY</option>
                <option value="success">JDB_SUCCESS</option>
@@ -41,260 +29,80 @@
                <option value="info">JDB_INFO</option>
                <option value="anchor">JDB_LINK</option>
             </field>
-            <field
-               type="list"
-               name="buttonSize"
-               label="JDB_SIZE"
-               default=""
-               group="basic"
-               width="6"
-            >
+            <field type="list" name="buttonSize" label="JDB_SIZE" default="" group="basic" width="6" search="false">
                <option value="sm">JDB_SIZE_SM</option>
                <option value="">JDB_SIZE_MD</option>
                <option value="lg">JDB_SIZE_LG</option>
             </field>
-            <field
-               type="list"
-               name="buttonAlignment"
-               label="JDB_ALIGNMENT"
-               default="left"
-               group="basic"
-               width="6"
-               responsive="true"
-            >
+            <field type="list" name="buttonAlignment" label="JDB_ALIGNMENT" default="left" group="basic" width="6" responsive="true" search="false">
                <option value="left">JDB_LEFT</option>
                <option value="right">JDB_RIGHT</option>
                <option value="center">JDB_CENTER</option>
                <option value="block">JDB_BLOCK</option>
             </field>
-            <field
-               name="link"
-               type="text"
-               label="JDB_LINK_LABEL"
-               default=""
-               group="basic"
-            >
+            <field name="link" type="text" label="JDB_LINK_LABEL" default="" group="basic">
             </field>
-            <field
-               name="linkTargetBlank"
-               type="switch"
-               label="JDB_LINK_TARGET_LBL"
-               default="false"
-               group="basic"
-               showon="params.link!=''"
-            >
+            <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" group="basic" showon="params.link!=''">
             </field>
-            <field
-               name="linkNoFollow"
-               type="switch"
-               label="JDB_LINK_NOFOLLOW_LBL"
-               default="false"
-               group="basic"
-               showon="params.link!=''"
-            >
+            <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" default="false" group="basic" showon="params.link!=''">
             </field>
-            <field
-               type="spacer"
-               group="basic"
-               showon="params.link!=''"
-            >
+            <field type="spacer" group="basic" showon="params.link!=''">
             </field>
-            <field
-               type="hover-animations"
-               name="buttonAnimation"
-               label="JDB_HOVER_ANIMATION_LABEL"
-               default=""
-               group="basic"
-            >
+            <field type="hover-animations" name="buttonAnimation" label="JDB_HOVER_ANIMATION_LABEL" default="" group="basic">
             </field>
-            <field
-               type="spacer"
-               group="basic"
-               showon="params.buttonIcon!=''"
-            >
+            <field type="spacer" group="basic" showon="params.buttonIcon!=''">
             </field>
-            <field
-               name="buttonIcon"
-               type="icon"
-               label="JDB_ICON"
-               default=""
-               group="basic"
-            >
+            <field name="buttonIcon" type="icon" label="JDB_ICON" default="" group="basic">
             </field>
-            
-            <field
-               type="radio"
-               name="iconPosition"
-               label="JDB_ICON_POSITION"
-               radiotype="buttons"
-               default="right"
-               group="basic"
-               showon="params.buttonIcon!=''"
-            >
+
+            <field type="radio" name="iconPosition" label="JDB_ICON_POSITION" radiotype="buttons" default="right" group="basic" showon="params.buttonIcon!=''">
                <option value="left">JDB_LEFT</option>
                <option value="right">JDB_RIGHT</option>
             </field>
-            <field
-               type="slider"
-               name="iconSpacing"
-               label="JDB_ICON_SPACING"
-               group="basic"
-               unit="px"
-               min="0"
-               max="50"
-               step="1"
-               default="3"
-               showon="params.buttonIcon!=''"
-            >
+            <field type="slider" name="iconSpacing" label="JDB_ICON_SPACING" group="basic" unit="px" min="0" max="50" step="1" default="3" showon="params.buttonIcon!=''">
             </field>
-            <field
-               type="icon-animations"
-               name="iconAnimation"
-               label="JDB_ICON_ANIMATION"
-               default=""
-               group="basic"
-               showon="params.buttonIcon!=''"
-            >
+            <field type="icon-animations" name="iconAnimation" label="JDB_ICON_ANIMATION" default="" group="basic" showon="params.buttonIcon!=''">
             </field>
 
             <!-- Button Style -->
-            <field
-               name="buttonTextColor"
-               type="color"
-               label="JDB_TEXT_COLOR"
-               default=""
-               group="buttonstyle"
-               width="6"
-            >
+            <field name="buttonTextColor" type="color" label="JDB_TEXT_COLOR" default="" tab="state.normal" group="buttonstyle" width="6">
             </field>
-            <field
-               name="buttonBackgroundColor"
-               type="color"
-               label="JDB_BACKGROUND_COLOR"
-               default=""
-               group="buttonstyle"
-               width="6"
-            >
+            <field name="buttonBackgroundColor" type="color" label="JDB_BACKGROUND_COLOR" default="" group="buttonstyle" width="6">
             </field>
-            <field
-               name="buttonBorderColor"
-               type="color"
-               label="JDB_BORDER_COLOR"
-               default=""
-               group="buttonstyle"
-            >
+            <field name="buttonBorderColor" type="color" label="JDB_BORDER_COLOR" default="" group="buttonstyle">
             </field>
-            <field
-               type="gradient"
-               label="JDB_GRADIENT"
-               name="buttonGradient"
-               group="buttonstyle"
-            >
+            <field type="gradient" label="JDB_GRADIENT" name="buttonGradient" group="buttonstyle">
             </field>
-            <field
-               type="spacer"
-               label="JDB_HOVER_OPTIONS_DIVIDER"
-               group="buttonstyle"
-            >
+            <field type="spacer" label="JDB_HOVER_OPTIONS_DIVIDER" group="buttonstyle">
             </field>
-            <field
-               name="buttonTextColorHover"
-               type="color"
-               label="JDB_TEXT_COLOR"
-               default=""
-               group="buttonstyle"
-               width="6"
-            >
+            <field name="buttonTextColorHover" type="color" label="JDB_TEXT_COLOR" default="" group="buttonstyle" width="6">
             </field>
-            <field
-               name="buttonBackgroundColorHover"
-               type="color"
-               label="JDB_BACKGROUND_COLOR"
-               default=""
-               group="buttonstyle"
-               width="6"
-            >
+            <field name="buttonBackgroundColorHover" type="color" label="JDB_BACKGROUND_COLOR" default="" group="buttonstyle" width="6">
             </field>
-            <field
-               name="buttonBorderColorHover"
-               type="color"
-               label="JDB_BORDER_COLOR"
-               default=""
-               group="buttonstyle"
-            >
+            <field name="buttonBorderColorHover" type="color" label="JDB_BORDER_COLOR" default="" group="buttonstyle">
             </field>
-            <field
-               type="gradient"
-               label="JDB_GRADIENT"
-               name="buttonGradientHover"
-               group="buttonstyle"
-            >
+            <field type="gradient" label="JDB_GRADIENT" name="buttonGradientHover" group="buttonstyle">
             </field>
-            <field
-               type="spacer"
-               group="buttonstyle"
-            >
+            <field type="spacer" group="buttonstyle">
             </field>
-            <field
-               name="buttonPadding"
-               type="spacing"
-               label="JDB_BUTTON_PADDING_LBL"
-               description=""
-               group="buttonstyle"
-               default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}'
-               responsive="true"
-            >
+            <field name="buttonPadding" type="spacing" label="JDB_BUTTON_PADDING_LBL" description="" group="buttonstyle" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true">
             </field>
-            <field
-               name="buttonTypography"
-               type="typography"
-               label="JDB_TYPOGRAPHY"
-               group="buttonstyle"
-               default=""
-               responsive="true"
-            >
+            <field name="buttonTypography" type="typography" label="JDB_TYPOGRAPHY" group="buttonstyle" default="" responsive="true">
             </field>
-            <field
-               type="list"
-               name="buttonBorderStyle" 
-               label="JDB_BORDER_TYPE"
-               default="solid"
-               group="buttonborder">
+            <field type="list" name="buttonBorderStyle" label="JDB_BORDER_TYPE" default="solid" group="buttonborder">
                <option value="none">JDB_BORDER_NONE</option>
                <option value="solid">JDB_BORDER_SOLID</option>
                <option value="dashed">JDB_BORDER_DASHED</option>
                <option value="dotted">JDB_BORDER_DOTTED</option>
                <option value="double">JDB_BORDER_DOUBLE</option>
             </field>
-            
-            <field
-               type="spacing"
-               name="buttonBorderWidth"
-               label="JDB_BORDER_WIDTH"
-               showon="params.buttonBorderStyle!='none'"
-               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
-               group="buttonborder"
-               responsive="true"
-            >
+
+            <field type="spacing" name="buttonBorderWidth" label="JDB_BORDER_WIDTH" showon="params.buttonBorderStyle!='none'" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' group="buttonborder" responsive="true">
             </field>
-            
-            <field
-               type="spacing"
-               name="buttonBorderRadius"
-               label="JDB_BUTTON_RADIUS"
-               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
-               group="buttonborder"
-               corners="true"
-               responsive="true"
-            >
+
+            <field type="spacing" name="buttonBorderRadius" label="JDB_BUTTON_RADIUS" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' group="buttonborder" corners="true" responsive="true">
             </field>
-            <field
-               type="boxshadow"
-               name="buttonBoxShadow"
-               label="JDB_BUTTON_SHADOW"
-               default=""
-               group="buttonborder"
-            >
+            <field type="boxshadow" name="buttonBoxShadow" label="JDB_BUTTON_SHADOW" default="" group="buttonborder">
             </field>
          </fieldset>
       </fields>

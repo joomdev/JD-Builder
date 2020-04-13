@@ -2,11 +2,7 @@
 <element>
    <form>
       <fields>
-         <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" ordering="1" name="basic" label="JDB_BASIC_TITLE"></field>
-            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
-            </field>
-         </fieldset>
+         <fieldset name="general" label="JDB_GENERAL_TITLE"></fieldset>
          <!-- Design Options -->
          <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
             <field type="group" ordering="2" name="width" label="JDB_WIDTH"></field>
@@ -33,9 +29,9 @@
                <option value="left" svg="media/jdbuilder/images/icons/to-left.svg">JDB_LEFT</option>
                <option value="right" svg="media/jdbuilder/images/icons/to-right.svg">JDB_RIGHT</option>
             </field>
-            
+
             <field type="slider" name="elementPositionHOffset" label="JDB_OFFSET" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
-            
+
             <field type="spacer" showon="params.elementPosition!=''" label="JDB_POSITION_VERTICAL" group="position">
             </field>
             <field type="radio" name="elementPositionVertical" label="JDB_BLANK_LABEL" default="top" group="position" radiotype="buttons" showon="params.elementPosition!=''">
@@ -43,6 +39,11 @@
                <option value="bottom" svg="media/jdbuilder/images/icons/to-bottom.svg">JDB_BOTTOM</option>
             </field>
             <field type="slider" name="elementPositionVOffset" label="JDB_OFFSET" default='{"value":0,"unit":"px"}' max="1000" min="-1000" units="px,%,em" showon="params.elementPosition!=''" group="position" responsive="true"></field>
+         </fieldset>
+         <!--  Advanced Options -->
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="info">
+            </field>
          </fieldset>
       </fields>
    </form>

@@ -17,6 +17,9 @@ class JDBuilderJoomlaArticlesElementHelper extends ElementHelper
     public static function getArticles($categories = [], $limit = null, $ordering = '', $subcategories = null, $featured = '', $direction = '', $viewmore = '', $format = '')
     {
         $app = \JFactory::getApplication();
+
+        $option = $app->input->get('option', '');
+        $ajax = $option == 'com_ajax' ? true : false;
         if (empty($categories)) {
             $categories = $app->input->get('categories', []);
         }
@@ -41,7 +44,7 @@ class JDBuilderJoomlaArticlesElementHelper extends ElementHelper
         if (empty($format)) {
             $format = 'd M, Y';
         }
-       
+
         if ($subcategories == null) {
             $subcategories = $app->input->get('subcategories', false, 'RAW');
             $subcategories = $subcategories === 'true' ? true : false;
@@ -133,8 +136,6 @@ class JDBuilderJoomlaArticlesElementHelper extends ElementHelper
                 $item->link->setVar('return', base64_encode(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language)));
                 $item->linkText = \JText::_('MOD_ARTICLES_NEWS_READMORE_REGISTER');
             }
-
-            $item->introtext = \JHtml::_('content.prepare', $item->introtext, '', 'jdbuilder_element_joomla-articles.content');
 
             $item->introtext = preg_replace('/<img[^>]*>/', '', $item->introtext);
             $item->introtext = strip_tags($item->introtext);

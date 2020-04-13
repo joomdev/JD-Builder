@@ -31,12 +31,35 @@ if (!empty($imageAlt)) {
 
 // image caption
 $caption = $element->params->get('caption', '');
-
-
+$settings = \JDPageBuilder\Builder::getSettings();
+$lightbox = $element->params->get('lightbox', '');
+$lightbox = $lightbox == '' ? filter_var($settings->get('lightbox', true), FILTER_VALIDATE_BOOLEAN) : ($lightbox == '1' ? true : false);
 
 // image link
-$link = $element->params->get('link', '');
+$linkType = $element->params->get('linkType', '');
+if ($linkType == 'none') {
+   $link = "";
+} else if ($linkType == "media") {
+   $link = \JDPageBuilder\Helper::mediaValue($image);
+   $linkTarget = ' target="_blank"';
+   $linkRel = "";
+   $linkLightbox = "";
 
+   if ($lightbox) {
+      $linkLightbox = ' data-jdb-lightbox="lightbox-' . $element->id . '" data-jdb-lightbox-caption="' . \JDPageBuilder\Helper::getLightboxContent('description', $imageTitle, $caption, $imageAlt) . '" data-jdb-lightbox-title="' . \JDPageBuilder\Helper::getLightboxContent('title', $imageTitle, $caption, $imageAlt) . '"';
+      JDPageBuilder\Builder::loadLightBox();
+   }
+} else {
+   $link = $element->params->get('link', '');
+   // link target
+   $linkTargetBlank = $element->params->get('linkTargetBlank', FALSE);
+   $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
+
+   // link follow
+   $linkNoFollow = $element->params->get('linkNoFollow', FALSE);
+   $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
+   $linkLightbox = "";
+}
 
 // attributes, classes and styles
 $element->addClass('jdb-image');
@@ -45,27 +68,10 @@ if (!empty($caption)) {
 }
 
 $attrs = empty($attrs) ? '' : ' ' . implode(" ", $attrs);
-
-if (!empty($link)) {
-   // link title
-   $linktitle = "";
-   if (!empty($imageTitle)) {
-      $linktitle = $imageTitle;
-   }
-   $linkTitle = empty($linktitle) ? '' : ' title="' . $linktitle . '"';
-
-   // link target
-   $linkTargetBlank = $element->params->get('linkTargetBlank', FALSE);
-   $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
-
-   // link follow
-   $linkNoFollow = $element->params->get('linkNoFollow', FALSE);
-   $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
-}
 ?>
 <figure class="jdb-image-wrapper">
    <?php if (!empty($link)) { ?>
-      <a class="jdb-image-link" href="<?php echo $link; ?>" <?php echo $linkTitle; ?><?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+      <a class="jdb-image-link" href="<?php echo $link; ?>" <?php echo $linkTarget . $linkRel . $linkLightbox; ?>>
       <?php } ?>
       <img src="<?php echo \JDPageBuilder\Helper::mediaValue($image); ?>" <?php echo $attrs; ?> />
       <?php if (!empty($caption)) { ?>
@@ -110,4 +116,9 @@ if ($element->params->get('imageSize', 'original') == "custom") {
 }
 
 JDPageBuilder\Helper::applyBorderValue($imageStyle, $element->params, "imageBorder");
+if ($lightbox) {
 ?>
+   <script>
+      refreshJDLightbox();
+   </script>
+<?php } ?>

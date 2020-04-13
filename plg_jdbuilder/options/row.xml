@@ -4,58 +4,25 @@
       <fields>
          <!-- General Options -->
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
-            <!--  Basic Options -->
-            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
-            </field>
-            
             <!--  Layout Options -->
-            <field
-               type="list"
-               name="guttersType"
-               label="JDB_COLUMN_GAP"
-               default=""
-               group="layout"
-            >
+            <field type="list" search="false" name="guttersType" label="JDB_COLUMN_GAP" default="" group="layout">
                <option value="">JDB_INHERIT</option>
                <option value="none">JDB_COLUMN_NO_GAP</option>
                <option value="custom">JDB_CUSTOM</option>
             </field>
-            <field
-               type="slider"
-               name="guttersSize"
-               label="JDB_COLUMN_GAP_SIZE"
-               showon="params.guttersType=='custom'"
-               default="15"
-               min="5"
-               max="100"
-               unit="px"
-               group="layout"
-               responsive="true"
-            >
+            <field type="slider" name="guttersSize" label="JDB_COLUMN_GAP_SIZE" showon="params.guttersType=='custom'" default="15" min="5" max="100" unit="px" group="layout" responsive="true">
             </field>
-            <field
-               type="spacer"
-               label="JDB_COLUMN_DIRECTION"
-               group="layout"
-            >
+            <field type="spacer" label="JDB_COLUMN_DIRECTION" group="layout">
             </field>
-            <field
-               type="switch"
-               name="columnReverseMedium"
-               label="JDB_REVERSE_COLUMNS_TABLET"
-               default="false"
-               group="layout"
-            >
+            <field type="switch" name="columnReverseMedium" label="JDB_REVERSE_COLUMNS_TABLET" default="false" group="layout">
             </field>
-            <field
-               type="switch"
-               name="columnReverseSmall"
-               label="JDB_REVERSE_COLUMNS_MOBILE"
-               default="false"
-               group="layout"
-            >
+            <field type="switch" name="columnReverseSmall" label="JDB_REVERSE_COLUMNS_MOBILE" default="false" group="layout">
+            </field>
+         </fieldset>
+         <!--  Advanced Options -->
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="info">
             </field>
          </fieldset>
       </fields>

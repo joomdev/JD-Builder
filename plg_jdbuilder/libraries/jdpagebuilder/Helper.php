@@ -40,6 +40,21 @@ class Helper
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
    }
 
+   public static function linkify($text)
+   {
+      // The Regular Expression filter
+      $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+      // Check if there is a url in the text
+      if (preg_match($reg_exUrl, $text, $url)) {
+
+         // make the urls hyper links
+         return preg_replace($reg_exUrl, "<a target='_blank' href='{$url[0]}'>{$url[0]}</a> ", $text);
+      } else {
+         // if no urls in the text just return the text
+         return $text;
+      }
+   }
+
    public static function log($title = '', $txt = '')
    {
       $dir = JPATH_SITE . '/tmp/jdblogs';
@@ -369,55 +384,20 @@ class Helper
       }
    }
 
-   public static function compileSass($scss, $folder = "")
+   public static function getMediaVersion()
    {
-      $variables = self::getGlobalVariables();
-
-      if (!self::$css_cache) {
-         $compiler = new Compiler();
-         $compiler->setVariables($variables);
-         $css = $compiler->compile($scss);
-         return $css;
-      }
-      $key = md5($scss);
-
-      $folder = empty($folder) ? "" : "/" . $folder;
-
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CSS_CACHE_DIR;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CSS_CACHE_DIR . $folder;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-
-      $cacheFile = $cacheFolder . '/' . $key . '.css';
-      if (file_exists($cacheFile)) {
-         Builder::log("getting css from `{$cacheFile}`");
-         $css = file_get_contents($cacheFile);
-      } else {
-         Builder::log("saving css to `{$cacheFile}`");
-         $compiler = new Compiler();
-         $compiler->setVariables($variables);
-         $css = $compiler->compile($scss);
-         file_put_contents($cacheFile, $css);
-      }
-      return $css;
+      $jversion = new \JVersion;
+      return md5(JDB_MEDIA_VERSION . $jversion->getMediaVersion());
    }
 
    public static function renderGlobalScss()
    {
       $document = \JFactory::getDocument();
       $variables = Helper::getGlobalVariables();
-      $name = serialize($variables) . JDB_MEDIA_VERSION;
-
-
-      $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => JDB_MEDIA_VERSION]);
+      $name = serialize(Builder::getSettings()->toString()) . JDB_MEDIA_VERSION;
 
       if (file_exists(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css')) {
-         return;
+         goto css;
       }
 
       self::clearGlobalCSS();
@@ -428,39 +408,104 @@ class Helper
       $scss->setVariables($variables);
       $content = $scss->compile('@import "bootstrap.scss";');
       file_put_contents(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css', $content);
+
+      css: $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => self::getMediaVersion()]);
+   }
+
+   public static function renderGlobalTypography()
+   {
+      $params = Builder::getSettings();
+      foreach (['Text', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'] as $type) {
+         if ($type === 'Text') {
+            $typeStyle = new ElementStyle('.jdbuilder');
+            $linkStyle = new ElementStyle('.jdbuilder a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder a:hover');
+         } else {
+            $typeStyle = new ElementStyle('.jdbuilder ' . strtolower($type));
+            $linkStyle = new ElementStyle('.jdbuilder ' . strtolower($type) . ' a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder '  . strtolower($type) . ' a:hover');
+         }
+
+         $color = $params->get('global' . $type . 'Color', '');
+         if ($color !== '') {
+            $typeStyle->addCss('color', $color);
+         }
+
+         $linkColor = $params->get('global' . $type . 'LinkColor', '');
+         if ($linkColor !== '') {
+            $linkStyle->addCss('color', $linkColor);
+         }
+
+         $linkHoverColor = $params->get('global' . $type . 'LinkHoverColor', '');
+         if ($linkHoverColor !== '') {
+            $linkHoverStyle->addCss('color', $linkHoverColor);
+         }
+
+         $typography = $params->get('global' . $type . 'Typography', null);
+         if (!empty($typography)) {
+            foreach (self::$devices as $deviceKey => $device) {
+               if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
+                  $typeStyle->addStyle(self::typographyValue($typography->{$deviceKey}), $device);
+               }
+            }
+         }
+
+         $typeStyle->render();
+         $linkStyle->render();
+         $linkHoverStyle->render();
+      }
    }
 
    public static function getGlobalVariables()
    {
-      // $pluginParams = self::getPluginParams();
-      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
-
+      $globalSettings = Builder::getSettings();
       $variables = [];
-      $variables['primary'] = $buiderConfig->get('global_primary', '#007bff');
-      $variables['secondary'] = $buiderConfig->get('global_secondary', '#6c757d');
-      $variables['success'] = $buiderConfig->get('global_success', '#28a745');
-      $variables['info'] = $buiderConfig->get('global_info', '#17a2b8');
-      $variables['warning'] = $buiderConfig->get('global_warning', '#ffc107');
-      $variables['danger'] = $buiderConfig->get('global_danger', '#dc3545');
 
-      //fontFamilyValue
-
-      $global_font = $buiderConfig->get('global_font', '');
-
-      $fontfamily = [];
-
-      if (!empty($global_font)) {
-         $fontfamily[] = self::fontFamilyValue($global_font);
+      foreach (['primary', 'secondary', 'success', 'info', 'warning', 'danger'] as $color) {
+         $value = $globalSettings->get('global' . \ucfirst($color), '');
+         if (!empty($value)) {
+            $variables[$color] = $value;
+         }
       }
 
-      $global_alt_font = $buiderConfig->get('global_alt_font', '');
-      if (!empty($global_alt_font)) {
-         $fontfamily[] = self::fontFamilyValue($global_alt_font);
+      $lightboxTextColor = $globalSettings->get('lightboxTextColor', '');
+      if (!empty($lightboxTextColor)) {
+         $variables['lightbox-text'] = $lightboxTextColor;
       }
 
-      if (!empty($fontfamily)) {
-         $variables['font-family-sans-serif'] = implode(", ", $fontfamily);
-         $variables['fontFamilySansSerif'] = implode(", ", $fontfamily);
+      $lightboxBackgroundColor = $globalSettings->get('lightboxBackgroundColor', '');
+      if (!empty($lightboxBackgroundColor)) {
+         $variables['lightbox-background'] = $lightboxBackgroundColor;
+      }
+
+      $lightboxIconColor = $globalSettings->get('lightboxIconColor', '');
+      if (!empty($lightboxIconColor)) {
+         $variables['lightbox-icon-color'] = $lightboxIconColor;
+      }
+
+      $lightboxIconHoverColor = $globalSettings->get('lightboxIconHoverColor', '');
+      if (!empty($lightboxIconHoverColor)) {
+         $variables['lightbox-icon-hover-color'] = $lightboxIconHoverColor;
+      }
+
+      $lightboxFullscreen = $globalSettings->get('lightboxFullscreen', true);
+      $variables['lightbox-fullscreen-display'] = filter_var($lightboxFullscreen, FILTER_VALIDATE_BOOLEAN) ? 'flex' : 'none';
+
+      $lightboxCounter = $globalSettings->get('lightboxCounter', true);
+      $variables['lightbox-counter-display'] = filter_var($lightboxCounter, FILTER_VALIDATE_BOOLEAN) ? 'flex' : 'none';
+
+      $lightboxIconSize = $globalSettings->get('lightboxIconSize', null);
+      foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+         if (isset($lightboxIconSize->{$deviceKey}) && Helper::checkSliderValue($lightboxIconSize->{$deviceKey})) {
+            $variables['lightbox-icon-size-' . $deviceKey] = $lightboxIconSize->{$deviceKey}->value . 'px';
+         }
+      }
+
+      $lightboxNavigationIconSize = $globalSettings->get('lightboxNavigationIconSize', null);
+      foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+         if (isset($lightboxNavigationIconSize->{$deviceKey}) && Helper::checkSliderValue($lightboxNavigationIconSize->{$deviceKey})) {
+            $variables['lightbox-navigation-size-' . $deviceKey] = $lightboxNavigationIconSize->{$deviceKey}->value . 'px';
+         }
       }
       return $variables;
    }
@@ -530,7 +575,11 @@ class Helper
             $value = substr($value, 2);
             $font = explode(":", $value);
             Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0]);
-            $return = str_replace('+', ' ', $font[0]);
+            $font = $font[0];
+            if (preg_match('~[0-9]+~', $font)) {
+               $font = "'{$font}'";
+            }
+            $return = str_replace('+', ' ', $font);
             break;
          case 'c~':
             $value = substr($value, 2);
@@ -1123,34 +1172,21 @@ class Helper
 
    public static function jdApiRequest($method, $hook, $data)
    {
-
-      $curl = curl_init();
-
+      $method = strtoupper($method);
       $url = "https://api.joomdev.com/api/" . $hook;
-      $url .= '?' . http_build_query($data);
-
-      curl_setopt_array($curl, array(
-         CURLOPT_URL => $url,
-         CURLOPT_RETURNTRANSFER => true,
-         CURLOPT_SSL_VERIFYPEER => false,
-         CURLOPT_SSL_VERIFYHOST => false,
-         CURLOPT_ENCODING => "",
-         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-         CURLOPT_CUSTOMREQUEST => strtoupper($method),
-         CURLOPT_HTTPHEADER => array(
-            "Accept: */*",
-            "Accept-Encoding: gzip, deflate",
-            "Cache-Control: no-cache",
-            "Connection: keep-alive",
-            "Host: api.joomdev.com",
-            "cache-control: no-cache"
-         ),
-      ));
-
-      $response = curl_exec($curl);
-      curl_close($curl);
-
-      $output = \json_decode($response, true);
+      $client = new CurlHttpClient();
+      $dataType = $method == 'POST' ? 'body' : 'query';
+      $response = $client->request($method, $url, [
+         'verify_peer' => false,
+         'verify_host' => false,
+         'headers' => [
+            'Accept' => '*/*',
+            'Cache-Control' => 'no-cache',
+         ],
+         $dataType => $data
+      ]);
+      $respond = $response->getContent();
+      $output = \json_decode($respond, true);
       if ($output['status'] == 'error') {
          throw new \Exception($output['message'], $output['code']);
       }
@@ -1392,7 +1428,7 @@ class Helper
 
    public static function applyButtonValue($btnKey, $element)
    {
-      $buttonWrapperStyle = new ElementStyle(".jdb-button-wrapper");
+      $buttonWrapperStyle = new ElementStyle(".jdb-button-container-" . $btnKey . " .jdb-button-wrapper");
       $buttonStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link");
       $buttonHoverStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link:hover");
 
@@ -1856,6 +1892,7 @@ class Helper
    public static function curlRequest($url = '', $method = '', $data = [], $contentType = 'text/json')
    {
       $dataType = $method == 'POST' ? 'body' : 'query';
+      $contentType = $method == 'POST' ? 'application/x-www-form-urlencoded' : $contentType;
 
       $client = new CurlHttpClient();
       $response = $client->request($method, $url, [
@@ -1896,5 +1933,82 @@ class Helper
    public static function emailExplode($string)
    {
       return preg_split("/(,|;)/", $string);
+   }
+
+   public static function str_lreplace($search, $replace, $subject)
+   {
+      $pos = strrpos($subject, $search);
+
+      if ($pos !== false) {
+         $subject = substr_replace($subject, $replace, $pos, strlen($search));
+      }
+
+      return $subject;
+   }
+
+   public static function globalSettings()
+   {
+      $db = \JFactory::getDbo();
+      $query = "SELECT * FROM `#__jdbuilder_configs` WHERE `type`='global'";
+      $db->setQuery($query);
+      $result = $db->loadObject();
+
+      if (empty($result)) {
+         $globalConfig = '{}';
+      } else {
+         $globalConfig = $result->config;
+      }
+      $params = new \JRegistry();
+      $params->loadString($globalConfig);
+      return $params;
+   }
+
+   public static function animationsList()
+   {
+      $allAnimations = Constants::ANIMATIONS;
+      $options = [];
+      foreach ($allAnimations as $animationGroup => $animations) {
+         $group = [];
+         $group['label'] = \JText::_($animationGroup);
+         $group['options'] = [];
+         foreach ($animations as $value => $animation) {
+            $item = [];
+            $item['label'] = \JText::_($animation);
+            $item['value'] = $value;
+            $group['options'][] = $item;
+         }
+         $options[] = $group;
+      }
+      return ['options' => [['label' => \JText::_('JDB_NONE'), 'value' => '']], 'groups' => $options];
+   }
+
+   public static function getLightboxContent($source, $title, $caption, $altText)
+   {
+      $key = 'lightbox' . ucfirst($source) . 'Source';
+      $settings = Builder::getSettings();
+      $contentSource = $settings->get($key);
+      switch ($contentSource) {
+         case 'title':
+            return empty($title) ? '' : $title;
+         case 'caption':
+            return empty($caption) ? '' : $caption;
+         case 'alt':
+            return empty($altText) ? '' : $altText;
+      }
+   }
+
+   public static function linkValue($text, $params, $class = [], $attributes = [])
+   {
+      $link = $params->get('link', '');
+      if ($link === '') {
+         return $text;
+      }
+      $linkTargetBlank = $params->get('linkTargetBlank', false);
+      $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
+
+      $linkNoFollow = $params->get('linkNoFollow', false);
+      $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
+
+      return '<a href="' . $link . '" title="' . $text . '"' . $linkTarget . $linkRel . '>' . $text . '</a>';
    }
 }

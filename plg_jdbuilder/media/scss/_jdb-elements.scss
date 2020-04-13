@@ -1,16 +1,19 @@
-img {
-   height: auto;
-   max-width: 100%;
-   display: inline-block;
-   vertical-align: middle;
-   border-width: 0px;
-   border-style: initial;
-   border-color: initial;
-   border-image: initial;
-}
-
+// Reset CSS
 .jdbuilder {
    font-family: $font-family-base;
+   h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+   }
+   img {
+      height: auto;
+      max-width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      border-width: 0px;
+      border-style: initial;
+      border-color: initial;
+      border-image: initial;
+   }
 }
 
 .empty-hidden {
@@ -165,7 +168,8 @@ img {
       display: inline-block;
       vertical-align: baseline;
       box-sizing: content-box;
-
+      padding: 10px;
+      color: #262626;
       >span {
          display: inline-block;
          -webkit-transition: .2s all linear;
@@ -182,6 +186,12 @@ img {
             transition: .2s all linear;
          }
       }
+   }
+}
+
+.jdb-iconbox {
+   .jdb-icon-wrapper {
+      padding: 10px;
    }
 }
 
@@ -250,29 +260,28 @@ img {
 
 // Divider/Separator Element
 .jdb-divider {
-   hr {
+   div {
       height: 0;
       box-sizing: content-box;
       overflow: visible;
-      border: 0;
       max-width: 100%;
-      width: 90%;
+      width: 100%;
       border-top-width: 1px;
       margin-top: 10px;
       margin-bottom: 10px;
    }
 
-   &.jdb-divider-center hr {
+   &.jdb-divider-center div {
       margin-left: auto;
       margin-right: auto;
    }
 
-   &.jdb-divider-right hr {
+   &.jdb-divider-right div {
       margin-right: 0;
       margin-left: auto;
    }
 
-   &.jdb-divider-left hr {
+   &.jdb-divider-left div {
       margin-left: 0;
       margin-right: auto;
    }
@@ -576,7 +585,6 @@ img {
    margin: 0;
    padding: 0;
    list-style-type: none;
-
    .jdb-accordion-title {
       position: relative;
       display: flex;
@@ -590,13 +598,13 @@ img {
       }
 
       .jdb-caret {
-         font-size: 50%;
+         font-size: 100%;
          margin-left: 10px;
          display: inline-flex;
          align-self: center;
          justify-content: center;
          align-items: center;
-
+         color: $dark;
          .jdb-caret-on {
             display: none;
          }
@@ -636,6 +644,23 @@ img {
             display: block;
          }
       }
+   }
+   > li.jdb-active > .jdb-accordion-title {
+      .jdb-accordion-text {
+         color: $primary;
+      }
+      .jdb-caret {
+         color: $primary;
+      }
+   }
+   > li > div > div {
+      padding: 10px;
+   }
+   > li > .jdb-accordion-title{
+      padding: 10px;
+   }
+   > li > .jdb-accordion-title .jdb-accordion-text {
+      color: $dark;
    }
 }
 
@@ -1040,14 +1065,35 @@ img {
    }
 }
 
-// Team Element
+// Gallery
+
+.jdb-gallery-element {
+   .jdb-gallery-item-caption {
+      font-size: 15px;
+      text-align: center;
+      padding: 5px;
+   }
+}
+
+// Team
 .jdb-team {
    .jdb-team-img {
-      width: 100%;
+      max-width: 100%;
       margin: auto;
       display: block;
+      border-radius: 5px;
    }
-
+   .jdb-team-name {
+      margin-top: 10px;
+      text-align: center;
+      color: $primary;
+   }
+   .jdb-team-designation {
+      font-size: 16px;
+      text-align: center;
+      font-style: italic;
+      color: $text-muted;
+   }
    .jdb-social-links {
       ul {
          li {
@@ -1069,6 +1115,8 @@ img {
    }
 }
 
+// Progressbar
+
 .jdb-progressbars {
    .jdb-progressbar {
       background-color: #e9ecef;
@@ -1078,7 +1126,8 @@ img {
       box-sizing: content-box;
       display: inline-block;
       width: 100%;
-
+      border-radius: 3px;
+      height: 20px;
       .jdb-progressbar-progress {
          position: absolute;
          height: 100%;
@@ -1090,6 +1139,8 @@ img {
          -o-transition: .2s width linear;
          transition: .2s width linear;
          background-color: #000;
+         border-radius: 3px;
+         background-color: $primary;
       }
 
       .jdb-progressbar-labels {
@@ -1098,7 +1149,7 @@ img {
          left: 0;
          overflow: hidden;
          padding: 0px 8px;
-
+         line-height: 20px;
          .jdb-value {
             float: right;
          }
@@ -1172,23 +1223,49 @@ img {
       vertical-align: baseline;
       box-sizing: content-box;
       margin: auto;
+      color: $info;
    }
-
    .jdb-numbercounter-number {
-
+      font-size: 42px;
+      text-align: center;
+      color: $primary;
       >span,
       >div {
          white-space: pre;
          display: inline-block;
       }
    }
+   .jdb-numbercounter-title {
+      margin-top: 10px;
+      color: $secondary;
+   }
 }
+
+// Countdown
 
 .jdb-countdown {
    .jdb-countdown-container {
       margin: auto;
+      width: 100%;
    }
-
+   .jdb-countdown-item {
+      background: #fff;
+      margin: 0 10px;
+      border: 2px solid #f0f0f0;
+      padding: 35px 25px;
+   }
+   .jdb-countdown-number {
+      color: $primary;
+      font-size: 42px;
+      text-align: center;
+      font-weight: bold;
+   }
+   .jdb-countdown-label {
+      color: $dark;
+      font-size: 18px;
+      text-align: center;
+      font-weight: normal;
+   }
    .jdb-countdown-inner {
 
       &.jdb-countdown-hide {
@@ -1233,125 +1310,21 @@ img {
    }
 }
 
-.jdb-flipbox {
-   .jdb-flipbox-image {
-      img {
-         width: 100%;
-      }
-   }
-
-   .jdb-flipbox-front-title,
-   .jdb-flipbox-front-description,
-   .jdb-flipbox-back-title,
-   .jdb-flipbox-back-description {
-      width: 100%;
-   }
-
-   .jdb-flipbox-wrapper {
-      width: 100%;
-      display: inline-block;
-      perspective: 1000px;
-
-      .jdb-flipbox-card {
-         position: relative;
-         cursor: pointer;
-         transition-duration: 0.6s;
-         transition-timing-function: ease-in-out;
-         transform-style: preserve-3d;
-         min-height: 330px;
-
-         .jdb-flipbox-front,
-         .jdb-flipbox-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            transform: rotateX(0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            min-height: 330px;
-         }
-
-         .jdb-flipbox-front {
-            z-index: 2;
-         }
-
-         .jdb-flipbox-back {
-            transform: rotateY(180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-right .jdb-flipbox-card .jdb-flipbox-back,
-      &:hover .jdb-flipbox-card,
-      &.jdb-flipbox-flip-right:hover .jdb-flipbox-card {
-         transform: rotateY(180deg);
-      }
-
-      &.jdb-flipbox-flip-left {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotateY(-180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-up {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotateX(180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-down {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotateX(-180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-diagonal-right {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotate3d(1, 1, 0, 180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-diagonal-left {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotate3d(1, 1, 0, -180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-inverted-diagonal-right {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotate3d(-1, 1, 0, 180deg);
-         }
-      }
-
-      &.jdb-flipbox-flip-inverted-diagonal-left {
-
-         .jdb-flipbox-card .jdb-flipbox-back,
-         &:hover .jdb-flipbox-card {
-            transform: rotate3d(1, -1, 0, 180deg);
-         }
-      }
-   }
-}
+// CTA
 
 .jdb-cta {
    display: flex;
    flex-direction: column;
+   min-height: 300px;
+   .jdb-cta-title {
+      color: $primary;
+   }
+   .jdb-ribbon {
+      background-color: $secondary;
+      color: $white;
+      font-size: 14px;
+      line-height: 30px;
+   }
 }
 
 .cd-words-wrapper {
@@ -1392,18 +1365,39 @@ img {
    }
 }
 
+// Business Hours
 .jdb-business-hours {
    .jdb-bh-row {
       display: flex;
+      padding: 15px;
+      border-bottom-width: 1px;
+      border-bottom-color: $dark;
+   }
+   .jdb-bh-day,
+   .jdb-bh-time {
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      max-width: 100%;
+   }
+   .jdb-bh-day {
+      color: #000;
+      text-align: left;
+   }
+   .jdb-bh-time {
+      color: #000;
+      text-align: right;
+   }
+}
 
-      .jdb-bh-day,
-      .jdb-bh-time {
-         -ms-flex-preferred-size: 0;
-         flex-basis: 0;
-         -ms-flex-positive: 1;
-         flex-grow: 1;
-         max-width: 100%;
-      }
+// Content
+
+.jdb-element-content {
+   .jdb-firstletter {
+      font-size: 72px;
+      text-align: center;
+      line-height: 60px;
    }
 }
 
@@ -1502,7 +1496,12 @@ img {
          margin: 0px;
       }
    }
-
+   .jdb-testimonial-author-name {
+      color: $primary;
+   }
+   .jdb-testimonial-author-designation {
+      color: $text-muted;
+   }
    .jdb-testimonial {
       margin: auto;
       max-width: 100%;
@@ -1573,6 +1572,9 @@ img {
 
    .jdb-testimonial-author-avatar {
       max-width: 80px;
+      img {
+         border-radius: 5px;
+      }
    }
 
    .jdb-testimonial-content {
@@ -1583,7 +1585,10 @@ img {
       &.jdb-speach-bubble {
          position: relative;
          border-radius: 8px;
-
+         background-color: $secondary;
+         border-color: $secondary;
+         color: #fff;
+         padding: 15px;
          &:after {
             content: '';
             position: absolute;
@@ -1680,6 +1685,47 @@ img {
 
       .jdb-jarticles {
          display: none;
+      }
+   }
+}
+
+.jdb-google-map {
+   .gm-style {
+      .gm-style-iw-d {
+         overflow: auto !important;
+         &::-webkit-scrollbar {
+            width: 16px !important;
+        }
+        &::-webkit-scrollbar-track {
+           -webkit-box-shadow: none !important;
+           background-color: transparent !important;
+        }
+        &::-webkit-scrollbar-thumb {
+           background-color: #000 !important;
+           outline: none !important;
+        }
+        &::-webkit-scrollbar-track-piece {
+           background-color: transparent !important;
+        }
+      }
+   }
+}
+
+// Accordion
+
+.jdb-accordion-element {
+   ul {
+      li {
+         border: 1px solid #eee;
+         &:not(:last-child) {
+            margin-bottom: 10px;
+         }
+         &:not(.jdb-active):hover {
+            border-color: dddddd;
+         }
+         &.jdb-active {
+            border-color: #888888;
+         }
       }
    }
 }

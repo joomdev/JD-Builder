@@ -4,14 +4,9 @@
       <fields>
          <!-- General Options -->
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
-            
-            <!-- Basic Options -->
-            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" default="" group="basic">
-            </field>
-            
-            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="basic">
+
+            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="layout">
                <option value="">JDB_COLUMN_DEFAULT_TAG</option>
                <option value="div">JDB_DIV_TAG</option>
                <option value="header">JDB_HEADER_TAG</option>
@@ -22,7 +17,7 @@
                <option value="aside">JDB_ASIDE_TAG</option>
                <option value="nav">JDB_NAV_TAG</option>
             </field>
-            
+
             <!-- Layout Options -->
             <field type="list" name="verticalContentPosition" label="JDB_CONTENT_VPOSITION" default="" group="layout">
                <option value="">JDB_INHERIT</option>
@@ -40,17 +35,7 @@
                <option value="justify-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
                <option value="justify-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
             </field>
-            <field
-               type="slider"
-               name="spaceBetweenElements"
-               label="JDB_SPACE_BETWEEN_ELEMENTS"
-               default=""
-               min="-100"
-               max="100"
-               unit="px"
-               group="layout"
-               responsive="true"
-            >
+            <field type="slider" name="spaceBetweenElements" label="JDB_SPACE_BETWEEN_ELEMENTS" default="" min="-100" max="100" unit="px" group="layout" responsive="true">
             </field>
          </fieldset>
          <!--  Advanced Options -->
@@ -58,14 +43,7 @@
             <!--  Advanced Options Groups -->
             <field type="group" name="responsive" ordering="1" label="JDB_RESPONSIVE"></field>
             <field type="spacer" label="JDB_COLUMN_SIZE" group="responsive"></field>
-            <field
-               type="list"
-               name="columnSizeTablet"
-               label="JDB_ON_TABLET"
-               default=""
-               group="responsive"
-               width="6"
-            >
+            <field type="list" name="columnSizeTablet" label="JDB_ON_TABLET" default="" group="responsive" width="6">
                <option value="">JDB_DEFAULT</option>
                <option value="1">JDB1</option>
                <option value="2">JDB2</option>
@@ -80,14 +58,7 @@
                <option value="11">JDB11</option>
                <option value="12">JDB12</option>
             </field>
-            <field
-               type="list"
-               name="columnSizeMobile"
-               label="JDB_ON_MOBILE"
-               default=""
-               group="responsive"
-               width="6"
-            >
+            <field type="list" name="columnSizeMobile" label="JDB_ON_MOBILE" default="" group="responsive" width="6">
                <option value="">JDB_DEFAULT</option>
                <option value="1">JDB1</option>
                <option value="2">JDB2</option>
@@ -103,6 +74,13 @@
                <option value="12">JDB12</option>
             </field>
          </fieldset>
+
+         <!--  Advanced Options -->
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="info">
+            </field>
+         </fieldset>
+
       </fields>
    </form>
 </element>

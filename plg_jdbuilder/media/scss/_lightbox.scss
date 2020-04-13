@@ -1,0 +1,412 @@
+$lightbox-text: #fff !default;
+$lightbox-background: #000 !default;
+$lightbox-icon-size-md: 20px !default;
+$lightbox-icon-size-sm: 20px !default;
+$lightbox-icon-size-xs: 20px !default;
+$lightbox-navigation-size-md: 20px !default;
+$lightbox-navigation-size-sm: 20px !default;
+$lightbox-navigation-size-xs: 20px !default;
+$lightbox-icon-color: #ddd !default;
+$lightbox-icon-hover-color: #ddd !default;
+$lightbox-fullscreen-display: flex !default;
+$lightbox-counter-display: flex !default;
+
+.jdb-lightbox-absoluted {
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.jdb-lightbox-fade-in {
+    animation: jdb-lightbox-fade-in .25s cubic-bezier(0, 0, .7, 1)
+}
+
+.jdb-lightbox-fade-out {
+    animation: jdb-lightbox-fade-out .25s ease
+}
+
+.jdb-lightbox-fade-in-strong {
+    animation: jdb-lightbox-fade-in-strong .25s cubic-bezier(0, 0, .7, 1)
+}
+
+.jdb-lightbox-fade-out-strong {
+    animation: jdb-lightbox-fade-out-strong .25s ease
+}
+
+@keyframes jdb-lightbox-fade-in {
+    from {
+        opacity: .65
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes jdb-lightbox-fade-out {
+    from {
+        opacity: .35
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+@keyframes jdb-lightbox-fade-in-strong {
+    from {
+        opacity: .3
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes jdb-lightbox-fade-out-strong {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.jdb-lightbox-cursor-grabbing {
+    cursor: grabbing
+}
+
+.jdb-lightbox-full-dimension {
+    width: 100%;
+    height: 100%
+}
+
+.jdb-lightbox-open {
+    overflow: hidden;
+    height: 100%
+}
+
+.jdb-lightbox-flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jdb-lightbox-opacity-0 {
+    opacity: 0 !important
+}
+
+.jdb-lightbox-opacity-1 {
+    opacity: 1 !important
+}
+
+.jdb-lightbox-scrollbarfix {
+    padding-right: 17px
+}
+
+.jdb-lightbox-transform-transition {
+    transition: transform .3s
+}
+
+.jdb-lightbox-container {
+    font-family: Helvetica, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $lightbox-background;
+    z-index: 9999999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent
+}
+
+.jdb-lightbox-container * {
+    box-sizing: border-box
+}
+
+.jdb-lightbox-svg-path {
+    transition: fill .15s ease;
+    fill: $lightbox-icon-color
+}
+
+.jdb-lightbox-nav {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: $lightbox-icon-size-md + 25px !important;
+
+    @include media-breakpoint-down(md) {
+        height: $lightbox-icon-size-sm + 25px !important;
+    }
+
+    @include media-breakpoint-down(sm) {
+        height: $lightbox-icon-size-xs + 25px !important;
+    }
+}
+
+.jdb-lightbox-slide-number-container {
+    display: $lightbox-counter-display;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    font-size: 15px;
+    color: #d7d7d7;
+    z-index: 0;
+    max-width: 55px;
+    text-align: left
+}
+
+.jdb-lightbox-slide-number-container .jdb-lightbox-flex-centered {
+    height: 100%
+}
+
+.jdb-lightbox-slash {
+    display: block;
+    margin: 0 5px;
+    width: 1px;
+    height: 12px;
+    transform: rotate(15deg);
+    background: #fff
+}
+
+.jdb-lightbox-toolbar {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+}
+
+.jdb-lightbox-toolbar-button {
+    height: 100%;
+    cursor: pointer;
+    width: $lightbox-icon-size-md + 25px !important;
+
+    @include media-breakpoint-down(md) {
+        width: $lightbox-icon-size-sm + 25px !important;
+    }
+
+    @include media-breakpoint-down(sm) {
+        width: $lightbox-icon-size-xs + 25px !important;
+    }
+
+    svg {
+        height: $lightbox-icon-size-md;
+        width: $lightbox-icon-size-md;
+
+        @include media-breakpoint-down(md) {
+            height: $lightbox-icon-size-sm;
+            width: $lightbox-icon-size-sm;
+        }
+
+        @include media-breakpoint-down(sm) {
+            height: $lightbox-icon-size-xs;
+            width: $lightbox-icon-size-xs;
+        }
+    }
+}
+
+.jdb-lightbox-slide-btn {
+    svg {
+        height: $lightbox-navigation-size-md;
+        width: $lightbox-navigation-size-md;
+
+        @include media-breakpoint-down(md) {
+            height: $lightbox-navigation-size-sm;
+            width: $lightbox-navigation-size-sm;
+        }
+
+        @include media-breakpoint-down(sm) {
+            height: $lightbox-navigation-size-xs;
+            width: $lightbox-navigation-size-xs;
+        }
+    }
+}
+
+.jdb-lightbox-toolbar-button:hover .jdb-lightbox-svg-path {
+    fill: $lightbox-icon-hover-color;
+}
+
+.jdb-lightbox-slide-btn-container {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    z-index: 3;
+    transform: translateY(-50%)
+}
+
+.jdb-lightbox-slide-btn-container:hover .jdb-lightbox-svg-path {
+    fill: #f1f1f1
+}
+
+.jdb-lightbox-slide-btn {
+    padding: 10px;
+    font-size: 26px;
+}
+
+.jdb-lightbox-slide-btn-container-previous {
+    left: 0
+}
+
+@media (max-width:475.99px) {
+    .jdb-lightbox-slide-btn-container-previous {
+        padding-left: 3px
+    }
+}
+
+.jdb-lightbox-slide-btn-container-next {
+    right: 0;
+    padding-left: 12px;
+    padding-right: 3px
+}
+
+@media (min-width:476px) {
+    .jdb-lightbox-slide-btn-container-next {
+        padding-left: 22px
+    }
+}
+
+@media (min-width:768px) {
+    .jdb-lightbox-slide-btn-container-next {
+        padding-left: 30px
+    }
+}
+
+@media (min-width:476px) {
+    .jdb-lightbox-slide-btn-container-next {
+        padding-right: 6px
+    }
+}
+
+.jdb-lightbox-down-event-detector {
+    position: absolute;
+    z-index: 1
+}
+
+.jdb-lightbox-slide-swiping-hoverer {
+    z-index: 4
+}
+
+.jdb-lightbox-invalid-file-wrapper {
+    font-size: 22px;
+    color: #eaebeb;
+    margin: auto
+}
+
+.jdb-lightbox-video {
+    object-fit: cover
+}
+
+.jdb-lightbox-youtube-iframe {
+    border: 0
+}
+
+.jdb-lightbox-loader {
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 67px;
+    height: 67px
+}
+
+.jdb-lightbox-loader div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    margin: 6px;
+    border: 5px solid;
+    border-color: #999 transparent transparent transparent;
+    border-radius: 50%;
+    animation: jdb-lightbox-loader 1.2s cubic-bezier(.5, 0, .5, 1) infinite
+}
+
+.jdb-lightbox-loader div:nth-child(1) {
+    animation-delay: -.45s
+}
+
+.jdb-lightbox-loader div:nth-child(2) {
+    animation-delay: -.3s
+}
+
+.jdb-lightbox-loader div:nth-child(3) {
+    animation-delay: -.15s
+}
+
+@keyframes jdb-lightbox-loader {
+    0% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.jdb-lightbox-source {
+    position: relative;
+    margin: auto;
+    opacity: 0;
+    z-index: 2;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: opacity .3s;
+    will-change: opacity;
+    max-width: calc(100vw - #{($lightbox-navigation-size-md * 2) + 40});
+
+    @include media-breakpoint-down(md) {
+        max-width: calc(100vw - #{($lightbox-navigation-size-sm * 2) + 40});
+    }
+
+    @include media-breakpoint-down(sm) {
+        max-width: calc(100vw - #{($lightbox-navigation-size-xs * 2) + 40});
+    }
+}
+
+.jdb-lightbox-source-outer {
+    will-change: transform;
+    text-align: center;
+}
+
+.jdb-lightbox-caption {
+    text-align: center;
+    color: $lightbox-text;
+    padding: 10px 0px;
+    background: -moz-linear-gradient(top, transparent 0%, #{$lightbox-background} 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, #{$lightbox-background}));
+    background: -webkit-linear-gradient(top, transparent 0%, #{$lightbox-background} 100%);
+    background: -o-linear-gradient(top, transparent 0%, #{$lightbox-background} 100%);
+    background: -ms-linear-gradient(top, transparent 0%, #{$lightbox-background} 100%);
+    background: linear-gradient(to bottom, transparent 0%, #{$lightbox-background} 100%);
+
+    &:empty {
+        display: none;
+    }
+
+    .jdb-lightbox-caption-title {
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+
+    .jdb-lightbox-caption-desc {
+        margin-bottom: 0;
+        font-size: small;
+    }
+}
+
+.jdblb-full-screen {
+    display: $lightbox-fullscreen-display;
+}

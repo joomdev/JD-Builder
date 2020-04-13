@@ -9,7 +9,7 @@
         <option value="info">JDB_INFO</option>
         <option value="anchor">JDB_LINK</option>
     </field>
-    <field type="list" name="size" label="JDB_BUTTON_SIZE" default="" width="6">
+    <field type="list" search="false" name="size" label="JDB_BUTTON_SIZE" default="" width="6">
         <option value="sm">JDB_SIZE_SM</option>
         <option value="">JDB_SIZE_MD</option>
         <option value="lg">JDB_SIZE_LG</option>

@@ -33,7 +33,7 @@
             <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="JDB_BACKGROUND" default="" width="6" group="typography">
             </field>
 
-            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDB_TYPOGRAPHY_LABEL" default='{"family":"", "size":72, "sizeUnit":"px", "alignment":"center", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":60, "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' group="typography">
+            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDB_TYPOGRAPHY_LABEL" default="" group="typography">
             </field>
          </fieldset>
       </fields>

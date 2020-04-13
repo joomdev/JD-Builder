@@ -2,11 +2,11 @@
 
    var JDBuilderElementSeparator = function (element) {
       element.addClass('jdb-divider');
-      var style = JDBRenderer.ElementStyle('> hr');
+      var style = JDBRenderer.ElementStyle('.jdb-divider-main');
       element.addChildStyle(style);
 
-      style.addCss("border-style", element.params.get('separatorType', 'solid'));
-      style.addCss("border-color", element.params.get('separatorColor', ''));
+      style.addCss("border-top-style", element.params.get('separatorType', 'solid'));
+      style.addCss("border-top-color", element.params.get('separatorColor', ''));
 
       var weight = element.params.get('separatorWeight', null);
       if (weight != null) {
@@ -69,7 +69,7 @@
          });
       }
 
-      return '<hr />';
+      return '<div class="jdb-divider-main"></div>';
    }
 
    window.JDBuilderElementSeparator = JDBuilderElementSeparator;

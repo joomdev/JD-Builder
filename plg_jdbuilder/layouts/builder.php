@@ -91,6 +91,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
          <a href="//docs.joomdev.com/category/jd-builder/" target="_blank">Documentation</a> <span>|</span> <a href="//www.joomdev.com/jd-builder/changelog" target="_blank">Changelog</a> <span>|</span> <a href="//www.joomdev.com/forum/jd-builder" target="_blank">Forum</a> <span>|</span> <a href="//www.youtube.com/playlist?list=PLv9TlpLcSZTAnfiT0x10HO5GGaTJhUB1K" target="_blank">Video Tutorials</a> <span>|</span> <a href="//extensions.joomla.org/extension/jd-builder" target="_blank"><span class="icon-joomla"></span> Rate Us</a>
       </div>
    </div>
+   <div id="jdb-select2-dropdowns-container"></div>
 </div>
 <script>
    <?php echo JDPageBuilder\Helper::minifyJS([JPATH_SITE . '/media/jdbuilder/js/admin.js']); ?>
@@ -114,6 +115,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
       ASSETS: '<?php echo $builder_assets_path; ?>/',
       IMAGE: '<?php echo \JURI::root(); ?>images/',
       MEDIA: '<?php echo \JURI::root(); ?>media/jdbuilder/',
+      MEDIAPATH: 'images/',
       PREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url); ?>',
       LIVEPREVIEW: '<?php echo JDPageBuilder\Helper::JRouteLink('site', $url . '&jdb-live-preview=1'); ?>',
       GLOBALOPTIONS: 'index.php?option=com_config&view=component&component=com_jdbuilder',
@@ -125,6 +127,9 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.FONTS = [];
    _JDB.MENUITEMS = [];
 
+   _JDB.GLOBALSETTINGS = <?php echo JDPageBuilder\Helper::globalSettings()->toString(); ?>;
+
+   _JDB.ANIMATIONS = <?php echo \json_encode(JDPageBuilder\Helper::animationsList()); ?>;
 
    _JDB.LOGGER = new JDLogger();
    _JDB.LOGGER.debug = _JDB.DEBUG;
@@ -173,6 +178,6 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 
 <?php
 if (!empty($buiderConfig->get('gmapkey', ''))) {
-   echo '<script async defer src="//maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '" type="text/javascript"></script>';
+   echo '<script async defer src="//maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '&libraries=places" type="text/javascript"></script>';
 }
 ?>

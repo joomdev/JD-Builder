@@ -4,30 +4,13 @@
       <fields>
          <!-- General Options -->
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <field type="group" name="layout" label="JDB_LAYOUT_TITLE"></field>
-
-            <!-- Basic Options -->
-            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="basic">
-            </field>
-
-            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="basic">
-               <option value="">JDB_SECTION_DEFAULT_TAG</option>
-               <option value="div">JDB_DIV_TAG</option>
-               <option value="header">JDB_HEADER_TAG</option>
-               <option value="footer">JDB_FOOTER_TAG</option>
-               <option value="main">JDB_MAIN_TAG</option>
-               <option value="article">JDB_ARTICLE_TAG</option>
-               <option value="section">JDB_SECTION_TAG</option>
-               <option value="aside">JDB_ASIDE_TAG</option>
-               <option value="nav">JDB_NAV_TAG</option>
-            </field>
 
             <!-- Layout Options -->
             <field type="switch" label="JDB_STRETCH_SECTION_LBL" group="layout" name="stretchSection" description="JDB_STRETCH_SECTION_DESC" default="false">
             </field>
 
-            <field type="radio" radiotype="buttons" name="contentWidth" label="JDB_CONTENT_WIDTH_LBL" default="container" group="layout">
+            <field type="radio" radiotype="buttons" name="contentWidth" label="JDB_CONTENT_WIDTH_LBL" search="false" default="container" group="layout">
                <option value="container-fluid">JDB_FLUID_FULL_WIDTH</option>
                <option value="container">JDB_CONTAINED_BOXED</option>
                <option value="custom">JDB_CUSTOM</option>
@@ -36,7 +19,7 @@
             <field type="slider" name="contentWidthCustom" label="JDB_WIDTH" default='{"value":1140,"unit":"px"}' max="2560" min="0" units="px,%,vw" showon="params.contentWidth=='custom'" group="layout" responsive="true">
             </field>
 
-            <field type="list" name="height" label="JDB_SECTION_HEIGHT_LBL" group="layout" default="">
+            <field type="list" name="height" label="JDB_SECTION_HEIGHT_LBL" group="layout" default="" search="false">
                <option value="">JDB_INHERIT</option>
                <option value="screen-fit">JDB_FITTOSCREEN</option>
                <option value="min-height">JDB_MIN_HEIGHT</option>
@@ -51,6 +34,23 @@
                <option value="justify-content-end">JDB_JUSTIFY_CONTENT_END</option>
                <option value="justify-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
                <option value="justify-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
+            </field>
+            
+            <field type="list" name="htmlTag" label="JDB_HTML_TAG" default="" search="true" group="layout">
+               <option value="">JDB_SECTION_DEFAULT_TAG</option>
+               <option value="div">JDB_DIV_TAG</option>
+               <option value="header">JDB_HEADER_TAG</option>
+               <option value="footer">JDB_FOOTER_TAG</option>
+               <option value="main">JDB_MAIN_TAG</option>
+               <option value="article">JDB_ARTICLE_TAG</option>
+               <option value="section">JDB_SECTION_TAG</option>
+               <option value="aside">JDB_ASIDE_TAG</option>
+               <option value="nav">JDB_NAV_TAG</option>
+            </field>
+         </fieldset>
+         <!--  Advanced Options -->
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+            <field type="text" name="adminLabel" label="JDB_FIELD_ADMIN_LABEL" group="info">
             </field>
          </fieldset>
       </fields>

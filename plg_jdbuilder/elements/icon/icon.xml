@@ -71,7 +71,7 @@
                name="iconSize"
                type="slider"
                label="JDB_ICON_SIZE"
-               default="32"
+               default="80"
                unit="px"
                min="1"
                max="200"
@@ -190,7 +190,7 @@
                type="spacing"
                label="JDB_PADDING"
                group="iconstyle"
-               default='{"unit":"px","top":10,"lock":1,"left":10,"right":10,"bottom":10}'
+               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
                responsive="true"
             >
             </field>
@@ -202,6 +202,7 @@
                label="JDB_ICON_SHAPE"
                default="circle"
                group="iconborder"
+               search="false"
             >
                <option value="rounded">JDB_OPTIONS_ROUNDED</option>
                <option value="circle">JDB_OPTIONS_CIRCLE</option>

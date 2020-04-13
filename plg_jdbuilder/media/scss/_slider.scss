@@ -5,7 +5,15 @@
     .jdb-slider-controls {
         overflow: hidden;
     }
-
+    .jdb-slideshow-pretitle {
+        margin-bottom: 20px;
+    }
+    .jdb-slideshow-title {
+        margin-bottom: 20px;
+    }
+    .jdb-slideshow-description  {
+        margin-bottom: 20px;
+    }
     .jdb-slider-next,
     .jdb-slider-prev {
         position: absolute;
@@ -27,6 +35,7 @@
             -o-transition: .2s all linear;
             transition: .2s all linear;
             font-size: 32px;
+            color: $primary;
         }
     }
 
@@ -187,6 +196,10 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.jdb-dotnav > .jdb-active > *{
+    background-color: $primary;
+ }
 
 .jdb-slideshow {
     -webkit-tap-highlight-color: transparent;

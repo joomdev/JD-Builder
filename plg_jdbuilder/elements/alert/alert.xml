@@ -34,7 +34,7 @@
                name="alertHeading"
                type="text"
                label="JDB_ALERT_HEADING_LABEL"
-               default=""
+               default="This is an Alert"
                group="basic"
             >
             </field>
@@ -52,7 +52,7 @@
                name="alertContent"
                type="editor"
                label="JDB_ALERT_CONTENT_LABEL"
-               default="Alert Text"
+               default="I am a description. Click the edit button to change this text."
                group="basic"
             >
             </field>
@@ -78,7 +78,7 @@
                name="dismissButton"
                type="switch"
                label="JDB_ALERT_DISMISS_BUTTON_LABEL"
-               default="false"
+               default="true"
                group="basic"
             >
             </field>

@@ -21,6 +21,7 @@ jimport('joomla.application.component.helper');
 abstract class Builder
 {
    protected static $document = null;
+   protected static $globalSettings = null;
    protected static $debugger = null;
    protected static $request = null;
    protected static $requestMethod = 'GET';
@@ -47,6 +48,12 @@ abstract class Builder
       self::constants($app);
       self::$debugger = new Debugger(); // Debuuger
       self::$document = new Document(); // Document
+      self::$globalSettings = Helper::globalSettings(); // Global Settings
+   }
+
+   public static function getSettings()
+   {
+      return self::$globalSettings;
    }
 
    public static function getDocument(): Document
@@ -286,7 +293,7 @@ abstract class Builder
          if (file_exists($manifest)) {
             $element = self::getElementDataByManifest($manifest);
             if ($element !== false) {
-               $elements[] = self::getElementDataByManifest($manifest);
+               $elements[] = $element;
             }
          }
       }
@@ -376,6 +383,48 @@ abstract class Builder
       $form->load($xml);
       $formJSON = $form->get();
       return $formJSON;
+   }
+
+   public static function getGlobalParams()
+   {
+      return Helper::globalSettings()->toArray();
+   }
+
+   public static function getGlobalForm()
+   {
+      $xml = JDBPATH_OPTIONS . '/global.xml';
+      $form = new Form("global");
+      $form->load($xml);
+      if (file_exists(JDBPATH_OPTIONS . '/global-pro.xml')) {
+         $form->load(JDBPATH_OPTIONS . '/global-pro.xml');
+      }
+      $formJSON = $form->get();
+      return $formJSON;
+   }
+
+   public static function saveGlobalOptions()
+   {
+      $db = \JFactory::getDbo();
+      $query = "SELECT * FROM `#__jdbuilder_configs` WHERE `type`='global'";
+      $db->setQuery($query);
+      $result = $db->loadObject();
+      $request = self::request();
+      if (empty($result)) {
+         $object = new \stdClass();
+         $object->id = NULL;
+         $object->type = 'global';
+         $object->item_id = 0;
+         $object->config = \json_encode($request->get('config', [], 'ARRAY'));
+         $object->created_on = time();
+         $object->modified_on = time();
+         $db->insertObject('#__jdbuilder_configs', $object);
+      } else {
+         $object = new \stdClass();
+         $object->id = $result->id;
+         $object->config = \json_encode($request->get('config', [], 'ARRAY'));
+         $object->modified_on = time();
+         $db->updateObject('#__jdbuilder_configs', $object, 'id');
+      }
    }
 
    public static function getArticleForm()
@@ -650,6 +699,7 @@ abstract class Builder
          $document->addScriptDeclaration($fbAppId);
          $document->addScriptDeclaration($dividersSVGs);
          $document->addScriptDeclaration('var _JDB_ITEM_TYPE = "page";');
+         $document->addScriptDeclaration('var _JDBGLOBALSETTINGS = ' . Helper::globalSettings()->toString() . ';');
          $document->addScriptDeclaration('var _JDB_ITEM_ID = ' . $item->id . ';');
 
          if (file_exists(JDBPATH_PLUGIN . '/fonts/fonts.json')) {
@@ -670,6 +720,11 @@ abstract class Builder
 
 
          $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
+
+         // async defer
+         if (!empty($buiderConfig->get('gmapkey', ''))) {
+            $document->addCustomTag('<script src="https://maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '" async defer></script>');
+         }
 
          /*
          $document->addScriptDeclaration('
@@ -698,6 +753,7 @@ abstract class Builder
          Builder::getDocument()->animateCss = true;
          $document->addCustomTag('<script src="https://www.google.com/recaptcha/api.js" async defer></script>');
 
+         Helper::renderGlobalTypography();
          $css = self::renderStyle();
          $document->addStyleDeclaration($css);
 
@@ -757,6 +813,7 @@ abstract class Builder
       $layout = new Element\Layout($layout, 'page', $item->id);
       $rendered = $layout->render();
       \JDPageBuilder\Builder::renderPageStyle($params);
+      \JDPageBuilder\Helper::renderGlobalTypography();
       \JDPageBuilder\Builder::renderHead();
       echo $rendered;
    }
@@ -826,25 +883,21 @@ abstract class Builder
 
    public static function onBeforeBodyClose()
    {
-      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
-
       if (JDB_LIVE_PREVIEW) {
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/preview.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/moment.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/pikaday.min.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdbfrontend.js?v=' . JDB_MEDIA_VERSION . '"></script>';
-      }
-
-      if (!empty($buiderConfig->get('gmapkey', ''))) {
-         echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '" type="text/javascript"></script>';
+         $version = Helper::getMediaVersion();
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/preview.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdlightbox.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/moment.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/pikaday.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdbfrontend.js?v=' . $version . '"></script>';
       }
    }
 
@@ -904,9 +957,22 @@ abstract class Builder
       }
    }
 
+   public static function loadGoogleMap($callback)
+   {
+      Builder::getDocument()->googleMap = true;
+      if (!in_array($callback, Builder::getDocument()->googleMapCallbacks)) {
+         Builder::getDocument()->googleMapCallbacks[] = $callback;
+      }
+   }
+
    public static function loadAnimateCSS()
    {
       Builder::getDocument()->animateCss = true;
+   }
+
+   public static function loadLightBox()
+   {
+      Builder::getDocument()->lightBox = true;
    }
 
    public static function loadParticleJS()
@@ -1254,5 +1320,44 @@ abstract class Builder
          $methodName = $task;
       }
       return \JDPageBuilder\Helpers\DataHelper::$methodName();
+   }
+
+   public static function getAjax()
+   {
+      $request = self::request();
+      $element = $request->get('element', '');
+      $q = $request->get('q', '', 'RAW');
+      $_type = $request->get('_type', 'query');
+      $key = $request->get('key', '');
+      if (empty($element) || empty($key)) {
+         throw new \Exception('Bad Ajax Request', 400);
+      }
+      if ($_type === 'init') {
+         $result = self::getAjaxOptions($element, $key, $q, true);
+      } else {
+         $result = self::getAjaxOptions($element, $key, $q);
+      }
+      $result = empty($result) ? [] : $result;
+      return $result;
+   }
+
+   public static function getAjaxOptions($element, $key, $value, $init = false)
+   {
+      if (!file_exists(JDBPATH_ELEMENTS . '/' . $element . '/helper.php')) {
+         throw new \Exception('Bad Ajax Request', 400);
+      }
+
+      require_once(JDBPATH_ELEMENTS . '/' . $element . '/helper.php');
+
+      $class = 'JDBuilder' . \JDPageBuilder\Helper::classify($element) . 'ElementHelper';
+
+      $func = \JDPageBuilder\Helper::classify(($init ? 'init' : 'query') . 'Ajax_' . $key);
+
+      if (!method_exists($class, $func)) {
+         throw new \Exception('Bad Ajax Request', 400);
+      } else {
+         $namespace = new $class();
+         return $namespace->$func($value);
+      }
    }
 }

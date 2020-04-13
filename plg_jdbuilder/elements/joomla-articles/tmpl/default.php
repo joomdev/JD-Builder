@@ -152,8 +152,8 @@ $viewmoreText = $element->params->get('viewmoreText', '');
 <?php
 // meta styling
 $metaStyle = new JDPageBuilder\Element\ElementStyle(".jdb-jarticle-meta-info");
-$metaTitleStyle = new JDPageBuilder\Element\ElementStyle(".jdb-jarticle-meta-info > span");
-$metaIconStyle = new JDPageBuilder\Element\ElementStyle(".jdb-jarticle-meta-info > span > i");
+$metaTitleStyle = new JDPageBuilder\Element\ElementStyle(".jdb-jarticle-meta-info span:not(:last-child)");
+$metaIconStyle = new JDPageBuilder\Element\ElementStyle(".jdb-jarticle-meta-info span i");
 
 $element->addChildrenStyle([$metaStyle, $metaTitleStyle, $metaIconStyle]);
 

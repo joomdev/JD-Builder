@@ -16,7 +16,7 @@
          <!-- General Options -->
          <fieldset name="general" label="JDB_GENERAL_TITLE">
             <!--  Layout Options -->
-            <field type="list" name="guttersType" label="JDB_COLUMN_GAP" default="" group="basic">
+            <field type="list" name="guttersType" label="JDB_COLUMN_GAP" default="" group="basic" search="false">
                <option value="">JDB_INHERIT</option>
                <option value="none">JDB_COLUMN_NO_GAP</option>
                <option value="custom">JDB_CUSTOM</option>

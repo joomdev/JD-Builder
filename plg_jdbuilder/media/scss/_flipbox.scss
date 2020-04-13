@@ -1,0 +1,442 @@
+.jdb-flipbox-back-title {
+    a {
+        color: inherit;
+    }
+}
+
+.jdb-flipbox-card {
+    position: relative;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    box-shadow: none !important;
+}
+
+.jdb-flipbox-front-wrapper,
+.jdb-flipbox-back-wrapper {
+    width: 100%;
+}
+
+.jdb-flipbox-box-linked {
+    .jdb-button-link:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.jdb-flipbox-front {
+
+    // Content Alignment
+    &.jdb-flipbox-content-left {
+        text-align: left;
+    }
+
+    &.jdb-flipbox-content-right {
+        text-align: right;
+    }
+
+    &.jdb-flipbox-content-center {
+        text-align: center;
+    }
+
+    // Vertical Position
+    &.jdb-flipbox-vertical-top {
+        align-items: flex-start;
+    }
+
+    &.jdb-flipbox-vertical-middle {
+        align-items: center;
+    }
+
+    &.jdb-flipbox-vertical-bottom {
+        align-items: flex-end;
+    }
+}
+
+.jdb-flipbox-back {
+
+    // Content Alignment
+    &.jdb-flipbox-content-left {
+        text-align: left;
+    }
+
+    &.jdb-flipbox-content-right {
+        text-align: right;
+    }
+
+    &.jdb-flipbox-content-center {
+        text-align: center;
+    }
+
+    // Vertical Position
+    &.jdb-flipbox-vertical-top {
+        align-items: flex-start;
+    }
+
+    &.jdb-flipbox-vertical-middle {
+        align-items: center;
+    }
+
+    &.jdb-flipbox-vertical-bottom {
+        align-items: flex-end;
+    }
+}
+
+// Media
+.jdb-flipbox-media {
+    display: inline-block;
+    margin: 0 auto 10px auto;
+
+    .jdb-flipbox-icon {
+        text-align: center;
+        box-sizing: content-box;
+    }
+}
+
+// Front & Back
+.jdb-flipbox-front,
+.jdb-flipbox-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: all .6s ease-in-out;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    overflow: hidden;
+
+    .jdb-flipbox-front-title,
+    .jdb-flipbox-back-title {
+        font-size: 24px;
+        line-height: normal;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+}
+
+.jdb-flipbox-front-title,
+.jdb-flipbox-back-title {
+    margin-bottom: 10px;
+}
+
+.jdb-flipbox-back-title a {
+    color: inherit;
+}
+
+.jdb-flipbox-back-description {
+    margin-bottom: 10px;
+}
+
+// Animations
+/*
+1. Flip
+	1.1 Top
+	1.2 Right
+	1.3 Bottom
+	1.4 Left	
+2. Slide
+	2.1 Top
+	2.2 Right
+	2.3 Bottom
+	2.4 Left
+3. Push
+	3.1 Top
+	3.2 Right
+	3.3 Bottom
+	3.4 Left
+4. Zoom In
+5. Zoom Out
+6. Fade
+*/
+
+.jdb-flipbox {
+
+    // 1. Flip
+    .jdb-flipbox-flip {
+        .jdb-flipbox-front {
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+            z-index: 1;
+        }
+
+        .jdb-flipbox-card:hover .jdb-flipbox-back {
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+        }
+
+        &.jdb-flipbox-dir-up {
+            .jdb-flipbox-back {
+                -webkit-transform: rotateX(-180deg) rotateY(0);
+                transform: rotateX(-180deg) rotateY(0);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: rotateX(180deg) rotateY(0);
+                transform: rotateX(180deg) rotateY(0);
+            }
+        }
+
+        &.jdb-flipbox-dir-down {
+            .jdb-flipbox-back {
+                -webkit-transform: rotateX(180deg) rotateY(0);
+                transform: rotateX(180deg) rotateY(0);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: rotateX(-180deg) rotateY(0);
+                transform: rotateX(-180deg) rotateY(0);
+            }
+        }
+
+        &.jdb-flipbox-dir-left {
+            .jdb-flipbox-back {
+                -webkit-transform: rotateX(0) rotateY(180deg);
+                transform: rotateX(0) rotateY(180deg);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: rotateX(0) rotateY(-180deg);
+                transform: rotateX(0) rotateY(-180deg);
+            }
+        }
+
+        &.jdb-flipbox-dir-right {
+            .jdb-flipbox-back {
+                -webkit-transform: rotateX(0) rotateY(-180deg);
+                transform: rotateX(0) rotateY(-180deg);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: rotateX(0) rotateY(180deg);
+                transform: rotateX(0) rotateY(180deg);
+            }
+        }
+    }
+
+    // 2. Slide
+
+    .jdb-flipbox-slide {
+        .jdb-flipbox-card {
+            &:hover {
+                .jdb-flipbox-front {
+                    opacity: 0;
+                }
+            }
+        }
+
+        .jdb-flipbox-card {
+            &:hover .jdb-flipbox-back {
+                -webkit-transform: none;
+                -ms-transform: none;
+                transform: none;
+            }
+        }
+
+        &.jdb-flipbox-dir-up .jdb-flipbox-back {
+            -webkit-transform: translateX(0) translateY(100%);
+            -ms-transform: translateX(0) translateY(100%);
+            transform: translateX(0) translateY(100%);
+        }
+
+        &.jdb-flipbox-dir-down .jdb-flipbox-back {
+            -webkit-transform: translateX(0) translateY(-100%);
+            -ms-transform: translateX(0) translateY(-100%);
+            transform: translateX(0) translateY(-100%);
+        }
+
+        &.jdb-flipbox-dir-left .jdb-flipbox-back {
+            -webkit-transform: translateX(100%) translateY(0);
+            -ms-transform: translateX(100%) translateY(0);
+            transform: translateX(100%) translateY(0);
+        }
+
+        &.jdb-flipbox-dir-right .jdb-flipbox-back {
+            -webkit-transform: translateX(-100%) translateY(0);
+            -ms-transform: translateX(-100%) translateY(0);
+            transform: translateX(-100%) translateY(0);
+        }
+    }
+
+    // 3. Push
+    .jdb-flipbox-push {
+        .jdb-flipbox-card {
+            &:hover {
+                .jdb-flipbox-front {
+                    opacity: 0;
+                }
+            }
+        }
+
+        .jdb-flipbox-card {
+            &:hover .jdb-flipbox-back {
+                -webkit-transform: none;
+                -ms-transform: none;
+                transform: none;
+            }
+        }
+
+        .jdb-flipbox-front {
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+        }
+
+        &.jdb-flipbox-dir-up {
+            .jdb-flipbox-back {
+                -webkit-transform: translateX(0) translateY(100%);
+                -ms-transform: translateX(0) translateY(100%);
+                transform: translateX(0) translateY(100%);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: translateX(0) translateY(-100%);
+                -ms-transform: translateX(0) translateY(-100%);
+                transform: translateX(0) translateY(-100%);
+            }
+        }
+
+        &.jdb-flipbox-dir-down {
+            .jdb-flipbox-back {
+                -webkit-transform: translateX(0) translateY(-100%);
+                -ms-transform: translateX(0) translateY(-100%);
+                transform: translateX(0) translateY(-100%);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: translateX(0) translateY(100%);
+                -ms-transform: translateX(0) translateY(100%);
+                transform: translateX(0) translateY(100%);
+            }
+        }
+
+        &.jdb-flipbox-dir-left {
+            .jdb-flipbox-back {
+                -webkit-transform: translateX(100%) translateY(0);
+                -ms-transform: translateX(100%) translateY(0);
+                transform: translateX(100%) translateY(0);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: translateX(-100%) translateY(0);
+                -ms-transform: translateX(-100%) translateY(0);
+                transform: translateX(-100%) translateY(0);
+            }
+        }
+
+        &.jdb-flipbox-dir-right {
+            .jdb-flipbox-back {
+                -webkit-transform: translateX(-100%) translateY(0);
+                -ms-transform: translateX(-100%) translateY(0);
+                transform: translateX(-100%) translateY(0);
+            }
+
+            .jdb-flipbox-card:hover .jdb-flipbox-front {
+                -webkit-transform: translateX(100%) translateY(0);
+                -ms-transform: translateX(100%) translateY(0);
+                transform: translateX(100%) translateY(0);
+            }
+        }
+    }
+
+    // 4. Zoom In
+    .jdb-flipbox-zoomin {
+        .jdb-flipbox-card {
+            &:hover {
+                .jdb-flipbox-front {
+                    opacity: 0;
+                }
+            }
+        }
+
+        .jdb-flipbox-card {
+            .jdb-flipbox-back {
+                -webkit-transition: opacity .5s .2s, -webkit-transform .7s;
+                transition: opacity .5s .2s, -webkit-transform .7s;
+                transition: transform .7s, opacity .5s .2s;
+                transition: transform .7s, opacity .5s .2s, -webkit-transform .7s;
+                opacity: 0;
+                -webkit-transform: scale(0.7);
+                -ms-transform: scale(0.7);
+                transform: scale(0.7);
+            }
+
+            &:hover .jdb-flipbox-back {
+                -webkit-transition: opacity .5s, -webkit-transform .7s;
+                transition: opacity .5s, -webkit-transform .7s;
+                transition: transform .7s, opacity .5s;
+                transition: transform .7s, opacity .5s, -webkit-transform .7s;
+                opacity: 1;
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    }
+
+    // 5. Zoom Out
+    .jdb-flipbox-zoomout {
+        .jdb-flipbox-card {
+            .jdb-flipbox-back {
+                opacity: 0;
+            }
+        }
+
+        .jdb-flipbox-card {
+            &:hover {
+                .jdb-flipbox-back {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .jdb-flipbox-card {
+            .jdb-flipbox-front {
+                z-index: 1;
+            }
+
+            &:hover .jdb-flipbox-front {
+                opacity: 0;
+                -webkit-transform: scale(0.7);
+                -ms-transform: scale(0.7);
+                transform: scale(0.7);
+                -webkit-transition: opacity .7s .1s, width .1ms .7s, -webkit-transform .8s;
+                transition: opacity .7s .1s, width .1ms .7s, -webkit-transform .8s;
+                transition: transform .8s, opacity .7s .1s, width .1ms .7s;
+                transition: transform .8s, opacity .7s .1s, width .1ms .7s, -webkit-transform .8s;
+            }
+        }
+    }
+
+    // 6. Fade
+    .jdb-flipbox-fade {
+        .jdb-flipbox-card {
+            &:hover {
+                .jdb-flipbox-front {
+                    opacity: 0;
+                }
+            }
+        }
+
+        .jdb-flipbox-card {
+            .jdb-flipbox-back {
+                opacity: 0;
+            }
+
+            &:hover .jdb-flipbox-back {
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -25,16 +25,16 @@
             </field>
             <field name="separatorColor" type="color" label="JDB_COLOR" default="" width="6" group="basic">
             </field>
-            <field name="separatorAlignment" type="radio" label="JDB_ALIGNMENT" default="center" radiotype="buttons" group="basic" responsive="true">
+            <field name="separatorAlignment" type="radio" label="JDB_ALIGNMENT" default="" radiotype="buttons" group="basic" responsive="true">
                <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
-            <field name="separatorWeight" type="slider" label="JDB_SEPARATOR_HEIGHT" default="1" min="1" max="20" unit="px" group="basic" responsive="true">
+            <field name="separatorWeight" type="slider" label="JDB_SEPARATOR_HEIGHT" default="" min="1" max="20" unit="px" group="basic" responsive="true">
             </field>
-            <field name="separatorWidth" type="slider" label="JDB_WIDTH" unit="%" default='{"value":90,"unit":"%"}' max="1600" min="1" units="px,%" group="basic" responsive="true">
+            <field name="separatorWidth" type="slider" label="JDB_WIDTH" unit="%" default="" max="1600" min="1" units="px,%" group="basic" responsive="true">
             </field>
-            <field name="separatorGap" type="slider" label="JDB_SEPARATOR_SPACING" default="10" unit="px" max="200" group="basic" responsive="true">
+            <field name="separatorGap" type="slider" label="JDB_SEPARATOR_SPACING" default="" unit="px" max="200" group="basic" responsive="true">
             </field>
             <field type="spacing" name="separatorRadius" label="JDB_RADIUS" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,em" responsive="true" group="basic">
             </field>

@@ -25,7 +25,7 @@ class plgSystemJDBuilder extends JPlugin
    {
       \JDPageBuilder\Builder::init($this->app);
       $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', JDB_DEV ? 25 : md5($stat['mtime']));
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 47 : md5($stat['mtime']));
       if ($this->app->isAdmin()) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
@@ -146,20 +146,8 @@ class plgSystemJDBuilder extends JPlugin
          $id = $this->app->input->get('id', 0, 'INT');
          return $this->addBuilder($id);
       }
-      if ($this->isArticleEdit()) {
-         $id = $this->app->input->get('id', 0, 'INT');
-         return $this->addBuilderOnArticle($id);
-      }
-      if ($this->isHikashopEdit()) {
-         $id = $this->app->input->get('id', 0, 'INT');
-         return $this->addBuilderOnHikashop($id);
-      }
       if ($this->isModuleEdit()) {
          $this->addBodyClass();
-      }
-      if ($this->isArticleListing()) {
-         self::$article_layouts = JDPageBuilder\Helper::getJDArticleLayouts();
-         $this->setLinkAndLabel();
       }
    }
 
@@ -195,7 +183,7 @@ class plgSystemJDBuilder extends JPlugin
          return;
       }
 
-      if ($this->isPageEdit() || $this->isArticleEdit() || $this->isModuleEdit()) {
+      if ($this->isPageEdit() || $this->isModuleEdit()) {
          \JDPageBuilder\Helper::loadBuilderLanguage();
          \JDPageBuilder\Builder::getAdminElements();
          $id = $this->app->input->get('id', 0);
@@ -223,26 +211,6 @@ class plgSystemJDBuilder extends JPlugin
       $view = $this->app->input->get('view', '');
       $id = $this->app->input->get('id', 0, 'INT');
       return ($option == "com_jdbuilder" && $view == "page" && !empty($id));
-   }
-
-   public function isArticleListing()
-   {
-      return false;
-   }
-
-   public function isArticleEditing()
-   {
-      return false;
-   }
-
-   public function isArticleEdit()
-   {
-      return false;
-   }
-
-   public function isHikashopEdit()
-   {
-      return false;
    }
 
    public function isModuleEdit()
@@ -297,11 +265,6 @@ class plgSystemJDBuilder extends JPlugin
       $body = $this->app->getBody();
       $body = str_replace('{jdbuilder}', \JDPageBuilder\Builder::builderArea(true, 'page', $id), $body);
       $this->app->setBody($body);
-   }
-
-   public function addBuilderOnArticle($id)
-   {
-      return;
    }
 
    public function addBuilderOnHikashop($id)
@@ -360,7 +323,7 @@ class plgSystemJDBuilder extends JPlugin
    {
       $jdfinderpopup = $this->jdFinderModel();
       $buffer = JFactory::getApplication()->getBody();
-      $buffer = str_ireplace('</body>', $jdfinderpopup . '</body>', $buffer);
+      $buffer = \JDPageBuilder\Helper::str_lreplace('</body>', $jdfinderpopup . '</body>', $buffer);
       JFactory::getApplication()->setBody($buffer);
    }
 

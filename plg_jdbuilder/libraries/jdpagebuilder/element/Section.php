@@ -144,7 +144,7 @@ class Section extends BaseElement
    {
       $stretchSection = $this->params->get('stretchSection', false);
       if ($stretchSection) {
-         $this->addAttribute('jdb-section');
+         $this->addAttribute('jdb-section', 'stretch:' . ($stretchSection ? 'true' : 'false'));
       }
 
       // content width

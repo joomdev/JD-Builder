@@ -17,7 +17,7 @@
       var viewReadLink = element.params.get('viewReadLink', 0);
       var subcategories = element.params.get('subcategoryArticles', false);
       var dateFormat = element.params.get('metaDateFormat', 'd M, Y');
-      return '<div class="jdb-jarticles-live-preview"><div jdb-loader></div><div jdb-jarticles="id:' + element.id + ';categories:' + categories.join(',') + ';sub:' + (subcategories ? 'true' : 'false') + ';count:' + articleCount + ';featured:' + featuredArticle + ';ordering:' + articleOrdering + ';direction:' + direction + ';viewmore:' + viewReadLink + ';format:' + dateFormat + '">' + render(element, items) + '</div></div>';
+      return '<div class="jdb-jarticles-live-preview"><div jdb-loader></div><div jdb-jarticles="id:' + element.id + (categories.length ? ';categories:' + categories.join(',') : '') + ';sub:' + (subcategories ? 'true' : 'false') + ';count:' + articleCount + ';featured:' + featuredArticle + ';ordering:' + articleOrdering + ';direction:' + direction + ';viewmore:' + viewReadLink + ';format:' + dateFormat + '">' + render(element, items) + '</div></div>';
    }
 
    function render(element, items) {
@@ -181,8 +181,8 @@
 
    function elementStyling(element) {
       var metaStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-meta-info");
-      var metaTitleStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-meta-info > span");
-      var metaIconStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-meta-info > span > i");
+      var metaTitleStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-meta-info span:not(:last-child)");
+      var metaIconStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-meta-info span i");
       var titleStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-title");
       var titleChildStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-title > span, .jdb-jarticle-title > a");
       var titleChildHoverStyle = new JDBRenderer.ElementStyle(".jdb-jarticle-title > span:hover, .jdb-jarticle-title > a:hover");

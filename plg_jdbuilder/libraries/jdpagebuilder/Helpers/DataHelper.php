@@ -30,6 +30,8 @@ class DataHelper
             $json[] = \json_decode($data);
         }
         file_put_contents(JDBPATH_MEDIA . '/data/icons.json', \json_encode($json));
+        // update icons in repository
+        return "Updated";
     }
 
     private static function updateFontAwesome()

@@ -1,14 +1,12 @@
-// For Styling Purpose End
-
-// Common CSS Start
-
 .jdb-jarticle {
     position: relative;
     height: 100%;
-}
-
-.jdb-jarticle-introtext {
-    color: #696262;
+    .jdb-jarticle-title {
+        > span,
+        > a {
+            color: $secondary;
+        }
+    }
 }
 
 .jdb-button-link {
@@ -32,11 +30,11 @@
 .jdb-jarticle-meta-info {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size: 14px;
+    color: $text-muted;
     span,
     a {
-        margin-right: 10px;
         color: #949494;
     }
 
@@ -45,10 +43,11 @@
         i {
             margin-right: 2px;
         }
+        &:not(:last-child) {
+            margin-right: 12px;
+        }
     }
 }
-
-// Common CSS End Here
 
 // Grid View
 
@@ -88,7 +87,7 @@
     }
 }
 
-@media (min-width:768px) {
+@include media-breakpoint-up(md) {
     .jdb-jarticles-list-view {
         .jdb-jarticle {
             display: flex;
