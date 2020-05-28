@@ -13,6 +13,7 @@ $items = $element->params->get('items', []);
 if (empty($items)) {
    return;
 }
+$slugs = [];
 
 $element->addClass('jdb-accordion-element');
 
@@ -23,11 +24,6 @@ if ($collapsible) {
 } else {
    $firstactive = false;
 }
-if ($multiple) {
-   $opanAll = $element->params->get('accordionOpenAll', false);
-} else {
-   $opanAll = false;
-}
 
 $titleTag = $element->params->get('titleTag', '');
 $titleTag = empty($titleTag) ? 'span' : $titleTag;
@@ -35,26 +31,28 @@ $titleTag = empty($titleTag) ? 'span' : $titleTag;
 $faqSchema = $element->params->get('faqSchema', false);
 ?>
 
-<ul <?php echo $faqSchema ? 'itemscope itemtype="https://schema.org/FAQPage" ' : ''; ?>jdb-accordion="collapsible:<?php echo $collapsible ? 'true' : 'false'; ?>;active:<?php echo $firstactive ? 0 : 'false'; ?>;multiple:<?php echo $multiple ? 'true' : 'false'; ?>">
-   <?php foreach ($items as $item) { ?>
-      <li <?php echo $faqSchema ? 'itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" ' : ''; ?><?php echo $opanAll ? 'class="jdb-active"' : ''; ?>>
-         <a class="jdb-accordion-title jdb-caret-<?php echo $element->params->get('accordionIconAlignment', 'right'); ?>" href="#">
+<ul <?php echo $faqSchema ? 'itemscope itemtype="https://schema.org/FAQPage" ' : ''; ?>jdb-accordion="collapsible:<?php echo $collapsible ? 'true' : 'false'; ?>;active:false;multiple:<?php echo $multiple ? 'true' : 'false'; ?>" id="jdb-accordion-<?php echo $element->id; ?>">
+   <?php foreach ($items as $item) {
+      $slugs[] = '#' . JDPageBuilder\Helpers\StringHelper::kebabCase($item->title);
+   ?>
+      <li <?php echo $faqSchema ? 'itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" ' : ''; ?>>
+         <a class="jdb-accordion-title jdb-caret-<?php echo $element->params->get('accordionIconAlignment', 'right'); ?>" name href="#" id="<?php echo JDPageBuilder\Helpers\StringHelper::kebabCase($item->title); ?>">
             <<?php echo $titleTag; ?><?php echo $faqSchema ? ' itemprop="name"' : ''; ?> class="jdb-accordion-text">
                <?php
-                  if (!empty(@$item->icon)) {
-                     \JDPageBuilder\Builder::loadFontLibraryByIcon(@$item->icon);
-                     ?>
+               if (!empty(@$item->icon)) {
+                  \JDPageBuilder\Builder::loadFontLibraryByIcon(@$item->icon);
+               ?>
                   <i class="jdb-accordion-icon <?php echo $item->icon; ?>"></i>
                <?php } ?>
                <?php echo $item->title; ?>
             </<?php echo $titleTag; ?>>
             <?php
-               echo JDPageBuilder\Helper::getCaretValue($element->params->get('accordionIcon', 'plus'));
-               ?>
+            echo JDPageBuilder\Helper::getCaretValue($element->params->get('accordionIcon', 'plus'));
+            ?>
          </a>
          <div <?php echo $faqSchema ? 'itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" ' : ''; ?>class="jdb-accordion-content">
             <div <?php echo $faqSchema ? 'itemprop="text"' : ''; ?>>
-               <?php echo JDPageBuilder\Helper::renderHTML($item->content); ?>
+               <?php echo $item->content; ?>
             </div>
          </div>
       </li>
@@ -240,4 +238,14 @@ $caretStyle->addCss("color", $element->params->get('caretColor', ''));
 $caretStyle->addCss("background-color", $element->params->get('caretBackgroundColor', ''));
 $caretActiveStyle->addCss("color", $element->params->get('caretColorActive', ''));
 $caretActiveStyle->addCss("background-color", $element->params->get('caretBackgroundColorActive', ''));
+
+
+$script = 'if(window.location.hash && ' . \json_encode($slugs) . '.indexOf(window.location.hash) > ' . ($firstactive ? '0' : '-1') . '){ JDBPack.accordion(\'#jdb-accordion-' . $element->id . '\').toggle(' . \json_encode($slugs) . '.indexOf(window.location.hash), false); }else{
+   var firstactive = ' . ($firstactive ? 'true' : 'false') . ';
+   if(firstactive){
+      JDBPack.accordion(\'#jdb-accordion-' . $element->id . '\').toggle(0, false);
+   }
+}';
+JDPageBuilder\Builder::addScript($script, 'body');
+
 ?>

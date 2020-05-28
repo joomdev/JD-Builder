@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.3" group="search" method="upgrade">
+	<name>Search - JD Builder</name>
+	<creationDate>May 2020</creationDate>
+   	<author>Team Joomdev</author>
+    <authorEmail>info@joomdev.com</authorEmail>
+    <authorUrl>https://www.joomdev.com</authorUrl>
+    <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.0</version>
+	<description>PLG_SEARCH_JDBUILDER_DESC</description>
+	<files>
+		<filename plugin="jdbuilder">jdbuilder.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB.plg_search_jdbuilder.ini</language>
+		<language tag="en-GB">language/en-GB.plg_search_jdbuilder.sys.ini</language>
+	</languages>
+</extension>

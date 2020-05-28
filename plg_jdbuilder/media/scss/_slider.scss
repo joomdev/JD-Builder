@@ -252,7 +252,7 @@
             flex-grow: 1;
             max-width: 100%;
             position: relative;
-            z-index: 4;
+            z-index: 8;
 
             .jdb-video {
                 video {
@@ -266,7 +266,7 @@
             flex: 0 0 50%;
             max-width: 50%;
             position: relative;
-            z-index: 4;
+            z-index: 8;
         }
     }
 }

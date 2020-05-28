@@ -8,6 +8,9 @@
  */
 defined('_JEXEC') or die;
 extract($displayData);
+if ($element->indexMode) {
+   return;
+}
 $element->addClass('jdb-module');
 $type = $element->params->get('type', 'module');
 $style = $element->params->get('style', '0');

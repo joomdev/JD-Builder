@@ -12,6 +12,7 @@ extract($displayData);
 // params
 $attrs = [];
 
+$document = \JDPageBuilder\Builder::getDocument();
 // image source
 $image = $element->params->get('image', '');
 if (empty($image)) {
@@ -116,7 +117,7 @@ if ($element->params->get('imageSize', 'original') == "custom") {
 }
 
 JDPageBuilder\Helper::applyBorderValue($imageStyle, $element->params, "imageBorder");
-if ($lightbox) {
+if ($document->lightBox) {
 ?>
    <script>
       refreshJDLightbox();

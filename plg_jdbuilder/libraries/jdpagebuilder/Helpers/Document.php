@@ -66,7 +66,7 @@ class Document
     {
         if (!$this->lightBox) return;
         $document = \JFactory::getDocument();
-        $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdlightbox.js');
+        $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdlightbox.min.js');
     }
 
     private function _loadGoogleMap()

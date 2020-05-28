@@ -22,7 +22,7 @@
          });
       }
 
-      var _content = JDBRenderer.Helper.renderHTML(content);
+      var _content = content;
 
       let _html = [];
       let _dropcap = '';

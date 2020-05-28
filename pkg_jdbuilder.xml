@@ -7,7 +7,7 @@
    <packagerurl>https://www.joomdev.com</packagerurl>
    <author>Team JoomDev</author>
    <creationDate>Apr 2020</creationDate>
-   <version>1.6.0</version>
+   <version>1.7.0</version>
    <url>https://www.joomdev.com</url>
    <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
@@ -16,6 +16,8 @@
    <description>{jdpkgdesc}</description>
    <scriptfile>pkg_jdbuilder.php</scriptfile>
    <files>
+      <folder type="plugin" id="jdbuilder" client="site" group="finder">plg_finder_jdbuilder</folder>
+      <folder type="plugin" id="jdbuilder" client="site" group="search">plg_search_jdbuilder</folder>
       <folder type="plugin" id="jdbuilder" client="site" group="system">plg_jdbuilder</folder>
       <folder type="component" id="com_jdbuilder" client="site">com_jdbuilder</folder>
       <folder type="module" id="mod_jdbuilder" client="site">mod_jdbuilder</folder>

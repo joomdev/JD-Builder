@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS `#__jdbuilder_audit` (
+`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+`itemid` INT(11) NOT NULL,
+`itemtype` VARCHAR(255) NOT NULL,
+`status` INT(3) NOT NULL,
+`data` TEXT NULL DEFAULT NULL,
+`created` BIGINT(12) NOT NULL DEFAULT '0',
+`updated` BIGINT(12) NOT NULL DEFAULT '0',
+PRIMARY KEY (`id`)
+) DEFAULT COLLATE=utf8mb4_unicode_ci;

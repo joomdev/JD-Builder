@@ -1,0 +1,89 @@
+.jdb-jarticle {
+
+    // Title
+    .jdb-jarticle-title {
+        margin: 0 0 15px;
+        font-size: 32px;
+        line-height: normal;
+    }
+
+    .jdb-jarticle-fulltext {
+        margin-bottom: 20px;
+    }
+
+    // Meta Info
+    .jdb-jarticle-meta-info {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #6c757d;
+
+        span {
+            color: inherit;
+
+            a {
+                color: inherit;
+            }
+
+            &:not(:last-child) {
+                margin-right: 12px;
+            }
+
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    // Tags
+    .jdb-jarticle-tags {
+        margin-bottom: 15px;
+
+        a {
+            border: 1px solid #ddd;
+            padding: 4px 15px;
+            color: #000;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 5px;
+
+            &:hover {
+                color: #fff;
+                background-color: #000;
+                border-color: transparent;
+            }
+        }
+    }
+
+    // Navigation
+    .jdb-jarticle-pagination {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 20px 0;
+        margin: 20px 0;
+
+        span {
+            display: block;
+        }
+
+        .label {
+            color: #a7a1a1;
+            font-size: 15px;
+        }
+
+        .title {
+            color: #323232;
+        }
+
+        .jdb-jarticle-previus {
+            text-align: left;
+        }
+
+        .jdb-jarticle-next {
+            text-align: right;
+        }
+    }
+}

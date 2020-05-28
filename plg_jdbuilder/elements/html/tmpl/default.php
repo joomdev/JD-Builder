@@ -13,5 +13,4 @@ if (empty($content)) {
    return;
 }
 $element->addClass('jdb-html');
-echo '<div class="jdb-html-content">' . JDPageBuilder\Helper::renderHTML($content) . '</div>';
-?>
+echo '<div class="jdb-html-content">' . $content . '</div>';

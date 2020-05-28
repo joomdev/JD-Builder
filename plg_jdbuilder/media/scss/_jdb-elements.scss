@@ -1,9 +1,27 @@
+/*
+Element's Z-Indexes
+Content -> 9
+Shape Divider -> 8
+Front Shape Divider -> 10
+Particles Background -> 7
+Background Overlay -> 6
+Video Background -> 5
+*/
+
+
 // Reset CSS
 .jdbuilder {
    font-family: $font-family-base;
-   h1, h2, h3, h4, h5, h6 {
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
       margin-bottom: 0;
    }
+
    img {
       height: auto;
       max-width: 100%;
@@ -170,6 +188,7 @@
       box-sizing: content-box;
       padding: 10px;
       color: #262626;
+
       >span {
          display: inline-block;
          -webkit-transition: .2s all linear;
@@ -410,52 +429,52 @@
       z-index: 9;
       position: relative;
    }
-}
 
-.jdb-sdivider {
-   overflow: hidden;
-   position: absolute;
-   left: 0;
-   width: 100%;
-   line-height: 0;
-   direction: ltr;
-   z-index: 8;
+   .jdb-sdivider {
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      direction: ltr;
+      z-index: 8 !important;
 
-   &[data-position=top] {
-      top: -1px;
+      &[data-position=top] {
+         top: -1px;
 
-      &[data-flip] {
-         -webkit-transform: rotateY(180deg);
-         -ms-transform: rotateY(180deg);
-         transform: rotateY(180deg);
+         &[data-flip] {
+            -webkit-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+         }
       }
-   }
 
-   &[data-position=bottom] {
-      bottom: -1px;
-      -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-      transform: rotate(180deg);
+      &[data-position=bottom] {
+         bottom: -1px;
+         -webkit-transform: rotate(180deg);
+         -ms-transform: rotate(180deg);
+         transform: rotate(180deg);
 
-      &[data-flip] {
-         -webkit-transform: rotateX(180deg);
-         -ms-transform: rotateX(180deg);
-         transform: rotateX(180deg);
+         &[data-flip] {
+            -webkit-transform: rotateX(180deg);
+            -ms-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+         }
       }
-   }
 
-   &.jdb-sdivider-front {
-      z-index: 10 !important;
-   }
+      &.jdb-sdivider-front {
+         z-index: 10 !important;
+      }
 
-   svg {
-      display: block;
-      width: calc(100% + 1.3px);
-      position: relative;
-      left: 50%;
-      -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      transform: translateX(-50%)
+      svg {
+         display: block;
+         width: calc(100% + 1.3px);
+         position: relative;
+         left: 50%;
+         -webkit-transform: translateX(-50%);
+         -ms-transform: translateX(-50%);
+         transform: translateX(-50%)
+      }
    }
 }
 
@@ -489,7 +508,7 @@
    &:after {
       content: "";
       position: absolute;
-      z-index: 1;
+      z-index: 6 !important;
       width: 100%;
       height: 100%;
       top: 0;
@@ -506,30 +525,35 @@
    }
 
    .jdb-video-background {
-      z-index: 0 !important;
+      background: #000;
+      z-index: 5 !important;
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
-   }
+      display: flex;
+      align-items: center;
 
-   video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -100;
-      transform: translate(-50%, -50%);
-      max-width: inherit;
+      .jdb-video {
+         width: 100%;
+
+         video {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            height: auto;
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+         }
+      }
    }
 }
 
-.jdb-has-particle-bg {
+.jdb-has-particles-background {
    position: relative;
 
    >* {
@@ -537,14 +561,19 @@
       z-index: 9;
    }
 
-   .jdb-particles {
-      z-index: 2;
+   .jdb-particles-background {
+      z-index: 7 !important;
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
+
+      >div {
+         width: 100%;
+         height: 100%;
+      }
    }
 }
 
@@ -585,12 +614,14 @@
    margin: 0;
    padding: 0;
    list-style-type: none;
+
    .jdb-accordion-title {
       position: relative;
       display: flex;
       flex-direction: row;
       align-items: center;
       border-width: 1px;
+      outline: none;
 
       .jdb-accordion-text {
          flex-basis: 100%;
@@ -605,6 +636,7 @@
          justify-content: center;
          align-items: center;
          color: $dark;
+
          .jdb-caret-on {
             display: none;
          }
@@ -645,21 +677,26 @@
          }
       }
    }
-   > li.jdb-active > .jdb-accordion-title {
+
+   >li.jdb-active>.jdb-accordion-title {
       .jdb-accordion-text {
          color: $primary;
       }
+
       .jdb-caret {
          color: $primary;
       }
    }
-   > li > div > div {
+
+   >li>div>div {
       padding: 10px;
    }
-   > li > .jdb-accordion-title{
+
+   >li>.jdb-accordion-title {
       padding: 10px;
    }
-   > li > .jdb-accordion-title .jdb-accordion-text {
+
+   >li>.jdb-accordion-title .jdb-accordion-text {
       color: $dark;
    }
 }
@@ -815,193 +852,6 @@
    }
 }
 
-
-// JD Slider
-/* .jdb-slider {
-   position: relative;
-
-   .jdb-slider-items {
-      position: relative;
-      z-index: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      overflow: hidden;
-      -webkit-touch-callout: none;
-
-      >* {
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         overflow: hidden;
-         will-change: transform, opacity;
-         touch-action: pan-y;
-      }
-
-      > :not(.jdb-active) {
-         display: none;
-      }
-   }
-
-   .jdb-slider-content {
-      position: absolute;
-      top: 0;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      left: 0;
-
-      .jdb-slider-content-inner {
-         z-index: 0;
-         position: relative;
-         user-select: none;
-
-         * {
-            user-select: none;
-         }
-      }
-
-      &:after {
-         content: '';
-         position: absolute;
-         width: 100%;
-         height: 100%;
-         top: 0;
-         left: 0;
-         z-index: 1;
-      }
-   }
-
-   .jdb-slider-next,
-   .jdb-slider-prev {
-      position: absolute;
-      height: 100%;
-      z-index: 2;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      a {
-         margin: 0 15px;
-         position: relative;
-         opacity: 0;
-         will-change: opacity, left, right;
-         -webkit-transition: .2s all linear;
-         -moz-transition: .2s all linear;
-         -ms-transition: .2s all linear;
-         -o-transition: .2s all linear;
-         transition: .2s all linear;
-         font-size: 32px;
-      }
-   }
-
-   .jdb-slider-prev {
-      &:not(.jdb-slider-outside) {
-         left: 0;
-
-         a {
-            left: -100%;
-         }
-      }
-
-      &.jdb-slider-outside {
-         right: 100%;
-
-         a {
-            right: -100%;
-         }
-      }
-   }
-
-   .jdb-slider-next {
-      &:not(.jdb-slider-outside) {
-         right: 0;
-
-         a {
-            right: -100%;
-         }
-      }
-
-      &.jdb-slider-outside {
-         left: 100%;
-
-         a {
-            left: -100%;
-         }
-      }
-   }
-
-   .jdb-slider-slide {
-      max-width: none;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      border: 0;
-   }
-
-   &:hover {
-      .jdb-slider-next {
-         a {
-            opacity: 1;
-         }
-
-         &:not(.jdb-slider-outside) a {
-            right: 0;
-         }
-
-         &.jdb-slider-outside a {
-            left: 0;
-         }
-      }
-
-      .jdb-slider-prev {
-         a {
-            opacity: 1;
-         }
-
-         &:not(.jdb-slider-outside) a {
-            left: 0;
-         }
-
-         &.jdb-slider-outside a {
-            right: 0;
-         }
-      }
-   }
-
-   .jdb-slider-nav {
-      padding: 0;
-      list-style-type: none;
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-
-      li {
-         margin: 0 3px;
-
-         a {
-            display: block;
-            opacity: .5;
-         }
-
-         &.jdb-active a {
-            opacity: 1;
-         }
-      }
-
-      &.jdb-slider-nav-inside {
-         position: absolute;
-         bottom: 10px;
-         z-index: 2;
-         width: 100%;
-      }
-   }
-} */
-
 .invisible-layer {
    background: rgba(255, 255, 255, 0.5) url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAQAAAC1QeVaAAAASElEQVQY02NgQALS/5F5Ssg8qa/IUgooUg+QpWRRpA7hNB5VCsV4VANReKjOQDWDgYFIm/G4F7cv8YSNLG4pFCNQeSjq0MwAAPCoHW3Q0Dt9AAAAAElFTkSuQmCC") !important;
    position: absolute;
@@ -1083,17 +933,20 @@
       display: block;
       border-radius: 5px;
    }
+
    .jdb-team-name {
       margin-top: 10px;
       text-align: center;
       color: $primary;
    }
+
    .jdb-team-designation {
       font-size: 16px;
       text-align: center;
       font-style: italic;
       color: $text-muted;
    }
+
    .jdb-social-links {
       ul {
          li {
@@ -1128,6 +981,7 @@
       width: 100%;
       border-radius: 3px;
       height: 20px;
+
       .jdb-progressbar-progress {
          position: absolute;
          height: 100%;
@@ -1150,6 +1004,7 @@
          overflow: hidden;
          padding: 0px 8px;
          line-height: 20px;
+
          .jdb-value {
             float: right;
          }
@@ -1225,16 +1080,19 @@
       margin: auto;
       color: $info;
    }
+
    .jdb-numbercounter-number {
       font-size: 42px;
       text-align: center;
       color: $primary;
+
       >span,
       >div {
          white-space: pre;
          display: inline-block;
       }
    }
+
    .jdb-numbercounter-title {
       margin-top: 10px;
       color: $secondary;
@@ -1248,24 +1106,28 @@
       margin: auto;
       width: 100%;
    }
+
    .jdb-countdown-item {
       background: #fff;
       margin: 0 10px;
       border: 2px solid #f0f0f0;
       padding: 35px 25px;
    }
+
    .jdb-countdown-number {
       color: $primary;
       font-size: 42px;
       text-align: center;
       font-weight: bold;
    }
+
    .jdb-countdown-label {
       color: $dark;
       font-size: 18px;
       text-align: center;
       font-weight: normal;
    }
+
    .jdb-countdown-inner {
 
       &.jdb-countdown-hide {
@@ -1316,9 +1178,11 @@
    display: flex;
    flex-direction: column;
    min-height: 300px;
+
    .jdb-cta-title {
       color: $primary;
    }
+
    .jdb-ribbon {
       background-color: $secondary;
       color: $white;
@@ -1373,6 +1237,7 @@
       border-bottom-width: 1px;
       border-bottom-color: $dark;
    }
+
    .jdb-bh-day,
    .jdb-bh-time {
       -ms-flex-preferred-size: 0;
@@ -1381,10 +1246,12 @@
       flex-grow: 1;
       max-width: 100%;
    }
+
    .jdb-bh-day {
       color: #000;
       text-align: left;
    }
+
    .jdb-bh-time {
       color: #000;
       text-align: right;
@@ -1496,12 +1363,15 @@
          margin: 0px;
       }
    }
+
    .jdb-testimonial-author-name {
       color: $primary;
    }
+
    .jdb-testimonial-author-designation {
       color: $text-muted;
    }
+
    .jdb-testimonial {
       margin: auto;
       max-width: 100%;
@@ -1572,6 +1442,7 @@
 
    .jdb-testimonial-author-avatar {
       max-width: 80px;
+
       img {
          border-radius: 5px;
       }
@@ -1589,6 +1460,7 @@
          border-color: $secondary;
          color: #fff;
          padding: 15px;
+
          &:after {
             content: '';
             position: absolute;
@@ -1693,20 +1565,24 @@
    .gm-style {
       .gm-style-iw-d {
          overflow: auto !important;
+
          &::-webkit-scrollbar {
             width: 16px !important;
-        }
-        &::-webkit-scrollbar-track {
-           -webkit-box-shadow: none !important;
-           background-color: transparent !important;
-        }
-        &::-webkit-scrollbar-thumb {
-           background-color: #000 !important;
-           outline: none !important;
-        }
-        &::-webkit-scrollbar-track-piece {
-           background-color: transparent !important;
-        }
+         }
+
+         &::-webkit-scrollbar-track {
+            -webkit-box-shadow: none !important;
+            background-color: transparent !important;
+         }
+
+         &::-webkit-scrollbar-thumb {
+            background-color: #000 !important;
+            outline: none !important;
+         }
+
+         &::-webkit-scrollbar-track-piece {
+            background-color: transparent !important;
+         }
       }
    }
 }
@@ -1717,12 +1593,15 @@
    ul {
       li {
          border: 1px solid #eee;
+
          &:not(:last-child) {
             margin-bottom: 10px;
          }
+
          &:not(.jdb-active):hover {
             border-color: dddddd;
          }
+
          &.jdb-active {
             border-color: #888888;
          }

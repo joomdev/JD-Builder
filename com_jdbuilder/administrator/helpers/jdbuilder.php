@@ -106,7 +106,7 @@ class JdbuilderHelper
          return;
       }
       $document = JFactory::getDocument();
-      $document->addStyleDeclaration('.jdb-pro-message{background-image:linear-gradient(110deg, #099a97 6%, #15cda8 100%);box-shadow:8px 8px 8px rgba(221, 221, 221, 0.81);overflow:hidden;border-radius:4px;display:flex;color:#fff;margin-bottom:25px;line-height: 1.5rem;font-size:14px;}.jdb-pro-message h4{font-size:16px;margin:0 0 10px;}body.admin.com_jdbuilder #content .jdb-pro-message a{color:#fff;}.jdb-pro-logo{color: white;min-width: 80px;display: grid;align-items: center;padding: 15px;box-sizing: border-box;background-image:linear-gradient(110.7deg, #099a97 6.3%, #15cda8 90.6%);margin-right:10px;}.jdb-content{padding:20px 10px;align-self:center;}.jdb-content p{color:#f1f1f1;margin:0;}.jdb-content strong{color:#fff;}');
+      $document->addStyleDeclaration('.jdb-pro-message{background-image:linear-gradient(110deg, #099a97 6%, #15cda8 100%);box-shadow:8px 8px 8px rgba(221, 221, 221, 0.81);overflow:hidden;border-radius:4px;display:flex;color:#fff;margin-bottom:25px;line-height: 1.5rem;font-size:14px;}.jdb-pro-message h4{font-size:16px;margin:0 0 10px;}body.admin.com_jdbuilder #content .jdb-pro-message a{color:#fff;}.jdb-pro-logo{color: white;width: 100px;display: grid;align-items: center;padding: 15px;box-sizing: border-box;background-image:linear-gradient(110.7deg, #099a97 6.3%, #15cda8 90.6%);margin-right:10px;}.jdb-content{padding:20px 10px;align-self:center;}.jdb-content p{color:#f1f1f1;margin:0;}.jdb-content strong{color:#fff;}');
 
       $prefix = $isPro ? 'PRO' : 'FREE';
       return '<div class="jdb-pro-message"><div class="jdb-pro-logo">' . file_get_contents(JURI::root() . 'media/jdbuilder/images/jdb-icon.svg') . '</div>

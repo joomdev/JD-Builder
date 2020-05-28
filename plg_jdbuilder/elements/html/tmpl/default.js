@@ -7,7 +7,7 @@
       }
       element.addClass('jdb-html');
       let _html = [];
-      _html.push('<div class="jdb-html-content">' + JDBRenderer.Helper.renderHTML(content) + '</div>');
+      _html.push('<div class="jdb-html-content">' + content + '</div>');
       return _html.join('');
    }
 

@@ -106,10 +106,11 @@
             this.styleSize = function () {
                 if ((c = s.maxSourceWidth / r) < s.maxSourceHeight) return n < s.maxSourceWidth && (c = o), a();
                 c = o > s.maxSourceHeight ? s.maxSourceHeight : o;
-
-                var gap = i[t].nextSibling.offsetHeight;
-                if ((c + gap) >= window.innerHeight) {
-                    c = (c - (gap / 2));
+                if (i[t].nextSibling !== null) {
+                    var gap = i[t].nextSibling.offsetHeight;
+                    if ((c + gap) >= window.innerHeight) {
+                        c = (c - (gap / 2));
+                    }
                 }
                 a()
             };
@@ -226,7 +227,11 @@
                 i = o.sourcesInners,
                 r = e.props,
                 c = r.sources;
-            s[t] = c[t], s[t].classList.add(y), r.customClasses[t] && s[t].classList.add(r.customClasses[t]), i[t].appendChild(s[t]), n[t].handleCustomLoad()
+            s[t] = c[t];
+            if (s[t] === null) {
+                return;
+            }
+            s[t].classList.add(y), r.customClasses[t] && s[t].classList.add(r.customClasses[t]), i[t].appendChild(s[t]), n[t].handleCustomLoad()
         }
 
         function N(e, t) {

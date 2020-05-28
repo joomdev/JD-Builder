@@ -17,9 +17,12 @@ class Layout extends BaseElement
 
    public $sections = [];
 
-   public function __construct($object, $type = 'page', $id = 0)
+   public function __construct($object, $type = 'page', $id = 0, $indexMode = false)
    {
       parent::__construct($object);
+      $this->id = 'jdb-layout-' . $this->id;
+      $this->indexMode = $indexMode;
+      $GLOBALS['jdlid'] = $this->id;
       $this->itemType = $type;
       $this->itemID = $id;
       $layout = \json_decode($object->layout, FALSE);
@@ -28,7 +31,6 @@ class Layout extends BaseElement
             $this->sections[] = new Section($section, $this);
          }
       }
-      $this->id = 'jdb-layout-' . $this->id;
       $this->addClass($this->id);
       $this->addClass('jdbuilder');
       //$this->addAttribute('jdb-layout');

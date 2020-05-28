@@ -574,7 +574,7 @@ class Helper
          case 'g~':
             $value = substr($value, 2);
             $font = explode(":", $value);
-            Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0]);
+            Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0] . ':' . $font[1]);
             $font = $font[0];
             if (preg_match('~[0-9]+~', $font)) {
                $font = "'{$font}'";
@@ -806,9 +806,40 @@ class Helper
       return $body;
    }
 
-   public static function renderHTML($html)
+   public static function renderHTML($html, $indexMode = false)
    {
       $html = self::joomlaVariables($html);
+      if (!$indexMode) {
+         $html = self::renderModules($html);
+      }
+      return $html;
+   }
+
+   public static function renderModules($html)
+   {
+      preg_match_all('#\[jmodule (.*?)\]#', $html, $matches);
+      foreach ($matches[1] as $index => $string) {
+         $shortcode = $matches[0][$index];
+
+         preg_match('#position=\"(.*?)\"#', $string, $positionMatch);
+         preg_match('#id=\"(.*?)\"#', $string, $idMatch);
+         // preg_match('#name=\"(.*?)\"#', $string, $nameMatch);
+         preg_match('#style=\"(.*?)\"#', $string, $styleMatch);
+
+         $style = 'none';
+         if (!empty($styleMatch)) {
+            $style = $styleMatch[1];
+         }
+
+         if (!empty($idMatch)) {
+            $html = str_replace($shortcode, Builder::renderModuleByID($idMatch[1], $style), $html);
+         } else if (!empty($positionMatch)) {
+            $html = str_replace($shortcode, Builder::renderModulePosition($positionMatch[1], $style), $html);
+         }
+         /* else if (!empty($nameMatch)) {
+            $html = str_replace($shortcode, self::loadModuleByName($nameMatch[1], $style), $html);
+         } */
+      }
       return $html;
    }
 
@@ -827,7 +858,7 @@ class Helper
    public static function getPageItemIdByLink($link)
    {
       $db = \JFactory::getDbo();
-      $query = "SELECT `id` FROM `#__menu` WHERE `link`='{$link}'";
+      $query = "SELECT `id` FROM `#__menu` WHERE `link`='{$link}' AND `published`=1";
       $db->setQuery($query);
       $result = $db->loadObject();
       if (empty($result)) {
@@ -1155,19 +1186,6 @@ class Helper
          $results[implode(', ', $selectors)] = implode('', $css);
       }
       return $results;
-   }
-
-   public static function getJDArticleLayouts()
-   {
-      $db = \JFactory::getDbo();
-      $string = '"jdbuilder_layout_enabled":"1"';
-      $db->setQuery("SELECT `id` FROM `#__content` WHERE `attribs` LIKE '%{$string}%'");
-      $items = $db->loadObjectList();
-      $return = [];
-      foreach ($items as $item) {
-         $return[] = $item->id;
-      }
-      return $return;
    }
 
    public static function jdApiRequest($method, $hook, $data)

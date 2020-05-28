@@ -83,6 +83,8 @@ class Element extends BaseElement
          $layout_path = JDBPATH_ELEMENTS . '/' . $this->type . '/tmpl';
       }
 
+      \JDPageBuilder\Helper::loadLanguage($this->type, JDBPATH_ELEMENTS . '/' . $this->type);
+
       return $layout_path;
    }
 

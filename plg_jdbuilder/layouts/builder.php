@@ -6,6 +6,9 @@
  * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+use JDPageBuilder\Helpers\ModalHelper;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -152,6 +155,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.admin = new JDBAdmin();
    _JDB.admin.init();
    _JDB.JDB_CATEGORIES = new Map();
+   _JDB.JDB_ARTICLES = new Map();
 </script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/runtime.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/polyfills.js<?php echo $version; ?>"></script>
@@ -180,4 +184,6 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
 if (!empty($buiderConfig->get('gmapkey', ''))) {
    echo '<script async defer src="//maps.googleapis.com/maps/api/js?key=' . $buiderConfig->get('gmapkey', '') . '&libraries=places" type="text/javascript"></script>';
 }
+
+echo ModalHelper::selectArticleModal();
 ?>

@@ -8,6 +8,8 @@
  */
 
 use JDPageBuilder\Field;
+use JDPageBuilder\Helpers\AuditHelper;
+use JDPageBuilder\Helpers\ModalHelper;
 
 // no direct access
 defined('_JEXEC') or die;
@@ -25,7 +27,7 @@ class plgSystemJDBuilder extends JPlugin
    {
       \JDPageBuilder\Builder::init($this->app);
       $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', JDB_DEV ? 47 : md5($stat['mtime']));
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 94 : md5($stat['mtime']));
       if ($this->app->isAdmin()) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
@@ -129,6 +131,18 @@ class plgSystemJDBuilder extends JPlugin
          echo \json_encode($return);
          exit;
       }
+
+      if ($this->app->isAdmin() && ($this->isPageEdit() || $this->isModuleEdit())) {
+         \JFactory::getDocument()->addStyleDeclaration("div.modal { z-index: 99999; } .modal-backdrop { z-index: 99998; } .modal-backdrop, .modal-backdrop.fade.in{ opacity: 0.6; filter: alpha(opacity=60); background: #464646; } #JDBSelectArticleModal{ box-shadow: none !important; border: 0; border-radius: 10px; } #JDBSelectArticleModal .modal-footer{ border-radius: 0 0 10px 10px; background: #f7f7f7; box-shadow: none !important; border: 0 !important; } #JDBSelectArticleModal .modal-header{ background: #323896; border-radius: 10px 10px 0 0; padding: 5px 20px; color: #fff; letter-spacing: 1px; } #JDBSelectArticleModal .modal-header h3{ font-size: 14px;} #JDBSelectArticleModal .modal-header button.close{border: 0; color: #fff; opacity: 1; line-height: 42px; font-size: 26px;}");
+         \JHtml::_('script', 'system/modal-fields.js', array('version' => 'auto', 'relative' => true));
+
+         ModalHelper::selectArticleModal();
+      }
+
+      if ($this->app->isAdmin() && $this->isSelectArtcileModal()) {
+         \JFactory::getDocument()->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
+         \JFactory::getDocument()->addStyleSheet(JURI::root() . 'media/com_jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
+      }
    }
 
    public function onAfterRender()
@@ -211,6 +225,17 @@ class plgSystemJDBuilder extends JPlugin
       $view = $this->app->input->get('view', '');
       $id = $this->app->input->get('id', 0, 'INT');
       return ($option == "com_jdbuilder" && $view == "page" && !empty($id));
+   }
+
+   public function isSelectArtcileModal()
+   {
+      $params = JComponentHelper::getParams('com_jdbuilder');
+      $option = $this->app->input->get('option', '');
+      $view = $this->app->input->get('view', '');
+      $layout = $this->app->input->get('layout', '');
+      $tmpl = $this->app->input->get('tmpl', '');
+      $function = $this->app->input->get('function', '');
+      return ($option == "com_content" && $view == "articles" && $layout == "modal" && $tmpl == 'component' && $function == 'JDBOnSelectArticle');
    }
 
    public function isModuleEdit()
@@ -468,7 +493,7 @@ class plgSystemJDBuilder extends JPlugin
 
    public function onExtensionBeforeSave($context, $item, $isNew)
    {
-      if ($context !== 'com_modules.module' || $item->module !== 'mod_jdbuilder') {
+      if (($context !== 'com_modules.module' && $context != 'com_advancedmodules.module') || $item->module !== 'mod_jdbuilder') {
          return true;
       }
 

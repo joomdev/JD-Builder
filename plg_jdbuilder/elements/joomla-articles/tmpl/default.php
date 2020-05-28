@@ -8,7 +8,9 @@
  */
 defined('_JEXEC') or die;
 extract($displayData);
-
+if ($element->indexMode) {
+    return;
+}
 $element->addClass('jdb-joomla-articles');
 $categories = $element->params->get('categories', []);
 $articleCount = $element->params->get('articleCount', 10);
@@ -59,6 +61,9 @@ if ($layout == 'grid') {
 
 $articleMetaData = $element->params->get('articleMetaData', []);
 $mIcon = $element->params->get('articleMetaIcons', true);
+if ($mIcon) {
+    \JDPageBuilder\Builder::loadFontLibraryByIcon('far fa-user');
+}
 
 $titleTag = $element->params->get('titleHtmlTag', 'h2');
 
@@ -112,22 +117,22 @@ $viewmoreText = $element->params->get('viewmoreText', '');
                                 <?php if (in_array('publish-date', $articleMetaData)) { ?>
                                     <span class="jdb-jarticle-published-date">
                                         <?php if ($mIcon) { ?><i class="far fa-calendar-check"></i><?php } ?>
-                                        Published On: <?php echo $item->published_formatted; ?></span>
+                                        <?php echo JText::_('JDB_JARTICLES_META_PUBLISHED_ON');?> <?php echo $item->published_formatted; ?></span>
                                 <?php } ?>
                                 <?php if (in_array('created-date', $articleMetaData)) { ?>
                                     <span class="jdb-jarticle-created-date">
                                         <?php if ($mIcon) { ?><i class="far fa-calendar-plus"></i><?php } ?>
-                                        Created On: <?php echo $item->created_formatted; ?></span>
+                                        <?php echo JText::_('JDB_JARTICLES_META_CREATED_ON');?> <?php echo $item->created_formatted; ?></span>
                                 <?php } ?>
                                 <?php if (in_array('modified-date', $articleMetaData)) { ?>
                                     <span class="jdb-jarticle-modified-date">
                                         <?php if ($mIcon) { ?><i class="far fa-calendar-alt"></i><?php } ?>
-                                        Modified On: <?php echo $item->modified_formatted; ?></span>
+                                        <?php echo JText::_('JDB_JARTICLES_META_MODIFIED_ON');?> <?php echo $item->modified_formatted; ?></span>
                                 <?php } ?>
                                 <?php if (in_array('hits', $articleMetaData)) { ?>
                                     <span class="jdb-jarticle-hits">
                                         <?php if ($mIcon) { ?><i class="far fa-eye"></i><?php } ?>
-                                        Hits: <?php echo $item->hits; ?></span>
+                                        <?php echo JText::_('JDB_JARTICLES_META_HITS');?> <?php echo $item->hits; ?></span>
                                 <?php } ?>
                             </div>
                         <?php } ?>

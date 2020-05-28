@@ -8,8 +8,6 @@
             <field type="group" name="seo" label="JDB_SEO"></field>
             <field type="group" name="opengraph" label="JDB_OPEN_GRAPH"></field>
             <!-- Publishing Options -->
-            <field type="contentlanguage" name="language" label="JDB_LANGUAGE" group="publishing" default="*">
-            </field>
             <field type="list" search="false" name="state" label="JDB_STATUS" default="1" group="publishing">
                <option value="1">JDB_PUBLISHED</option>
                <option value="0">JDB_UNPUBLISHED</option>
@@ -17,6 +15,8 @@
             </field>
             <field name="category_id" extension="com_jdbuilder" multiple="false" type="category" label="JDB_CATEGORY" group="publishing" action="true" default="0" />
             <field type="accesslevel" name="access" label="JDB_ACCESS_LABEL" default="1" group="publishing"></field>
+            <field type="contentlanguage" name="language" label="JDB_LANGUAGE" group="publishing" default="*">
+            </field>
 
             <!-- SEO Options -->
             <field type="text" name="metaTitle" label="JDB_TITLE" group="seo" default="">

@@ -224,6 +224,12 @@ class Field
          case 'text':
             $placeholder = (string) $this->xml->attributes()->placeholder;
             $return['placeholder'] = \JText::_($placeholder);
+
+            $alphanumeric = (string) $this->xml->attributes()->alphanumeric;
+            $return['alphanumeric'] = ($alphanumeric === 'true' ? true : false);
+            
+            $slug = isset($this->xml->attributes()->slug) ? (string) $this->xml->attributes()->slug : false;
+            $return['slug'] = ($slug === false ? false : $slug);
             break;
          case 'jcategory':
             $extension = (string) $this->xml->attributes()->{'extension'};
@@ -341,13 +347,15 @@ class Field
                $value->unit = $unit;
                $this->value = $value;
             }
-            $return['units'] = empty($units) ? [$unit] : explode(',', $units);
+            $return['units'] = empty($units) ? (empty($unit) ? [] : [$unit]) : explode(',', $units);
             break;
          case 'color':
             $small = (string) $this->xml->attributes()->small;
             $alpha = (string) $this->xml->attributes()->alpha;
+            $rgba = (string) $this->xml->attributes()->rgba;
             $return['small'] = strtolower($small) == 'true' ? true : false;
             $return['alpha'] = strtolower($alpha) == 'false' ? false : true;
+            $return['rgba'] = strtolower($rgba) == 'false' ? false : true;
             break;
          case 'code-editor':
             $language = (string) $this->xml->attributes()->language;
@@ -390,6 +398,13 @@ class Field
             $return['multiple'] = false;
             $return['search'] = true;
             $return['options'] = $this->getShapeDividers();
+            $return['groups'] = [];
+            break;
+         case 'particlespresets':
+            $return['type'] = 'list';
+            $return['multiple'] = false;
+            $return['search'] = true;
+            $return['options'] = $this->getParticlesPresets();
             $return['groups'] = [];
             break;
          case 'accesslevel':
@@ -634,6 +649,29 @@ class Field
          $item['label'] = \JText::_($label);
          $item['value'] = $value;
          $options[] = $item;
+      }
+
+      return $options;
+   }
+
+   public static function getParticlesPresets()
+   {
+      $options = [];
+      
+      $path = JDBPATH_MEDIA . '/data/particles-presets';
+      $presets = glob($path . "/*.json");
+      foreach ($presets as $preset) {
+         $name = basename($preset);
+         $value = str_replace('.json', '', $name);
+         $label = 'JDB_PARTICLESPRESETS_' . str_replace('-', '_', strtoupper($value));
+         $item = [];
+         $item['label'] = \JText::_($label);
+         $item['value'] = $value;
+         if($value == 'default'){
+            array_unshift($options, $item);
+         }else{
+            $options[] = $item;
+         }
       }
 
       return $options;

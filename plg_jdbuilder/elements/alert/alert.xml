@@ -41,7 +41,6 @@
             <field
                name="alertHeadingTypography"
                type="typography"
-               language="html"
                label="JDB_ALERT_HEADING_TYPOGRAPHY_LABEL"
                group="basic"
                showon="params.alertHeading!=''"
@@ -59,7 +58,6 @@
             <field
                name="alertContentTypography"
                type="typography"
-               language="html"
                label="JDB_ALERT_TYPOGRAPHY"
                group="basic"
                showon="params.alertContent!=''"

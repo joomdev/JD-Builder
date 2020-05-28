@@ -10,8 +10,10 @@
 namespace JDPageBuilder;
 
 use JDPageBuilder\Element\ElementStyle;
+use JDPageBuilder\Helpers\AuditHelper;
 use JDPageBuilder\Helpers\Debugger;
 use JDPageBuilder\Helpers\Document;
+use JDPageBuilder\Helpers\LayoutHelper;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -26,7 +28,7 @@ abstract class Builder
    protected static $request = null;
    protected static $requestMethod = 'GET';
    protected static $styles = [];
-   protected static $scripts = [];
+   protected static $scripts = ['body' => [], 'head' => []];
    protected static $stylesheets = [];
    protected static $customCSS = [];
    protected static $javascripts = [];
@@ -45,10 +47,16 @@ abstract class Builder
 
    public static function init($app = null)
    {
+      global $jdlid;
       self::constants($app);
       self::$debugger = new Debugger(); // Debuuger
       self::$document = new Document(); // Document
       self::$globalSettings = Helper::globalSettings(); // Global Settings
+
+      $option = $app->input->get('option', '');
+      if (JDB_ADMIN && ($option == 'com_modules' || $option == 'com_advancedmodules')) {
+         AuditHelper::auditModules();
+      }
    }
 
    public static function getSettings()
@@ -63,6 +71,9 @@ abstract class Builder
 
    public static function constants($app)
    {
+      if (defined('JDBPATH_PLUGIN')) {
+         return;
+      }
       define('JDBPATH_PLUGIN', JPATH_PLUGINS . '/system/jdbuilder');
       define('JDBPATH_COMPONENT', JPATH_SITE . '/components/com_jdbuilder');
       define('JDBPATH_ELEMENTS', JDBPATH_PLUGIN . '/elements');
@@ -223,9 +234,9 @@ abstract class Builder
       return $inlineScss;
    }
 
-   public static function addScript($js = '')
+   public static function addScript($js = '', $position = 'body')
    {
-      static::$scripts[] = $js;
+      static::$scripts[$position][] = $js;
    }
 
    public static function addStylesheet($file)
@@ -685,6 +696,9 @@ abstract class Builder
          $document->addScriptDeclaration('var JDB_FORM_TOKEN = "' . JDB_FORM_TOKEN . '"; var JDB_RECAPTCHA_SITE_KEY = "' . $buiderConfig->get('recaptchaSiteKey', '') . '"; var JDBRenderer = null; var _JDBDATA = new Map(); var jdPageBaseUrl = "' . \JURI::root() . '"; var _JDBTIMEZONE="' . $date->format('O') . '";');
          // add shapedividers
          $fbAppId = 'var _JDBFBAPPID = "' . $buiderConfig->get('fbAppId',  '') . '";';
+         $document->addScriptDeclaration($fbAppId);
+
+         // Shape Dividers
          $dividersSVGs = 'var _JDBDIVIDERS = new Map([';
          $dividersSVGArr = [];
          $dividers = Field::getShapeDividers();
@@ -696,8 +710,22 @@ abstract class Builder
             }
          }
          $dividersSVGs .= implode(',', $dividersSVGArr) . ']);';
-         $document->addScriptDeclaration($fbAppId);
          $document->addScriptDeclaration($dividersSVGs);
+
+         // Particles background presets
+         $particlesPresets = 'var _JDBPARTICLESPRESETS = {';
+         $presetsArr = [];
+         $presets = Field::getParticlesPresets();
+         foreach ($presets as $preset) {
+            $file = JPATH_SITE . '/media/jdbuilder/data/particles-presets/' . $preset['value'] . '.json';
+            if (file_exists($file)) {
+               $json = file_get_contents($file);
+               $presetsArr[] = $preset['value'] . ": '" . \json_encode(\json_decode($json)) . "'";
+            }
+         }
+         $particlesPresets .= implode(',', $presetsArr) . '};';
+         $document->addScriptDeclaration($particlesPresets);
+
          $document->addScriptDeclaration('var _JDB_ITEM_TYPE = "page";');
          $document->addScriptDeclaration('var _JDBGLOBALSETTINGS = ' . Helper::globalSettings()->toString() . ';');
          $document->addScriptDeclaration('var _JDB_ITEM_ID = ' . $item->id . ';');
@@ -885,19 +913,29 @@ abstract class Builder
    {
       if (JDB_LIVE_PREVIEW) {
          $version = Helper::getMediaVersion();
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . $version . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . $version . '"></script>';  
+         echo '<script>var $JDB = jQuery.noConflict();</script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/preview.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/imask.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdvideo.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdytsubscriber.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/selectr.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.custom.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . $version . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdlightbox.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdlightbox.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/moment.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/pikaday.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdbfrontend.js?v=' . $version . '"></script>';
+         echo '<script>jQuery.noConflict(true);</script>';
+      }
+
+      if (!empty(self::$scripts['body'])) {
+         echo '<script>' . implode("\n", self::$scripts['body']) . '</script>';
       }
    }
 
@@ -907,18 +945,19 @@ abstract class Builder
       $document = \JFactory::getDocument();
 
       $document->addScript(\JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js', ['version' => JDB_MEDIA_VERSION]);
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js', ['version' => JDB_MEDIA_VERSION]);
+      $document->addScriptDeclaration('var $JDB = jQuery.noConflict();');
 
       // Add Rendered JS Files in Head
       foreach (self::$javascripts as $javascript) {
-         $document->addScript($javascript);
+         $document->addScript($javascript, ['version' => 'auto']);
       }
 
       // Add Rendered Javascript in Head
-      foreach (self::$scripts as $script) {
+      foreach (self::$scripts['head'] as $script) {
          $document->addScriptDeclaration($script);
       }
 
+      $document->addScriptDeclaration('jQuery.noConflict(true);');
       Helper::renderGlobalScss();
 
 
@@ -975,9 +1014,11 @@ abstract class Builder
       Builder::getDocument()->lightBox = true;
    }
 
-   public static function loadParticleJS()
+   public static function loadParticleJS($id, $params)
    {
       self::addJavascript(\JURI::root() . 'media/jdbuilder/js/particles.min.js');
+      $script = 'particlesJS(\'' . $id . '\', ' . \json_encode($params) . ')';
+      self::addScript($script);
    }
 
    public static function loadAnimatedHeadingJS()
@@ -1256,6 +1297,14 @@ abstract class Builder
          $return[] = $object;
       }
       return $return;
+   }
+
+   public static function getArticles()
+   {
+      $db = \JFactory::getDbo();
+      $query = "SELECT `id`,`title` FROM `#__content` WHERE `state`='1'";
+      $db->setQuery($query);
+      return $db->loadObjectList();
    }
 
    public static function getMenuitems()

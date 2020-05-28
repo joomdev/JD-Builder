@@ -35,6 +35,7 @@
                      label="JDB_ACCORDION_TAB_TITLE_LABEL"
                      name="title"
                      default="Item Title"
+                     slug="#"
                   >
                   </field>
                   <field
@@ -79,16 +80,6 @@
                label="JDB_ACCORDION_MULTIPLE"
                group="basic"
                description="JDB_ACCORDION_MULTIPLE_DESC"
-            >
-            </field>
-            <field
-               type="switch"
-               name="accordionOpenAll"
-               default="false"
-               label="JDB_ACCORDION_OPEN_ALL"
-               group="basic"
-               showon="params.accordionMultiple"
-               description="JDB_ACCORDION_OPEN_ALL_DESC"
             >
             </field>
             <!-- Repeatbale type ended here -->

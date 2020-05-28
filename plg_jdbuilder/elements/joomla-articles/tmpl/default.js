@@ -125,7 +125,7 @@
                _html += '</span>';
             }
             if (articleMetaData.indexOf('created-date') > -1) {
-               _html += '<span class="jdb-jarticle-published-date">';
+               _html += '<span class="jdb-jarticle-created-date">';
                if (mIcon) {
                   _html += '<i class="far fa-calendar-plus"></i>';
                }

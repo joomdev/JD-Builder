@@ -14,7 +14,6 @@ if (empty($content)) {
    return;
 }
 
-$content = JDPageBuilder\Helper::renderHTML($content);
 $dropcapHTML = '';
 
 if ($dropcap) {
