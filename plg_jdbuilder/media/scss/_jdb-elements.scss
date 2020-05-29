@@ -536,19 +536,15 @@ Video Background -> 5
       display: flex;
       align-items: center;
 
-      .jdb-video {
-         width: 100%;
-
-         video {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: auto;
-            height: auto;
-            min-width: 100%;
-            min-height: 100%;
-            position: absolute;
-         }
+      video {
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: auto;
+         height: auto;
+         min-width: 100%;
+         min-height: 100%;
+         position: absolute;
       }
    }
 }

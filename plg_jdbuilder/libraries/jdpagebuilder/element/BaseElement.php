@@ -233,15 +233,15 @@ class BaseElement
    public function getBackgroundVideo()
    {
       $background = $this->params->get('background', 'none');
-      $return = [];
-
+      $html = '';
       if ($background == "video") {
-         $this->addClass('jdb-has-video-background');
-         $return[] = '<div class="jdb-video-background" jdb-video="type:html5;autoplay:true;muted:true;loop:true;controls:false;thumbnail:false;sticky:false;size:1by1" data-src="' . \JDPageBuilder\Helper::mediaValue($this->params->get('backgroundVideoMedia', '')) . '">';
-         $return[] = '</div>';
+         $link = $this->params->get('backgroundVideoMedia', '');
+         if (!empty($link)) {
+            $this->addClass('jdb-has-video-background');
+            $html = '<div jdb-video-background data-src="' . \JDPageBuilder\Helper::mediaValue($link) . '"></div>';
+         }
       }
-
-      return implode("", $return);
+      return $html;
    }
 
    public function getParticlesBackground()

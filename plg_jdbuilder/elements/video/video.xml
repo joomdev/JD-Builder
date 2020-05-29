@@ -40,7 +40,7 @@
 
             <!-- Video Link -->
             <field name="videoYoutubeLink" type="text" default="https://www.youtube.com/watch?v=5xwaA-fphvc" label="JDB_VIDEO_LINK" group="basic" showon="params.videoType=='youtube'"></field>
-            <field name="videoVimeoLink" type="text" default="https://vimeo.com/417726689" label="JDB_VIDEO_LINK" group="basic" showon="params.videoType=='vimeo'"></field>
+            <field name="videoVimeoLink" type="text" default="https://vimeo.com/259400046" label="JDB_VIDEO_LINK" group="basic" showon="params.videoType=='vimeo'"></field>
             <field name="videoDailymotionLink" type="text" default="https://www.dailymotion.com/video/x7tv3sz" label="JDB_VIDEO_LINK" group="basic" showon="params.videoType=='dailymotion'"></field>
 
             <!-- Video Options -->
