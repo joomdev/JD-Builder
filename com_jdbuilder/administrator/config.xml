@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-    <fieldset label="COM_JDBUILDER" name="jdbuilder">
-        <field name="key" type="text" default="" label="JDB_ACTIVATION_KEY"></field>
-        <field name="gmapkey" type="text" default="" label="JDB_GOOGLE_MAP_KEY"></field>
-        <field type="spacer" name="gmapkeySpacer" hr="true" />
-        <field name="fbAppId" type="text" default="" description="JDB_FACEBOOK_SDK_ALERT" label="JDB_FB_APP_ID"></field>
-        <field type="spacer" name="fbAppIdSpacer" hr="false" label="JDB_FACEBOOK_SDK_ALERT" />
-        <field name="captchaspacer" type="spacer" label="JDB_FIELD_SPACER"></field>
-        <field name="recaptchaSiteKey" type="text" default="" label="JDB_RECAPTCHA_SITE_KEY"></field>
-        <field name="recaptchaSecretKey" type="text" default="" label="JDB_RECAPTCHA_SECRET_KEY"></field>
-    </fieldset>
-
     <fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
         <field name="rules" type="rules" component="com_jdbuilder" class="inputbox" filter="rules" validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
     </fieldset>

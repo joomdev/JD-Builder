@@ -1,1 +1,1 @@
-var $JDB = jQuery.noConflict(true);
+var $JDB = jQuery.noConflict();

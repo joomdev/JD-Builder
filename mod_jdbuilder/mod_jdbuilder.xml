@@ -7,7 +7,7 @@
     <authorUrl>https://www.joomdev.com</authorUrl>
     <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <description>This Module allows you to create your own Module using the JD Builder.</description>
     <files>
         <filename>mod_jdbuilder.xml</filename>

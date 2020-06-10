@@ -57,6 +57,9 @@ abstract class Builder
       if (JDB_ADMIN && ($option == 'com_modules' || $option == 'com_advancedmodules')) {
          AuditHelper::auditModules();
       }
+      if (JDB_ADMIN && $option == 'com_content') {
+         AuditHelper::auditArticles();
+      }
    }
 
    public static function getSettings()
@@ -913,7 +916,7 @@ abstract class Builder
    {
       if (JDB_LIVE_PREVIEW) {
          $version = Helper::getMediaVersion();
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . $version . '"></script>';  
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js?v=' . $version . '"></script>';
          echo '<script>var $JDB = jQuery.noConflict();</script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/preview.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/particles.min.js?v=' . $version . '"></script>';
@@ -945,7 +948,7 @@ abstract class Builder
       $document = \JFactory::getDocument();
 
       $document->addScript(\JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js', ['version' => JDB_MEDIA_VERSION]);
-      $document->addScriptDeclaration('var $JDB = jQuery.noConflict();');
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js', ['version' => JDB_MEDIA_VERSION]);
 
       // Add Rendered JS Files in Head
       foreach (self::$javascripts as $javascript) {
@@ -957,7 +960,7 @@ abstract class Builder
          $document->addScriptDeclaration($script);
       }
 
-      $document->addScriptDeclaration('jQuery.noConflict(true);');
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.end.js', ['version' => JDB_MEDIA_VERSION]);
       Helper::renderGlobalScss();
 
 

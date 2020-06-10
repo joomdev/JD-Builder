@@ -34,24 +34,9 @@ if (!empty($buttonSize)) {
    $buttonClass[] = 'jdb-button-' . $buttonSize;
 }
 
-// button alignment
 $alignment = $element->params->get('buttonAlignment', null);
 if (!empty($alignment)) {
-   foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-      if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
-         $align = $alignment->{$deviceKey};
-         if ($align != 'block') {
-            $element->addCss('text-align', $align, $device);
-         } else {
-            $buttonStyle->addCss("width", "100%", $device);
-         }
-      }
-   }
-}
-
-
-$alignment = $element->params->get('buttonAlignment', null);
-if (!empty($alignment)) {
+   $alignment = is_object($alignment) ? $alignment : \json_decode('{"md": "' . $alignment . '"}');
    foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
       if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
          $align = $alignment->{$deviceKey};

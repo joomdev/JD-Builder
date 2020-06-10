@@ -31,7 +31,9 @@
       // Button Alignment
       var alignment = element.params.get('buttonAlignment', null);
       if (alignment != null) {
-
+         alignment = typeof alignment == 'object' ? alignment : {
+            md: alignment
+         };
          JDBRenderer.DEVICES.forEach(function (_deviceObj) {
             if (_deviceObj.key in alignment) {
                var align = alignment[_deviceObj.key];
