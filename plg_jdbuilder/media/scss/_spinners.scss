@@ -3,11 +3,8 @@
 //
 
 @keyframes spinner-border {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
-
 .jdb-loader {
   position: absolute;
   top: 0;
@@ -19,7 +16,7 @@
   align-items: center;
   z-index: 1;
   background: rgba(255, 255, 255, 0.75);
-
+  
   .jdb-loader-border {
     display: inline-block;
     width: $spinner-width;
@@ -47,12 +44,11 @@
   0% {
     transform: scale(0);
   }
-
   50% {
     opacity: 1;
+    transform: none;
   }
 }
-
 .jdb-loader {
   .jdb-loader-grow {
     display: inline-block;

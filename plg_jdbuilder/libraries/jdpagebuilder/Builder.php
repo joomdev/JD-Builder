@@ -14,6 +14,7 @@ use JDPageBuilder\Helpers\AuditHelper;
 use JDPageBuilder\Helpers\Debugger;
 use JDPageBuilder\Helpers\Document;
 use JDPageBuilder\Helpers\LayoutHelper;
+use Joomla\CMS\Table\Table;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -265,7 +266,7 @@ abstract class Builder
 
    public static function builderArea($enabled = false, $type = 'page', $id = 0)
    {
-      $layout = new \JLayoutFile('builder', JDBPATH_PLUGIN . '/layouts');
+      $layout = new \JLayoutFile('builder' . (JDB_JOOMLA_VERSION == 4 ? '' : '-j3'), JDBPATH_PLUGIN . '/layouts');
       return $layout->render(['enabled' => $enabled, 'type' => $type, 'id' => $id]);
    }
 
@@ -326,7 +327,7 @@ abstract class Builder
 
    public static function getElementDataByManifest($manifest)
    {
-      $xml = \JFactory::getXml($manifest);
+      $xml = Helper::getXml($manifest);
       $element = new \stdClass();
       $element->type = (string) $xml->attributes()->type;
       $element->title = (string) $xml->title;
@@ -542,30 +543,32 @@ abstract class Builder
          throw new \Exception(\JText::_('JERROR_CORE_CREATE_NOT_PERMITTED'));
       }
 
-
-      $dispatcher = \JEventDispatcher::getInstance();
       $context = 'com_jdbuilder.page';
       // Include the plugins for the save events.
       \JPluginHelper::importPlugin("content");
 
       $request = self::request();
       $jform = $request->get('jform', [], 'ARRAY');
-      \JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jdbuilder/tables');
-      $table = \JTable::getInstance("Page", "JdbuilderTable", []);
+      if (JDB_JOOMLA_VERSION == 3) {
+         \JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jdbuilder/tables');
+         $table = \JTable::getInstance("Page", "JdbuilderTable", []);
+      } else {
+         $table = Table::getInstance('PageTable', 'Joomdev\\Component\\JDBuilder\\Administrator\\Table\\');
+      }
 
       if ($table->load($jform['id'], true)) {
          if (!$table->check()) {
             throw new \Exception($table->getError());
          }
          // Trigger the before save event.
-         $result = $dispatcher->trigger("onContentBeforeSave", array($context, &$table, true));
+         $result = \JFactory::getApplication()->triggerEvent('onContentBeforeSave', array($context, &$table, false, $jform['id']));
 
          $table->title = $jform['title'];
-         $table->checked_out = $jform['checked_out'];
-         $table->checked_out_time = $jform['checked_out_time'];
+         $table->checked_out = \JFactory::getUser()->get('id');
+         $table->checked_out_time = date('Y-m-d H:i:s');
          $table->params = $jform['params'];
          $table->layout_id = $jform['layout_id'];
-         $table->ordering = $jform['ordering'];
+         $table->ordering = @$jform['ordering'];
          $table->modified_by = $jform['modified_by'];
          $table->rules = $jform['rules'];
 
@@ -597,6 +600,7 @@ abstract class Builder
                $jform['layout_id'] = $layoutid;
             } else {
                $object->id = $jform['layout_id'];
+               $layoutid = $jform['layout_id'];
                $object->layout = $layout;
                $object->updated = time();
                $db->updateObject('#__jdbuilder_layouts', $object, 'id');
@@ -608,7 +612,7 @@ abstract class Builder
          }
 
          // Trigger the after save event.
-         $dispatcher->trigger("onContentAfterSave", array($context, &$table, true));
+         \JFactory::getApplication()->triggerEvent('onContentAfterSave', array($context, &$table, false, $jform['id']));
       } else {
          throw new \Exception($table->getError());
       }

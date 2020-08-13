@@ -10,6 +10,11 @@
 defined('_JEXEC') or die('Restricted access');
 extract($displayData);
 ?>
+<style>
+   .subhead {
+      z-index: 9999 !important;
+   }
+</style>
 <div id="jdbuilder-controls" class="<?php echo $enabled ? 'active' : ''; ?>">
    <button onclick="jQuery('#jdbuilder-area').addClass('active');jQuery('#jdbuilder-controls').addClass('active');jQuery('#jform_attribs_jdbuilder_layout_enabled').val(1);" class="btn-jdb btn-jdb-primary btn-jdb-edit" type="button">Edit with JD Builder</button>
    <button onclick="jQuery('#jdbuilder-area').removeClass('active');jQuery('#jdbuilder-controls').removeClass('active');jQuery('#jform_attribs_jdbuilder_layout_enabled').val(0);" class="btn-jdb btn-jdb-gray-light btn-jdb-exit" type="button">Back to Joomla Editor</button>
@@ -17,6 +22,7 @@ extract($displayData);
    <div class="clearfix"></div>
 </div>
 <script>
+   var _JDB = {};
    _JDB.ITEM = {
       "id": <?php echo $lid; ?>,
       "layout_id": <?php echo $lid; ?>,

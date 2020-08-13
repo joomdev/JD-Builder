@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="4.0" method="upgrade" client="site">
+	<name>JD Builder</name>
+	<element>com_jdbuilder</element>
+	<creationDate>Aug 2020</creationDate>
+	<copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<author>Team Joomdev</author>
+	<authorEmail>info@joomdev.com</authorEmail>
+	<authorUrl>https://www.joomdev.com</authorUrl>
+	<version>1.8.0</version>
+	<description>{jdbcomdesc}</description>
+	<namespace>Joomdev\Component\JDBuilder</namespace>
+
+	<install>		<!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<update>		<!-- Runs on update -->
+		<schemas>
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas>
+	</update>
+	<uninstall>		<!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+
+	<files folder="site">
+		<folder>Controller</folder>
+		<folder>Helper</folder>
+		<folder>Model</folder>
+		<folder>Service</folder>
+		<folder>tmpl</folder>
+		<folder>View</folder>
+	</files>
+
+	<media destination="com_jdbuilder" folder="media">
+		<folder>js</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+	</media>
+
+	<languages folder="site/languages">
+		<language tag="en-GB">en-GB/en-GB.com_jdbuilder.ini</language>
+	</languages>
+
+	<administration>
+		<files folder="admin">
+			<file>access.xml</file>
+			<file>config.xml</file>
+			<folder>Controller</folder>
+			<folder>Extension</folder>
+			<folder>forms</folder>
+			<folder>Helper</folder>
+			<folder>Model</folder>
+			<folder>Field</folder>
+			<folder>services</folder>
+			<folder>sql</folder>
+			<folder>Table</folder>
+			<folder>tmpl</folder>
+			<folder>View</folder>
+			<folder>assets</folder>
+			<folder>presets</folder>
+		</files>
+
+		<languages folder="admin/languages">
+			<language tag="en-GB">en-GB/en-GB.com_jdbuilder.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_jdbuilder.sys.ini</language>
+		</languages>
+
+		<menu>COM_JDBUILDER</menu>
+		<submenu>
+			<menu link="option=com_jdbuilder&amp;view=pages" view="pages" alt="Jdbuilder/Pages">COM_JDBUILDER_TITLE_PAGES</menu>
+			<menu link="option=com_categories&amp;extension=com_jdbuilder" view="categories" alt="Jdbuilder/Categories">COM_JDBUILDER_PAGES_CATEGORY_ID</menu>
+		</submenu>
+	</administration>
+</extension>

@@ -1,0 +1,432 @@
+.jdb-pricelist-item {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.jdb-pricelist-content {
+    flex-grow: 1;
+}
+
+// Title
+.jdb-pricelist-header {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.jdb-pricelist-title a {
+    text-decoration: none;
+}
+
+.jdb-pricelist-text {
+    color: #c9ab81;
+    font-size: 18px;
+    line-height: 1.5rem;
+    font-weight: normal;
+    position: relative;
+}
+
+// Content Alignment
+.jdb-pricelist-item-inner {
+    overflow: hidden;
+
+    .jdb-pricelist-align-top & {
+        align-items: flex-start;
+    }
+
+    .jdb-pricelist-align-middle & {
+        align-items: center;
+    }
+
+    .jdb-pricelist-align-bottom & {
+        align-items: flex-end;
+    }
+}
+
+// Overall Alignment
+// Left Alignment
+.jdb-pricelist-mobile-text-left {
+    @include media-breakpoint-down(sm) {
+        .jdb-pricelist-item-inner {
+            text-align: left;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Center Alignment
+.jdb-pricelist-mobile-text-center {
+    @include media-breakpoint-down(sm) {
+        .jdb-pricelist-item-inner {
+            text-align: center;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: center;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto;
+        }
+    }
+}
+
+// Right Alignment
+.jdb-pricelist-mobile-text-right {
+    @include media-breakpoint-down(sm) {
+        .jdb-pricelist-item-inner {
+            text-align: right;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-end;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 0 0 auto;
+        }
+    }
+}
+
+// Justify Alignment
+.jdb-pricelist-mobile-text-justify {
+    @include media-breakpoint-down(sm) {
+        .jdb-pricelist-item-inner {
+            text-align: justify;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Overall Alignment
+// Left Alignment
+.jdb-pricelist-tablet-text-left {
+    @include media-breakpoint-only(md) {
+        .jdb-pricelist-item-inner {
+            text-align: left;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Center Alignment
+.jdb-pricelist-tablet-text-center {
+    @include media-breakpoint-only(md) {
+        .jdb-pricelist-item-inner {
+            text-align: center;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: center;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto;
+        }
+    }
+}
+
+// Right Alignment
+.jdb-pricelist-tablet-text-right {
+    @include media-breakpoint-only(md) {
+        .jdb-pricelist-item-inner {
+            text-align: right;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-end;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 0 0 auto;
+        }
+    }
+}
+
+// Justify Alignment
+.jdb-pricelist-tablet-text-justify {
+    @include media-breakpoint-only(md) {
+        .jdb-pricelist-item-inner {
+            text-align: justify;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Overall Alignment
+// Left Alignment
+.jdb-pricelist-desktop-text-left {
+    @include media-breakpoint-up(lg) {
+        .jdb-pricelist-item-inner {
+            text-align: left;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Center Alignment
+.jdb-pricelist-desktop-text-center {
+    @include media-breakpoint-up(lg) {
+        .jdb-pricelist-item-inner {
+            text-align: center;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: center;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto;
+        }
+    }
+}
+
+// Right Alignment
+.jdb-pricelist-desktop-text-right {
+    @include media-breakpoint-up(lg) {
+        .jdb-pricelist-item-inner {
+            text-align: right;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-end;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 0 0 auto;
+        }
+    }
+}
+
+// Justify Alignment
+.jdb-pricelist-desktop-text-justify {
+    @include media-breakpoint-up(lg) {
+        .jdb-pricelist-item-inner {
+            text-align: justify;
+        }
+
+        .jdb-pricelist-header {
+            justify-content: flex-start;
+        }
+
+        .jdb-pricelist-image img {
+            margin: 0 auto 0 0;
+        }
+    }
+}
+
+// Vertical Alignment
+.jdb-pricelist-vtop .jdb-pricelist-item-inner {
+    align-items: flex-start;
+}
+
+.jdb-pricelist-vmiddle .jdb-pricelist-item-inner {
+    align-items: center;
+}
+
+.jdb-pricelist-vbottom .jdb-pricelist-item-inner {
+    align-items: flex-end;
+}
+
+// Badge
+.jdb-pricelist-badge {
+    color: #fff;
+    background-color: #67ca67;
+    font-size: 12px;
+    line-height: normal;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+// Description
+.jdb-pricelist-description {
+    font-size: 16px;
+    line-height: 1.5rem;
+    font-weight: normal;
+
+    p {
+        margin: 0;
+    }
+}
+
+// Price
+.jdb-price-wrapper span {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1em;
+}
+
+.jdb-pricelist-price {
+    color: #c9ab81;
+
+    &.has-discount {
+        text-decoration: line-through;
+        color: #e81a1a;
+    }
+}
+
+// Image Left
+.jdb-price-image-left {
+    .jdb-pricelist-item-inner {
+        display: flex;
+    }
+
+    .jdb-pricelist-image {
+        margin-right: 15px;
+        flex: 0 0 100px;
+    }
+}
+
+// Image Right
+.jdb-price-image-right {
+    .jdb-pricelist-item-inner {
+        display: flex;
+    }
+
+    .jdb-pricelist-image {
+        margin-left: 15px;
+        order: 1;
+        flex: 0 0 100px;
+    }
+}
+
+// Divider
+.jdb-pricelist-separator {
+    flex-grow: 1;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-bottom-style: dotted;
+    border-bottom-width: 2px;
+    height: 0;
+    min-width: 40px;
+    border-bottom-style: dotted;
+    border-bottom-width: 2px;
+}
+
+.jdb-pricelist-separator-none {
+    border: none;
+}
+
+// Tabs
+.jdb-pricelist-categories-tabs {
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    flex-wrap: wrap;
+
+    a {
+        color: #393939;
+        display: flex;
+        margin: 0;
+        padding: 5px 10px;
+        align-items: center;
+    }
+
+    li.active a,
+    li a:hover {
+        color: #c9ab81;
+    }
+}
+
+// Tab's Icon Position
+.jdb-pricelist-icon-left a span:first-child {
+    order: 0;
+    padding-right: 5px;
+}
+
+.jdb-pricelist-icon-left a span i {
+    text-align: center;
+}
+
+.jdb-pricelist-icon-top a {
+    flex-direction: column;
+    align-items: center;
+}
+
+.jdb-pricelist-icon-top a span:first-child {
+    padding-bottom: 5px;
+}
+
+.jdb-pricelist-icon-right a span:first-child {
+    order: 1;
+    padding-left: 5px;
+}
+
+@media (min-width: 767px) {
+    .jdb-pricelist-vertical-tabs {
+        display: flex;
+        align-items: flex-start;
+
+        .jdb-pricelist-categories-tabs {
+            max-width: 200px;
+            flex: 0 0 200px;
+            flex-direction: column;
+        }
+
+        // Tab Alignment
+        .jdb-pricelist-categories-tabs {
+            justify-content: flex-end;
+            justify-content: center;
+            justify-content: flex-start;
+            margin: 0;
+        }
+
+    }
+
+    .jdb-pricelist-vertical-tabs-right {
+        .jdb-pricelist-categories-tabs {
+            order: 1;
+        }
+    }
+}
+
+.jdb-pricelist-horizontal-tabs {
+    .jdb-pricelist-categories-tabs {
+        margin: 0 0 20px;
+    }
+
+    li:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+
+.jdb-pricelist-tab-content {
+    flex: 1 1 100%;
+}

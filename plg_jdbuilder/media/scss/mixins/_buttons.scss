@@ -9,10 +9,23 @@
   border-color: $border;
   @include box-shadow($btn-box-shadow);
 
-  @include hover {
+  @include hover() {
     color: color-yiq($hover-background);
     @include gradient-bg($hover-background);
     border-color: $hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    color: color-yiq($hover-background);
+    @include gradient-bg($hover-background);
+    border-color: $hover-border;
+    @if $enable-shadows {
+      @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5));
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+    }
   }
 
   // Disabled comes first so active can properly restyle
@@ -36,6 +49,15 @@
       background-image: none; // Remove the gradient for the pressed/active state
     }
     border-color: $active-border;
+
+    &:focus {
+      @if $enable-shadows and $btn-active-box-shadow != none {
+        @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+      }
+    }
   }
 }
 
@@ -43,10 +65,15 @@
   color: $color;
   border-color: $color;
 
-  @include hover {
+  @include hover() {
     color: $color-hover;
     background-color: $active-background;
     border-color: $active-border;
+  }
+
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 $btn-focus-width rgba($color, .5);
   }
 
   &.disabled,
@@ -61,6 +88,15 @@
     color: color-yiq($active-background);
     background-color: $active-background;
     border-color: $active-border;
+
+    &:focus {
+      @if $enable-shadows and $btn-active-box-shadow != none {
+        @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba($color, .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 $btn-focus-width rgba($color, .5);
+      }
+    }
   }
 }
 

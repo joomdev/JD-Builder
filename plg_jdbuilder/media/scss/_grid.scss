@@ -3,63 +3,69 @@
 // Set the container width, and override it for fixed navbars in media queries.
 
 @if $enable-grid-classes {
+  // Single container class with breakpoint max-widths
+  .jdb-container {
+    @include make-container();
+    @include make-container-max-widths();
+  }
 
-   // Single container class with breakpoint max-widths
-   .jdb-container {
-      @include make-container();
-      @include make-container-max-widths();
-   }
+  // 100% wide container at all breakpoints
+  .jdb-container-fluid {
+    @include make-container();
+  }
 
-   // 100% wide container at all breakpoints
-   .jdb-container-fluid {
-      @include make-container();
-   }
+  // Responsive containers that are 100% wide until a breakpoint
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    .jdb-container-#{$breakpoint} {
+      @extend .jdb-container-fluid;
+    }
 
-   // Responsive containers that are 100% wide until a breakpoint
-   @each $breakpoint,
-   $container-max-width in $container-max-widths {
-      .jdb-container-#{$breakpoint} {
-         @extend .jdb-container-fluid;
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      %responsive-container-#{$breakpoint} {
+        max-width: $container-max-width;
       }
 
-      @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-         %responsive-container-#{$breakpoint} {
-            max-width: $container-max-width;
-         }
+      // Extend each breakpoint which is smaller or equal to the current breakpoint
+      $extend-breakpoint: true;
 
-         @each $name,
-         $width in $grid-breakpoints {
-            @if ($container-max-width > $width or $breakpoint==$name) {
-               .jdb-container#{breakpoint-infix($name, $grid-breakpoints)} {
-                  @extend %responsive-container-#{$breakpoint};
-               }
-            }
-         }
+      @each $name, $width in $grid-breakpoints {
+        @if ($extend-breakpoint) {
+          .jdb-container#{breakpoint-infix($name, $grid-breakpoints)} {
+            @extend %responsive-container-#{$breakpoint};
+          }
+
+          // Once the current breakpoint is reached, stop extending
+          @if ($breakpoint == $name) {
+            $extend-breakpoint: false;
+          }
+        }
       }
-   }
+    }
+  }
 }
+
 
 // Row
 //
 // Rows contain your columns.
 
 @if $enable-grid-classes {
-   .jdb-row {
-      @include make-row();
-   }
+  .jdb-row {
+    @include make-row();
+  }
 
-   // Remove the negative margin from default .row, then the horizontal padding
-   // from all immediate children columns (to prevent runaway style inheritance).
-   .jdb-no-gutters {
-      margin-right: 0;
-      margin-left: 0;
+  // Remove the negative margin from default .row, then the horizontal padding
+  // from all immediate children columns (to prevent runaway style inheritance).
+  .jdb-no-gutters {
+    margin-right: 0;
+    margin-left: 0;
 
-      >.jdb-col,
-      >[class*="jdb-col-"] {
-         padding-right: 0;
-         padding-left: 0;
-      }
-   }
+    > .jdb-col,
+    > [class*=".jdb-col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
 }
 
 // Columns
@@ -67,5 +73,5 @@
 // Common styles for small and large grid columns
 
 @if $enable-grid-classes {
-   @include make-grid-columns();
+  @include make-grid-columns();
 }

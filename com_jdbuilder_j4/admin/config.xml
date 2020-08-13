@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
+		<field name="rules" type="rules" component="com_jdbuilder" class="inputbox" filter="rules" validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
+	</fieldset>
+
+	<fieldset name="component">
+		<field name="save_history" type="radio" class="btn-group btn-group-yesno" default="0" label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL" description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC">
+			<option value="0">JDB_NO</option>
+			<option value="1">JDB_YES</option>
+		</field>
+
+		<field name="history_limit" type="text" filter="integer" label="JGLOBAL_HISTORY_LIMIT_OPTIONS_LABEL" description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC" default="5"/>
+	</fieldset>
+
+	<fieldset label="JDB_ADVANCED_TITLE" name="advanced">
+		<field name="debug" type="radio" class="btn-group btn-group-yesno" default="0" label="JDB_DEBUG_BUILDER">
+			<option value="0">JDB_NO</option>
+			<option value="1">JDB_YES</option>
+		</field>
+	</fieldset>
+</config>

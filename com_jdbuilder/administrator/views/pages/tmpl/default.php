@@ -154,13 +154,17 @@ $sortFields = $this->getSortFields();
                         <?php if (isset($item->checked_out) && $item->checked_out && ($canEdit || $canChange)) : ?>
                            <?php echo JHtml::_('jgrid.checkedout', $i, $item->uEditor, $item->checked_out_time, 'pages.', $canCheckin); ?>
                         <?php endif; ?>
+                        <?php
+                        $itemid = JDPageBuilder\Helper::getPageItemIdByLink('index.php?option=com_jdbuilder&view=page&id=' . $item->id);
+                        $url = !empty($itemid) ? 'index.php?Itemid=' . $itemid : 'index.php?option=com_jdbuilder&view=page&id=' . $item->id;
+                        ?>
+                        <a target="_blank" class="btn btn-micro hasTooltip" href="<?php echo JDPageBuilder\Helper::JRouteLink('site', $url); ?>" title="Preview"><span class="icon-eye"></span></a>
                         <?php if ($canEdit) : ?>
                            <a href="<?php echo JRoute::_('index.php?option=com_jdbuilder&task=page.edit&id=' . (int) $item->id); ?>">
                               <?php echo $this->escape($item->title); ?></a>
                         <?php else : ?>
                            <?php echo $this->escape($item->title); ?>
                         <?php endif; ?>
-
                      </td>
                      <td>
 

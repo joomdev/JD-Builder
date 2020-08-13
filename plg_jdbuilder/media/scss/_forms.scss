@@ -17,8 +17,6 @@
   background-color: $input-bg;
   background-clip: padding-box;
   border: $input-border-width solid $input-border-color;
-  box-shadow: none;
-  box-sizing: border-box;
 
   // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
   @include border-radius($input-border-radius, 0);
@@ -32,8 +30,14 @@
     border: 0;
   }
 
+  // Remove select outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $input-color;
+  }
+
   // Customize the `:focus` state to imitate native WebKit styles.
-  @include form-control-focus();
+  @include form-control-focus($ignore-warning: true);
 
   // Placeholder
   &::placeholder {
@@ -52,6 +56,15 @@
     background-color: $input-disabled-bg;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+  }
+}
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  &.jdb-form-control {
+    appearance: none; // Fix appearance for date inputs in Safari
   }
 }
 
@@ -82,28 +95,25 @@ select.jdb-form-control {
 // For use with horizontal and inline forms, when you need the label (or legend)
 // text to align with the form controls.
 .jdb-col-form-label {
-  padding-top: calc(#{$input-padding-y} + #{$input-border-width});
-  padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
+  padding-top: add($input-padding-y, $input-border-width);
+  padding-bottom: add($input-padding-y, $input-border-width);
   margin-bottom: 0; // Override the `<label>/<legend>` default
   @include font-size(inherit); // Override the `<legend>` default
   line-height: $input-line-height;
-  font-weight: bold;
 }
 
 .jdb-col-form-label-lg {
-  padding-top: calc(#{$input-padding-y-lg} + #{$input-border-width});
-  padding-bottom: calc(#{$input-padding-y-lg} + #{$input-border-width});
+  padding-top: add($input-padding-y-lg, $input-border-width);
+  padding-bottom: add($input-padding-y-lg, $input-border-width);
   @include font-size($input-font-size-lg);
   line-height: $input-line-height-lg;
-  font-weight: bold;
 }
 
 .jdb-col-form-label-sm {
-  padding-top: calc(#{$input-padding-y-sm} + #{$input-border-width});
-  padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
+  padding-top: add($input-padding-y-sm, $input-border-width);
+  padding-bottom: add($input-padding-y-sm, $input-border-width);
   @include font-size($input-font-size-sm);
   line-height: $input-line-height-sm;
-  font-weight: bold;
 }
 
 
@@ -115,9 +125,9 @@ select.jdb-form-control {
 .jdb-form-control-plaintext {
   display: block;
   width: 100%;
-  padding-top: $input-padding-y;
-  padding-bottom: $input-padding-y;
+  padding: $input-padding-y 0;
   margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+  @include font-size($input-font-size);
   line-height: $input-line-height;
   color: $input-plaintext-color;
   background-color: transparent;
@@ -157,11 +167,9 @@ select.jdb-form-control {
 
 // stylelint-disable-next-line no-duplicate-selectors
 select.jdb-form-control {
-
   &[size],
   &[multiple] {
     height: auto;
-    overflow: auto;
   }
 }
 
@@ -176,25 +184,6 @@ textarea.jdb-form-control {
 
 .jdb-form-group {
   margin-bottom: $form-group-margin-bottom;
-
-  .jdb-form-label {
-    display: inline-block;
-    margin-bottom: .5rem;
-    font-weight: bold;
-  }
-}
-
-.jdb-form-recaptcha {
-  margin-bottom: $form-group-margin-bottom;
-  display: flex;
-
-  &.right {
-    flex-direction: row-reverse;
-  }
-
-  &.center {
-    justify-content: center;
-  }
 }
 
 .jdb-form-text {
@@ -213,8 +202,8 @@ textarea.jdb-form-control {
   margin-right: -$form-grid-gutter-width / 2;
   margin-left: -$form-grid-gutter-width / 2;
 
-  >.col,
-  >[class*="col-"] {
+  > .jdb-col,
+  > [class*="jdb-col-"] {
     padding-right: $form-grid-gutter-width / 2;
     padding-left: $form-grid-gutter-width / 2;
   }
@@ -231,17 +220,14 @@ textarea.jdb-form-control {
   padding-left: $form-check-input-gutter;
 }
 
+.jdb-form-check-input {
+  position: absolute;
+  margin-top: $form-check-input-margin-y;
+  margin-left: -$form-check-input-gutter;
 
-
-input[type="checkbox"],
-input[type="radio"] {
-  &.jdb-form-check-input {
-    position: absolute;
-    margin-top: $form-check-input-margin-y;
-    margin-left: -$form-check-input-gutter;
-  }
-
-  &:disabled~.jdb-form-check-label {
+  // Use [disabled] and :disabled for workaround https://github.com/twbs/bootstrap/issues/28247
+  &[disabled] ~ .jdb-form-check-label,
+  &:disabled ~ .jdb-form-check-label {
     color: $text-muted;
   }
 }
@@ -257,14 +243,11 @@ input[type="radio"] {
   margin-right: $form-check-inline-margin-x;
 
   // Undo .form-check-input defaults and add some `margin-right`.
-  input[type="checkbox"],
-  input[type="radio"] {
-    &.jdb-form-check-input {
-      position: static;
-      margin-top: 0;
-      margin-right: $form-check-inline-input-margin-x;
-      margin-left: 0;
-    }
+  .jdb-form-check-input {
+    position: static;
+    margin-top: 0;
+    margin-right: $form-check-inline-input-margin-x;
+    margin-left: 0;
   }
 }
 
@@ -276,8 +259,7 @@ input[type="radio"] {
 // pseudo-classes but also includes `.is-invalid` and `.is-valid` classes for
 // server side validation.
 
-@each $state,
-$data in $form-validation-states {
+@each $state, $data in $form-validation-states {
   @include form-validation-state($state, map-get($data, color), map-get($data, icon));
 }
 
@@ -332,8 +314,8 @@ $data in $form-validation-states {
       display: inline-block;
     }
 
-    .input-group,
-    .custom-select {
+    .jdb-input-group,
+    .jdb-custom-select {
       width: auto;
     }
 
@@ -346,60 +328,20 @@ $data in $form-validation-states {
       width: auto;
       padding-left: 0;
     }
-
-    input[type="checkbox"],
-    input[type="radio"] {
-      &.jdb-form-check-input {
-        position: relative;
-        flex-shrink: 0;
-        margin-top: 0;
-        margin-right: $form-check-input-margin-x;
-        margin-left: 0;
-      }
+    .jdb-form-check-input {
+      position: relative;
+      flex-shrink: 0;
+      margin-top: 0;
+      margin-right: $form-check-input-margin-x;
+      margin-left: 0;
     }
 
-    .custom-control {
+    .jdb-custom-control {
       align-items: center;
       justify-content: center;
     }
-
-    .custom-control-label {
+    .jdb-custom-control-label {
       margin-bottom: 0;
     }
-  }
-}
-
-.jdb-form-input-errors {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0 !important;
-  font-size: small;
-  color: red;
-  padding: 0 !important;
-
-  li {
-    padding-left: 0;
-    list-style: none;
-  }
-
-  [aria-hidden="true"] {
-    display: none !important;
-  }
-}
-
-.jdb-reuired-mark {
-  color: red;
-}
-
-.jdb-input-success {}
-
-.jdb-input-error {
-  border-color: red !important;
-}
-
-.jdb-file-input {
-  input[type=file] {
-    height: inherit;
-    line-height: inherit;
-    width: 100%;
   }
 }

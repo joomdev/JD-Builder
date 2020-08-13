@@ -15,90 +15,45 @@
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
             <field type="group" ordering="1" name="content" label="JDB_HEADING_CONTENT"></field>
-            <field type="group" ordering="2" name="headingtypography" label="JDB_HEADING_OPTIONS"></field>
-            <field type="group" ordering="3" name="subheadingtypography" label="JDB_SUB_HEADING_OPTIONS"></field>
             <!--  Element Options -->
-            <field
-               name="title"
-               type="text"
-               label="JDB_HEADING_TEXT"
-               default="Heading Text"
-               group="content"
-            >
+            <field name="title" type="text" label="JDB_HEADING_TEXT" default="Heading Text" group="content">
             </field>
-            <field
-               name="subtitle"
-               type="text"
-               label="JDB_HEADING_SUB_HEADING_TEXT"
-               default=""
-               group="content"
-            >
+
+            <field name="subtitle" type="text" label="JDB_HEADING_SUB_HEADING_TEXT" default="" group="content">
             </field>
-            <field
-               name="subtitlePosition"
-               type="radio"
-               label="JDB_HEADING_SUB_HEADING_POSITION"
-               default="below"
-               radiotype="buttons"
-               group="content"
-            >
+
+            <field name="subtitlePosition" type="radio" label="JDB_HEADING_SUB_HEADING_POSITION" default="below" radiotype="buttons" group="content">
                <option value="above">JDB_POSITION_ABOVE</option>
                <option value="below">JDB_POSITION_BELOW</option>
- 
             </field>
-            <field
-               name="headingAlignment"
-               type="radio"
-               label="JDB_TEXT_ALIGN"
-               default=""
-               radiotype="buttons"
-               icononly="true"
-               group="content"
-               responsive="true"
-            >
+
+            <field name="headingAlignment" type="radio" label="JDB_TEXT_ALIGN" default="" radiotype="buttons" icononly="true" group="content" responsive="true">
                <option value="">JDB_DEFAULT</option>
                <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
                <option value="justify" icon="fa fa-align-justify">JDB_JUSTIFY</option>
             </field>
+
             <field type="slider" name="headingSpacing" label="JDB_SPACING" min="0" max="200" unit="px" responsive="true" group="content">
             </field>
-            <field
-               name="link"
-               type="text"
-               label="JDB_LINK_LABEL"
-               default=""
-               group="content"
-               placeholder="Link"
-            >
+
+            <field name="link" type="text" label="JDB_LINK_LABEL" default="" group="content" placeholder="Link">
             </field>
-            <field
-               name="linkTargetBlank"
-               type="switch"
-               label="JDB_LINK_TARGET_LBL"
-               default="false"
-               showon="params.link!=''"
-               group="content"
-            >
+
+            <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" showon="params.link!=''" group="content">
             </field>
-            <field
-               name="linkNoFollow"
-               type="switch"
-               label="JDB_LINK_NOFOLLOW_LBL"
-               default="false"
-               showon="params.link!=''"
-               group="content"
-            >
+
+            <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" default="false" showon="params.link!=''" group="content">
             </field>
-            
-            <field
-               name="headingHtmlTag"
-               type="list"
-               label="JDB_HTML_TAG"
-               default="h3"
-               group="headingtypography"
-            >
+         </fieldset>
+
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" ordering="2" name="headingtypography" label="JDB_HEADING"></field>
+            <field type="group" ordering="3" name="subheadingtypography" label="JDB_SUB_HEADING"></field>
+
+            <!-- Heading Options Start -->
+            <field name="headingHtmlTag" type="list" label="JDB_HTML_TAG" default="h3" group="headingtypography">
                <option value="h1">JDB_H1</option>
                <option value="h2">JDB_H2</option>
                <option value="h3">JDB_H3</option>
@@ -109,20 +64,19 @@
                <option value="span">JDB_SPAN</option>
                <option value="small">JDB_SMALL</option>
             </field>
+
             <field type="color" name="headingFontColor" label="JDB_TEXT_COLOR" default="" group="headingtypography">
             </field>
+
             <field type="textshadow" name="headingTextShadow" label="JDB_TEXT_SHADOW" default="" group="headingtypography">
             </field>
+
             <field type="typography" responsive="true" name="headingTypography" label="JDB_TYPOGRAPHY" default="" group="headingtypography">
             </field>
-            
-            <field
-               name="subheadingHtmlTag"
-               type="list"
-               label="JDB_HTML_TAG"
-               default="span"
-               group="subheadingtypography"
-            >
+            <!-- Heading Options End -->
+
+            <!-- Sub Heading Options Start -->
+            <field name="subheadingHtmlTag" type="list" label="JDB_HTML_TAG" default="span" group="subheadingtypography">
                <option value="h1">JDB_H1</option>
                <option value="h2">JDB_H2</option>
                <option value="h3">JDB_H3</option>
@@ -133,12 +87,16 @@
                <option value="span">JDB_SPAN</option>
                <option value="small">JDB_SMALL</option>
             </field>
+
             <field type="color" name="subheadingFontColor" label="JDB_TEXT_COLOR" default="" group="subheadingtypography">
             </field>
+
             <field type="textshadow" name="subheadingTextShadow" label="JDB_TEXT_SHADOW" default="" group="subheadingtypography">
             </field>
+
             <field type="typography" responsive="true" name="subheadingTypography" label="JDB_TYPOGRAPHY" default="" group="subheadingtypography">
             </field>
+            <!-- Sub Heading Options End -->
          </fieldset>
       </fields>
    </form>

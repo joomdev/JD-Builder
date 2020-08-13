@@ -390,6 +390,24 @@ class Helper
       return md5(JDB_MEDIA_VERSION . $jversion->getMediaVersion());
    }
 
+   public static function getJoomlaVersion()
+   {
+      $version = new \JVersion;
+      $version = $version->getShortVersion();
+      $version = substr($version, 0, 1);
+      return $version;
+   }
+
+   public static function getACYVersion()
+   {
+      $db = \JFactory::getDbo();
+      $db->setQuery("SELECT `manifest_cache` FROM `#__extensions` WHERE `element`='com_acymailing' OR `element`='com_acym'");
+      $result = $db->loadResult();
+      if (empty($result)) return null;
+      $version = (int) \json_decode($result, true)['version'];
+      return $version;
+   }
+
    public static function renderGlobalScss()
    {
       $document = \JFactory::getDocument();
@@ -914,7 +932,7 @@ class Helper
       return $return;
    }
 
-   public static function loadBuilderLanguage()
+   public static function loadBuilderLanguage($return = false)
    {
       $lang = \JFactory::getLanguage();
       $tag = $lang->getTag();
@@ -929,8 +947,13 @@ class Helper
          }
       }
 
-      $document = \JFactory::getDocument();
-      $document->addScriptDeclaration('_JDB.LANG = ' . \json_encode($strings) . ';');
+      $script = '_JDB.LANG = ' . \json_encode($strings) . ';';
+      if ($return) {
+         return $script;
+      } else {
+         $document = \JFactory::getDocument();
+         $document->addScriptDeclaration($script);
+      }
    }
 
    public static function parseIniFile($fileName, $debug = false)
@@ -1001,7 +1024,11 @@ class Helper
       }
 
       // Build route.
-      $uri = self::$_router[$client]->build($url);
+      if (JDB_JOOMLA_VERSION == 3) {
+         $uri = self::$_router[$client]->build($url);
+      } else {
+         $uri = \JURI::getInstance(\JURI::root() . $url);
+      }
       $scheme = array('path', 'query', 'fragment');
 
       /*
@@ -2028,5 +2055,10 @@ class Helper
       $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
 
       return '<a href="' . $link . '" title="' . $text . '"' . $linkTarget . $linkRel . '>' . $text . '</a>';
+   }
+
+   public static function getXml($url)
+   {
+      return simplexml_load_file($url, 'SimpleXMLElement');
    }
 }

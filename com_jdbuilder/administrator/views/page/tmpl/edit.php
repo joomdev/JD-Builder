@@ -39,7 +39,9 @@ $document->addStyleSheet(JUri::root() . 'media/com_jdbuilder/css/form.css');
    <?php
    $item = ["id" => $this->item->id, "title" => empty($this->item->title) ? '' : $this->item->title, "layout_id" => empty($this->item->layout_id) ? 0 : $this->item->layout_id, "type" => "page", "params" => $this->item->params];
    ?>
+   var _JDB = {};
    _JDB.ITEM = <?php echo \json_encode($item); ?>;
+   _JDB.FORM_ID = 'page-form';
 </script>
 <script>
    _JDB.ACCESS = <?php echo \json_encode($this->accessibility); ?>;

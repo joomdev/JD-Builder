@@ -14,10 +14,12 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_CONTENT_LBL"></field>
             <field
                type="alert"
                label="warning"
                description="JDB_MODULE_ALERT"
+               group="basic"
             >
             </field>
             <field
@@ -26,6 +28,7 @@
                name="type"
                default="module"
                radiotype="buttons"
+               group="basic"
             >
                <option value="module">JDB_MODULE</option>
                <option value="position">JDB_MODULE_POSITION</option>
@@ -35,6 +38,7 @@
                type="jmodule"
                label="JDB_MODULE"
                default=""
+               group="basic"
                showon="params.type == 'module'"
             />
             <field
@@ -42,6 +46,7 @@
                type="jposition"
                label="JDB_MODULE_POSITION"
                default=""
+               group="basic"
                showon="params.type == 'position'"
             />
             <field
@@ -49,6 +54,7 @@
                type="chromestyle"
                label="JDB_MODULE_STYLE"
                default="0"
+               group="basic"
             />
          </fieldset>
       </fields>

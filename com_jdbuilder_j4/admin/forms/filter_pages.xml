@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   <fields name="filter">
+      <field name="search" type="text" hint="COM_JDBUILDER_SEARCH_FILTER_SUBMIT" label="COM_USERS_FILTER_SEARCH_DESC" class="js-stools-search-string" />
+
+      <field name="state" type="list" label="COM_JDBUILDER_FILTER_STATE" description="COM_JDBUILDER_FILTER_STATE_DESC" onchange="this.form.submit();" default="">
+         <option value="">JOPTION_SELECT_PUBLISHED</option>
+         <option value="1">JDB_PUBLISHED</option>
+         <option value="0">JDB_UNPUBLISHED</option>
+         <option value="-2">JDB_TRASHED</option>
+      </field>
+
+      <field name="category_id" published="0,1,2" class="multipleCategories" multiple="true" label="COM_JDBUILDER_FORM_LBL_PAGE_CATEGORY_ID" type="category" layout="joomla.form.field.list-fancy-select" extension="com_jdbuilder" onchange="this.form.submit();">
+      </field>
+      <field name="access" multiple="true" label="COM_JDBUILDER_FORM_LBL_PAGE_ACCESS" layout="joomla.form.field.list-fancy-select" type="accesslevel" onchange="this.form.submit();"/>
+      <field name="language" label="COM_JDBUILDER_FORM_LBL_PAGE_LANGUAGE" type="contentlanguage" onchange="this.form.submit();">
+         <option value="">JOPTION_SELECT_LANGUAGE</option>
+         <option value="*">JALL</option>
+      </field>
+
+
+   </fields>
+
+   <fields name="list">
+
+      <field name="fullordering" type="list" label="COM_CONTENT_LIST_FULL_ORDERING" description="COM_CONTENT_LIST_FULL_ORDERING_DESC" onchange="this.form.submit();" default="a.id DESC">
+         <option value="">JGLOBAL_SORT_BY</option>
+         <option value="a.`id` ASC">ID Ascending</option>
+         <option value="a.`id` DESC">ID Descending</option>
+         <option value="a.`title` ASC">Title Ascending</option>
+         <option value="a.`title` DESC">Title Descending</option>
+         <option value="a.`category_id` ASC">Category Ascending</option>
+         <option value="a.`category_id` DESC">Category Descending</option>
+         <option value="a.`ordering` ASC">Order Ascending</option>
+         <option value="a.`ordering` DESC">Order Descending</option>
+         <option value="a.`state` ASC">State Ascending</option>
+         <option value="a.`state` DESC">State Descending</option>
+         <option value="a.`access` ASC">Access Ascending</option>
+         <option value="a.`access` DESC">Access Descending</option>
+         <option value="a.`language` ASC">Language Ascending</option>
+         <option value="a.`language` DESC">Language Descending</option>
+
+      </field>
+
+      <field name="limit" type="limitbox" class="input-mini" default="25" onchange="this.form.submit();" />
+
+   </fields>
+
+</form>

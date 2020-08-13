@@ -227,7 +227,7 @@ class Field
 
             $alphanumeric = (string) $this->xml->attributes()->alphanumeric;
             $return['alphanumeric'] = ($alphanumeric === 'true' ? true : false);
-            
+
             $slug = isset($this->xml->attributes()->slug) ? (string) $this->xml->attributes()->slug : false;
             $return['slug'] = ($slug === false ? false : $slug);
             break;
@@ -508,11 +508,22 @@ class Field
             $return['type'] = 'boxshadow';
             $return['textshadow'] = true;
             break;
+         case 'acymailing-list':
+            $return['type'] = 'list';
+            $return['multiple'] = true;
+            $return['search'] = true;
+            $return['options'] = $this->getACYLists();
+            $return['groups'] = [];
+            break;
       }
 
       if (!in_array($this->type, Form::$fields_without_value)) {
          if ($this->responsive) {
             $value = [];
+
+            if (is_string($this->value) && Helper::isValidJSON($this->value)) {
+               $this->value = \json_decode($this->value);
+            }
 
             if (isset($this->value->md) || isset($this->value->sm) || isset($this->value->xs)) {
                foreach (Helper::$devices as $deviceKey => $device) {
@@ -536,6 +547,7 @@ class Field
          } else {
             $return['value'] = $this->value;
          }
+
          // $return['default'] = $this->value;
       }
       $return['invisible'] = $this->invisible;
@@ -657,7 +669,7 @@ class Field
    public static function getParticlesPresets()
    {
       $options = [];
-      
+
       $path = JDBPATH_MEDIA . '/data/particles-presets';
       $presets = glob($path . "/*.json");
       foreach ($presets as $preset) {
@@ -667,9 +679,9 @@ class Field
          $item = [];
          $item['label'] = \JText::_($label);
          $item['value'] = $value;
-         if($value == 'default'){
+         if ($value == 'default') {
             array_unshift($options, $item);
-         }else{
+         } else {
             $options[] = $item;
          }
       }
@@ -1051,5 +1063,26 @@ class Field
          $options[] = ['label' => \JText::_('JDB_' . ucfirst($tag)), 'value' => $tag];
       }
       return $options;
+   }
+
+   public function getACYLists()
+   {
+      $version = Helper::getACYVersion();
+      if ($version === null)  return [];
+
+      $db = \JFactory::getDbo();
+      $query = $db->getQuery(true);
+      if ($version < 6) {
+         $query->select('name as label, listid as value')
+            ->from('#__acymailing_list')
+            ->where('published = 1');
+      } else {
+         $query->select('name as label, id as value')
+            ->from('#__acym_list')
+            ->where('active = 1');
+      }
+      $db->setQuery($query);
+
+      return $db->loadObjectList();
    }
 }

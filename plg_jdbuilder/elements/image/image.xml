@@ -14,48 +14,67 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="borderOptions" label="JDB_IMAGE_BORDER"></field>
+            <field type="group" name="basic" label="JDB_IMAGE"></field>
 
+            <!-- Image Options Start -->
             <field name="image" type="image" label="JDB_IMAGE_CHOOSE_MEDIA" group="basic" default="link:https://cdn.joomdev.com/images/jdbuilder/jd-placeholder-800x500.jpg">
             </field>
+
             <field name="title" type="text" default="" label="JDB_TITLE" group="basic">
             </field>
+
             <field name="alt" type="text" default="" label="JDB_ALT" group="basic">
             </field>
+
             <field name="caption" type="text" default="" label="JDB_IMAGE_CAPTION" group="basic">
             </field>
+
             <field name="imageSize" type="list" label="JDB_IMAGE_SIZE" default="original" group="basic" search="false">
                <option value="original">JDB_ORIGINAL</option>
                <option value="custom">JDB_CUSTOM</option>
             </field>
+
             <field name="width" type="slider" label="JDB_WIDTH" default='{"value":"100", "unit": "%"}' min="0" max="2000" showon="params.imageSize=='custom'" units="px,%" group="basic" responsive="true">
             </field>
+
             <field name="maxWidth" type="slider" label="JDB_MAX_WIDTH" default='{"value":"100", "unit": "%"}' min="0" max="2000" showon="params.imageSize=='custom'" units="px,%" group="basic" responsive="true">
             </field>
+
             <field name="alignment" type="radio" label="JDB_ALIGNMENT" default="left" radiotype="buttons" group="basic" responsive="true">
                <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
+
             <field name="linkType" type="radio" radiotype="buttons" label="JDB_LINK_LABEL" default="" group="basic">
                <option value="none">JDB_NONE</option>
                <option value="media">JDB_MEDIA_FILE</option>
                <option value="">JDB_CUSTOM_URL</option>
             </field>
+
             <field name="lightbox" type="radio" radiotype="buttons" label="JDB_LIGHTBOX" showon="params.linkType=='media'" default="" group="basic">
                <option value="">JDB_DEFAULT</option>
                <option value="1">JDB_YES</option>
                <option value="0">JDB_NO</option>
             </field>
+
             <field name="link" showon="params.linkType==''" type="text" label="JDB_URL" default="" group="basic">
             </field>
+
             <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" showon="params.link!=''[AND]params.linkType==''" group="basic">
             </field>
+
             <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" showon="params.link!=''[AND]params.linkType==''" group="basic">
             </field>
+            <!-- Image Options End -->
+         </fieldset>
 
-            <field type="fieldsgroup" name="imageBorder" filename="border" group="borderOptions">
-            </field>
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="borderOptions" label="JDB_IMAGE"></field>
+
+            <!-- Border Options Start -->
+            <field type="fieldsgroup" name="imageBorder" filename="border" group="borderOptions"></field>
+            <!-- Border Options End -->
          </fieldset>
       </fields>
    </form>

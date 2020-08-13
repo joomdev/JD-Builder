@@ -14,11 +14,9 @@
 	<form>
 		<fields>
 			<fieldset name="general" label="JDB_GENERAL_TITLE">
-				<field type="group" name="profiles" label="JDB_SOCIAL_LINKS_SOCIAL_PROFILES"></field>
-				<field type="group" name="styling" label="JDB_SOCIAL_LINKS_STYLE_OPTIONS"></field>
-				<field type="group" name="colorstyling" label="JDB_SOCIAL_LINKS_COLOR_OPTIONS"></field>
-				<!--  Element Options -->
-
+				<field type="group" name="profiles" label="JDB_SOCIAL_LINKS_SOCIAL_LINKS"></field>
+				
+				<!--  Social Profiles Options Start -->
 				<field type="repeatable" group="profiles" label="JDB_SOCIAL_LINKS_ICONS" name="socialLinks" item-title-field="title" item-title="Link" item-icon="fas fa-share-alt" item-icon-field="icon" default='[{"title":"Facebook", "icon":"fab fa-facebook-f", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Twitter", "icon":"fab fa-twitter", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}, {"title":"Instagram", "icon":"fab fa-instagram", "link": "#", "linkTargetBlank": false, "linkNoFollow": false}]'>
 					<form>
 						<field type="icon" label="JDB_ICON" name="icon" default="fas fa-share-alt"></field>
@@ -31,8 +29,14 @@
 						</field>
 					</form>
 				</field>
+				<!--  Social Profiles Options Start -->
+			</fieldset>
 
-				<!-- Icon Stytling -->
+			<fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+				<field type="group" name="styling" label="JDB_LINK"></field>
+				<field type="group" name="colorstyling" label="JDB_COLORS"></field>
+
+				<!-- Style Options Star -->
 				<field name="slAlignment" group="styling" type="radio" radiotype="buttons" label="JDB_ALIGNMENT" default="center" responsive="true">
 					<option value="left" icon="fas fa-align-left">JDB_LEFT</option>
 					<option value="center" icon="fas fa-align-center">JDB_CENTER</option>
@@ -56,38 +60,6 @@
 				</field>
 
 				<field type="spacer" group="styling" />
-
-				<field type="radio" group="colorstyling" radiotype="buttons" label="JDB_SOCIAL_LINKS_COLORS" name="iconStyle" default="brand">
-					<option value="brand">JDB_SOCIAL_LINKS_BRAND_COLORS</option>
-					<option value="custom">JDB_SOCIAL_LINKS_CUSTOM_COLORS</option>
-				</field>
-
-				<field type="alert" description="JDB_SOCIAL_LINKS_BRAND_COLOR_ALERT" group="colorstyling" showon="params.iconStyle=='brand'">
-				</field>
-
-				<field name="brandColorInverted" type="switch" label="JDB_INVERTED_COLORS" group="colorstyling" default="false" showon="params.iconStyle=='brand'">
-				</field>
-
-				<field type="color" width="6" group="colorstyling" label="JDB_FOREGROUND_COLOR" name="slColor" showon="params.iconStyle=='custom'">
-				</field>
-
-				<field type="color" width="6" group="colorstyling" label="JDB_BACKGROUND_COLOR" name="slBackgroundColor" showon="params.iconStyle=='custom'">
-				</field>
-
-				<field type="color" width="12" group="colorstyling" label="JDB_BORDER_COLOR" name="slBorderColor" showon="params.iconStyle=='custom'">
-				</field>
-
-				<field type="spacer" label="JDB_HOVER_OPTIONS_DIVIDER" group="colorstyling">
-				</field>
-
-				<field type="color" width="6" group="colorstyling" label="JDB_FOREGROUND_COLOR" name="slHoverColor">
-				</field>
-
-				<field type="color" width="6" group="colorstyling" label="JDB_BACKGROUND_COLOR" name="slHoverBackgroundColor">
-				</field>
-
-				<field type="color" width="12" group="colorstyling" label="JDB_BORDER_COLOR" name="slBorderHoverColor">
-				</field>
 
 				<field type="slider" group="styling" label="JDB_SOCIAL_LINKS_ICON_SIZE" name="iconSize" unit="px" showon="params.slDisplay!='title-only'" default="" responsive="true">
 				</field>
@@ -120,6 +92,41 @@
 
 				<field type="hover-animations" group="styling" name="slHoverAnimation" label="JDB_HOVER_ANIMATION_LABEL" search="true">
 				</field>
+				<!-- Style Options End -->
+
+				<!-- Color Options Start -->
+				<field type="radio" group="colorstyling" radiotype="buttons" label="JDB_SOCIAL_LINKS_COLORS" name="iconStyle" default="brand">
+					<option value="brand">JDB_SOCIAL_LINKS_BRAND_COLORS</option>
+					<option value="custom">JDB_SOCIAL_LINKS_CUSTOM_COLORS</option>
+				</field>
+
+				<field type="alert" description="JDB_SOCIAL_LINKS_BRAND_COLOR_ALERT" group="colorstyling" showon="params.iconStyle=='brand'">
+				</field>
+
+				<field name="brandColorInverted" type="switch" label="JDB_INVERTED_COLORS" group="colorstyling" default="false" showon="params.iconStyle=='brand'">
+				</field>
+
+				<field type="color" width="6" group="colorstyling" label="JDB_FOREGROUND_COLOR" name="slColor" showon="params.iconStyle=='custom'">
+				</field>
+
+				<field type="color" width="6" group="colorstyling" label="JDB_BACKGROUND_COLOR" name="slBackgroundColor" showon="params.iconStyle=='custom'">
+				</field>
+
+				<field type="color" width="12" group="colorstyling" label="JDB_BORDER_COLOR" name="slBorderColor" showon="params.iconStyle=='custom'">
+				</field>
+
+				<field type="spacer" label="JDB_HOVER_OPTIONS_DIVIDER" group="colorstyling">
+				</field>
+
+				<field type="color" width="6" group="colorstyling" label="JDB_FOREGROUND_COLOR" name="slHoverColor">
+				</field>
+
+				<field type="color" width="6" group="colorstyling" label="JDB_BACKGROUND_COLOR" name="slHoverBackgroundColor">
+				</field>
+
+				<field type="color" width="12" group="colorstyling" label="JDB_BORDER_COLOR" name="slBorderHoverColor">
+				</field>
+				<!-- Color Options End -->
 			</fieldset>
 		</fields>
 	</form>

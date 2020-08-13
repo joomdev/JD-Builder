@@ -9,6 +9,8 @@
 // no direct access
 defined('_JEXEC') or die;
 
+use Joomla\Component\Menus\Administrator\Helper\MenusHelper;
+
 class pkg_jdbuilderInstallerScript
 {
 
@@ -33,6 +35,7 @@ class pkg_jdbuilderInstallerScript
     */
    public function install($parent)
    {
+      // self::installPreset();
    }
 
    /**
@@ -51,6 +54,7 @@ class pkg_jdbuilderInstallerScript
     */
    function update($parent)
    {
+      // self::installPreset();
    }
 
    /**
@@ -78,5 +82,23 @@ class pkg_jdbuilderInstallerScript
       }
 
       return true;
+   }
+
+   public static function installPreset()
+   {
+      $version = new \JVersion;
+      $version = $version->getShortVersion();
+      $version = substr($version, 0, 1);
+
+      if ($version == 3) return;
+
+      if (\JFactory::getApplication()->isClient('administrator')) {
+         $db = \JFactory::getDbo();
+         $db->setQuery("SELECT * FROM `#__menu` WHERE `alias`='component-com_jdbuilder' AND `client_id`='1'");
+         $exists = $db->loadObject();
+         if (!$exists) {
+            MenusHelper::installPreset('jdbuilder', 'component');
+         }
+      }
    }
 }

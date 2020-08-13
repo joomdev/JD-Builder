@@ -84,14 +84,18 @@ class Media
                   case 'ico':
                   case 'tiff':
                      $info = @getimagesize($tmp->path);
+                     /* if (!is_array($info)) {
+                        $images[] = $tmp;
+                        break;
+                     } */
                      $tmp->width = @$info[0];
                      $tmp->height = @$info[1];
                      $tmp->type = @$info[2];
                      $tmp->mime = @$info['mime'];
                      $tmp->media_type = 'image';
 
-                     if (($info[0] > 60) || ($info[1] > 60)) {
-                        $dimensions = $this->imageResize($info[0], $info[1], 60);
+                     if ((@$info[0] > 60) || (@$info[1] > 60)) {
+                        $dimensions = $this->imageResize(@$info[0], @$info[1], 60);
                         $tmp->width_60 = $dimensions[0];
                         $tmp->height_60 = $dimensions[1];
                      } else {
@@ -99,8 +103,8 @@ class Media
                         $tmp->height_60 = $tmp->height;
                      }
 
-                     if (($info[0] > 16) || ($info[1] > 16)) {
-                        $dimensions = $this->imageResize($info[0], $info[1], 16);
+                     if ((@$info[0] > 16) || (@$info[1] > 16)) {
+                        $dimensions = $this->imageResize(@$info[0], @$info[1], 16);
                         $tmp->width_16 = $dimensions[0];
                         $tmp->height_16 = $dimensions[1];
                      } else {

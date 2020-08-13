@@ -14,10 +14,7 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="accordion-item" label="JDB_ACCORDION_ITEM_OPTIONS"></field>
-            <field type="group" name="accordion-title" label="JDB_ACCORDION_ITEM_TITLE_OPTIONS"></field>
-            <field type="group" name="accordion-content" label="JDB_ACCORDION_ITEM_CONTENT_OPTIONS"></field>
-            <field type="group" name="accordion-icon" label="JDB_ACCORDION_ITEM_ICON_OPTIONS"></field>
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <!-- Element Options -->
             <field
                name="items"
@@ -83,7 +80,13 @@
             >
             </field>
             <!-- Repeatbale type ended here -->
-
+         </fieldset>
+            
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="accordion-item" label="JDB_ACCORDION_ITEM"></field>
+            <field type="group" name="accordion-title" label="JDB_ACCORDION_ITEM_TITLE"></field>
+            <field type="group" name="accordion-content" label="JDB_ACCORDION_ITEM_CONTENT"></field>
+            <field type="group" name="accordion-icon" label="JDB_ACCORDION_ITEM_ICON"></field>
             <field
                name="itemSpaceBetween"
                type="slider"

@@ -18,6 +18,7 @@ extract($displayData);
 $builder_assets_path = JURI::root() . 'media/jdbuilder/';
 
 $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
+$document = JFactory::getDocument();
 
 $version = '?' . JDB_MEDIA_VERSION;
 if (JDB_DEV) {
@@ -86,7 +87,7 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
          <div id="jdbuilder-apploader-status" style="font-size: 12px;margin-top: 10px;text-align: center;color: #000;"></div>
       </div>
    </div>
-   <app-jdbuilder id="jdbuilder"></app-jdbuilder>
+   <app-jdbuilder id="jdbuilder" class="jdb-j4"></app-jdbuilder>
    <a href="javascript:void(0);" style="display: none;" id="jdb-export-link"></a>
    <div class="component-version-container">
       <span class="component-version"><?php echo \JText::_('COM_JDBUILDER'); ?> <span>v<?php echo JDB_VERSION; ?></span><?php echo \JText::_('JDBUILDER_VERSION_LABEL'); ?>| Developed with <span style="color: red">&hearts;</span> by <a href="//www.joomdev.com" target="_blank">JoomDev</a></span>
@@ -96,6 +97,8 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    </div>
    <div id="jdb-select2-dropdowns-container"></div>
 </div>
+<script src="<?php echo JURI::root(); ?>media/vendor/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/select2.min.js"></script>
 <script>
    <?php echo JDPageBuilder\Helper::minifyJS([JPATH_SITE . '/media/jdbuilder/js/admin.js']); ?>
 </script>
@@ -145,17 +148,11 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    };
 
    var JDBADMIN = true;
-   if (typeof $ === 'undefined') {
-      var $ = jQuery;
-   }
-   if ($ !== jQuery) {
-      $ = jQuery;
-   }
-
    _JDB.admin = new JDBAdmin();
    _JDB.admin.init();
    _JDB.JDB_CATEGORIES = new Map();
    _JDB.JDB_ARTICLES = new Map();
+   <?php echo JDPageBuilder\Helper::loadBuilderLanguage(true); ?>
 </script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/runtime.js<?php echo $version; ?>"></script>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/polyfills.js<?php echo $version; ?>"></script>
@@ -168,15 +165,10 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    JDBRenderer.Helper.baseUrl = '<?php echo JURI::root(); ?>';
 </script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
-<!-- <script src="<?php echo $builder_assets_path; ?>js/codemirror/codemirror.js<?php echo $version; ?>"></script>
-<script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/css/css.js<?php echo $version; ?>"></script>
-<script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/javascript/javascript.js<?php echo $version; ?>"></script>
-<script src="<?php echo $builder_assets_path; ?>js/codemirror/mode/xml/xml.js<?php echo $version; ?>"></script> -->
 <?php if (JDB_DEV) { ?>
    <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v<?php echo JDPageBuilder\Constants::FONTAWESOME_VERSION; ?>/css/all.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
 

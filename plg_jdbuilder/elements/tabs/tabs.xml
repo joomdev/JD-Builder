@@ -14,195 +14,82 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="tab-item" label="JDB_TABS_TAB_STYLE"></field>
-            <field type="group" name="tab-content" label="JDB_TABS_TAB_CONTENT_STYLE"></field>
-            <!--  Element Options -->
-            <field
-               name="items"
-               label="JDB_TABS_ITEMS"
-               type="repeatable"
-               group="basic"
-               item-title="title"
-               item-title-field="title"
-               default='[{"title":"Tab #1", "icon":"", "content":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, iure, nulla, molestias, quasi placeat vel ratione ipsum sapiente inventore fuga unde esse autem repudiandae dolorem doloremque eius consectetur aliquid explicabo."},{"title":"Tab #2", "icon":"", "content":"Ipsam voluptatibus nesciunt nihil ipsa pariatur laboriosam quas rerum praesentium asperiores porro. Voluptatum veniam ab accusantium! Dolorem, omnis, suscipit corporis cumque quaerat voluptas rerum necessitatibus praesentium ipsa similique voluptatem libero!"},{"title":"Tab #3", "icon":"", "content":"Adipisci, incidunt praesentium repudiandae reiciendis eaque harum enim quia reprehenderit. Doloribus eum itaque facilis accusantium amet. Excepturi, modi at assumenda fugiat dolores iure esse velit odit ipsum asperiores consequuntur neque."}]'
-            >
+            <field type="group" name="basic" label="JDB_CONTENT_LBL"></field>
+
+            <!--  Content Options Start -->
+            <field name="items" label="JDB_TABS_ITEMS" type="repeatable" group="basic" item-title="title" item-title-field="title" default='[{"title":"Tab #1", "icon":"", "content":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, iure, nulla, molestias, quasi placeat vel ratione ipsum sapiente inventore fuga unde esse autem repudiandae dolorem doloremque eius consectetur aliquid explicabo."},{"title":"Tab #2", "icon":"", "content":"Ipsam voluptatibus nesciunt nihil ipsa pariatur laboriosam quas rerum praesentium asperiores porro. Voluptatum veniam ab accusantium! Dolorem, omnis, suscipit corporis cumque quaerat voluptas rerum necessitatibus praesentium ipsa similique voluptatem libero!"},{"title":"Tab #3", "icon":"", "content":"Adipisci, incidunt praesentium repudiandae reiciendis eaque harum enim quia reprehenderit. Doloribus eum itaque facilis accusantium amet. Excepturi, modi at assumenda fugiat dolores iure esse velit odit ipsum asperiores consequuntur neque."}]'>
                <form>
-                  <field
-                     type="text"
-                     label="JDB_TITLE"
-                     name="title"
-                     default="Item Title"
-                  >
+                  <field type="text" label="JDB_TITLE" name="title" default="Item Title">
                   </field>
-                  <field
-                     type="icon"
-                     label="JDB_ICON"
-                     name="icon"
-                     default=""
-                  >
+                  <field type="icon" label="JDB_ICON" name="icon" default="">
                   </field>
-                  <field
-                     type="editor"
-                     label="false"
-                     name="content"
-                     value="Item Content"
-                  >
+                  <field type="editor" label="false" name="content" value="Item Content">
                   </field>
                </form>
             </field>
-            
-            <!-- Repeatbale type ended here -->
+            <!--  Content Options End -->
+         </fieldset>
 
-            <field
-               type="radio"
-               name="tabType"
-               label="JDB_ORIENTATION_LBL"
-               default="horizontal"
-               group="tab-item"
-               radiotype="buttons"
-            >
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="tab-item" label="JDB_TABS_TAB"></field>
+            <field type="group" name="tab-content" label="JDB_TABS_TAB_CONTENT"></field>
+
+            <!-- Tab Options Start -->
+            <field type="radio" name="tabType" label="JDB_ORIENTATION_LBL" default="horizontal" group="tab-item" radiotype="buttons">
                <option value="horizontal">JDB_HORIZONTAL</option>
                <option value="vertical">JDB_VERTICAL</option>
             </field>
             
-            <field
-               name="tabsVerticalWidth"
-               type="slider"
-               label="JDB_TABS_TAB_WIDTH"
-               default='{"value":"250","unit":"px"}'
-               min="0"
-               max="900"
-               units="px,%"
-               group="tab-item"
-               showon="params.tabType=='vertical'"
-               responsive="true"
-            >
+            <field name="tabsVerticalWidth" type="slider" label="JDB_TABS_TAB_WIDTH" default='{"value":"250","unit":"px"}' min="0" max="900" units="px,%" group="tab-item" showon="params.tabType=='vertical'" responsive="true">
             </field>
             
-            <field
-               type="spacer"
-               label="JDB_TAB_COLOR"
-               group="tab-item"
-            >
+            <field type="spacer" label="JDB_TAB_COLOR" group="tab-item"></field>
+            
+            <field name="tabsColor" type="color" label="JDB_TAB_COLOR" default="#888888" group="tab-item">
             </field>
             
-            <field
-               name="tabsColor"
-               type="color"
-               label="JDB_TAB_COLOR"
-               default="#888888"
-               group="tab-item"
-            >
+            <field name="tabsColorHover" type="color" label="JDB_HOVER_COLOR" default="" group="tab-item">
             </field>
             
-            <field
-               name="tabsColorHover"
-               type="color"
-               label="JDB_HOVER_COLOR"
-               default=""
-               group="tab-item"
-            >
+            <field name="tabsColorActive" type="color" label="JDB_ACTIVE_COLOR" default="#000000" group="tab-item">
             </field>
             
-            <field
-               name="tabsColorActive"
-               type="color"
-               label="JDB_ACTIVE_COLOR"
-               default="#000000"
-               group="tab-item"
-            >
-            </field>
+            <field type="spacer" label="JDB_ICON" group="tab-item"></field>
             
-            <field
-               type="spacer"
-               label="JDB_ICON"
-               group="tab-item"
-            >
-            </field>
-            
-            <field
-               type="radio"
-               name="tabsIconPosition"
-               label="JDB_TAB_ICON_POSITION"
-               default="left"
-               group="tab-item"
-               radiotype="buttons"
-            >
+            <field type="radio" name="tabsIconPosition" label="JDB_TAB_ICON_POSITION" default="left" group="tab-item" radiotype="buttons">
                <option value="top">JDB_TOP</option>
                <option value="left">JDB_LEFT</option>
             </field>
             
-            <field
-               name="tabsIconSize"
-               type="slider"
-               label="JDB_TAB_ICON_SIZE"
-               default=""
-               min="0"
-               max="100"
-               group="tab-item"
-               responsive="true"
-            >
+            <field name="tabsIconSize" type="slider" label="JDB_TAB_ICON_SIZE" default="" min="0" max="100" group="tab-item" responsive="true">
             </field>
             
             <field type="spacer" group="tab-item"></field>
             
-            <field
-               type="typography"
-               name="tabsTypography"
-               group="tab-item"
-               label="JDB_TAB_TYPOGRAPHY"
-               default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
-               responsive="true"
-            >
+            <field type="typography" name="tabsTypography" group="tab-item" label="JDB_TAB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true">
             </field>
             
             <field type="spacer" group="tab-item"></field>
             
-            <field
-               type="spacing"
-               name="tabsPadding"
-               label="JDB_TAB_PADDING"
-               group="tab-item"
-               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
-               responsive="true"
-            >
+            <field type="spacing" name="tabsPadding" label="JDB_TAB_PADDING" group="tab-item" default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}' responsive="true">
             </field>
-            
-            <!-- Tab Content -->
+            <!-- Tab Options End -->
+
+            <!-- Tab Content Options Start -->
             <field type="color" name="contentColor" label="JDB_TEXT_COLOR" default="" group="tab-content">
             </field>
             
             <field type="color" name="contentBackground" label="JDB_BACKGROUND" default="" group="tab-content">
             </field>
 
-            <field
-               type="spacer"
-               group="tab-content"
-            >
+            <field type="spacer" group="tab-content"></field>
+            
+            <field type="typography" name="tabContentTypography" group="tab-content" label="JDB_TAB_CONTENT_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true">
             </field>
             
-            <field
-               type="typography"
-               name="tabContentTypography"
-               group="tab-content"
-               label="JDB_TAB_CONTENT_TYPOGRAPHY"
-               default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}'
-               responsive="true"
-            >
-            </field>
-            
-            <field
-               type="spacer"
-               group="tab-content"
-            >
-            </field>
+            <field type="spacer" group="tab-content"></field>
 
-            <field
-               type="list"
-               name="contentBorderStyle"
-               label="JDB_BORDER_TYPE"
-               default="none"
-               group="tab-content">
+            <field type="list" name="contentBorderStyle" label="JDB_BORDER_TYPE" default="none" group="tab-content">
                <option value="none">JDB_BORDER_NONE</option>
                <option value="solid">JDB_BORDER_SOLID</option>
                <option value="dashed">JDB_BORDER_DASHED</option>
@@ -210,42 +97,17 @@
                <option value="double">JDB_BORDER_DOUBLE</option>
             </field>
             
-            <field
-               type="spacing"
-               name="contentBorderWidth"
-               label="JDB_BORDER_WIDTH"
-               showon="params.contentBorderStyle!='none'"
-               default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}'
-               group="tab-content"
-               responsive="true"
-            >
+            <field type="spacing" name="contentBorderWidth" label="JDB_BORDER_WIDTH" showon="params.contentBorderStyle!='none'" default='{"unit":"px","lock":1,"top":0,"left":0,"right":0,"bottom":0}' group="tab-content" responsive="true">
             </field>
 
-            <field
-               name="contentBorderColor"
-               type="color"
-               label="JDB_BORDER_COLOR"
-               default=""
-               showon="params.contentBorderStyle!='none'"
-               group="tab-content"
-            >
+            <field name="contentBorderColor" type="color" label="JDB_BORDER_COLOR" default="" showon="params.contentBorderStyle!='none'" group="tab-content">
             </field>
             
-            <field
-               type="spacer"
-               group="tab-content"
-            >
-            </field>
+            <field type="spacer" group="tab-content"></field>
             
-            <field
-               type="spacing"
-               name="tabContentPadding"
-               label="JDB_TAB_CONTENT_PADDING"
-               group="tab-content"
-               default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}'
-               responsive="true"
-            >
+            <field type="spacing" name="tabContentPadding" label="JDB_TAB_CONTENT_PADDING" group="tab-content" default='{"unit":"px","lock":1,"top":10,"left":10,"right":10,"bottom":10}' responsive="true">
             </field>
+            <!-- Tab Content Options End -->
          </fieldset>
       </fields>
    </form>

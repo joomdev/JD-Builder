@@ -81,7 +81,7 @@ class AuditHelper
             $values = implode(', ', $values);
             $query = "INSERT INTO `#__jdbuilder_audit` (id, itemid, itemtype, status, data, created, updated) VALUES {$values}";
             $db->setQuery($query);
-            $db->query();
+            $db->execute();
         }
     }
 
@@ -200,7 +200,11 @@ class AuditHelper
             $values = implode(', ', $values);
             $query = "INSERT INTO `#__jdbuilder_audit` (id, itemid, itemtype, status, data, created, updated) VALUES {$values}";
             $db->setQuery($query);
-            $db->query();
+            if (JDB_JOOMLA_VERSION == 3) {
+                $db->query();
+            } else {
+                $db->execute();
+            }
         }
     }
 

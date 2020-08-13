@@ -14,24 +14,26 @@
 	<form>
 		<fields>
 			<fieldset name="general" label="JDB_GENERAL_TITLE">
+				<field type="group" name="basic" label="JDB_CONTENT_LBL"></field>
 				<field type="group" name="layout" label="JD_JARTICLES_LAYOUT"></field>
 				<field type="group" name="meta" label="JD_JARTICLES_META"></field>
 				<field type="group" name="common" label="JD_JARTICLES_COMMON_SETTINGS"></field>
-				<field type="group" name="title-styling" label="JD_JARTICLES_TITLE_STYLING"></field>
-				<field type="group" name="content-styling" label="JD_JARTICLES_CONTENT_STYLING"></field>
-				<field type="group" showon="params.readmoreText!=''" name="readmore-styling" label="JD_JARTICLES_READ_MORE_STYLING"></field>
-				<field type="group" showon="params.viewmoreText!=''" name="viewmore-styling" label="JD_JARTICLES_VIEW_MORE_STYLING"></field>
 
+				<!-- Content Options Start -->
 				<field name="categories" group="basic" type="jcategory" extension="com_content" label="JDB_CATEGORY"></field>
+
 				<field name="subcategoryArticles" type="switch" label="JD_JARTICLES_INCLUDE_SUBCATEGORY_ARTICLES" group="basic" default="false">
 				</field>
+
 				<field name="articleCount" type="number" label="JD_JARTICLES_ARTICLE_COUNT" default="10" min="1" max="100" group="basic">
 				</field>
+
 				<field type="list" name="featuredArticle" label="JD_JARTICLES_FEATURED_ARTICLES" default="show" group="basic" search="false">
 					<option value="show">JDB_SHOW</option>
 					<option value="hide">JDB_HIDE</option>
 					<option value="only">JD_JARTICLES_ONLY_FEATURED</option>
 				</field>
+
 				<field type="list" name="articleOrdering" label="JD_JARTICLES_ARTICLE_ORDERING" default="a.ordering" group="basic" search="false">
 					<option value="a.created">JD_JARTICLES_CREATED_DATE</option>
 					<option value="a.title">JDB_TITLE</option>
@@ -39,16 +41,20 @@
 					<option value="random">JD_JARTICLES_RANDOM</option>
 					<option value="a.ordering">JD_JARTICLES_ARTICLE_ORDER</option>
 				</field>
+
 				<field type="list" showon="params.articleOrdering!='random'" name="articleOrderingDirection" label="JD_JARTICLES_ORDERING_DIRECTION" search="false" default="ASC" group="basic">
 					<option value="ASC">JDB_ASCENDING</option>
 					<option value="DESC">JDB_DESCENDING</option>
 				</field>
-
+				<!-- Content Options Start -->
+				
+				<!-- Layout Options Start -->
 				<field type="list" name="articleLayout" label="JD_JARTICLES_SELECT_LAYOUT" default="grid" group="layout" search="false">
 					<option value="grid">JD_JARTICLES_GRID</option>
 					<option value="list">JD_JARTICLES_LIST</option>
 					<option value="list-alternate">JD_JARTICLES_LIST_ALTERNATE</option>
 				</field>
+
 				<field type="list" showon="params.articleLayout=='grid'" name="columns" label="JDB_COLUMN" default="2" group="layout" responsive="true">
 					<option value="1">JDB1</option>
 					<option value="2">JDB2</option>
@@ -57,14 +63,18 @@
 					<option value="5">JDB5</option>
 					<option value="6">JDB6</option>
 				</field>
+
 				<field name="articleThumbnail" type="switch" label="JD_JARTICLES_SHOW_THUMBNAIL" group="layout" default="true">
 				</field>
+
 				<field name="articleIntro" type="switch" label="JD_JARTICLES_SHOW_INTRO_TEXT" group="layout" default="true">
 				</field>
+
 				<field name="articleIntroLimit" showon="params.articleIntro" type="number" label="JD_JARTICLES_INTRO_CHARACTER_LIMIT" default="150" min="10" max="1000" group="layout">
 				</field>
+				<!-- Layout Options End -->
 
-				<!-- Meta Option -->
+				<!-- Meta Options Start -->
 				<field name="articleMetaData" type="list" label="JD_JARTICLES_META_DATA" default='["author","publish-date","category"]' group="meta" multiple="true">
 					<option value="author">JD_JARTICLES_AUTHOR</option>
 					<option value="publish-date">JD_JARTICLES_PUBLISH_DATE</option>
@@ -73,37 +83,42 @@
 					<option value="category">JDB_CATEGORY</option>
 					<option value="hits">JD_JARTICLES_HITS</option>
 				</field>
+
 				<field type="text" showon="params.articleMetaData.indexOf('publish-date')>-1[OR]params.articleMetaData.indexOf('modified-date')>-1[OR]params.articleMetaData.indexOf('created-date')>-1" name="metaDateFormat" placeholder="d M, Y" default="" label="JD_JARTICLES_DATE_FORMAT" description="JD_JARTICLES_DATE_FORMAT_DESC" group="meta">
 				</field>
+
 				<field showon="params.articleMetaData.length>0" name="articleMetaIcons" type="switch" label="JD_JARTICLES_SHOW_META_ICONS" group="meta" default="true">
 				</field>
-				<field type="spacer" label="JD_JARTICLES_META_STYLING" description="" group="meta" />
-				<field type="color" name="metaColor" label="JDB_TEXT_COLOR" default="" group="meta" />
-				<field type="color" name="metaIconColor" label="JDB_ICON_COLOR_LABEL" default="" group="meta" />
-				<field type="slider" name="metaSpacing" label="JDB_SPACING" min="0" max="200" unit="px" default="" responsive="true" group="meta">
-				</field>
-				<field name="metaMargin" type="spacing" label="JDB_MARGIN" group="meta" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
-				</field>
-				<field type="typography" name="metaTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="meta">
-				</field>
-				<!-- Meta Option End -->
+				<!-- Meta Options End -->
 
-				<!-- common Settings -->
+				<!-- Common Options Start -->
 				<field type="text" name="readmoreText" default="Read More" label="JD_JARTICLES_READ_MORE_TEXT" group="common">
 				</field>
+
 				<field type="list" search="false" name="linkOn" label="JD_JARTICLES_APPLY_LINK_ON" group="common" default="title">
 					<option value="title">JDB_TITLE</option>
 					<option value="thumbnail">JDB_THUMBNAIL_LBL</option>
 					<option value="title-thumbnail">JDB_TITLE_AND_THUMBNAIL_LBL</option>
 				</field>
+
 				<field type="spacer" description="" group="common" />
+
 				<field type="text" name="viewmoreText" default="View More" label="JD_JARTICLES_VIEW_MORE_TEXT" group="common">
 				</field>
+
 				<field type="menuitems" showon="params.viewmoreText!=''" name="viewReadLink" default="" label="JD_JARTICLES_VIEW_MORE_LINK" group="common">
 				</field>
-				<!-- common Settings End -->
+				<!-- Common Options End -->
+			</fieldset>
 
-				<!-- Title Options -->
+			<fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+				<field type="group" name="title-styling" label="JDB_TITLE"></field>
+				<field type="group" name="content-styling" label="JDB_CONTENT_LBL"></field>
+				<field type="group" name="meta-styling" label="JD_JARTICLES_META"></field>
+				<field type="group" name="readmore-styling" label="JD_JARTICLES_READ_MORE" showon="params.readmoreText!=''"></field>
+				<field type="group" name="viewmore-styling" label="JD_JARTICLES_VIEW_MORE" showon="params.viewmoreText!=''"></field>
+
+				<!-- Title Styling Options Start -->
 				<field name="titleHtmlTag" type="list" label="JDB_HTML_TAG" default="h3" group="title-styling">
 					<option value="h1">JDB_H1</option>
 					<option value="h2">JDB_H2</option>
@@ -115,37 +130,61 @@
 					<option value="span">JDB_SPAN</option>
 					<option value="small">JDB_SMALL</option>
 				</field>
+
 				<field type="color" name="titleColor" label="JDB_COLOR" default="" group="title-styling">
 				</field>
+
 				<field type="color" name="titleHoverColor" showon="params.linkOn=='title'[OR]params.linkOn=='title-thumbnail'" label="JDB_HOVER_COLOR" default="" group="title-styling">
 				</field>
+
 				<field type="typography" name="titleTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="title-styling">
 				</field>
+
 				<field type="spacing" name="titleMargin" label="JDB_MARGIN" group="title-styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
 				</field>
-				<!-- Title Options End -->
+				<!-- Title Styling Options End -->
 
-				<!-- Content Options -->
+				<!-- Content Styling Options Start -->
 				<field type="color" name="contentColor" label="JDB_COLOR" default="" group="content-styling">
 				</field>
+
 				<field type="typography" name="contentTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="content-styling">
 				</field>
+
 				<field type="spacing" name="contentMargin" label="JDB_MARGIN" group="content-styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
 				</field>
-				<!-- Content Options End -->
+				<!-- Content Styling Options End -->
 
+				<!-- Meta Styling Options Start -->
+				<field type="color" name="metaColor" label="JDB_TEXT_COLOR" default="" group="meta-styling" />
+
+				<field type="color" name="metaIconColor" label="JDB_ICON_COLOR_LABEL" default="" group="meta-styling" />
+
+				<field type="slider" name="metaSpacing" label="JDB_SPACING" min="0" max="200" unit="px" default="" responsive="true" group="meta-styling">
+				</field>
+
+				<field name="metaMargin" type="spacing" label="JDB_MARGIN" group="meta-styling" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
+				</field>
+
+				<field type="typography" name="metaTypography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="meta-styling">
+				</field>
+				<!-- Meta Styling Options End -->
+
+				<!-- Read More Tyling Options Start -->
 				<field showon="params.readmoreText!=''" type="fieldsgroup" name="readmore" filename="button" group="readmore-styling">
 					<property name="foreground" default=""></property>
 					<property name="background" default=""></property>
 					<property name="padding" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'></property>
 				</field>
+				<!-- Read More Tyling Options End -->
 
+				<!-- View More Tyling Options Start -->
 				<field showon="params.viewmoreText!=''" type="fieldsgroup" name="viewmore" filename="button" group="viewmore-styling">
 					<property name="alignment" default="center"></property>
 					<property name="background" default=""></property>
 					<property name="type" default="secondary"></property>
 				</field>
-
+				<!-- View More Tyling Options End -->
 			</fieldset>
 		</fields>
 	</form>

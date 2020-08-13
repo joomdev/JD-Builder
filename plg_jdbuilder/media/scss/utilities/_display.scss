@@ -13,3 +13,14 @@
     }
   }
 }
+
+
+//
+// Utilities for toggling `display` in print
+//
+
+@media print {
+  @each $value in $displays {
+    .jdb-d-print-#{$value} { display: $value !important; }
+  }
+}

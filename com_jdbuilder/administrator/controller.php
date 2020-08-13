@@ -14,7 +14,8 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class JdbuilderController extends JControllerLegacy {
+class JdbuilderController extends JControllerLegacy
+{
 
    /**
     * Method to display a view.
@@ -26,16 +27,11 @@ class JdbuilderController extends JControllerLegacy {
     *
     * @since    1.5
     */
-   public function display($cachable = false, $urlparams = false) {
-
-      $document = JFactory::getDocument();
-      $document->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
-      $document->addStyleSheet(JURI::root() . 'media/com_jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
-
+   public function display($cachable = false, $urlparams = false)
+   {
       $view = JFactory::getApplication()->input->getCmd('view', 'pages');
       JFactory::getApplication()->input->set('view', $view);
       parent::display($cachable, $urlparams);
       return $this;
    }
-
 }

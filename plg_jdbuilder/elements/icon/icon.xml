@@ -14,241 +14,100 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="iconstyle" label="JDB_ICON_STYLING"></field>
-            <field type="group" name="iconborder" label="JDB_ICON_BORDER"></field>
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+
             <!--  Element Options -->
-            <field
-               name="icon"
-               type="icon"
-               label="JDB_ICON"
-               default="fab fa-joomla"
-               group="basic"
-            >
+            <field name="icon" type="icon" label="JDB_ICON" default="fab fa-joomla" group="basic">
             </field>
-            <field
-               name="link"
-               type="text"
-               label="JDB_LINK_LABEL"
-               default=""
-               group="basic"
-            >
+
+            <field name="link" type="text" label="JDB_LINK_LABEL" default="" group="basic">
             </field>
-            <field
-               name="linkTargetBlank"
-               type="switch"
-               label="JDB_LINK_TARGET_LBL"
-               default="false"
-               width="6"
-               showon="params.link!=''"
-               group="basic"
-            >
+
+            <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" width="6" showon="params.link!=''" group="basic">
             </field>
-            <field
-               name="linkNoFollow"
-               type="switch"
-               label="JDB_LINK_NOFOLLOW_LBL"
-               default="false"
-               width="6"
-               showon="params.link!=''"
-               group="basic"
-            >
+
+            <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" default="false" width="6" showon="params.link!=''" group="basic">
             </field>
-            <field
-               name="iconAlignment"
-               type="radio"
-               label="JDB_ALIGNMENT"
-               default="left"
-               radiotype="buttons"
-               group="basic"
-               responsive="true"
-            >
+
+            <field name="iconAlignment" type="radio" label="JDB_ALIGNMENT" default="left" radiotype="buttons" group="basic" responsive="true">
                <option value="left" icon="fa fa-align-left">JDB_LEFT</option>
                <option value="center" icon="fa fa-align-center">JDB_CENTER</option>
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
 
-            <field
-               name="iconSize"
-               type="slider"
-               label="JDB_ICON_SIZE"
-               default="80"
-               unit="px"
-               min="1"
-               max="200"
-               group="basic"
-               responsive="true"
-            >
+            <field name="iconSize" type="slider" label="JDB_ICON_SIZE" default="80" unit="px" min="1" max="200" group="basic" responsive="true">
             </field>
             
-            <field
-               name="iconRotate"
-               type="slider"
-               label="JDB_ICON_ROTATE"
-               default=""
-               unit="deg"
-               min="0"
-               max="360"
-               group="basic"
-               responsive="true"
-            >
+            <field name="iconRotate" type="slider" label="JDB_ICON_ROTATE" default="" unit="deg" min="0" max="360" group="basic" responsive="true">
             </field>
             
-            <field
-               type="hover-animations"
-               name="iconHoverAnimation"
-               label="JDB_ICON_HOVER_ANIMATION"
-               default=""
-               group="basic"
-            >
+            <field type="hover-animations" name="iconHoverAnimation" label="JDB_ICON_HOVER_ANIMATION" default="" group="basic">
             </field>
- 
-            <!-- Icon Style -->
-            <field
-               name="iconTextColor"
-               type="color"
-               label="JDB_COLOR"
-               description="JDB_COLOR"
-               default=""
-               group="iconstyle"
-               width="6"
-            >
+         </fieldset>
+
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="iconstyle" label="JDB_BASIC_TITLE"></field>
+            <field type="group" name="iconborder" label="JDB_ICON_BORDER"></field>
+
+            <!-- Icon Style Start -->
+            <field name="iconTextColor" type="color" label="JDB_COLOR" description="JDB_COLOR" default="" group="iconstyle" width="6">
             </field>
-            <field
-               name="iconBackgroundColor"
-               type="color"
-               label="JDB_BACKGROUND_COLOR"
-               default=""
-               group="iconstyle"
-               width="6"
-            >
+
+            <field name="iconBackgroundColor" type="color" label="JDB_BACKGROUND_COLOR" default="" group="iconstyle" width="6">
             </field>
-            <field
-               name="iconBorderColor"
-               type="color"
-               label="JDB_BORDER_COLOR"
-               default=""
-               group="iconstyle"
-            >
+
+            <field name="iconBorderColor" type="color" label="JDB_BORDER_COLOR" default="" group="iconstyle">
             </field>
-            <field
-               type="gradient"
-               label="JDB_GRADIENT"
-               name="iconGradient"
-               default=""
-               group="iconstyle"
-            >
+
+            <field type="gradient" label="JDB_GRADIENT" name="iconGradient" default="" group="iconstyle">
             </field>
-            <field
-               type="spacer"
-               label="JDB_HOVER_OPTIONS_DIVIDER"
-               group="iconstyle"
-            >
+
+            <field type="spacer" label="JDB_HOVER_OPTIONS_DIVIDER" group="iconstyle">
             </field>
-            <field
-               name="iconTextColorHover"
-               type="color"
-               label="JDB_COLOR"
-               default=""
-               group="iconstyle"
-               width="6"
-            >
+
+            <field name="iconTextColorHover" type="color" label="JDB_COLOR" default="" group="iconstyle" width="6">
             </field>
-            <field
-               name="iconBackgroundColorHover"
-               type="color"
-               label="JDB_BACKGROUND_COLOR"
-               default=""
-               group="iconstyle"
-               width="6"
-            >
+
+            <field name="iconBackgroundColorHover" type="color" label="JDB_BACKGROUND_COLOR" default="" group="iconstyle" width="6">
             </field>
-            <field
-               name="iconBorderColorHover"
-               type="color"
-               label="JDB_BORDER_COLOR"
-               default=""
-               group="iconstyle"
-            >
+
+            <field name="iconBorderColorHover" type="color" label="JDB_BORDER_COLOR" default="" group="iconstyle">
             </field>
-            <field
-               type="gradient"
-               label="JDB_GRADIENT"
-               name="iconGradientHover"
-               group="iconstyle"
-               default=""
-            >
+
+            <field type="gradient" label="JDB_GRADIENT" name="iconGradientHover" group="iconstyle" default="">
             </field>
             
-            <field
-               type="spacer"
-               group="iconstyle"
-            >
+            <field type="spacer" group="iconstyle">
             </field>
             
-            <field
-               name="iconPadding"
-               type="spacing"
-               label="JDB_PADDING"
-               group="iconstyle"
-               default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}'
-               responsive="true"
-            >
+            <field name="iconPadding" type="spacing" label="JDB_PADDING" group="iconstyle" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' responsive="true">
             </field>
-            
-            <!-- Icon Border -->
-            <field
-               name="iconShape"
-               type="list"
-               label="JDB_ICON_SHAPE"
-               default="circle"
-               group="iconborder"
-               search="false"
-            >
+            <!-- Icon Style End -->
+
+            <!-- Icon Border Start -->
+            <field name="iconShape" type="list" label="JDB_ICON_SHAPE" default="circle" group="iconborder" search="false">
                <option value="rounded">JDB_OPTIONS_ROUNDED</option>
                <option value="circle">JDB_OPTIONS_CIRCLE</option>
                <option value="square">JDB_OPTIONS_SQUARE</option>
             </field>
-            <field
-               type="spacing"
-               name="iconBorderRadius"
-               label="JDB_BORDER_RADIUS"
-               default='{"unit":"px","lock":1,"top":5,"left":5,"right":5,"bottom":5}'
-               group="iconborder"
-               showon="params.iconShape=='rounded'"
-               corners="true"
-               responsive="true"
-            >
+
+            <field type="spacing" name="iconBorderRadius" label="JDB_BORDER_RADIUS" default='{"unit":"px","lock":1,"top":5,"left":5,"right":5,"bottom":5}' group="iconborder" showon="params.iconShape=='rounded'" corners="true" responsive="true">
             </field>
-            <field
-               type="list"
-               name="iconBorderStyle" 
-               label="JDB_BORDER_TYPE"
-               default="none"  
-               group="iconborder">
+
+            <field type="list" name="iconBorderStyle"  label="JDB_BORDER_TYPE" default="none" group="iconborder">
                <option value="none">JDB_BORDER_NONE</option>
                <option value="solid">JDB_BORDER_SOLID</option>
                <option value="dashed">JDB_BORDER_DASHED</option>
                <option value="dotted">JDB_BORDER_DOTTED</option>
                <option value="double">JDB_BORDER_DOUBLE</option>
             </field>
-            <field
-               type="spacing"
-               name="iconBorderWidth"
-               label="JDB_BORDER_WIDTH"
-               showon="params.iconBorderStyle!='none'"
-               default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}'
-               group="iconborder"
-               responsive="true"
-            >
+
+            <field type="spacing" name="iconBorderWidth" label="JDB_BORDER_WIDTH" showon="params.iconBorderStyle!='none'" default='{"unit":"px","lock":1,"top":1,"left":1,"right":1,"bottom":1}' group="iconborder" responsive="true">
             </field>
-            <field
-               type="boxshadow"
-               name="iconBoxShadow"
-               label="JDB_ICON_SHADOW"
-               default=""
-               group="iconborder"
-            >
+
+            <field type="boxshadow" name="iconBoxShadow" label="JDB_ICON_SHADOW" default="" group="iconborder">
             </field>
+            <!-- Icon Border End -->
          </fieldset>
       </fields>
    </form>

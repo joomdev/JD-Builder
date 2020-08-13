@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<menu
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="urn:joomla.org"
+	xsi:schemaLocation="urn:joomla.org menu.xsd"
+	>
+	<menuitem
+		title="COM_JDBUILDER"
+		type="heading"
+		icon="star"
+		class="class:star"
+		>
+		<menuitem
+			title="COM_JDBUILDER_TITLE_PAGES"
+			type="component"
+			element="com_jdbuilder"
+			link="index.php?option=com_jdbuilder&amp;view=pages"
+			quicktask="index.php?option=com_jdbuilder&amp;task=page.add"
+			quicktask-title="COM_JDBUILDER_TITLE_PAGE_ADD_PAGES"
+		/>
+
+		<menuitem
+			title="COM_JDBUILDER_PAGES_CATEGORY_ID"
+			type="component"
+			element="com_categories"
+			link="index.php?option=com_categories&amp;view=categories&amp;extension=com_jdbuilder"
+			quicktask="index.php?option=com_categories&amp;extension=com_jdbuilder&amp;task=category.add"
+			quicktask-title="COM_CONTENT_MENUS_NEW_CATEGORY"
+		/>
+	</menuitem>
+</menu>

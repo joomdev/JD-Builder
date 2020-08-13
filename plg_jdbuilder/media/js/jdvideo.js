@@ -130,7 +130,7 @@
         }
         loadPlayer.call(this, true);
     }
-    
+
     jdVideo.prototype.destroy = function () {
         this.element.remove();
     }
@@ -224,7 +224,7 @@
             icon.innerHTML = this.options.icon;
         }
 
-        if(this.options.icon != ''){
+        if (this.options.icon != '') {
             thumbnailWrapper.appendChild(icon);
         }
 
@@ -318,7 +318,7 @@
         playerWrapper.appendChild($video);
 
         $video.addEventListener('loadeddata', function () {
-            playerWrapper.style.display = 'block'
+            _this.playerWrapper.style.display = 'block';
             _this.thumbnailWrapper.style.display = "none";
             if (!_play) {
                 _this.loading.style.display = 'none';
@@ -626,12 +626,12 @@
     function getJSON(src, options) {
         var options = options || {},
             callback_name = options.callbackName || 'callback',
-            on_success = options.onSuccess || function () {},
-            on_timeout = options.onTimeout || function () {},
+            on_success = options.onSuccess || function () { },
+            on_timeout = options.onTimeout || function () { },
             timeout = options.timeout || 10;
 
         var timeout_trigger = window.setTimeout(function () {
-            window[callback_name] = function () {};
+            window[callback_name] = function () { };
             on_timeout();
         }, timeout * 1000);
 

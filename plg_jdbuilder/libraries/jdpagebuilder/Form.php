@@ -50,7 +50,9 @@ class Form
       foreach ($this->fieldsets as $fieldset) {
          $tab = $fieldset->get();
          $tab['active'] = $first;
-         $return['tabs'][] = $tab;
+         if (!empty($tab['groups'])) {
+            $return['tabs'][] = $tab;
+         }
          $first = false;
       }
       usort($return['tabs'], '\JDPageBuilder\FormHelper::sortByOrdering');

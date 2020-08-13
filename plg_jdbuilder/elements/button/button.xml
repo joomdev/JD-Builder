@@ -14,9 +14,7 @@
    <form>
       <fields>
          <fieldset name="general" label="JDB_GENERAL_TITLE">
-            <field type="group" name="buttonstyle" label="JDB_BUTTON_STYLING"></field>
-            <field type="group" name="buttonborder" label="JDB_BUTTON_BORDER"></field>
-
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
             <!--  Element Options -->
             <field type="text" name="buttonText" label="JDB_BUTTON_TEXT" default="Button" group="basic">
             </field>
@@ -63,6 +61,11 @@
             </field>
             <field type="icon-animations" name="iconAnimation" label="JDB_ICON_ANIMATION" default="" group="basic" showon="params.buttonIcon!=''">
             </field>
+         </fieldset>
+
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="buttonstyle" label="JDB_BUTTON"></field>
+            <field type="group" name="buttonborder" label="JDB_BUTTON_BORDER"></field>
 
             <!-- Button Style -->
             <field name="buttonTextColor" type="color" label="JDB_TEXT_COLOR" default="" tab="state.normal" group="buttonstyle" width="6">
@@ -89,6 +92,9 @@
             </field>
             <field name="buttonTypography" type="typography" label="JDB_TYPOGRAPHY" group="buttonstyle" default="" responsive="true">
             </field>
+            <!-- Button End -->
+
+            <!-- Border Start -->
             <field type="list" name="buttonBorderStyle" label="JDB_BORDER_TYPE" default="solid" group="buttonborder">
                <option value="none">JDB_BORDER_NONE</option>
                <option value="solid">JDB_BORDER_SOLID</option>
@@ -104,6 +110,7 @@
             </field>
             <field type="boxshadow" name="buttonBoxShadow" label="JDB_BUTTON_SHADOW" default="" group="buttonborder">
             </field>
+            <!-- Border End -->
          </fieldset>
       </fields>
    </form>
