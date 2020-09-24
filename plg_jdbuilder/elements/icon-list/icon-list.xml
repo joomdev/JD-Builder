@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="icon-list">
+   <title>Icon List</title>
+   <icon>media/jdbuilder/images/icons/elements/icon-list.svg</icon>
+   <creationDate>Aug 2020</creationDate>
+   <author>JoomDev</author>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <description>Element Description Here</description>
+   <documentation>https://docs.joomdev.com/article/icon-list-element/</documentation>
+   <form>
+      <fields>
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="listOptions" label="JDB_ICONLIST"></field>
+            <!-- List Options -->
+            <field type="repeatable" name="list_items" label="JDB_ICONLIST_LIST_ITEMS" item-title-field="text" group="listOptions" default='[{"icon":"fas fa-star","text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},{"icon":"fas fa-star","text":"Fusce a leo in erat elementum mattis."},{"icon":"fas fa-star","text":"Pellentesque ultrices erat quis enim consequat, a ultricies est aliquet."},{"icon":"fas fa-star","text":"Sed scelerisque enim a tellus tincidunt, sit amet viverra dui posuere."},{"icon":"fas fa-star","text":"Nulla finibus lectus a risus dapibus lobortis."},{"icon":"fas fa-star","text":"Maecenas vestibulum ligula sit amet libero malesuada ullamcorper."}]'>
+               <form>
+                  <field name="icon" width="3" type="icon" label="JDB_ICON" default="" />
+                  <field name="text" width="9" type="text" label="JDB_TEXT" default="" />
+               </form>
+            </field>
+
+            <field name="list_layout" type="radio" radiotype="buttons" label="JDB_LAYOUT_TITLE" default="list" group="listOptions">
+               <option value="list">JDB_DEFAULT</option>
+               <option value="inline">JDB_INLINE</option>
+            </field>
+            <!-- List Options -->
+         </fieldset>
+
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="listStyling" label="JDB_ICONLIST_LIST"></field>
+            <field type="group" name="iconStyling" label="JDB_ICON"></field>
+            <field type="group" name="textStyling" label="JDB_TEXT"></field>
+
+            <!-- List Styling -->
+            <field type="slider" name="list_space_between" label="JDB_ICONLIST_SPACE_BETWEEN_ITEMS" default="" max="100" min="0" unit="px" responsive="true" group="listStyling" />
+
+            <field name="list_alignment" type="radio" radiotype="buttons" label="JDB_ALIGNMENT" responsive="true" default="left" group="listStyling">
+               <option value="left">JDB_LEFT</option>
+               <option value="center">JDB_CENTER</option>
+               <option value="right">JDB_RIGHT</option>
+            </field>
+
+            <field name="list_divider" type="switch" label="JDB_ICONLIST_ENABLE_DIVIDER" default="false" group="listStyling" />
+
+            <field type="list" name="list_divider_style" label="JDB_ICONLIST_DIVIDER_STYLE" default="solid" showon="params.list_divider" group="listStyling">
+               <option value="dotted">JDB_BORDER_DOTTED</option>
+               <option value="dashed">JDB_BORDER_DASHED</option>
+               <option value="solid">JDB_BORDER_SOLID</option>
+               <option value="double">JDB_BORDER_DOUBLE</option>
+            </field>
+
+            <field type="slider" name="list_divider_weight" label="JDB_ICONLIST_DIVIDER_WEIGHT" default='{value:1,unit:"px"}' max="20" min="1" unit="px" responsive="true" showon="params.list_divider" group="listStyling" />
+
+            <field type="slider" name="list_divider_width" label="JDB_ICONLIST_DIVIDER_WIDTH" default='{"value":100,"unit":"%"}' max="500" min="0" units="px,%" showon="params.list_divider[AND]params.list_layout=='list'" group="listStyling" responsive="true" />
+
+            <field type="slider" name="list_divider_height" label="JDB_ICONLIST_DIVIDER_HEIGHT" default='{"value":25,"unit":"px"}' max="500" min="0" unit="px" showon="params.list_divider[AND]params.list_layout=='inline'" group="listStyling" responsive="true" />
+
+            <field type="color" name="list_divider_color" label="JDB_ICONLIST_DIVIDER_COLOR" showon="params.list_divider" default="" group="listStyling">
+            </field>
+            <!-- List Styling -->
+
+
+            <!-- Icon Styling -->
+
+            <field type="color" name="icon_color" label="JDB_COLOR" default="" group="iconStyling" width="6"></field>
+
+            <field type="color" name="icon_hover_color" label="JDB_HOVER_COLOR" default="" group="iconStyling" width="6"></field>
+
+            <field type="color" name="icon_bg_color" label="JDB_BACKGROUND_COLOR" default="" group="iconStyling" width="6"></field>
+
+            <field type="color" name="icon_bg_hover_color" label="JDB_BACKGROUND_HOVER_COLOR" default="" group="iconStyling" width="6"></field>
+
+            <field type="slider" name="icon_size" label="JDB_SIZE" default='{value:null,unit:"px"}' max="100" min="5" unit="px" responsive="true" group="iconStyling" />
+
+            <field type="fieldsgroup" name="iconBorder" filename="border" group="iconStyling">
+            </field>
+
+            <field type="spacing" name="icon_padding" min="0" label="JDB_PADDING" group="iconStyling" default='{"unit":"px","top":"","lock":1,"left":"","right":"","bottom":""}' responsive="true" />
+
+            <field type="slider" name="icon_space_between" label="JDB_ICONLIST_SPACE_BETWEEN_ICON_TEXT" default="" max="100" min="0" unit="px" responsive="true" group="iconStyling" />
+            <!-- Icon Styling -->
+
+            <!-- Text Styling -->
+            <field type="color" name="text_color" label="JDB_COLOR" default="" group="textStyling" width="6"></field>
+
+            <field type="color" name="text_hover_color" label="JDB_HOVER_COLOR" default="" group="textStyling" width="6"></field>
+
+            <field type="typography" name="text_typography" label="JDB_TYPOGRAPHY" default='{"family":"", "size":"", "sizeUnit":"px", "alignment":"", "weight":"", "transform":"", "style":"", "decoration":"", "lineHeight":"", "lineHeightUnit": "px", "letterSpacing":"", "letterSpacingUnit": "px"}' responsive="true" group="textStyling" />
+            <!-- Text Styling -->
+         </fieldset>
+      </fields>
+   </form>
+</element>

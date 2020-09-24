@@ -515,6 +515,34 @@ class Field
             $return['options'] = $this->getACYLists();
             $return['groups'] = [];
             break;
+         case 'convertkit-list':
+            $return['type'] = 'list';
+            $return['multiple'] = true;
+            $return['search'] = true;
+            $return['options'] = [];
+            $return['groups'] = $this->getCKLists();
+            break;
+         case 'convertkit-forms':
+            $return['type'] = 'list';
+            $return['multiple'] = true;
+            $return['search'] = true;
+            $return['options'] = [];
+            $return['groups'] = $this->getCKForms();
+            break;
+         case 'activecampaign-list':
+            $return['type'] = 'list';
+            $return['multiple'] = true;
+            $return['search'] = true;
+            $return['options'] = [];
+            $return['groups'] = $this->getACLists();
+            break;
+         case 'mailchimp-list':
+            $return['type'] = 'list';
+            $return['multiple'] = true;
+            $return['search'] = true;
+            $return['options'] = [];
+            $return['groups'] = $this->getMCLists();
+            break;
       }
 
       if (!in_array($this->type, Form::$fields_without_value)) {
@@ -1084,5 +1112,61 @@ class Field
       $db->setQuery($query);
 
       return $db->loadObjectList();
+   }
+
+   public function getCKLists() // ConvertKit
+   {
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+      $optgroups = [];
+
+      foreach ($buiderConfig->get('convertkit_keys', []) as $key => $item) {
+         $optgroup = Helper::getConvertKitTags(@$item->key, @$item->secret, $key);
+         if (!empty($optgroup)) {
+            $optgroups[] = $optgroup;
+         }
+      }
+      return $optgroups;
+   }
+
+   public function getCKForms() // ConvertKit
+   {
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+      $optgroups = [];
+
+      foreach ($buiderConfig->get('convertkit_keys', []) as $key => $item) {
+         $optgroup = Helper::getConvertKitForms(@$item->key, @$item->secret, $key);
+         if (!empty($optgroup)) {
+            $optgroups[] = $optgroup;
+         }
+      }
+      return $optgroups;
+   }
+
+   public function getACLists() //  ActiveCampaign
+   {
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+      $optgroups = [];
+
+      foreach ($buiderConfig->get('activecampaign_keys', []) as $key => $item) {
+         $optgroup = Helper::getActiveCampaignLists(@$item->url, @$item->key, $key);
+         if (!empty($optgroup)) {
+            $optgroups[] = $optgroup;
+         }
+      }
+      return $optgroups;
+   }
+
+   public function getMCLists() //  MailChimp
+   {
+      $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+      $optgroups = [];
+
+      foreach ($buiderConfig->get('mailchimp_keys', []) as $key => $item) {
+         $optgroup = Helper::getMailChimpTags(@$item->key, @$item->prefix, $key);
+         if (!empty($optgroup)) {
+            $optgroups[] = $optgroup;
+         }
+      }
+      return $optgroups;
    }
 }

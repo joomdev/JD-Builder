@@ -561,7 +561,7 @@ abstract class Builder
             throw new \Exception($table->getError());
          }
          // Trigger the before save event.
-         $result = \JFactory::getApplication()->triggerEvent('onContentBeforeSave', array($context, &$table, false, $jform['id']));
+         $result = \JFactory::getApplication()->triggerEvent('onJDPageBeforeSave', array($context, &$table, false, $jform['id']));
 
          $table->title = $jform['title'];
          $table->checked_out = \JFactory::getUser()->get('id');
@@ -612,7 +612,7 @@ abstract class Builder
          }
 
          // Trigger the after save event.
-         \JFactory::getApplication()->triggerEvent('onContentAfterSave', array($context, &$table, false, $jform['id']));
+         \JFactory::getApplication()->triggerEvent('onJDPageAfterSave', array($context, &$table, false, $jform['id']));
       } else {
          throw new \Exception($table->getError());
       }

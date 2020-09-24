@@ -1,0 +1,133 @@
+.jdb-iconlist {
+    position: relative;
+}
+
+.jdb-iconlist-items {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.jdb-iconlist-item {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.jdb-iconlist-text {
+    padding-left: 10px;
+}
+
+.jdb-iconlist-icon {
+    text-align: center;
+}
+
+.jdb-iconlist-icon,
+.jdb-iconlist-text {
+    transition: all .3s;
+    box-sizing: content-box;
+}
+
+// Divider
+.jdb-iconlist-item:not(:last-child):after {
+    content: "";
+    position: absolute;
+}
+
+// List Layout
+.jdb-iconlist-layout-list {
+    .jdb-iconlist-items {
+        flex-direction: column;
+    }
+
+    .jdb-iconlist-item:not(:first-child) {
+        margin-top: calc(10px / 2);
+    }
+
+    &.jdb-iconlist-has-divider {
+        .jdb-iconlist-item:not(:last-child):after {
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: #f00;
+            width: 50px;
+            bottom: 0;
+        }
+    }
+
+
+    &.text-left {
+        text-align: left;
+
+        .jdb-iconlist-item {
+            justify-content: flex-start;
+        }
+    }
+
+    &.text-center {
+        text-align: center;
+
+        .jdb-iconlist-item {
+            justify-content: center;
+        }
+    }
+
+    &.text-right {
+        text-align: right;
+
+        .jdb-iconlist-item {
+            justify-content: flex-end;
+        }
+    }
+}
+
+// Inline Layout
+.jdb-iconlist-layout-inline {
+    .jdb-iconlist-items {
+        flex-wrap: wrap;
+    }
+
+    .jdb-iconlist-items {
+        margin-left: calc(10px / 2);
+        margin-right: calc(10px / 2);
+    }
+
+    .jdb-iconlist-item {
+        padding-left: 5px;
+        margin-bottom: 10px;
+    }
+
+    &.jdb-iconlist-has-divider {
+        .jdb-iconlist-item:not(:last-child):after {
+            border-right-width: 1px;
+            border-right-style: solid;
+            border-right-color: #f00;
+            height: 25px;
+            right: 0;
+        }
+    }
+
+    &.text-left {
+        text-align: left;
+
+        .jdb-iconlist-items {
+            justify-content: flex-start;
+        }
+    }
+
+    &.text-center {
+        text-align: center;
+
+        .jdb-iconlist-items {
+            justify-content: center;
+        }
+    }
+
+    &.text-right {
+        text-align: right;
+
+        .jdb-iconlist-items {
+            justify-content: flex-end;
+        }
+    }
+}

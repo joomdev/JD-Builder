@@ -29,7 +29,7 @@ class plgSystemJDBuilder extends JPlugin
       define('JDB_JOOMLA_VERSION', Helper::getJoomlaVersion());
       \JDPageBuilder\Builder::init($this->app);
       $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', JDB_DEV ? 103 : md5($stat['mtime']));
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 109 : md5($stat['mtime']));
       if ($this->app->isClient('administrator')) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
@@ -306,48 +306,6 @@ class plgSystemJDBuilder extends JPlugin
       $this->app->setBody($body);
    }
 
-   public function addBuilderOnArticle($id)
-   {
-      $article = \JTable::getInstance("content");
-      $article->load($id);
-      $params = new \JRegistry();
-      if (isset($article->attribs)) {
-         $params->loadObject(\json_decode($article->attribs));
-      }
-      $layout_id = $params->get('jdbuilder_layout_id', 0);
-      $enabled = $params->get('jdbuilder_layout_enabled', 0);
-      $enabled = $enabled ? 1 : $this->app->input->get('jdb', 0);
-      $this->addBodyClass();
-      $body = $this->app->getBody();
-
-      $body = str_replace('<fieldset class="adminform">', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<fieldset class="adminform">' . \JDPageBuilder\Builder::builderArea($enabled, 'article', $id), $body);
-      $this->app->setBody($body);
-   }
-
-   public function addBuilderOnHikashop($id)
-   {
-      return;
-      /* $article = \JTable::getInstance("content");
-      $article->load($id);
-      $params = new \JRegistry();
-      if (isset($article->attribs)) {
-         $params->loadObject(\json_decode($article->attribs));
-      }
-      $layout_id = $params->get('jdbuilder_layout_id', 0);
-      $enabled = $params->get('jdbuilder_layout_enabled', 0);
-      $enabled = $enabled ? 1 : $this->app->input->get('jdb', 0); */
-
-      $enabled = true;
-      $id = 2;
-      $layout_id = 2;
-      $this->addBodyClass();
-      $body = $this->app->getBody();
-
-      // $body = str_replace('<fieldset class="adminform">', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<fieldset class="adminform">' . \JDPageBuilder\Builder::builderArea($enabled, 'hikashop', $layout_id), $body);
-      $body = str_replace('<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>' . \JDPageBuilder\Builder::builderArea($enabled, 'article', $layout_id), $body);
-      $this->app->setBody($body);
-   }
-
    public function addDescription()
    {
       $body = $this->app->getBody();
@@ -521,6 +479,15 @@ class plgSystemJDBuilder extends JPlugin
       $body = $this->app->getBody();
       $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
       $this->app->setBody($body);
+   }
+
+   public function onContentBeforeSave($context, $article, $isNew)
+   {
+      if ($context == 'com_advancedmodules.module') {
+         return $this->onExtensionBeforeSave($context, $article, $isNew);
+      }
+
+      return true;
    }
 
    public function onExtensionBeforeSave($context, $item, $isNew)

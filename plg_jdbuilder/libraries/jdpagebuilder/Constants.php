@@ -26,6 +26,7 @@ class Constants
     const PRIMARY_COLOR = '#fff';
     const ELEMENT_BGCOLOR = '#464ed2';
     const ELEMENT_BORDERCOLOR = 'rgba(0, 0, 0, 0.30)';
+    const CACHE_DIR = '_jdb';
     const FORMS_CACHE_DIR = '_jdbforms';
     const CSS_CACHE_DIR = '_jdbcss';
     const JS_CACHE_DIR = '_jdbjs';
