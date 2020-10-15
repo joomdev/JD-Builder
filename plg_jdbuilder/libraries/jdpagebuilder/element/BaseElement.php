@@ -11,6 +11,7 @@ namespace JDPageBuilder\Element;
 
 use JDPageBuilder\Builder;
 use JDPageBuilder\Helper;
+use JDPageBuilder\Helpers\DisplayHandler;
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
@@ -42,6 +43,7 @@ class BaseElement
       if (isset($object->visibility)) {
          $this->visibility = $object->visibility;
       }
+
       $params = new \JRegistry();
       if (isset($object->params)) {
          $params->loadObject($object->params);
@@ -60,6 +62,7 @@ class BaseElement
 
       // Advanced Options
       $this->initAdvancedOptions();
+      $this->checkDisplayCondition();
    }
 
    public function getStart()
@@ -711,5 +714,16 @@ class BaseElement
          $authorised = false;
       }
       $this->authorised = $authorised;
+   }
+
+   public function checkDisplayCondition()
+   {
+      if (in_array($this->type, ['row', 'inner-row', 'column'])) return;
+
+      $display_condition = $this->params->get('display_condition', false);
+      if (!$display_condition) return;
+
+      $handler = new DisplayHandler($this);
+      $handler->check();
    }
 }

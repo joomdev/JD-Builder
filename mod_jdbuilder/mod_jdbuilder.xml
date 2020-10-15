@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1" client="site" method="upgrade">
     <name>JD Builder Module</name>
-    <creationDate>Aug 2020</creationDate>
+    <creationDate>Oct 2020</creationDate>
     <author>Team Joomdev</author>
     <authorEmail>info@joomdev.com</authorEmail>
     <authorUrl>https://www.joomdev.com</authorUrl>
     <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.9.0</version>
+    <version>1.10.0</version>
     <description>This Module allows you to create your own Module using the JD Builder.</description>
     <files>
         <filename>mod_jdbuilder.xml</filename>

@@ -2104,80 +2104,88 @@ class Helper
 
    public static function getConvertKitForms($key = '', $secret = '', $index = '')
    {
-      $cache_key = md5($key . $secret . 'forms');
+      try {
+         $cache_key = md5($key . $secret . 'forms');
 
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-      $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
-      if (file_exists($cacheFile)) {
-         $content = file_get_contents($cacheFile);
-         return \json_decode($content, true);
-      } else {
-         if (empty($key) || empty($secret)) return [];
-         $return = [];
+         $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
+         if (!file_exists($cacheFolder)) {
+            \mkdir($cacheFolder);
+         }
+         $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
+         if (file_exists($cacheFile)) {
+            $content = file_get_contents($cacheFile);
+            return \json_decode($content, true);
+         } else {
+            if (empty($key) || empty($secret)) return [];
+            $return = [];
 
-         $response = self::curlRequest('https://api.convertkit.com/v3/account', 'GET', ['api_secret' => $secret]);
+            $response = self::curlRequest('https://api.convertkit.com/v3/account', 'GET', ['api_secret' => $secret]);
 
-         $account = \json_decode($response);
-         if (isset($account->primary_email_address)) {
-            $response = self::curlRequest('https://api.convertkit.com/v3/forms', 'GET', ['api_key' => $key]);
+            $account = \json_decode($response);
+            if (isset($account->primary_email_address)) {
+               $response = self::curlRequest('https://api.convertkit.com/v3/forms', 'GET', ['api_key' => $key]);
 
-            $forms = \json_decode($response);
-            if (isset($forms->forms)) {
-               $return = ['label' => $account->primary_email_address, 'options' => []];
-               foreach ($forms->forms as $form) {
-                  $return['options'][] = ['label' => $form->name, 'value' => $index . '~' . $form->id];
+               $forms = \json_decode($response);
+               if (isset($forms->forms)) {
+                  $return = ['label' => $account->primary_email_address, 'options' => []];
+                  foreach ($forms->forms as $form) {
+                     $return['options'][] = ['label' => $form->name, 'value' => $index . '~' . $form->id];
+                  }
                }
             }
+            file_put_contents($cacheFile, \json_encode($return));
+            return $return;
          }
-         file_put_contents($cacheFile, \json_encode($return));
-         return $return;
+      } catch (\Exception $e) {
+         return $e;
       }
    }
 
    public static function getMailChimpTags($key = '', $prefix = '', $index = '')
    {
-      $cache_key = md5($key . $prefix);
+      try {
+         $cache_key = md5($key . $prefix);
 
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-      $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
-      if (file_exists($cacheFile)) {
-         $content = file_get_contents($cacheFile);
-         return \json_decode($content, true);
-      } else {
-         if (empty($key) || empty($prefix)) return [];
-         $return = [];
+         $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
+         if (!file_exists($cacheFolder)) {
+            \mkdir($cacheFolder);
+         }
+         $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
+         if (file_exists($cacheFile)) {
+            $content = file_get_contents($cacheFile);
+            return \json_decode($content, true);
+         } else {
+            if (empty($key) || empty($prefix)) return [];
+            $return = [];
 
-         $response = self::curlRequest('https://' . $prefix . '.api.mailchimp.com/3.0/lists', 'GET', ['apikey' => $key]);
-         $response = \json_decode($response);
+            $response = self::curlRequest('https://' . $prefix . '.api.mailchimp.com/3.0/lists', 'GET', ['apikey' => $key]);
+            $response = \json_decode($response);
 
-         $lists = [];
+            $lists = [];
 
-         if (isset($response->lists) && !empty($response->lists)) {
-            foreach ($response->lists as $list) {
-               $name = $list->campaign_defaults->from_name;
-               if (!isset($lists[$name])) {
-                  $lists[$name] = [];
+            if (isset($response->lists) && !empty($response->lists)) {
+               foreach ($response->lists as $list) {
+                  $name = $list->campaign_defaults->from_name;
+                  if (!isset($lists[$name])) {
+                     $lists[$name] = [];
+                  }
+                  $lists[$name][] = [
+                     'label' => $list->name,
+                     'value' => $index . '~' . $list->id
+                  ];
                }
-               $lists[$name][] = [
-                  'label' => $list->name,
-                  'value' => $index . '~' . $list->id
-               ];
             }
-         }
-         foreach ($lists as $label => $items) {
-            $return = ['label' => $label, 'options' => []];
-            foreach ($items as $list) {
-               $return['options'][] = ['label' => $list['label'], 'value' => $list['value']];
+            foreach ($lists as $label => $items) {
+               $return = ['label' => $label, 'options' => []];
+               foreach ($items as $list) {
+                  $return['options'][] = ['label' => $list['label'], 'value' => $list['value']];
+               }
             }
+            file_put_contents($cacheFile, \json_encode($return));
+            return $return;
          }
-         file_put_contents($cacheFile, \json_encode($return));
-         return $return;
+      } catch (\Exception $e) {
+         return [];
       }
    }
 
@@ -2188,34 +2196,67 @@ class Helper
 
    public static function getActiveCampaignLists($url = '', $key = '', $index = '')
    {
-      $cache_key = md5($url . $key);
+      try {
+         $cache_key = md5($url . $key);
 
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-      $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
-      if (file_exists($cacheFile)) {
-         $content = file_get_contents($cacheFile);
-         return \json_decode($content, true);
-      } else {
-         if (empty($url) || empty($key)) return [];
-         $return = [];
-
-         $response = self::curlRequest($url . '/api/3/lists', 'GET', [], 'text/json', ['Api-Token' => $key]);
-
-
-         $lists = \json_decode($response);
-         $account = self::fetchSubdomain($url);
-
-         if (isset($lists->lists) && !empty($lists->lists)) {
-            $return = ['label' => $account, 'options' => []];
-            foreach ($lists->lists as $list) {
-               $return['options'][] = ['label' => $list->name, 'value' => $index . '~' . $list->id];
-            }
+         $cacheFolder = JPATH_SITE . '/cache/' . Constants::CACHE_DIR;
+         if (!file_exists($cacheFolder)) {
+            \mkdir($cacheFolder);
          }
-         file_put_contents($cacheFile, \json_encode($return));
-         return $return;
+         $cacheFile = $cacheFolder . '/' . $cache_key . '.json';
+         if (file_exists($cacheFile)) {
+            $content = file_get_contents($cacheFile);
+            return \json_decode($content, true);
+         } else {
+            if (empty($url) || empty($key)) return [];
+            $return = [];
+
+            $response = self::curlRequest($url . '/api/3/lists', 'GET', [], 'text/json', ['Api-Token' => $key]);
+
+
+            $lists = \json_decode($response);
+            $account = self::fetchSubdomain($url);
+
+            if (isset($lists->lists) && !empty($lists->lists)) {
+               $return = ['label' => $account, 'options' => []];
+               foreach ($lists->lists as $list) {
+                  $return['options'][] = ['label' => $list->name, 'value' => $index . '~' . $list->id];
+               }
+            }
+            file_put_contents($cacheFile, \json_encode($return));
+            return $return;
+         }
+      } catch (\Exception $e) {
+         return [];
+      }
+   }
+
+   public static function checkDateInRange($start, $end, $date)
+   {
+      $start = strtotime(date_format(date_create($start), 'Y-m-d H:i:s'));
+      $end = strtotime(date_format(date_create($end), 'Y-m-d H:i:s'));
+      $date = strtotime(date_format(date_create($date), 'Y-m-d H:i:s'));
+      return (($date >= $start) && ($date <= $end));
+   }
+
+   public static function pageview()
+   {
+      $app = \JFactory::getApplication();
+      $count = $app->input->cookie->get('jdb-page-view', 0);
+      $count = $count + 1;
+      $app->input->cookie->set('jdb-page-view', $count);
+   }
+
+   public static function starttime()
+   {
+      $session = \JFactory::getApplication()->getSession();
+
+      $var = 'jdstarttime';
+      $sessionStartTime = $session->get($var);
+
+      if (!$sessionStartTime) {
+         $date = \JFactory::getDate()->format("Y-m-d H:i:s");
+         $session->set($var, $date);
       }
    }
 }

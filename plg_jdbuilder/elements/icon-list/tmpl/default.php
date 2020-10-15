@@ -20,7 +20,7 @@ foreach ($items as $item) {
         if (!empty($item->icon)) {
             \JDPageBuilder\Builder::loadFontLibraryByIcon($item->icon);
         }
-        $html[] = "<li class=\"jdb-iconlist-item\">" . ($item->icon ? "<span class=\"jdb-iconlist-icon\"><i class=\"{$item->icon}\"></i></span>" : "") . "<span class=\"jdb-iconlist-text\">{$item->text}</span></li>";
+        $html[] = "<li class=\"jdb-iconlist-item\">" . ($item->icon ? "<span class=\"jdb-iconlist-icon\"><i class=\"{$item->icon}\"></i></span>" : "") . (!empty(@$item->link) ? '<a class="jdb-iconlist-text" href="' . $item->link . '"' . (@$item->linkTargetBlank ? ' target="_blank"' : '') . '' . (@$item->linkNoFollow ? ' rel="nofollow"' : '') . '>' : '<span class="jdb-iconlist-text">') . "{$item->text}" . (!empty(@$item->link) ? '</a>' : '</span>') . "</li>";
     }
 }
 

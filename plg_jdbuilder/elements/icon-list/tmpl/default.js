@@ -10,7 +10,7 @@
 
         items.forEach(function (item) {
             if (item.text != '' || item.icon != '') {
-                html.push(`<li class="jdb-iconlist-item">${item.icon ? `<span class="jdb-iconlist-icon"><i class="${item.icon}"></i></span>` : ``}<span class="jdb-iconlist-text">${item.text}</span></li>`);
+                html.push(`<li class="jdb-iconlist-item">${item.icon ? `<span class="jdb-iconlist-icon"><i class="${item.icon}"></i></span>` : ``}${(item.link ? `<a class="jdb-iconlist-text" href="${item.link}"${item.linkTargetBlank ? ' target="_blank"' : ''}${item.linkNoFollow ? ' rel="nofollow"' : ''}>` : '<span class="jdb-iconlist-text">')}${item.text}${(item.link ? '</a>' : '</span>')}</li>`);
             }
         });
 
@@ -37,12 +37,14 @@
 
         var alignment = element.params.get('list_alignment', null);
 
-        JDBRenderer.DEVICES.forEach(function (_deviceObj) {
-            if (_deviceObj.key in alignment) {
-                ListContainer.addCss('text-align', alignment[_deviceObj.key], _deviceObj.type);
-                ListItem.addCss('justify-content', alignment[_deviceObj.key] == 'left' ? 'flex-start' : (alignment[_deviceObj.key] == 'right' ? 'flex-end' : 'center'), _deviceObj.type);
-            }
-        });
+        if (alignment != null) {
+            JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+                if (_deviceObj.key in alignment) {
+                    ListContainer.addCss('text-align', alignment[_deviceObj.key], _deviceObj.type);
+                    ListItem.addCss('justify-content', alignment[_deviceObj.key] == 'left' ? 'flex-start' : (alignment[_deviceObj.key] == 'right' ? 'flex-end' : 'center'), _deviceObj.type);
+                }
+            });
+        }
 
 
         var space_between = element.params.get('list_space_between', null);

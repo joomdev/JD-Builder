@@ -281,6 +281,10 @@ class Field
             break;
          case 'repeatable':
             $return['fields'] = $this->getRepeatableFields();
+
+            $emptiable = (string) $this->xml->attributes()->emptiable;
+            $return['emptiable'] = strtolower($emptiable) == 'true' ? true : false;
+
             $itemtitle = (string) $this->xml->attributes()->{'item-title'};
             if (!empty($itemtitle)) {
                $return['itemtitle'] = \JText::_($itemtitle);
@@ -409,10 +413,20 @@ class Field
             break;
          case 'accesslevel':
             $return['type'] = 'list';
-            $return['multiple'] = false;
+            $multiple = (string) $this->xml->attributes()->multiple;
+            $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
             $this->value = (empty($this->value) || !is_numeric($this->value)) ? '' : $this->value;
             $return['search'] = false;
             $return['options'] = $this->getAccessLevels();
+            $return['groups'] = [];
+            break;
+         case 'usergroup':
+            $return['type'] = 'list';
+            $multiple = (string) $this->xml->attributes()->multiple;
+            $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
+            $this->value = (empty($this->value) || !is_numeric($this->value)) ? '' : $this->value;
+            $return['search'] = false;
+            $return['options'] = $this->getUserGroups();
             $return['groups'] = [];
             break;
          case 'ajax':
@@ -487,9 +501,11 @@ class Field
             $return['groups'] = [];
             break;
          case 'menuitems':
+            $multiple = (string) $this->xml->attributes()->multiple;
+            $return['multiple'] = strtolower($multiple) == 'true' ? true : false;
+
             $return['type'] = 'list';
             $return['menuitems'] = true;
-            $return['multiple'] = false;
             $return['search'] = true;
             $return['options'] = [];
             $return['groups'] = [];
@@ -732,6 +748,26 @@ class Field
       $db->setQuery($query);
       $options = $db->loadObjectList();
       $default = [['label' => \JText::_('JDB_DEFAULT'), 'value' => '']];
+      return (array) $options;
+   }
+
+   public function getUserGroups()
+   {
+      $db = \JFactory::getDbo();
+
+      $query = $db->getQuery(true)
+         ->select('a.id AS value, a.title AS label')
+         ->from('#__usergroups AS a')
+         ->group('a.id, a.title')
+         ->order('a.id ASC')
+         ->order($db->qn('title') . ' ASC');
+
+      // Get the options.
+      $options = $db->setQuery($query)->loadObjectList();
+
+      // Get the options.
+      // $db->setQuery($query);
+      // $options = $db->loadObjectList();
       return (array) $options;
    }
 

@@ -83,6 +83,10 @@
                <option value="">JDB_INHERIT</option>
                <option value="cover">JDB_BACKGROUND_SIZE_COVER</option>
                <option value="contain">JDB_BACKGROUND_SIZE_CONTAIN</option>
+               <option value="custom">JDB_CUSTOM</option>
+            </field>
+
+            <field type="slider" name="backgroundWidth" label="Background Width" description="" default='{"value":100,"unit":"%"}' max="1600" min="0" units="px,%,vw" showon="params.background=='image'[AND]params.backgroundImage!=''[AND]params.backgroundSize=='custom'" group="background" responsive="true">
             </field>
 
             <field type="list" search="false" name="backgroundAttachment" label="JDB_BACKGROUND_ATTACHMENT" group="background" showon="params.background=='image'[AND]params.backgroundImage!=''" width="6" default="">
@@ -101,6 +105,13 @@
                <option value="center top">JDB_BACKGROUND_POSITION_CENTER_TOP</option>
                <option value="center center">JDB_BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
                <option value="center bottom">JDB_BACKGROUND_POSITION_CENTER_BOTTOM</option>
+               <option value="custom">JDB_CUSTOM</option>
+            </field>
+
+            <field type="slider" name="backgroundXPosition" label="JDB_BACKGROUND_OVERLAY_X_POSITION" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vw" showon="params.backgroundPosition=='custom'" group="background" responsive="true">
+            </field>
+
+            <field type="slider" name="backgroundYPosition" label="JDB_BACKGROUND_OVERLAY_Y_POSITION" default='{"value":0,"unit":"px"}' max="1600" min="-1600" units="px,%,vh" showon="params.backgroundPosition=='custom'" group="background" responsive="true">
             </field>
 
             <!--  Background Video -->

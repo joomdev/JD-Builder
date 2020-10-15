@@ -2,7 +2,7 @@
 <element type="icon-list">
    <title>Icon List</title>
    <icon>media/jdbuilder/images/icons/elements/icon-list.svg</icon>
-   <creationDate>Aug 2020</creationDate>
+   <creationDate>Oct 2020</creationDate>
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
@@ -20,6 +20,12 @@
                <form>
                   <field name="icon" width="3" type="icon" label="JDB_ICON" default="" />
                   <field name="text" width="9" type="text" label="JDB_TEXT" default="" />
+                  <field name="link" type="text" label="JDB_LINK_LABEL" default="#">
+                  </field>
+                  <field name="linkTargetBlank" type="switch" label="JDB_LINK_TARGET_LBL" default="false" showon="params.link!=''">
+                  </field>
+                  <field name="linkNoFollow" type="switch" label="JDB_LINK_NOFOLLOW_LBL" default="false" showon="params.link!=''">
+                  </field>
                </form>
             </field>
 

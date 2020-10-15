@@ -38,6 +38,6 @@
         }
     },
     "suggest": {
-        "illuminate/support": "^4.0|^5.0"
+        "illuminate/support": "Required for laravel service providers"
     }
 }

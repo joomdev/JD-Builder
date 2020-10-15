@@ -43,8 +43,12 @@ class plgSystemJDBuilder extends JPlugin
          \JDPageBuilder\Helper::loadLanguage();
 
          $style = '.jdb-version-label{padding: 0px 8px; display: inline-block; background: #84d155; border-radius: 100px;margin: 0px 5px;color: #fff;font-weight: bold;line-height: 16px;font-size: 10px;vertical-align: baseline;position: relative;top: -2px;}';
-         $docuemnt = \JFactory::getDocument();
-         $docuemnt->addStyleDeclaration($style);
+         $document = \JFactory::getDocument();
+         $document->addStyleDeclaration($style);
+      }
+
+      if (!$this->app->isClient('administrator')) {
+         \JDPageBuilder\Builder::beforeRenderHead();
       }
    }
 
@@ -66,8 +70,6 @@ class plgSystemJDBuilder extends JPlugin
          $jdfinderdoc->addScript(Juri::root() . 'media/jdbuilder/js/jdfinder.js',  ['version' => JDB_MEDIA_VERSION]);
          $jdfinderdoc->addScriptDeclaration(" var jdfinderSearch = '$jdfinderBaseURL';");
       }
-      // $document = JFactory::getDocument();
-      // $document->addScriptDeclaration("var _JDB = {};");
    }
 
    public function onBeforeRender()
@@ -158,48 +160,21 @@ class plgSystemJDBuilder extends JPlugin
       if (!$this->app->isClient('administrator') || !$this->isValidView()) {
          return;
       }
-      if ($this->isPageEdit()) {
-         $id = $this->app->input->get('id', 0, 'INT');
-         $this->addBuilder($id);
-         return;
-      }
       if ($this->isModuleEdit()) {
          $this->addBodyClass();
       }
    }
 
-   public function setLinkAndLabel()
-   {
-      $articleLayouts = self::$article_layouts;
-      $body = $this->app->getBody();
-      $body = preg_replace_callback('/(<a\s[^>]*href=")([^"]*)("[^>]*>)(.*)(<\/a>)/siU', function ($matches) use ($articleLayouts) {
-         $html = $matches[0];
-         if (strpos($matches[2], 'task=article.edit')) {
-            $uri = new JUri($matches[2]);
-            $id = (int) $uri->getVar('id');
-            if ($uri->getVar('option') == "com_content" && in_array($id, $articleLayouts)) {
-               $html = $matches[1] . $uri . '&jdb=1' . $matches[3] . $matches[4] . $matches[5];
-               if (JDB_JOOMLA_VERSION == 3) {
-                  $html .= ' <span class="label label-info">JD Page</span>';
-               } else {
-                  $html .= ' <span class="badge badge-info">JD Page</span>';
-               }
-            } else {
-               $html = '<a title="' . JText::_('JDBUILDER_EDIT_TITLE') . '" class="btn btn-micro btn-sm btn-info hasTooltip" href="' . $uri . '&jdb=1' . '"><span class="icon-pencil"></span></a>';
-               $html .= $matches[1] . $uri . $matches[3] . $matches[4] . $matches[5];
-            }
-         }
-         return $html;
-      }, $body);
-      $this->app->setBody($body);
-   }
-
    public function onBeforeCompileHead()
    {
-      $docuemnt = \JFactory::getDocument();
+      $document = \JFactory::getDocument();
+
+      if (!$this->app->isClient('administrator')) {
+         \JDPageBuilder\Builder::afterRenderHead();
+      }
 
       if (JDB_JOOMLA_VERSION == 3) {
-         $docuemnt->addScript(JURI::root() . 'media/system/js/core.js');
+         $document->addScript(JURI::root() . 'media/system/js/core.js');
       }
       if (!$this->app->isClient('administrator') || !$this->isValidView()) {
          return;
@@ -217,11 +192,11 @@ class plgSystemJDBuilder extends JPlugin
          $id = $this->app->input->get('id', 0);
          $style = '#jdbuilder-area{display: none;}#jdbuilder-area.active{display: block;}#jdbuilder-area.active~div{display: none;}#jdbuilder-area{position: relative;}#jdbuilder-area.loading{height: 400px; overflow: hidden}#jdbuilder-controls .btn-jdb-exit{display: none;}#jdbuilder-controls .btn-jdb-fs{display: none;}#jdbuilder-controls.active .btn-jdb-exit{display: inline-block;}#jdbuilder-controls.active .btn-jdb-edit{display: none;}#jdbuilder-controls.active .btn-jdb-fs{display: inline-block;}';
 
-         $docuemnt->addStyleDeclaration($style);
-         $docuemnt->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => JDB_MEDIA_VERSION]);
-         $docuemnt->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => JDB_MEDIA_VERSION]);
+         $document->addStyleDeclaration($style);
+         $document->addStyleSheet('//fonts.googleapis.com/css?family=Noto+Sans:400,700');
+         $document->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
+         $document->addStyleSheet(JURI::root(true) . '/media/jdbuilder/css/rtl.css', ['version' => JDB_MEDIA_VERSION]);
+         $document->addStyleSheet(JURI::root(true) . '/media/jdbuilder/js/builder/styles.css', ['version' => JDB_MEDIA_VERSION]);
       }
    }
 
@@ -230,7 +205,7 @@ class plgSystemJDBuilder extends JPlugin
    public function isValidView()
    {
       $option = $this->app->input->get('option', '');
-      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == 'com_advancedmodules' || $option == "com_hikashop");
+      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == 'com_advancedmodules');
    }
 
    public function isPageView()
@@ -479,15 +454,6 @@ class plgSystemJDBuilder extends JPlugin
       $body = $this->app->getBody();
       $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
       $this->app->setBody($body);
-   }
-
-   public function onContentBeforeSave($context, $article, $isNew)
-   {
-      if ($context == 'com_advancedmodules.module') {
-         return $this->onExtensionBeforeSave($context, $article, $isNew);
-      }
-
-      return true;
    }
 
    public function onExtensionBeforeSave($context, $item, $isNew)

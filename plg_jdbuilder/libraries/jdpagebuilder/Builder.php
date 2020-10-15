@@ -61,6 +61,10 @@ abstract class Builder
       if (JDB_ADMIN && $option == 'com_content') {
          AuditHelper::auditArticles();
       }
+      if (JDB_SITE && !JDB_LIVE_PREVIEW) {
+         Helper::pageview();
+         Helper::starttime();
+      }
    }
 
    public static function getSettings()
@@ -946,33 +950,40 @@ abstract class Builder
       }
    }
 
+   public static function beforeRenderHead()
+   {
+      // Add Rendered CSS in Head
+      self::addJavascript(\JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js');
+      self::addJavascript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js');
+   }
+
+   public static function afterRenderHead()
+   {
+      // Add Rendered CSS in Head
+      $document = \JFactory::getDocument();
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.end.js', ['version' => JDB_MEDIA_VERSION]);
+      Helper::renderGlobalScss();
+
+      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
+
+      $css = self::renderStyle();
+      $document->addStyleDeclaration($css);
+   }
+
    public static function renderHead()
    {
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
 
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jquery-3.4.1.min.js', ['version' => JDB_MEDIA_VERSION]);
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.js', ['version' => JDB_MEDIA_VERSION]);
-
       // Add Rendered JS Files in Head
       foreach (self::$javascripts as $javascript) {
-         $document->addScript($javascript, ['version' => 'auto']);
+         $document->addScript($javascript, ['version' => JDB_MEDIA_VERSION]);
       }
 
       // Add Rendered Javascript in Head
       foreach (self::$scripts['head'] as $script) {
          $document->addScriptDeclaration($script);
       }
-
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.end.js', ['version' => JDB_MEDIA_VERSION]);
-      Helper::renderGlobalScss();
-
-
-
-      $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
-
-      $css = self::renderStyle();
-      $document->addStyleDeclaration($css);
    }
 
    public static function renderElement($object)

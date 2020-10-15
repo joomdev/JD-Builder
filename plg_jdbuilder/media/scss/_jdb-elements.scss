@@ -873,6 +873,7 @@ Video Background -> 5
       background: inherit;
       border-color: inherit;
       display: inline-block;
+      width: auto;
    }
 
    figure {
@@ -903,6 +904,7 @@ Video Background -> 5
       background: inherit;
       border-color: inherit;
       display: inline-block;
+      width: auto;
    }
 
    figure {
@@ -1062,6 +1064,11 @@ Video Background -> 5
 }
 
 .jdb-numbercounter {
+   .jdb-numbercounter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
 
    .jdb-numbercounter-icon,
    .jdb-numbercounter-number,
@@ -1072,8 +1079,13 @@ Video Background -> 5
    .jdb-numbercounter-icon {
       vertical-align: baseline;
       box-sizing: content-box;
-      margin: auto;
+      align-self: center;
       color: $info;
+
+      &.jdb-numbercounter-icon-right,
+      &.jdb-numbercounter-icon-bottom {
+         order: 2;
+      }
    }
 
    .jdb-numbercounter-number {
@@ -1610,4 +1622,8 @@ Video Background -> 5
    list-style-type: none;
    font-size: small;
    color: red;
+}
+
+.grecaptcha-badge {
+   z-index: 99999;
 }
