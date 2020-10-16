@@ -795,7 +795,7 @@ abstract class Builder
          Helper::renderGlobalTypography();
          $css = self::renderStyle();
          $document->addStyleDeclaration($css);
-
+         \JDPageBuilder\Builder::renderHead();
          return self::livePreviewArea();
       }
 
