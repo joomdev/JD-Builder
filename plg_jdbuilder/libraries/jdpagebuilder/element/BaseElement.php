@@ -93,6 +93,7 @@ class BaseElement
             return "";
          }
       }
+      Builder::$enabled = true;
       $return = [];
       $content = $this->getContent();
       $start = $this->getStart();

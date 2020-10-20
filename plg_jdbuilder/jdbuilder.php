@@ -29,7 +29,7 @@ class plgSystemJDBuilder extends JPlugin
       define('JDB_JOOMLA_VERSION', Helper::getJoomlaVersion());
       \JDPageBuilder\Builder::init($this->app);
       $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', JDB_DEV ? 109 : md5($stat['mtime']));
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 112 : md5($stat['mtime']));
       if ($this->app->isClient('administrator')) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
@@ -136,7 +136,7 @@ class plgSystemJDBuilder extends JPlugin
          exit;
       }
 
-      if ($this->app->isClient('administrator') && ($this->isPageEdit() || $this->isModuleEdit())) {
+      if ($this->app->isClient('administrator') && ($this->isPageEdit() || $this->isArticleEdit() || $this->isModuleEdit())) {
          \JFactory::getDocument()->addStyleDeclaration("div.modal { z-index: 99999; } .modal-backdrop { z-index: 99998; } .modal-backdrop, .modal-backdrop.fade.in{ opacity: 0.6; filter: alpha(opacity=60); background: #464646; } #JDBSelectArticleModal{ box-shadow: none !important; border: 0; border-radius: 10px; } #JDBSelectArticleModal .modal-footer{ border-radius: 0 0 10px 10px; background: #f7f7f7; box-shadow: none !important; border: 0 !important; } #JDBSelectArticleModal .modal-header{ background: #323896; border-radius: 10px 10px 0 0; padding: 5px 20px; color: #fff; letter-spacing: 1px; } #JDBSelectArticleModal .modal-header h3{ font-size: 14px;} #JDBSelectArticleModal .modal-header button.close{border: 0; color: #fff; opacity: 1; line-height: 42px; font-size: 26px;}");
          \JHtml::_('script', 'system/modal-fields.js', array('version' => 'auto', 'relative' => true));
 
@@ -160,9 +160,45 @@ class plgSystemJDBuilder extends JPlugin
       if (!$this->app->isClient('administrator') || !$this->isValidView()) {
          return;
       }
+      if ($this->isPageEdit()) {
+         $id = $this->app->input->get('id', 0, 'INT');
+         $this->addBuilder($id);
+         return;
+      }
+      if ($this->isHikashopEdit()) {
+         $id = $this->app->input->get('id', 0, 'INT');
+         $this->addBuilderOnHikashop($id);
+         return;
+      }
       if ($this->isModuleEdit()) {
          $this->addBodyClass();
       }
+   }
+
+   public function setLinkAndLabel()
+   {
+      $articleLayouts = self::$article_layouts;
+      $body = $this->app->getBody();
+      $body = preg_replace_callback('/(<a\s[^>]*href=")([^"]*)("[^>]*>)(.*)(<\/a>)/siU', function ($matches) use ($articleLayouts) {
+         $html = $matches[0];
+         if (strpos($matches[2], 'task=article.edit')) {
+            $uri = new JUri($matches[2]);
+            $id = (int) $uri->getVar('id');
+            if ($uri->getVar('option') == "com_content" && in_array($id, $articleLayouts)) {
+               $html = $matches[1] . $uri . '&jdb=1' . $matches[3] . $matches[4] . $matches[5];
+               if (JDB_JOOMLA_VERSION == 3) {
+                  $html .= ' <span class="label label-info">JD Page</span>';
+               } else {
+                  $html .= ' <span class="badge badge-info">JD Page</span>';
+               }
+            } else {
+               $html = '<a title="' . JText::_('JDBUILDER_EDIT_TITLE') . '" class="btn btn-micro btn-sm btn-info hasTooltip" href="' . $uri . '&jdb=1' . '"><span class="icon-pencil"></span></a>';
+               $html .= $matches[1] . $uri . $matches[3] . $matches[4] . $matches[5];
+            }
+         }
+         return $html;
+      }, $body);
+      $this->app->setBody($body);
    }
 
    public function onBeforeCompileHead()
@@ -186,7 +222,7 @@ class plgSystemJDBuilder extends JPlugin
          $document->addStyleSheet(\JURI::root() . 'media/com_jdbuilder/css/style.min.css', ['version' => JDB_MEDIA_VERSION]);
       }
 
-      if ($this->isPageEdit() || $this->isModuleEdit()) {
+      if ($this->isPageEdit() || $this->isArticleEdit() || $this->isModuleEdit()) {
          // \JDPageBuilder\Helper::loadBuilderLanguage();
          \JDPageBuilder\Builder::getAdminElements();
          $id = $this->app->input->get('id', 0);
@@ -205,7 +241,7 @@ class plgSystemJDBuilder extends JPlugin
    public function isValidView()
    {
       $option = $this->app->input->get('option', '');
-      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == 'com_advancedmodules');
+      return ($option == "com_jdbuilder" || $option == "com_content" || $option == "com_modules" || $option == 'com_advancedmodules' || $option == "com_hikashop");
    }
 
    public function isPageView()
@@ -225,6 +261,19 @@ class plgSystemJDBuilder extends JPlugin
       $tmpl = $this->app->input->get('tmpl', '');
       $function = $this->app->input->get('function', '');
       return ($option == "com_content" && $view == "articles" && $layout == "modal" && $tmpl == 'component' && $function == 'JDBOnSelectArticle');
+   }
+
+   public function isArticleEdit()
+   {
+      return false;
+   }
+
+   public function isHikashopEdit()
+   {
+      $option = $this->app->input->get('option', '');
+      $task = $this->app->input->get('task', '');
+      $ctrl = $this->app->input->get('ctrl', '');
+      return ($option == "com_hikashop" && $task == "edit" && $ctrl == "product");
    }
 
    public function isModuleEdit()
@@ -278,6 +327,30 @@ class plgSystemJDBuilder extends JPlugin
       $this->addBodyClass();
       $body = $this->app->getBody();
       $body = str_replace('{jdbuilder}', \JDPageBuilder\Builder::builderArea(true, 'page', $id), $body);
+      $this->app->setBody($body);
+   }
+
+   public function addBuilderOnHikashop($id)
+   {
+      return;
+      /* $article = \JTable::getInstance("content");
+      $article->load($id);
+      $params = new \JRegistry();
+      if (isset($article->attribs)) {
+         $params->loadObject(\json_decode($article->attribs));
+      }
+      $layout_id = $params->get('jdbuilder_layout_id', 0);
+      $enabled = $params->get('jdbuilder_layout_enabled', 0);
+      $enabled = $enabled ? 1 : $this->app->input->get('jdb', 0); */
+
+      $enabled = true;
+      $id = 2;
+      $layout_id = 2;
+      $this->addBodyClass();
+      $body = $this->app->getBody();
+
+      // $body = str_replace('<fieldset class="adminform">', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<fieldset class="adminform">' . \JDPageBuilder\Builder::builderArea($enabled, 'hikashop', $layout_id), $body);
+      $body = str_replace('<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>', \JDPageBuilder\Builder::builderArticleToggle($enabled, $id, $layout_id) . '<div class="hikashop_product_part_title hikashop_product_edit_description_title">Description</div>' . \JDPageBuilder\Builder::builderArea($enabled, 'article', $layout_id), $body);
       $this->app->setBody($body);
    }
 
@@ -449,11 +522,52 @@ class plgSystemJDBuilder extends JPlugin
       if ($layout === "edit") {
          $adminMenu = '<ul class="nav disabled"><li class="disabled"><a class="no-dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '</a></li></ul>';
       } else {
-         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_config&view=component&component=com_jdbuilder">' . \JText::_('COM_JDBUILDER_TITLE_SETTINGS') . '</a></li></ul></li></ul>';
+         $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=integrations">' . \JText::_('COM_JDBUILDER_TITLE_INTEGRATIONS') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_config&view=component&component=com_jdbuilder">' . \JText::_('COM_JDBUILDER_TITLE_SETTINGS') . '</a></li></ul></li></ul>';
       }
       $body = $this->app->getBody();
       $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
       $this->app->setBody($body);
+   }
+
+   public function onContentBeforeSave($context, $article, $isNew)
+   {
+      if ($context === 'com_content.article') {
+         $params = new \JRegistry();
+         if (isset($article->attribs)) {
+            $params->loadObject(\json_decode($article->attribs));
+         }
+         $enabled = (int) $params->get('jdbuilder_layout_enabled', 0);
+         $layout_id = (int) $params->get('jdbuilder_layout_id', 0);
+         $jdbform = $this->app->input->post->get('_jdbform', [], 'ARRAY');
+         $layout = @$jdbform['layout'];
+         if ($enabled) {
+            $memory_limit = ini_get('memory_limit');
+            ini_set('memory_limit', '-1');
+            $object = new \stdClass();
+            $db = JFactory::getDbo();
+            if (empty($layout_id)) {
+               $object->id = NULL;
+               $object->layout = $layout;
+               $object->created = time();
+               $object->updated = time();
+               $db->insertObject('#__jdbuilder_layouts', $object);
+               $layoutid = $db->insertid();
+               $params->set('jdbuilder_layout_id', $layoutid);
+               $article->attribs = \json_encode($params->toObject());
+            } else {
+               $object->id = $layout_id;
+               $object->layout = $layout;
+               $object->updated = time();
+               $db->updateObject('#__jdbuilder_layouts', $object, 'id');
+            }
+            ini_set('memory_limit', $memory_limit);
+         }
+      }
+      if ($context == 'com_advancedmodules.module') {
+         return $this->onExtensionBeforeSave($context, $article, $isNew);
+      }
+
+      return true;
    }
 
    public function onExtensionBeforeSave($context, $item, $isNew)

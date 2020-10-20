@@ -39,6 +39,7 @@ abstract class Builder
    protected static $debug = false;
    protected static $debugmarker = null;
    protected static $logs = [];
+   public static $enabled = false;
    public static $reserved_elements = ["section", "row", "column", "element", "__page"];
    public static $css = [
       'desktop' => [],
@@ -959,6 +960,7 @@ abstract class Builder
 
    public static function afterRenderHead()
    {
+      if (!Builder::$enabled) return;
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
       $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.end.js', ['version' => JDB_MEDIA_VERSION]);
