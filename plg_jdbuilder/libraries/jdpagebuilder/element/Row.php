@@ -59,7 +59,8 @@ class Row extends BaseElement
    public function getStart()
    {
       $return = [];
-      $return[] = '<div id="' . $this->id . '"' . $this->getAttrs() . '>';
+      $attrs = $this->getAttrs();
+      $return[] = '<div id="' . $this->id . '"' . ((!empty($attrs)) ? (' ' . $attrs) : '') . '>';
       return implode("", $return);
    }
 

@@ -59,9 +59,6 @@ abstract class Builder
       if (JDB_ADMIN && ($option == 'com_modules' || $option == 'com_advancedmodules')) {
          AuditHelper::auditModules();
       }
-      if (JDB_ADMIN && $option == 'com_content') {
-         AuditHelper::auditArticles();
-      }
       if (JDB_SITE && !JDB_LIVE_PREVIEW) {
          Helper::pageview();
          Helper::starttime();
@@ -89,6 +86,9 @@ abstract class Builder
       define('JDBPATH_OPTIONS', JDBPATH_PLUGIN . '/options');
       define('JDBPATH_MEDIA', JPATH_SITE . '/media/jdbuilder');
       define('JDBURL_MEDIA', \JURI::root() . 'media/jdbuilder');
+
+      $isPro = file_exists(JPATH_PLUGINS . '/system/jdbuilder/options/default-pro.xml');
+      define('JDB_PRO', $isPro);
 
       $client = $app->isClient('administrator') ? 'administrator' : 'site';
       $childWindow = self::isChildWindow();
@@ -281,11 +281,26 @@ abstract class Builder
       return $layout->render();
    }
 
-   public static function getElements()
+   public static function getElementPaths()
    {
       $paths = [
          JDBPATH_ELEMENTS
       ];
+
+      $templates = array_filter(glob(JPATH_SITE . '/templates/*'), 'is_dir');
+
+      foreach ($templates as $template) {
+         if (file_exists($template . '/elements')) {
+            $paths[] = $template . '/elements';
+         }
+      }
+
+      return $paths;
+   }
+
+   public static function getElements()
+   {
+      $paths = self::getElementPaths();
 
       $elements = [];
       foreach ($paths as $path) {
@@ -293,7 +308,7 @@ abstract class Builder
             continue;
          }
 
-         $elements = array_merge(self::getElementsByPath($path));
+         $elements = array_merge(self::getElementsByPath($path), $elements);
       }
       return $elements;
    }
@@ -647,6 +662,9 @@ abstract class Builder
          if (file_exists($plugin_element_dir . '/' . $type . '.xml')) {
             Helper::loadLanguage($type, $plugin_element_dir);
             $return[] = $plugin_element_dir . '/' . $type . '.xml';
+         } else if ($template_element = self::findElementInTemplate($type)) {
+            Helper::loadLanguage($type, $template_element . '/elements/' . $type);
+            $return[] = $template_element . '/elements/' . $type . '/' . $type . '.xml';
          } else {
             throw new \Exception("Invalid Element");
          }
@@ -656,9 +674,25 @@ abstract class Builder
          if (file_exists(str_replace('.xml', '-pro.xml', $file))) {
             array_splice($return, $index + $count + 1, 0, [str_replace('.xml', '-pro.xml', $file)]);
             $count++;
+         } else if (file_exists(str_replace('.xml', '-upgrade.xml', $file))) {
+            array_splice($return, $index + $count + 1, 0, [str_replace('.xml', '-upgrade.xml', $file)]);
+            $count++;
          }
       }
       return $return;
+   }
+
+   public static function findElementInTemplate($type)
+   {
+      $templates = array_filter(glob(JPATH_SITE . '/templates/*'), 'is_dir');
+      $path = false;
+      foreach ($templates as $template) {
+         if (file_exists($template . '/elements' . '/' . $type . '/' . $type . '.xml')) {
+            $path =  $template;
+            break;
+         }
+      }
+      return $path;
    }
 
    public static function renderModule($type, $value, $style)
@@ -759,7 +793,7 @@ abstract class Builder
          $document->addScriptDeclaration($customFontsScript);
 
 
-         $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => JDB_MEDIA_VERSION]);
+         $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.min.js', ['version' => time()]);
 
          // async defer
          if (!empty($buiderConfig->get('gmapkey', ''))) {
@@ -796,7 +830,7 @@ abstract class Builder
          Helper::renderGlobalTypography();
          $css = self::renderStyle();
          $document->addStyleDeclaration($css);
-         \JDPageBuilder\Builder::renderHead();
+         // \JDPageBuilder\Builder::renderHead();
          return self::livePreviewArea();
       }
 
@@ -854,8 +888,17 @@ abstract class Builder
       $rendered = $layout->render();
       \JDPageBuilder\Builder::renderPageStyle($params);
       \JDPageBuilder\Helper::renderGlobalTypography();
-      \JDPageBuilder\Builder::renderHead();
-      echo $rendered;
+      // \JDPageBuilder\Builder::renderHead();
+
+      $page = new \stdClass;
+      $page->text = $rendered;
+
+      if (JDB_JOOMLA_VERSION == 3) {
+         \JPluginHelper::importPlugin('content');
+         $dispatcher = \JEventDispatcher::getInstance();
+         $dispatcher->trigger('onContentPrepare', array('com_jdbuilder.page', &$page, &$params, 0));
+      }
+      echo $page->text;
    }
 
    public static function renderPageStyle($params)
@@ -932,11 +975,11 @@ abstract class Builder
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/animatedheading.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/isotope.pkgd.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.min.js?v=' . $version . '"></script>';
+         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.custom.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/imask.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdvideo.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdytsubscriber.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/selectr.min.js?v=' . $version . '"></script>';
-         echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/parsley.custom.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.justifiedGallery.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jdlightbox.min.js?v=' . $version . '"></script>';
          echo '<script src="' . \JURI::root() . 'media/jdbuilder/js/jquery.event.move.js?v=' . $version . '"></script>';
@@ -961,6 +1004,7 @@ abstract class Builder
    public static function afterRenderHead()
    {
       if (!Builder::$enabled) return;
+
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
       $document->addScript(\JURI::root() . 'media/jdbuilder/js/jdb.noconflict.end.js', ['version' => JDB_MEDIA_VERSION]);
@@ -974,6 +1018,7 @@ abstract class Builder
 
    public static function renderHead()
    {
+      if (!Builder::$enabled) return;
       // Add Rendered CSS in Head
       $document = \JFactory::getDocument();
 
@@ -1262,33 +1307,39 @@ abstract class Builder
    public static function getAdminElements()
    {
       $document = \JFactory::getDocument();
-      $path = JDBPATH_ELEMENTS;
-      $dirs = array_filter(glob($path . '/*'), 'is_dir');
+      $paths = self::getElementPaths();
       $files = [];
       $templates = '<!-- JD Builder Element\'s Templates -->';
-      foreach ($dirs as $dir) {
 
-         if (in_array(strtolower(basename($dir)), self::$reserved_elements)) {
-            continue;
+      $template = \JFactory::getApplication()->getTemplate(true);
+      $template_path = JPATH_THEMES . '/' . $template->template . '/html/jdbuilder';
+
+      foreach ($paths as $path) {
+         $dirs = array_filter(glob($path . '/*'), 'is_dir');
+         foreach ($dirs as $dir) {
+
+            if (in_array(strtolower(basename($dir)), self::$reserved_elements)) {
+               continue;
+            }
+
+            $javascript = file_exists($dir . '/' . 'tmpl/default.js') ? basename($dir) . '/' . 'tmpl/default.js' : basename($dir) . '/' . 'tmpl/' . basename($dir) . '.js';
+
+            if (file_exists($template_path . '/' . strtolower(basename($dir) . '.js'))) {
+               $files[] = $template_path . '/' . strtolower(basename($dir) . '.js');
+            } else if (file_exists($path . '/' . $javascript)) {
+               $files[] = $path . '/' . $javascript;
+            }
+
+            $helper = basename($dir) . '/' . 'helper.js';
+            if (file_exists($path . '/' . $helper)) {
+               $files[] = $path . '/' . $helper;
+            }
+
+            $templates .= Helper::getElementPartials($dir);
          }
-
-         $javascript = file_exists($dir . '/' . 'tmpl/default.js') ? basename($dir) . '/' . 'tmpl/default.js' : basename($dir) . '/' . 'tmpl/' . basename($dir) . '.js';
-
-
-         if (file_exists($path . '/' . $javascript)) {
-            $files[] = $path . '/' . $javascript;
-         }
-
-         $helper = basename($dir) . '/' . 'helper.js';
-         if (file_exists($path . '/' . $helper)) {
-            $files[] = $path . '/' . $helper;
-         }
-
-         $templates .= Helper::getElementPartials($dir);
       }
 
       $templates .= '<!-- End Templates -->';
-
 
       $script = Helper::minifyJS($files);
       $document->addScript(\JURI::root() . 'media/jdbuilder/js/mustache.min.js');

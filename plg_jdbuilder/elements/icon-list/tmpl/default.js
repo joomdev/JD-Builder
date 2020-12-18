@@ -40,8 +40,8 @@
         if (alignment != null) {
             JDBRenderer.DEVICES.forEach(function (_deviceObj) {
                 if (_deviceObj.key in alignment) {
-                    ListContainer.addCss('text-align', alignment[_deviceObj.key], _deviceObj.type);
                     ListItem.addCss('justify-content', alignment[_deviceObj.key] == 'left' ? 'flex-start' : (alignment[_deviceObj.key] == 'right' ? 'flex-end' : 'center'), _deviceObj.type);
+                    ListItems.addCss('justify-content', alignment[_deviceObj.key] == 'left' ? 'flex-start' : (alignment[_deviceObj.key] == 'right' ? 'flex-end' : 'center'), _deviceObj.type);
                 }
             });
         }

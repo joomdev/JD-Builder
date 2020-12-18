@@ -42,10 +42,12 @@ $sortFields = $this->getSortFields();
       <div id="j-main-container" class="span10">
       <?php
       echo JdbuilderHelper::versionMessage();
+      echo JdbuilderHelper::updateMessage();
    else : ?>
          <div id="j-main-container">
          <?php
          echo JdbuilderHelper::versionMessage();
+         echo JdbuilderHelper::updateMessage();
       endif; ?>
 
          <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>

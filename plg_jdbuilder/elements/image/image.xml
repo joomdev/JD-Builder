@@ -46,7 +46,7 @@
                <option value="right" icon="fa fa-align-right">JDB_RIGHT</option>
             </field>
 
-            <field name="linkType" type="radio" radiotype="buttons" label="JDB_LINK_LABEL" default="" group="basic">
+            <field name="linkType" type="radio" radiotype="buttons" label="JDB_LINK_LABEL" default="none" group="basic">
                <option value="none">JDB_NONE</option>
                <option value="media">JDB_MEDIA_FILE</option>
                <option value="">JDB_CUSTOM_URL</option>

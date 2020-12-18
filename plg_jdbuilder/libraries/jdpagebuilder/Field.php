@@ -273,6 +273,9 @@ class Field
          case 'header_tag':
             $this->value = (!in_array(strtolower($this->value), ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'p', 'small', 'mark', 'abbr', 'blockquote', 'code', 'pre']) ? 'h3' : strtolower($this->value));
             break;
+         case 'upgrade':
+            $return['link'] = Constants::GOPRO_LINK;
+            break;
          case 'div':
             $id = (string) $this->xml->attributes()->id;
             $class = (string) $this->xml->attributes()->class;

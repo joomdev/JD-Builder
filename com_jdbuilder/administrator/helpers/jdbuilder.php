@@ -6,6 +6,9 @@
  * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+use JDPageBuilder\Helper;
+
 // No direct access
 defined('_JEXEC') or die;
 
@@ -101,7 +104,7 @@ class JdbuilderHelper
       $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
       $key = $buiderConfig->get('key',  '');
       $isPro = file_exists(JPATH_PLUGINS . '/system/jdbuilder/options/default-pro.xml');
-    
+
       if ($isPro && !empty($key)) {
          return;
       }
@@ -113,5 +116,19 @@ class JdbuilderHelper
          <div class="jdb-content">
          <h4>' . JText::_('COM_JDBUILDER_VER_MSG_' . $prefix . '_TITLE') . '</h4>
          <p>' . JText::_('COM_JDBUILDER_VER_MSG_' . $prefix . '_DESC') . '</p></div></div>';
+   }
+
+   public static function updateMessage()
+   {
+      $latest = Helper::getJDBuilderLatestVersion();
+      if ($latest == 'v' . JDB_VERSION) return '';
+      $isPro = file_exists(JPATH_PLUGINS . '/system/jdbuilder/options/default-pro.xml');
+
+      $document = JFactory::getDocument();
+      $document->addStyleDeclaration('.jdb-update-message{background-image:linear-gradient(110.7deg, #233879 6.3%, #385cc7 90.6%);box-shadow:8px 8px 8px rgba(221, 221, 221, 0.81);overflow:hidden;border-radius:4px;display:flex;color:#fff;margin-bottom:25px;line-height: 1.5rem;font-size:14px;}.jdb-update-message h4{font-size:16px;margin:0 0 10px;}body.admin.com_jdbuilder #content .jdb-update-message a{color:#fff;}.jdb-update-logo{color: white;width: 100px;display: grid;align-items: center;padding: 15px;box-sizing: border-box;background-image:linear-gradient(110.7deg, #233879 6.3%, #385cc7 90.6%);margin-right:10px;}.jdb-content{padding:20px 10px;align-self:center;}.jdb-content p{color:#f1f1f1;margin:0;}.jdb-content strong{color:#fff;}');
+
+      $link = $isPro ? 'https://www.joomdev.com/my-downloads/jd-builder-pro' : 'https://github.com/joomdev/JD-Builder/releases/tag/' . $latest;
+      return '<div style="padding-right: 10px;" class="alert alert-danger">
+         <div style="display:flex;justify-content:space-between;align-items:center">' . JText::sprintf('COM_JDBUILDER_UPDATE_MSG', ('v' . JDB_VERSION), $latest, $link) . '</div></div>';
    }
 }

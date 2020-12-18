@@ -1359,6 +1359,8 @@ Video Background -> 5
 }
 
 .jdb-testimonials {
+   overflow: hidden;
+
    .jdb-slider-items>* {
       padding: 15px;
    }
@@ -1626,4 +1628,69 @@ Video Background -> 5
 
 .grecaptcha-badge {
    z-index: 99999;
+}
+
+.jdb-buttongroup {
+   .jdb-buttongroup-wrapper {
+      flex-wrap: wrap;
+      display: flex;
+   }
+
+   .jdb-button-container {
+      display: inline-flex;
+   }
+
+   &.jdb-buttongroup-stack-desktop {
+      .jdb-buttongroup-wrapper {
+         @include media-breakpoint-down(xl) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+
+      .jdb-button-container {
+         @include media-breakpoint-down(xl) {
+            display: flex;
+            width: 100%;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+   }
+
+   &.jdb-buttongroup-stack-tablet {
+      .jdb-buttongroup-wrapper {
+         @include media-breakpoint-down(md) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+
+      .jdb-button-container {
+         @include media-breakpoint-down(md) {
+            display: flex;
+            width: 100%;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+   }
+
+   &.jdb-buttongroup-stack-mobile {
+      .jdb-buttongroup-wrapper {
+         @include media-breakpoint-down(sm) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+
+      .jdb-button-container {
+         @include media-breakpoint-down(sm) {
+            display: flex;
+            width: 100%;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+         }
+      }
+   }
 }

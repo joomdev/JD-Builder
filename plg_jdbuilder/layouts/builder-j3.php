@@ -178,7 +178,10 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/vendor.js<?php echo $version; ?>"></script>
 <?php } ?>
 <script type="text/javascript" src="<?php echo $builder_assets_path; ?>js/builder/main.js<?php echo $version; ?>"></script>
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v<?php echo JDPageBuilder\Constants::FONTAWESOME_VERSION; ?>/css/all.css">
+<?php
+$faPro = 0;
+?>
+<link rel="stylesheet" href="//<?php echo $faPro ? 'pro' : 'use'; ?>.fontawesome.com/releases/v<?php echo JDPageBuilder\Constants::FONTAWESOME_VERSION; ?>/css/all.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" />
 

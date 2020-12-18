@@ -67,7 +67,8 @@ class BaseElement
 
    public function getStart()
    {
-      return '<' . $this->tag . ' id="' . $this->id . '"' . $this->getAttrs() . '>';
+      $attrs = $this->getAttrs();
+      return '<' . $this->tag . ' id="' . $this->id . '"' . ((!empty($attrs)) ? (' ' . $attrs) : '') . '>';
    }
 
    public function getEnd()
@@ -82,6 +83,7 @@ class BaseElement
 
    public function render($output = false)
    {
+      Builder::$enabled = true;
       if (!$this->authorised) {
          return "";
       }
@@ -93,7 +95,6 @@ class BaseElement
             return "";
          }
       }
-      Builder::$enabled = true;
       $return = [];
       $content = $this->getContent();
       $start = $this->getStart();
@@ -719,7 +720,7 @@ class BaseElement
 
    public function checkDisplayCondition()
    {
-      if (in_array($this->type, ['row', 'inner-row', 'column'])) return;
+      if (in_array($this->type, ['row', 'column'])) return;
 
       $display_condition = $this->params->get('display_condition', false);
       if (!$display_condition) return;

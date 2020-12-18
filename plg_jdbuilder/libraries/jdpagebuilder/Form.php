@@ -17,8 +17,8 @@ class Form
 
    public $fieldsets = [];
    public $xmlfile;
-   public static $fields_without_name = ["header_tag", "spacer", "comingsoon", "elementinfo", "div", "alert", "tab", "google-autocomplete"];
-   public static $fields_without_value = ["spacer", "comingsoon", "elementinfo", "div", "alert", "tab", "google-autocomplete"];
+   public static $fields_without_name = ["header_tag", "spacer", "comingsoon", "upgrade", "elementinfo", "div", "alert", "tab", "google-autocomplete"];
+   public static $fields_without_value = ["spacer", "comingsoon", "upgrade", "elementinfo", "div", "alert", "tab", "google-autocomplete"];
    public $type;
 
    public function __construct($type)

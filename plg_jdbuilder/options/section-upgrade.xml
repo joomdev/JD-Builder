@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- Design Options -->
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <!--  Design Groups -->
+            <field type="group" ordering="9" name="shapeDivider" label="JDB_SHAPE_DIVIDER"></field>
+            <field type="group" ordering="4" name="particlesBgOptions" label="JDB_PARTICLES_BACKGROUND"></field>
+
+            <!--  Section Shape Divider Options -->
+
+            <!--  Top Shape Divider Options -->
+
+            <field type="upgrade" label="JDB_SHAPE_DIVIDER" description="JDB_SHAPE_DIVIDER_NOTICE" group="shapeDivider">
+            </field>
+
+            <field type="upgrade" label="JDB_PARTICLES_BACKGROUND" description="JDB_PARTICLES_BACKGROUND_NOTICE" group="particlesBgOptions">
+            </field>
+         </fieldset>
+
+         <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+            <field type="group" ordering="13" name="displayOptions" label="JDB_CONDITIONAL_DISPLAY"></field>
+
+            <field type="upgrade" label="JDB_CONDITIONAL_DISPLAY" description="JDB_CONDITIONAL_DISPLAY_NOTICE" group="displayOptions">
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

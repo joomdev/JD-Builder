@@ -16,11 +16,11 @@
 // 4. Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.
 // 5. Change the default tap highlight to be completely transparent in iOS.
 
-*[class*="jdb-container"] ,
+*[class*="jdb-container"],
 *[class*="jdb-container"] *,
-*[class*="jdb-container"]::before ,
-*[class*="jdb-container"]::before{
-   box-sizing: border-box;
+*[class*="jdb-container"]::before,
+*[class*="jdb-container"]::before {
+  box-sizing: border-box;
 }
 
 html {
@@ -33,7 +33,16 @@ html {
 // Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
 // TODO: remove in v5
 // stylelint-disable-next-line selector-list-comma-newline-after
-article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
   display: block;
 }
 
@@ -90,7 +99,12 @@ hr {
 // By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
 // margin for easier control within type scales as it avoids margin collapsing.
 // stylelint-disable-next-line selector-list-comma-newline-after
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   margin-bottom: $headings-margin-bottom;
 }
@@ -113,7 +127,8 @@ p {
 // 5. Prevent the text-decoration to be skipped.
 
 abbr[title],
-abbr[data-original-title] { // 1
+abbr[data-original-title] {
+  // 1
   text-decoration: underline; // 2
   text-decoration: underline dotted; // 2
   cursor: help; // 3
@@ -176,8 +191,13 @@ sup {
   vertical-align: baseline;
 }
 
-sub { bottom: -.25em; }
-sup { top: -.5em; }
+sub {
+  bottom: -.25em;
+}
+
+sup {
+  top: -.5em;
+}
 
 
 //
@@ -353,7 +373,8 @@ select {
 //    controls in Android 4.
 // 2. Correct the inability to style clickable types in iOS and Safari.
 button,
-[type="button"], // 1
+[type="button"],
+// 1
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button; // 2
@@ -361,6 +382,7 @@ button,
 
 // Opinionated: add "hand" cursor to non-disabled button elements.
 @if $enable-pointer-cursor-for-buttons {
+
   button,
   [type="button"],
   [type="reset"],
@@ -477,5 +499,10 @@ template {
 // Always hide an element with the `hidden` HTML attribute (from PureCSS).
 // Needed for proper display in IE 10-.
 [hidden] {
+  display: none !important;
+}
+
+[jdb-hidden],
+.jdb-hidden {
   display: none !important;
 }

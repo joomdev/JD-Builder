@@ -4,7 +4,7 @@
 // Base styles
 //
 
-.input-group {
+.jdb-input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap; // For form validation feedback
@@ -65,12 +65,12 @@
 // append elements allow us to 1) be less clever, 2) simplify our selectors, and
 // 3) support HTML5 form validation.
 
-.input-group-prepend,
-.input-group-append {
+.jdb-input-group-prepend,
+.jdb-input-group-append {
   display: flex;
 
   // Ensure buttons are always above inputs for more visually pleasing borders.
-  // This isn't needed for `.input-group-text` since it shares the same border-color
+  // This isn't needed for `.jdb-input-group-text` since it shares the same border-color
   // as our inputs.
   .btn {
     position: relative;
@@ -82,15 +82,20 @@
   }
 
   .btn + .btn,
-  .btn + .input-group-text,
-  .input-group-text + .input-group-text,
-  .input-group-text + .btn {
+  .btn + .jdb-input-group-text,
+  .jdb-input-group-text + .jdb-input-group-text,
+  .jdb-input-group-text + .btn {
     margin-left: -$input-border-width;
+  }
+
+  .jdb-form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 
-.input-group-prepend { margin-right: -$input-border-width; }
-.input-group-append { margin-left: -$input-border-width; }
+.jdb-input-group-prepend { margin-right: -$input-border-width; }
+.jdb-input-group-append { margin-left: -$input-border-width; }
 
 
 // Textual addons
@@ -98,7 +103,7 @@
 // Serves as a catch-all element for any text or radio/checkbox input you wish
 // to prepend or append to an input.
 
-.input-group-text {
+.jdb-input-group-text {
   display: flex;
   align-items: center;
   padding: $input-padding-y $input-padding-x;
@@ -126,42 +131,42 @@
 // Remix the default form control sizing classes into new ones for easier
 // manipulation.
 
-.input-group-lg > .jdb-form-control:not(textarea),
-.input-group-lg > .custom-select {
+.jdb-input-group-lg > .jdb-form-control:not(textarea),
+.jdb-input-group-lg > .custom-select {
   height: $input-height-lg;
 }
 
-.input-group-lg > .jdb-form-control,
-.input-group-lg > .custom-select,
-.input-group-lg > .input-group-prepend > .input-group-text,
-.input-group-lg > .input-group-append > .input-group-text,
-.input-group-lg > .input-group-prepend > .btn,
-.input-group-lg > .input-group-append > .btn {
+.jdb-input-group-lg > .jdb-form-control,
+.jdb-input-group-lg > .custom-select,
+.jdb-input-group-lg > .jdb-input-group-prepend > .jdb-input-group-text,
+.jdb-input-group-lg > .jdb-input-group-append > .jdb-input-group-text,
+.jdb-input-group-lg > .jdb-input-group-prepend > .btn,
+.jdb-input-group-lg > .jdb-input-group-append > .btn {
   padding: $input-padding-y-lg $input-padding-x-lg;
   @include font-size($input-font-size-lg);
   line-height: $input-line-height-lg;
   @include border-radius($input-border-radius-lg);
 }
 
-.input-group-sm > .jdb-form-control:not(textarea),
-.input-group-sm > .custom-select {
+.jdb-input-group-sm > .jdb-form-control:not(textarea),
+.jdb-input-group-sm > .custom-select {
   height: $input-height-sm;
 }
 
-.input-group-sm > .jdb-form-control,
-.input-group-sm > .custom-select,
-.input-group-sm > .input-group-prepend > .input-group-text,
-.input-group-sm > .input-group-append > .input-group-text,
-.input-group-sm > .input-group-prepend > .btn,
-.input-group-sm > .input-group-append > .btn {
+.jdb-input-group-sm > .jdb-form-control,
+.jdb-input-group-sm > .custom-select,
+.jdb-input-group-sm > .jdb-input-group-prepend > .jdb-input-group-text,
+.jdb-input-group-sm > .jdb-input-group-append > .jdb-input-group-text,
+.jdb-input-group-sm > .jdb-input-group-prepend > .btn,
+.jdb-input-group-sm > .jdb-input-group-append > .btn {
   padding: $input-padding-y-sm $input-padding-x-sm;
   @include font-size($input-font-size-sm);
   line-height: $input-line-height-sm;
   @include border-radius($input-border-radius-sm);
 }
 
-.input-group-lg > .custom-select,
-.input-group-sm > .custom-select {
+.jdb-input-group-lg > .custom-select,
+.jdb-input-group-sm > .custom-select {
   padding-right: $custom-select-padding-x + $custom-select-indicator-padding;
 }
 
@@ -170,23 +175,23 @@
 //
 // These rulesets must come after the sizing ones to properly override sm and lg
 // border-radius values when extending. They're more specific than we'd like
-// with the `.input-group >` part, but without it, we cannot override the sizing.
+// with the `.jdb-input-group >` part, but without it, we cannot override the sizing.
 
 
-.input-group > .input-group-prepend > .btn,
-.input-group > .input-group-prepend > .input-group-text,
-.input-group > .input-group-append:not(:last-child) > .btn,
-.input-group > .input-group-append:not(:last-child) > .input-group-text,
-.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
+.jdb-input-group > .jdb-input-group-prepend > .btn,
+.jdb-input-group > .jdb-input-group-prepend > .jdb-input-group-text,
+.jdb-input-group > .jdb-input-group-append:not(:last-child) > .btn,
+.jdb-input-group > .jdb-input-group-append:not(:last-child) > .jdb-input-group-text,
+.jdb-input-group > .jdb-input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.jdb-input-group > .jdb-input-group-append:last-child > .jdb-input-group-text:not(:last-child) {
   @include border-right-radius(0);
 }
 
-.input-group > .input-group-append > .btn,
-.input-group > .input-group-append > .input-group-text,
-.input-group > .input-group-prepend:not(:first-child) > .btn,
-.input-group > .input-group-prepend:not(:first-child) > .input-group-text,
-.input-group > .input-group-prepend:first-child > .btn:not(:first-child),
-.input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
+.jdb-input-group > .jdb-input-group-append > .btn,
+.jdb-input-group > .jdb-input-group-append > .jdb-input-group-text,
+.jdb-input-group > .jdb-input-group-prepend:not(:first-child) > .btn,
+.jdb-input-group > .jdb-input-group-prepend:not(:first-child) > .jdb-input-group-text,
+.jdb-input-group > .jdb-input-group-prepend:first-child > .btn:not(:first-child),
+.jdb-input-group > .jdb-input-group-prepend:first-child > .jdb-input-group-text:not(:first-child) {
   @include border-left-radius(0);
 }

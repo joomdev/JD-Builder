@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+    <form>
+        <fields>
+            <fieldset name="advanced" ordering="10" label="JDB_ADVANCED_TITLE">
+                <field type="group" ordering="13" name="displayOptions" label="JDB_CONDITIONAL_DISPLAY"></field>
+
+                <field type="upgrade" label="JDB_CONDITIONAL_DISPLAY" description="JDB_CONDITIONAL_DISPLAY_NOTICE" group="displayOptions">
+                </field>
+            </fieldset>
+        </fields>
+    </form>
+</element>

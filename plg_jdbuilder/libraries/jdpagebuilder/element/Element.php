@@ -9,6 +9,8 @@
 
 namespace JDPageBuilder\Element;
 
+use JDPageBuilder\Builder;
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -77,8 +79,8 @@ class Element extends BaseElement
          $layout_path = $template_path . '/html/jdbuilder/';
       } else if (file_exists($template_path . '/elements/' . $this->type) && file_exists($template_path . '/elements/' . $this->type . '/tmpl/default.php')) {
          $layout_path = $template_path . '/elements/' . $this->type . '/tmpl';
-      } else if (file_exists(JDBPATH_COMPONENT . '/elements/' . $this->type) && file_exists(JDBPATH_COMPONENT . '/elements/' . $this->type . '/tmpl/default.php')) {
-         $layout_path = JDBPATH_COMPONENT . '/elements/' . $this->type . '/tmpl';
+      } else if ($template_element = Builder::findElementInTemplate($this->type)) {
+         $layout_path = $template_element . '/elements/' . $this->type . '/tmpl';
       } else if (file_exists(JDBPATH_ELEMENTS . '/' . $this->type) && file_exists(JDBPATH_ELEMENTS . '/' . $this->type . '/tmpl/default.php')) {
          $layout_path = JDBPATH_ELEMENTS . '/' . $this->type . '/tmpl';
       }

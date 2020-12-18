@@ -28,6 +28,7 @@ $width: 40px;
 
       ~.element-border {
          display: block;
+         border-style: solid;
       }
    }
 }
@@ -39,6 +40,13 @@ $width: 40px;
       @include edit-btn(#84d155);
       top: 0;
       left: 0;
+   }
+
+   &.jdb-preview-highlight {
+      >.element-border {
+         display: block;
+         border-style: dashed;
+      }
    }
 
    &:hover {
@@ -55,6 +63,36 @@ $width: 40px;
       @include edit-btn(#dd506a);
       top: 0;
       right: 0;
+   }
+
+   &.jdb-preview-highlight {
+      >.element-border {
+         display: block;
+         border-style: dashed;
+      }
+   }
+
+   &:hover {
+      >.jdb-settings {
+         display: block;
+      }
+   }
+}
+
+.jdb-inner-row {
+   position: relative;
+
+   >.jdb-settings {
+      @include edit-btn(#F07339);
+      top: 0;
+      right: 0;
+   }
+
+   &.jdb-preview-highlight {
+      >.element-border {
+         display: block;
+         border-style: dashed;
+      }
    }
 
    &:hover {
@@ -75,6 +113,13 @@ $width: 40px;
       margin-top: -$width/2;
    }
 
+   &.jdb-preview-highlight {
+      >.element-border {
+         display: block;
+         border-style: dashed;
+      }
+   }
+
    &:hover {
       >.jdb-settings {
          display: block;
@@ -93,6 +138,13 @@ $width: 40px;
       margin-top: -$width/2;
    }
 
+   &.jdb-preview-highlight {
+      >.element-border {
+         display: block;
+         border-style: dashed;
+      }
+   }
+
    &:hover {
       >.jdb-settings {
          display: block;
@@ -107,7 +159,7 @@ $width: 40px;
    }
 }
 
-.jd-edit-panel{
+.jd-edit-panel {
    width: 300px;
    padding: 20px 60px;
 }

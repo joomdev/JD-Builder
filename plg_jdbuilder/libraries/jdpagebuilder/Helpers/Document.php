@@ -29,9 +29,11 @@ class Document
 
     private function _loadFontAwesome()
     {
-        if (!$this->faIcons) return;
+        $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+        $pro = 0;
+        if (!$this->faIcons && !$pro) return;
         $document = \JFactory::getDocument();
-        $document->addStylesheet('//use.fontawesome.com/releases/v' . \JDPageBuilder\Constants::FONTAWESOME_VERSION . '/css/all.css');
+        $document->addStylesheet('//' . ($pro ? 'pro' : 'use') . '.fontawesome.com/releases/v' . \JDPageBuilder\Constants::FONTAWESOME_VERSION . '/css/all.css');
     }
 
     private function _loadFoundationIcons()

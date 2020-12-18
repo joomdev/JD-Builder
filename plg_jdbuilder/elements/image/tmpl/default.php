@@ -28,6 +28,8 @@ if (!empty($imageTitle)) {
 $imageAlt = $element->params->get('alt', '');
 if (!empty($imageAlt)) {
    $attrs[] = 'alt="' . $imageAlt . '"';
+} else {
+   $attrs[] = 'alt="' . \basename($image) . '"';
 }
 
 // image caption

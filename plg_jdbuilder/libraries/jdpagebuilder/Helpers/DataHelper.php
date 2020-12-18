@@ -16,7 +16,10 @@ class DataHelper
 {
     public static function icons()
     {
-        $data = file_get_contents(JDBPATH_MEDIA . '/data/icons.json');
+        $buiderConfig = \JComponentHelper::getParams('com_jdbuilder');
+        $pro = 0;
+
+        $data = file_get_contents(JDBPATH_MEDIA . '/data/icons' . ($pro ? '-pro' : '') . '.json');
         return \json_decode($data);
     }
 

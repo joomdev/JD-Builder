@@ -16,4 +16,5 @@ if (!empty($layout_id)) {
     $rendered = $layout->render();
     \JDPageBuilder\Builder::renderHead();
     echo $rendered;
+    JDPageBuilder\Builder::onBeforeBodyClose();
 }

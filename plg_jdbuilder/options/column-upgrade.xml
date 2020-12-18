@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+   <form>
+      <fields>
+         <!-- Design Options -->
+         <fieldset name="design" ordering="10" label="JDB_DESIGN_TITLE">
+            <field type="group" ordering="4" name="particlesBgOptions" label="JDB_PARTICLES_BACKGROUND"></field>
+            <!--  Design Groups -->
+
+            <field type="upgrade" label="JDB_PARTICLES_BACKGROUND" description="JDB_PARTICLES_BACKGROUND_NOTICE" group="particlesBgOptions">
+            </field>
+         </fieldset>
+      </fields>
+   </form>
+</element>

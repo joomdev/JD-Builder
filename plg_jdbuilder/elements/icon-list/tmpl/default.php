@@ -44,8 +44,8 @@ $alignment = $element->params->get('list_alignment', null);
 if ($alignment != null) {
     foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
         if (isset($alignment->{$deviceKey})) {
-            $ListContainer->addCss('text-align', $alignment->{$deviceKey}, $device);
             $ListItem->addCss('justify-content', $alignment->{$deviceKey} == 'left' ? 'flex-start' : ($alignment->{$deviceKey} == 'right' ? 'flex-end' : 'center'), $device);
+            $ListItems->addCss('justify-content', $alignment->{$deviceKey} == 'left' ? 'flex-start' : ($alignment->{$deviceKey} == 'right' ? 'flex-end' : 'center'), $device);
         }
     }
 }

@@ -1411,9 +1411,9 @@ class Helper
       }
    }
 
-   public static function renderButtonValue($key, $element, $text = '', $classes = [], $type = "link", $link = '#', $targetBlank = false, $nofollow = false)
+   public static function renderButtonValue($key, $element, $text = '', $classes = [], $type = "link", $link = '#', $targetBlank = false, $nofollow = false, $params = null, $linkclasses = [])
    {
-      $params = $element->params;
+      $params = $params == null ? $element->params : $params;
       $html = [];
       $size = $params->get($key . 'Size', '');
       $animation = $params->get($key . 'Animation', '');
@@ -1447,7 +1447,12 @@ class Helper
       $html[] = '<div class="jdb-button-wrapper">';
       $html[] = '<div class="' . implode(' ', $class) . '">';
       if ($type == 'link') {
-         $html[] = '<a title="' . $text . '" href="' . $link . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '"' . ($targetBlank ? ' target="_blank"' : '') . ($nofollow ? ' rel="nofollow"' : '') . '>';
+
+         $linkClass = ['jdb-button-link'];
+         if (!empty($animation)) $linkClass[] = 'jdb-hover-' . $animation;
+         if (!empty($linkclasses)) $linkClass[] = \implode(' ', $linkclasses);
+
+         $html[] = '<a title="' . $text . '" href="' . $link . '" class="' . implode(' ', $linkClass) . '"' . ($targetBlank ? ' target="_blank"' : '') . ($nofollow ? ' rel="nofollow"' : '') . '>';
       } else {
          $html[] = '<button type="' . $type . '" title="' . $text . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '">';
       }
@@ -1468,11 +1473,11 @@ class Helper
       $html[] = '</div>';
       $html[] = '</div>';
       $html[] = '</div>';
-      self::applyButtonValue($key, $element);
+      self::applyButtonValue($key, $element, $params);
       return implode('', $html);
    }
 
-   public static function applyButtonValue($btnKey, $element)
+   public static function applyButtonValue($btnKey, $element, $params)
    {
       $buttonWrapperStyle = new ElementStyle(".jdb-button-container-" . $btnKey . " .jdb-button-wrapper");
       $buttonStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link");
@@ -1481,7 +1486,7 @@ class Helper
       $element->addChildrenStyle([$buttonWrapperStyle, $buttonStyle, $buttonHoverStyle]);
 
       // button alignment
-      $alignment = $element->params->get($btnKey . 'Alignment', null);
+      $alignment = $params->get($btnKey . 'Alignment', null);
       if (!empty($alignment)) {
          foreach (self::$devices as $deviceKey => $device) {
             if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
@@ -1512,27 +1517,27 @@ class Helper
       }
 
       // Background
-      $buttonStyle->addCss("background-color", $element->params->get($btnKey . 'Background', ''));
-      $buttonHoverStyle->addCss("background-color", $element->params->get($btnKey . 'BackgroundHover', ''));
+      $buttonStyle->addCss("background-color", $params->get($btnKey . 'Background', ''));
+      $buttonHoverStyle->addCss("background-color", $params->get($btnKey . 'BackgroundHover', ''));
 
       // Text Color
-      $buttonStyle->addCss("color", $element->params->get($btnKey . 'Foreground', ''));
-      $buttonHoverStyle->addCss("color", $element->params->get($btnKey . 'ForegroundHover', ''));
+      $buttonStyle->addCss("color", $params->get($btnKey . 'Foreground', ''));
+      $buttonHoverStyle->addCss("color", $params->get($btnKey . 'ForegroundHover', ''));
 
 
       // Border Color
-      $buttonStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColor', ''));
-      $buttonHoverStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColorHover', ''));
+      $buttonStyle->addCss("border-color", $params->get($btnKey . 'BorderColor', ''));
+      $buttonHoverStyle->addCss("border-color", $params->get($btnKey . 'BorderColorHover', ''));
 
       // Gradient
-      $buttonStyle->addCss("background-image", $element->params->get($btnKey . 'Gradient', ''));
-      $buttonHoverStyle->addCss("background-image", $element->params->get($btnKey . 'GradientHover', ''));
-      if (!empty($element->params->get($btnKey . 'Gradient', '')) && empty($element->params->get($btnKey . 'GradientHover', ''))) {
+      $buttonStyle->addCss("background-image", $params->get($btnKey . 'Gradient', ''));
+      $buttonHoverStyle->addCss("background-image", $params->get($btnKey . 'GradientHover', ''));
+      if (!empty($params->get($btnKey . 'Gradient', '')) && empty($params->get($btnKey . 'GradientHover', ''))) {
          $buttonHoverStyle->addCss("background-image", 'none');
       }
 
       // Typography
-      $typography = $element->params->get($btnKey . 'Typography', null);
+      $typography = $params->get($btnKey . 'Typography', null);
       if (!empty($typography)) {
          foreach (self::$devices as $deviceKey => $device) {
             if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
@@ -1542,7 +1547,7 @@ class Helper
       }
 
       // Padding
-      $padding = $element->params->get($btnKey . 'Padding', null);
+      $padding = $params->get($btnKey . 'Padding', null);
       if (!empty($padding)) {
          foreach (self::$devices as $deviceKey => $device) {
             if (isset($padding->{$deviceKey}) && !empty($padding->{$deviceKey})) {
@@ -1552,10 +1557,10 @@ class Helper
       }
 
       // Border
-      $borderType = $element->params->get($btnKey . 'BorderStyle', 'solid');
+      $borderType = $params->get($btnKey . 'BorderStyle', 'solid');
       $buttonStyle->addCss("border-style", $borderType);
       if ($borderType != 'none') {
-         $borderWidth = $element->params->get($btnKey . 'BorderWidth', null);
+         $borderWidth = $params->get($btnKey . 'BorderWidth', null);
          if ($borderWidth != null) {
             foreach (self::$devices as $deviceKey => $device) {
                if (isset($borderWidth->{$deviceKey}) && !empty($borderWidth->{$deviceKey})) {
@@ -1567,7 +1572,7 @@ class Helper
       }
 
       // Radius
-      $borderRadius = $element->params->get($btnKey . 'BorderRadius', null);
+      $borderRadius = $params->get($btnKey . 'BorderRadius', null);
       if (!empty($borderRadius)) {
          foreach (self::$devices as $deviceKey => $device) {
             if (isset($borderRadius->{$deviceKey}) && !empty($borderRadius->{$deviceKey})) {
@@ -1578,17 +1583,18 @@ class Helper
       }
 
       // shadow
-      $buttonStyle->addCss("box-shadow", $element->params->get($btnKey . 'BoxShadow', ''));
+      $buttonStyle->addCss("box-shadow", $params->get($btnKey . 'BoxShadow', ''));
+      $buttonHoverStyle->addCss("box-shadow", $params->get($btnKey . 'BoxShadowHover', ''));
 
       // Icon
-      $buttonIcon = $element->params->get($btnKey . 'Icon', '');
-      $iconPosition = $element->params->get($btnKey . 'IconPosition', 'right');
+      $buttonIcon = $params->get($btnKey . 'Icon', '');
+      $iconPosition = $params->get($btnKey . 'IconPosition', 'right');
       if (!empty($buttonIcon)) {
          $iconStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link > .jdb-button-icon");
          $element->addChildStyle($iconStyle);
-         $iconColor = $element->params->get($btnKey . 'IconColor', '');
+         $iconColor = $params->get($btnKey . 'IconColor', '');
          $iconStyle->addCss("color", $iconColor);
-         $iconSpacing = $element->params->get($btnKey . 'IconSpacing', null);
+         $iconSpacing = $params->get($btnKey . 'IconSpacing', null);
          if (self::checkSliderValue($iconSpacing)) {
             if ($iconPosition == "right") {
                $iconStyle->addCss("margin-left", $iconSpacing->value . "px");
@@ -2258,5 +2264,35 @@ class Helper
          $date = \JFactory::getDate()->format("Y-m-d H:i:s");
          $session->set($var, $date);
       }
+   }
+
+   public static function JDBParams($object, $prefix = '', $postfix = '')
+   {
+      $data = new \stdClass();
+      foreach ($object as $prop => $value) {
+         $data->{$prefix . $prop . $postfix} = $value;
+      }
+      $params = new \JRegistry();
+      $params->loadObject($data);
+      return $params;
+   }
+
+   public static function getJDBuilderLatestVersion()
+   {
+      $client = new CurlHttpClient();
+      $response = $client->request('GET', 'https://api.github.com/repos/joomdev/JD-Builder/releases', [
+         'headers' => [
+            'User-Agent' => 'JOOMDEV-API',
+            'Accept'     => 'application/json'
+         ]
+      ]);
+      $status = $response->getStatusCode();
+      if ($status !== 200) {
+         throw new \Exception((string) $response->getContent(), $status);
+      }
+
+      $releases = (string) $response->getContent();
+      $releases = \json_decode($releases, true);
+      return $releases[0]['tag_name'];
    }
 }

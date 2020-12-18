@@ -8,7 +8,7 @@
 	<author>Team Joomdev</author>
 	<authorEmail>info@joomdev.com</authorEmail>
 	<authorUrl>https://www.joomdev.com</authorUrl>
-	<version>1.10.0</version>
+	<version>1.11.0</version>
 	<description>{jdbcomdesc}</description>
 	<namespace>Joomdev\Component\JDBuilder</namespace>
 

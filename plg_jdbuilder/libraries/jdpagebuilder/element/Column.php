@@ -39,15 +39,73 @@ class Column extends BaseElement
 
    public function getContent()
    {
+      $innerStyle = new ElementStyle('.jdb-column-inner');
+      $this->addChildStyle($innerStyle);
       $innerClass = [];
       // content position
-      $verticalContentPosition = $this->params->get('verticalContentPosition', '');
-      if (!empty($verticalContentPosition)) {
-         $innerClass[] = 'jdb-' . $verticalContentPosition;
+      $verticalContentPosition = $this->params->get('verticalContentPosition', null);
+      if ($verticalContentPosition != null && $verticalContentPosition != '') {
+         if (is_string($verticalContentPosition)) {
+            $position = \json_decode('{"md":"' . $verticalContentPosition . '","sm":"' . $verticalContentPosition . '","xs": "' . $verticalContentPosition . '"}', false);
+            $verticalContentPosition = $position;
+         }
+
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($verticalContentPosition->{$deviceKey})) {
+               $vValue = '';
+               switch ($verticalContentPosition->{$deviceKey}) {
+                  case 'align-content-start':
+                     $vValue = 'flex-start';
+                     break;
+                  case 'align-content-center':
+                     $vValue = 'center';
+                     break;
+                  case 'align-content-end':
+                     $vValue = 'flex-end';
+                     break;
+                  case 'align-content-around':
+                     $vValue = 'space-around';
+                     break;
+                  case 'align-content-between':
+                     $vValue = 'space-between';
+                     break;
+               }
+               $innerStyle->addCss('align-content', $vValue, $device);
+            }
+         }
       }
-      $horizontalContentPosition = $this->params->get('horizontalContentPosition', '');
-      if (!empty($horizontalContentPosition)) {
-         $innerClass[] = 'jdb-' . $horizontalContentPosition;
+
+
+      $horizontalContentPosition = $this->params->get('horizontalContentPosition', null);
+      if ($horizontalContentPosition != null && $horizontalContentPosition != '') {
+         if (is_string($horizontalContentPosition)) {
+            $position = \json_decode('{"md":"' . $horizontalContentPosition . '","sm":"' . $horizontalContentPosition . '","xs": "' . $horizontalContentPosition . '"}', false);
+            $horizontalContentPosition = $position;
+         }
+
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($horizontalContentPosition->{$deviceKey})) {
+               $hValue = '';
+               switch ($horizontalContentPosition->{$deviceKey}) {
+                  case 'justify-content-start':
+                     $hValue = 'flex-start';
+                     break;
+                  case 'justify-content-center':
+                     $hValue = 'center';
+                     break;
+                  case 'justify-content-end':
+                     $hValue = 'flex-end';
+                     break;
+                  case 'justify-content-around':
+                     $hValue = 'space-around';
+                     break;
+                  case 'justify-content-between':
+                     $hValue = 'space-between';
+                     break;
+               }
+               $innerStyle->addCss('justify-content', $hValue, $device);
+            }
+         }
       }
 
       $content = ['<div class="jdb-column-inner' . (!empty($innerClass) ? ' ' . implode(' ', $innerClass) : '') . '">'];

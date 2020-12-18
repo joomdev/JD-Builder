@@ -19,7 +19,7 @@
             </field>
 
             <!-- Layout Options -->
-            <field type="list" name="verticalContentPosition" label="JDB_CONTENT_VPOSITION" default="" group="layout">
+            <field type="list" name="verticalContentPosition" label="JDB_CONTENT_VPOSITION" default="" responsive="true" group="layout">
                <option value="">JDB_INHERIT</option>
                <option value="align-content-start">JDB_JUSTIFY_CONTENT_START</option>
                <option value="align-content-center">JDB_JUSTIFY_CONTENT_CENTER</option>
@@ -27,7 +27,7 @@
                <option value="align-content-around">JDB_JUSTIFY_CONTENT_AROUND</option>
                <option value="align-content-between">JDB_JUSTIFY_CONTENT_BETWEEN</option>
             </field>
-            <field type="list" name="horizontalContentPosition" label="JDB_CONTENT_HPOSITION" default="" group="layout">
+            <field type="list" name="horizontalContentPosition" label="JDB_CONTENT_HPOSITION" responsive="true" default="" group="layout">
                <option value="">JDB_INHERIT</option>
                <option value="justify-content-start">JDB_CONTENT_POSITION_DEFAULT_LEFTSTART_OPTIONS</option>
                <option value="justify-content-center">JDB_CONTENT_POSITION_DEFAULT_CENTER_OPTIONS</option>
@@ -229,7 +229,7 @@
 
             <!--  Custom CSS Options Start -->
             <field type="code-editor" name="custom_css" label="JDB_CUSTOM_CSS_LABEL" group="code" language="css" default="" responsive="true">
-             </field>
+            </field>
             <!--  Custom CSS Options End -->
          </fieldset>
          <!-- Design Options End -->
