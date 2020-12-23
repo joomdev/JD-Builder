@@ -27,5 +27,13 @@
 			quicktask="index.php?option=com_categories&amp;extension=com_jdbuilder&amp;task=category.add"
 			quicktask-title="COM_CONTENT_MENUS_NEW_CATEGORY"
 		/>
+
+		<menuitem
+			title="COM_JDBUILDER_TITLE_INTEGRATIONS"
+			type="component"
+			element="com_jdbuilder"
+			link="index.php?option=com_jdbuilder&amp;view=integrations"
+			class="class:jdbuilder-integrations"
+		/>
 	</menuitem>
 </menu>

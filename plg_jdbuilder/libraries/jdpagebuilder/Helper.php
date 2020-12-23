@@ -2284,7 +2284,9 @@ class Helper
          'headers' => [
             'User-Agent' => 'JOOMDEV-API',
             'Accept'     => 'application/json'
-         ]
+         ],
+         'verify_peer' => false,
+         'verify_host' => false
       ]);
       $status = $response->getStatusCode();
       if ($status !== 200) {

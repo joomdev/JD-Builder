@@ -7,7 +7,7 @@
    <authorUrl>https://www.joomdev.com</authorUrl>
    <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>1.11.0</version>
+   <version>1.11.1</version>
    <description>{jdbplgdesc}</description>
    <files>
       <filename plugin="jdbuilder">jdbuilder.php</filename>

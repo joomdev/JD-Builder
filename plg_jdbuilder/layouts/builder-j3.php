@@ -142,7 +142,8 @@ $plugin = \JPluginHelper::getPlugin('system', 'jdbuilder');
    _JDB.LOADER.value = 25;
    _JDB.LOADER.start();
    _JDB.INFO = {
-      "version": "<?php echo JDB_VERSION; ?>"
+      "version": "<?php echo JDB_VERSION; ?>",
+      "pro": <?php echo JDB_PRO ? "true" : "false"; ?>
    };
 
    var JDBADMIN = true;

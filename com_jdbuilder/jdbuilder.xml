@@ -8,7 +8,7 @@
    <author>Team Joomdev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <version>1.11.0</version>
+   <version>1.11.1</version>
    <description>{jdbcomdesc}</description>
    <install> <!-- Runs on install -->
       <sql>
@@ -50,6 +50,7 @@
       <submenu>
          <menu link="option=com_jdbuilder&amp;view=pages" view="pages" alt="Jdbuilder/Pages">COM_JDBUILDER_TITLE_PAGES</menu>
          <menu link="option=com_categories&amp;extension=com_jdbuilder" view="categories" alt="Jdbuilder/Categories">COM_JDBUILDER_PAGES_CATEGORY_ID</menu>
+         <menu link="option=com_jdbuilder&amp;view=pages" view="integrations" alt="Jdbuilder/Integrations">COM_JDBUILDER_TITLE_INTEGRATIONS</menu>
       </submenu>
       <files folder="administrator">
          <filename>access.xml</filename>

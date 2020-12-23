@@ -42,6 +42,12 @@ class JdbuilderHelper
 			$vName == 'categories'
 		);
 
+		\JHtmlSidebar::addEntry(
+			\JText::_('COM_JDBUILDER_TITLE_INTEGRATIONS'),
+			"index.php?option=com_jdbuilder&view=integrations",
+			$vName == 'integrations'
+		);
+
 		if ($vName == 'categories') {
 			\JToolBarHelper::title('JD Builder: JCATEGORIES');
 		}
