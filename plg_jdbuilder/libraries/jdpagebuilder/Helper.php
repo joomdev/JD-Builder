@@ -2296,6 +2296,6 @@ class Helper
       $releases = (string) $response->getContent();
       $releases = \json_decode($releases, true);
       return $releases[0]['tag_name']; */
-	  return 1.11.2;
+	  return '1.11.2';
    }
 }
