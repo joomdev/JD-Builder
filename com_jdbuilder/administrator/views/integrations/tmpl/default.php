@@ -19,7 +19,7 @@ $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 $article_integration = $buiderConfig->get('article_integration',  1);
 $article_integration = defined('JDB_PRO') && !JDB_PRO ? 0 : $article_integration;
 
-$fa_integration = $buiderConfig->get('fontawesomepro_integration',  0);
+$fa_integration = 0;
 $fa_integration = defined('JDB_PRO') && !JDB_PRO ? 0 : $fa_integration;
 
 ?>

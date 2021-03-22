@@ -127,7 +127,7 @@ class JdbuilderHelper
    public static function updateMessage()
    {
       $latest = Helper::getJDBuilderLatestVersion();
-      if ($latest == 'v' . JDB_VERSION) return '';
+      if ($latest == JDB_VERSION) return '';
       $isPro = file_exists(JPATH_PLUGINS . '/system/jdbuilder/options/default-pro.xml');
 
       $document = JFactory::getDocument();
@@ -135,6 +135,6 @@ class JdbuilderHelper
 
       $link = $isPro ? 'https://www.joomdev.com/my-downloads/jd-builder-pro' : 'https://github.com/joomdev/JD-Builder/releases/tag/' . $latest;
       return '<div style="padding-right: 10px;" class="alert alert-danger">
-         <div style="display:flex;justify-content:space-between;align-items:center">' . JText::sprintf('COM_JDBUILDER_UPDATE_MSG', ('v' . JDB_VERSION), $latest, $link) . '</div></div>';
+         <div style="display:flex;justify-content:space-between;align-items:center">' . JText::sprintf('COM_JDBUILDER_UPDATE_MSG', ('v' . JDB_VERSION), 'v' . $latest, $link) . '</div></div>';
    }
 }

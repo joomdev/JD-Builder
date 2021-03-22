@@ -29,7 +29,7 @@ class plgSystemJDBuilder extends JPlugin
       define('JDB_JOOMLA_VERSION', Helper::getJoomlaVersion());
       \JDPageBuilder\Builder::init($this->app);
       $stat = stat(JDBPATH_PLUGIN . '/jdbuilder.php');
-      define('JDB_MEDIA_VERSION', JDB_DEV ? 149 : md5($stat['mtime']));
+      define('JDB_MEDIA_VERSION', JDB_DEV ? 151 : md5($stat['mtime']));
       if ($this->app->isClient('administrator')) {
          $buiderConfig = JComponentHelper::getParams('com_jdbuilder');
 
@@ -508,8 +508,17 @@ class plgSystemJDBuilder extends JPlugin
          $adminMenu = '<ul class="nav"><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' . \JText::_('COM_JDBUILDER') . '' . \JText::_('JDBUILDER_VERSION_LABEL') . '<span class="caret"></span></a><ul class="dropdown-menu scroll-menu"><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=pages">' . \JText::_('COM_JDBUILDER_TITLE_PAGES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_categories&extension=com_jdbuilder">' . \JText::_('JCATEGORIES') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_jdbuilder&view=integrations">' . \JText::_('COM_JDBUILDER_TITLE_INTEGRATIONS') . '</a></li><li><a class="no-dropdown"  href="index.php?option=com_config&view=component&component=com_jdbuilder">' . \JText::_('COM_JDBUILDER_TITLE_SETTINGS') . '</a></li></ul></li></ul>';
       }
       $body = $this->app->getBody();
-      $body = str_replace('<ul id="nav-empty"', $adminMenu . '<ul id="nav-empty"', $body);
+      $body = preg_replace('/' . preg_quote('<ul id="nav-empty"', '/') . '/', $adminMenu . '<ul id="nav-empty"', $body, 1);
       $this->app->setBody($body);
+   }
+
+   public function onContentBeforeSave($context, $article, $isNew)
+   {
+      if ($context == 'com_advancedmodules.module') {
+         return $this->onExtensionBeforeSave($context, $article, $isNew);
+      }
+
+      return true;
    }
 
    public function onExtensionBeforeSave($context, $item, $isNew)

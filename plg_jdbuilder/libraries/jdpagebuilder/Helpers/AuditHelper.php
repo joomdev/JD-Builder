@@ -154,60 +154,6 @@ class AuditHelper
         return $articles;
     }
 
-    public static function auditArticles()
-    {
-        $db = \JFactory::getDbo();
-        $JDBArticles = self::getJDBArticlesForAudit();
-
-        $layouts = [];
-        $articles = [];
-        foreach ($JDBArticles as $article) {
-            $articles[$article->id] = $article;
-            $articleParams = \json_decode($article->attribs, true);
-            $layoutId = @$articleParams['jdbuilder_layout_id'];
-            if (!empty($layoutId)) {
-                if (!isset($layouts[$layoutId])) {
-                    $layouts[$layoutId] = [];
-                }
-                $layouts[$layoutId][] = $article->id;
-            }
-        }
-
-        $checkedArticles = [];
-        foreach ($layouts as $layoutId => $articlesID) {
-            if (count($articlesID) > 1) {
-                sort($articlesID);
-                foreach ($articlesID as $index => $articleID) {
-                    if ($index !== 0 && empty($articles[$articleID]->audit_status)) {
-                        self::fixArticle($articleID, $layoutId, $articles[$articleID]->attribs);
-                    } else if (empty($articles[$articleID]->audit_status)) {
-                        $checkedArticles[] = $articleID;
-                    }
-                }
-            } else {
-                if (empty($articles[$articlesID[0]]->audit_status)) {
-                    $checkedArticles[] = $articlesID[0];
-                }
-            }
-        }
-
-        $values = [];
-        $time = time();
-        foreach ($checkedArticles as $mid) {
-            $values[] = "(null, {$mid}, 'article', 1, '{}', {$time}, {$time})";
-        }
-        if (!empty($values)) {
-            $values = implode(', ', $values);
-            $query = "INSERT INTO `#__jdbuilder_audit` (id, itemid, itemtype, status, data, created, updated) VALUES {$values}";
-            $db->setQuery($query);
-            if (JDB_JOOMLA_VERSION == 3) {
-                $db->query();
-            } else {
-                $db->execute();
-            }
-        }
-    }
-
     public static function fixArticle($articleID, $layoutId = 0, $articleParams = null)
     {
         $params = new \JRegistry();

@@ -265,12 +265,20 @@
         this.videoWidth = this.wrapper.offsetWidth;
 
         if (_this.options.lightbox != '') {
-            setTimeout(function () {
-                jdLightboxInstances[_this.options.lightbox].props.onOpen = function () {
+            var initLightbox = function (_this, lightboxVideoEl, callback) {
+                if (window.jdLightboxInstances[_this.options.lightbox] == undefined) {
+                    setTimeout(function () {
+                        initLightbox(_this, lightboxVideoEl, callback);
+                    }, 100)
+                    return false;
+                }
+                window.jdLightboxInstances[_this.options.lightbox].props.onOpen = function () {
                     lightboxVideoEl.play();
                 }
-                doSticky();
-            }, 100);
+                callback();
+            }
+
+            initLightbox(_this, lightboxVideoEl, doSticky);
         }
     }
 

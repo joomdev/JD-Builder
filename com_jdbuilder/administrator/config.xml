@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+    <fieldset label="COM_JDBUILDER" name="jdbuilder">
+        <field name="key" type="text" default="" label="JDB_ACTIVATION_KEY"></field>
+        <field name="gmapkey" type="text" default="" label="JDB_GOOGLE_MAP_KEY"></field>
+        <field type="spacer" name="gmapkeySpacer" hr="true" />
+        <field name="fbAppId" type="text" default="" description="JDB_FACEBOOK_SDK_ALERT" label="JDB_FB_APP_ID"></field>
+        <field type="spacer" name="fbAppIdSpacer" hr="false" label="JDB_FACEBOOK_SDK_ALERT" />
+        <field name="captchaspacer" type="spacer" label="JDB_FIELD_SPACER"></field>
+        <field name="recaptchaSiteKey" type="text" default="" label="JDB_RECAPTCHA_SITE_KEY"></field>
+        <field name="recaptchaSecretKey" type="text" default="" label="JDB_RECAPTCHA_SECRET_KEY"></field>
+        <field type="spacer" name="mailchimpSpacer" hr="true" />
+        <field name="mailchimp_keys" type="subform" multiple="true" label="MailChimp Key(s)">
+            <form>
+                <field required="true" name="prefix" label="Server Prefix" type="text" description="To find the value for the server prefix, log into your Mailchimp account and look at the URL in your browser. You’ll see something like https://us19.admin.mailchimp.com/ — the us19 part is the server prefix. Note that your specific value may be different." />
+                <field required="true" name="key" label="Key" type="text" />
+            </form>
+        </field>
+        <field name="convertkit_keys" type="subform" multiple="true" label="ConvertKit Key(s)">
+            <form>
+                <field required="true" name="key" label="API Key" type="text" />
+                <field required="true" name="secret" label="API Secret" type="text" />
+            </form>
+        </field>
+        <field name="activecampaign_keys" type="subform" multiple="true" label="ActiveCampaign Key(s)">
+            <form>
+                <field required="true" name="url" label="URL" type="text" />
+                <field required="true" name="key" label="Key" type="text" />
+            </form>
+        </field>
+    </fieldset>
+
     <fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
         <field name="rules" type="rules" component="com_jdbuilder" class="inputbox" filter="rules" validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
     </fieldset>
@@ -18,5 +48,16 @@
             <option value="0">JDB_NO</option>
             <option value="1">JDB_YES</option>
         </field>
+    </fieldset>
+    <fieldset label="JDB_INTEGRATIONS_TITLE" name="integrations">
+        <field name="article_integration" type="radio" class="btn-group btn-group-yesno" default="1" label="JDB_JOOMLA_ARTICLES_INTEGRATION">
+            <option value="0">JDB_DISABLED</option>
+            <option value="1">JDB_ENABLED</option>
+        </field>
+        <field name="fontawesomepro_integration" type="radio" class="btn-group btn-group-yesno" default="0" label="JDB_JOOMLA_FA_INTEGRATION">
+            <option value="0">JDB_DISABLED</option>
+            <option value="1">JDB_ENABLED</option>
+        </field>
+        <field type="spacer" name="fontawesomepro_integration_spacer" hr="false" label="COM_JDBUILDER_FA_PRO_DESC" />
     </fieldset>
 </config>

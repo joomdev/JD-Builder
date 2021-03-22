@@ -73,7 +73,7 @@ class JdbuilderControllerIntegrations extends JControllerAdmin
         }
         try {
             $params = JComponentHelper::getParams('com_jdbuilder');
-            $fontawesomepro_integration = $params->get('fontawesomepro_integration',  1);
+            $fontawesomepro_integration = 0;
 
             $fontawesomepro_integration = $fontawesomepro_integration ? 0 : 1;
             $params->set('fontawesomepro_integration', $fontawesomepro_integration);

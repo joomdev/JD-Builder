@@ -2279,23 +2279,7 @@ class Helper
 
    public static function getJDBuilderLatestVersion()
    {
-      /* $client = new CurlHttpClient();
-      $response = $client->request('GET', 'https://api.github.com/repos/joomdev/JD-Builder/releases', [
-         'headers' => [
-            'User-Agent' => 'JOOMDEV-API',
-            'Accept'     => 'application/json'
-         ],
-         'verify_peer' => false,
-         'verify_host' => false
-      ]);
-      $status = $response->getStatusCode();
-      if ($status !== 200) {
-         throw new \Exception((string) $response->getContent(), $status);
-      }
-
-      $releases = (string) $response->getContent();
-      $releases = \json_decode($releases, true);
-      return $releases[0]['tag_name']; */
-	  return '1.11.2';
+      $data = self::jdApiRequest('GET', 'latest-release/jd_builder', []);
+      return $data['data'];
    }
 }
