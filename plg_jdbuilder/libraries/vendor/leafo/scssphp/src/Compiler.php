@@ -5227,7 +5227,7 @@ class Compiler
             $start--;
         }
 
-        $end    = (int) $args[2][1];
+        $end    = isset($args[2][1]) ? (int) $args[2][1] : null;
         $length = $end < 0 ? $end + 1 : ($end > 0 ? $end - $start : $end);
 
         $string[2] = $length
